@@ -1,0 +1,148 @@
+#root {
+  max-width:100%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+
+
+
+/* =========================================
+   Service Card Hover Animation Styles
+   Author: Viral Prajapati
+   ========================================= */
+.card-theme{
+    background: #21528b !important;
+    color: white;
+}
+
+.card.border-0.shadow-sm.rounded-4.overflow-hidden.text-center.position-relative.h-100 {
+    background: #243951;
+    color: white;
+}
+
+img.img-fluid.rounded.shadow-lg {
+    background: white;
+}
+
+p.dark-theme-font.text-muted.mb-3 {
+    color: #f5e6b8 !important;
+}
+
+p.text-muted {
+    color: #f5ffc8 !important;
+}
+
+img.card-theme.card-img-top.img-fluid {
+    background: white;
+}
+
+img.img-fluid.rounded.shadow-lg {
+    background: white;
+}
+p.dark-theme-font.text-muted.mb-3 {
+    color: #f4faa3 !important;
+}
+
+.card-body-theme.card-body {
+    background: #15273b;
+    height: 28vh;
+    border-radius: 24pt;
+}
+
+.card-theme.card.shadow-sm.border-0 {
+    background: #0b1e34 !important;
+}
+
+.service-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Image */
+.service-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-image img {
+  transform: scale(1.1);
+}
+
+/* Overlay */
+.service-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.75);
+  color: #fff;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  transition: opacity 0.5s ease;
+}
+
+.service-card:hover .service-overlay {
+  opacity: 1;
+}
+
+/* Overlay Text */
+.service-overlay h5 {
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.service-overlay p {
+  font-size: 0.95rem;
+  color: #ddd;
+}
+
+/*
+============================
+Menu Section
+============================*/
+
+.visiomatix-navbar {
+    background-color: #0b1e34;
+    box-shadow: 0px 0px 5pt 0em #00ffff !important;
+    position: fixed !important;
+    z-index: 10;
+    width: 100%;
+}
+
+/*
+============================
+Menu Section Ends
+============================*/
