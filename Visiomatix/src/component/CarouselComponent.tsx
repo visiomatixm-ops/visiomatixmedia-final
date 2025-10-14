@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ImageSlider1 from "/carousel/ImageSlider1.webp";
 import ImageSlider2 from "/carousel/ImageSlider2.webp";

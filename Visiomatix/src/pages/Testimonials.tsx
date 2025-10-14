@@ -7,7 +7,6 @@
 //   showing client projects, results, and success stories.
 // ===========================================================
 
-import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import PeopleCard from "../component/PeopleCard";
 

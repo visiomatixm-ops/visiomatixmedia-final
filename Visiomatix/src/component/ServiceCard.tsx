@@ -24,7 +24,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ image, title, description, ho
   const imageHover = {
     scale: 1.1,
     borderRadius: `${hoverRadius}px`,
-    transition: { duration: 0.8, ease: "easeInOut" },
+    transition: { duration: 0.8 },
   };
 
   return (

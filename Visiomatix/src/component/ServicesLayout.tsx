@@ -71,9 +71,9 @@ const ServicesLayout: React.FC = () => {
   // Framer Motion variants (unchanged)
   const cardVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.9 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" } },
-    exit: { opacity: 0, y: 50, scale: 0.9, transition: { duration: 0.4, ease: "easeIn" } },
-    hover: { scale: 1.05, transition: { duration: 0.3, ease: "easeInOut" } },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6 } },
+    exit: { opacity: 0, y: 50, scale: 0.9, transition: { duration: 0.4 } },
+    hover: { scale: 1.05, transition: { duration: 0.3 } },
   };
 
   return (
@@ -103,7 +103,6 @@ const ServicesLayout: React.FC = () => {
                 image={service.image}
                 title={service.title}
                 description={service.description}
-                className="rounded-circle"
               />
             </motion.div>
           );
