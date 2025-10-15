@@ -70,7 +70,7 @@ const About: React.FC = () => {
             />
           </div>
 
-          <div className="col-md-6 text-light">
+          <div className="col-md-6">
             <h2 className="fw-bold mb-3">Our Story</h2>
             <p>
               Founded with a vision to redefine creativity, <strong>Visiomatix Media</strong> began its journey as a small team of passionate creators. Over time, we’ve evolved into a full-fledged digital agency providing comprehensive solutions across design, media, and technology.
@@ -85,7 +85,7 @@ const About: React.FC = () => {
       {/* ============================================= */}
       {/* Vision & Mission Section */}
       {/* ============================================= */}
-      <section className="py-5 bg-dark text-light">
+      <section className="py-5 ">
         <div className="container text-center">
           <h2 className="fw-bold mb-4 text-aqua">Our Vision & Mission</h2>
           <div className="row">
@@ -95,7 +95,7 @@ const About: React.FC = () => {
                 style={{ backgroundColor: '#0b1e34' }}
               >
                 <h4 className="fw-bold text-info">Our Vision</h4>
-                <p>
+                <p className='text-light'>
                   To become a globally recognized media house that inspires creativity, empowers brands, and drives innovation in digital storytelling.
                 </p>
               </div>
@@ -107,7 +107,7 @@ const About: React.FC = () => {
                 style={{ backgroundColor: '#0b1e34' }}
               >
                 <h4 className="fw-bold text-success">Our Mission</h4>
-                <p>
+                <p className='text-light'>
                   To deliver impactful visual experiences by combining art, technology, and strategy — transforming ideas into engaging digital realities that connect with audiences.
                 </p>
               </div>
@@ -193,7 +193,7 @@ const About: React.FC = () => {
               <div className="card-body">
                 <h5 className="fw-bold text-aqua">Rohit Shinde</h5>
                 <p className="text-light mb-1">CEO & Founder</p>
-                <p className="small text-secondary">
+                <p className="small text-secondary text-light">
                   A visionary leader shaping the future of digital storytelling. With a passion for creativity and innovation, Rohit founded Visiomatix Media to bridge art and technology — delivering impactful visuals and transformative experiences.
                 </p>
               </div>
@@ -235,7 +235,7 @@ const About: React.FC = () => {
               <div className="card-body">
                 <h5 className="fw-bold text-aqua">Pooja Patil</h5>
                 <p className="text-light mb-1">Managing Director</p>
-                <p className="small text-secondary">
+                <p className="small text-secondary text-light">
                   A dynamic leader driving creative excellence and operational growth. Pooja ensures Visiomatix Media continues to deliver impactful stories and visionary media experiences.
                 </p>
               </div>

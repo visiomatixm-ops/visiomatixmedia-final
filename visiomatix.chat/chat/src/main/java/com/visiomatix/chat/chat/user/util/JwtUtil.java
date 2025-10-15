@@ -22,9 +22,11 @@ import io.jsonwebtoken.Jwts; // JWT builder and parser
 import io.jsonwebtoken.SignatureAlgorithm; // JWT signing algorithm
 import io.jsonwebtoken.security.Keys; // Utility to generate secure keys
 import javax.crypto.SecretKey; // Secret key for signing
+import org.springframework.beans.factory.annotation.Value; // Inject property values
 import org.springframework.stereotype.Component; // Marks class as Spring bean
 import java.util.Date; // Represents issuedAt and expiration
 import java.util.function.Function; // Functional interface for claims extraction
+import java.util.Base64; // For decoding the secret key
 
 @Component
 public class JwtUtil {
@@ -33,12 +35,19 @@ public class JwtUtil {
     // Field Declarations
     // ===========================================================
     
-    // Secure 256-bit secret key for HS256 signing (randomly generated)
-    // NOTE: In production, store this key in environment variables or secure vault
-    private final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    // Secure 256-bit secret key for HS256 signing (loaded from application.properties)
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 
-    // JWT expiration time: 1 hour (in milliseconds)
-    private final long JWT_EXPIRATION_MS = 1000 * 60 * 60;
+    // JWT expiration time (loaded from application.properties)
+    @Value("${jwt.expiration}")
+    private long jwtExpirationMs;
+
+    // Get the secret key from the configured secret string
+    private SecretKey getSigningKey() {
+        byte[] keyBytes = Base64.getDecoder().decode(jwtSecret);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
 
     // ===========================================================
     // Method: extractUsername
@@ -65,8 +74,8 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(username) // Set username as subject
                 .setIssuedAt(new Date(System.currentTimeMillis())) // Set issued timestamp
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_MS)) // Set expiration
-                .signWith(SECRET_KEY) // Sign with secure 256-bit key
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs)) // Set expiration
+                .signWith(getSigningKey()) // Sign with secure 256-bit key
                 .compact(); // Build token
     }
 
@@ -96,7 +105,7 @@ public class JwtUtil {
     // Extract all claims from token
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(SECRET_KEY) // Use secure signing key
+                .setSigningKey(getSigningKey()) // Use secure signing key
                 .build()
                 .parseClaimsJws(token)
                 .getBody();

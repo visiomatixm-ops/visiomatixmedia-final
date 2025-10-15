@@ -89,16 +89,14 @@ const PeopleCard: React.FC<PeopleCardProps> = ({
   return (
     <section
       className="py-5"
-      style={{ backgroundColor: "#0b1e34" }}
+      style={{ backgroundColor: "#ffffffff", color:"#000" }}
       aria-label="Client testimonials"
     >
       <div
         className="container rounded-4 p-4"
         style={{
           width: "90%",
-          background: "rgb(11 30 52)",
-          color:"white",
-          boxShadow: "0 0 25px rgba(0, 255, 255, 0.25)", // Aqua glow shadow
+         boxShadow: "0 0 25px rgba(7, 90, 90, 0.25)", // Aqua glow shadow
           border: "1px solid rgba(0, 255, 255, 0.1)",
         }}
       >
@@ -117,7 +115,7 @@ const PeopleCard: React.FC<PeopleCardProps> = ({
           >
             {testimonials.map((t) => (
               <div key={t.id} className="w-100">
-                <div className="row align-items-center text-dark px-4">
+                <div className="row align-items-center  px-4">
                   {/* LEFT SIDE: image */}
                   <div className="col-md-4 text-center py-4">
                     <img
@@ -138,11 +136,11 @@ const PeopleCard: React.FC<PeopleCardProps> = ({
 
                   {/* RIGHT SIDE: text */}
                   <div className="col-md-8 py-4">
-                    <h4 className="fw-bold text-light">{t.name}</h4>
+                    <h4 className="fw-bold">{t.name}</h4>
                     {t.role && (
                       <p className="text-secondary fst-italic">{t.role}</p>
                     )}
-                    <p className="lead mb-0 text-light">{t.text}</p>
+                    <p className="lead mb-0">{t.text}</p>
                   </div>
                 </div>
               </div>
@@ -170,8 +168,8 @@ const PeopleCard: React.FC<PeopleCardProps> = ({
                 padding: 0,
                 boxShadow:
                   i === index
-                    ? "0 0 10px rgba(0, 255, 255, 0.8)"
-                    : "0 0 5px rgba(0, 255, 255, 0.2)",
+                    ? "0 0 10px rgba(0, 168, 168, 0.8)"
+                    : "0 0 5px rgba(9, 83, 83, 1)",
               }}
               onClick={() => goTo(i)}
             />

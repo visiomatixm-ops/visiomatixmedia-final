@@ -4,8 +4,9 @@
  * Author: Viral Prajapati
  * Date: 13-Oct-2025
  * Description:
- *   Visiomatix-themed blog page with dark cards,
- *   soft hover effects, and light typography.
+ *   Visiomatix Blog Page (Light Theme)
+ *   Elegant light layout with navy-blue typography,
+ *   smooth hover animations, and Framer Motion transitions.
  * ===========================================================
  */
 
@@ -83,7 +84,7 @@ const blogPosts = [
 const Blog: React.FC = () => {
   return (
     <>
-      {/* Page Fade Animation */}
+      {/* ====================== Page Fade Animation ====================== */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -91,7 +92,7 @@ const Blog: React.FC = () => {
         transition={{ duration: 0.6 }}
       />
 
-      {/* Hero Banner */}
+      {/* ====================== Hero Banner ====================== */}
       <section
         className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
         style={{
@@ -111,40 +112,39 @@ const Blog: React.FC = () => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backgroundColor: "rgba(0, 40, 80, 0.45)",
           }}
         />
         <div style={{ position: "relative", zIndex: 2 }}>
           <h1 className="display-6 fw-bold text-white">
             Visiomatix Media Blog
           </h1>
-          <p className="lead text-light" style={{ fontSize: "0.95rem" }}>
+          <p className="lead text-white-50" style={{ fontSize: "0.95rem" }}>
             Insights, trends, and creative updates from our digital experts.
           </p>
         </div>
       </section>
 
-      {/* Blog Grid Section */}
+      {/* ====================== Blog Grid Section ====================== */}
       <div className="blog">
         <Container className="mb-5">
           <Row className="g-4 card-row">
             {blogPosts.map((post, index) => (
               <Col md={6} lg={3} key={index}>
-                <Card className="blog-card shadow-lg rounded-4 border-0 h-100 hover-lift">
+                <Card className="blog-card shadow-sm rounded-4 border-0 h-100 hover-lift">
                   <Card.Img
                     variant="top"
                     src={post.image}
                     alt={post.title}
                     className="blog-card-img"
-                    style={{background:"white"}}
                   />
                   <Card.Body className="d-flex flex-column">
-                    <h6 className="fw-bold text-light mb-2">{post.title}</h6>
-                    <p className="text-light small mb-2">
+                    <h6 className="fw-bold text-navy mb-2">{post.title}</h6>
+                    <p className="text-secondary small mb-2">
                       {post.date} • {post.author}
                     </p>
                     <p
-                      className="flex-grow-1 text-light"
+                      className="flex-grow-1 text-muted"
                       style={{ fontSize: "0.85rem" }}
                     >
                       {post.excerpt}
@@ -152,7 +152,7 @@ const Blog: React.FC = () => {
                     <div className="text-center mt-2">
                       <Button
                         size="sm"
-                        variant="outline-light"
+                        variant="outline-primary"
                         className="fw-semibold"
                       >
                         Read More
@@ -165,25 +165,24 @@ const Blog: React.FC = () => {
           </Row>
         </Container>
 
-        {/* ============================================= */}
-        {/* Custom Styles for Visiomatix Theme */}
-        {/* ============================================= */}
+        {/* ====================== Light Theme Styles ====================== */}
         <style>
           {`
-            body {
-              background-color: #0b1e34 !important;
+            .text-navy {
+              color: #0b1e34 !important;
             }
 
             .blog-card {
-              background-color: #102844;
-              color: #ffffff;
+              background-color: #ffffff;
+              color: #0b1e34 !important;
               transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+              border: 1px solid rgba(10, 45, 80, 0.08);
             }
 
             .blog-card:hover {
               transform: translateY(-6px);
-              background-color: #17385e;
-              box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+              background-color: #f0f6fc;
+              box-shadow: 0 10px 25px rgba(0, 0, 50, 0.1);
             }
 
             .blog-card-img {
@@ -200,13 +199,18 @@ const Blog: React.FC = () => {
 
             .hover-lift:hover {
               transform: translateY(-5px);
-              box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+              box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             }
 
-            .btn-outline-light:hover {
-              background-color: #ffffff;
+            .btn-outline-primary {
               color: #0b1e34;
-              border-color: #ffffff;
+              border-color: #0b1e34;
+            }
+
+            .btn-outline-primary:hover {
+              background-color: #0b1e34;
+              color: #ffffff;
+              border-color: #0b1e34;
             }
 
             .card-row {

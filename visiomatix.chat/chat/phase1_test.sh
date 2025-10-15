@@ -1,101 +1,131 @@
 #!/bin/bash
 # ===========================================================
-# File: phase1_test.sh
+# File: phase1_postman_style.sh
 # Author: Viral Prajapati
-# Date: 13-Oct-2025
+# Date: 14-Oct-2025
 # Description:
-#   Phase 1 test for live_chat_db:
-#   - Registers admin, agent, and default users
-#   - Assigns correct roles (ROLE_ADMIN, ROLE_AGENT, ROLE_USER)
-#   - Prints JWT tokens for login validation
+#   Phase 1+2+3 test for live_chat_db
+#   - Postman-style curl commands for all APIs
+#   - JWT-based authentication
+#   - Register users, login, getUser, updateUser, deleteUser
 # ===========================================================
 
 API_URL="http://localhost:8080/api/users"
-
-echo "========================"
-echo "PHASE 1 TEST START"
-echo "========================"
-
-# -----------------------------------------------------------
-# 1️⃣ Register Admin User (ROLE_ADMIN)
-# -----------------------------------------------------------
-echo "1️⃣ Registering Admin User..."
-curl -s -X POST $API_URL/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "username": "admin1",
-    "email": "admin1@example.com",
-    "password": "Admin@123",
-    "name": "Admin User",
-    "role": "ROLE_ADMIN"
-  }'
-echo -e "\n"
+echo "==============================="
+echo "PHASE 1+2+3 POSTMAN STYLE TEST"
+echo "==============================="
 
 # -----------------------------------------------------------
-# 2️⃣ Register Agent Users (ROLE_AGENT)
+# 1️⃣ REGISTER USERS
 # -----------------------------------------------------------
-echo "2️⃣ Registering Agent User..."
-curl -s -X POST $API_URL/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "username": "agent1",
-    "email": "agent1@example.com",
-    "password": "Agent@123",
-    "name": "Agent One",
-    "role": "ROLE_AGENT"
-  }'
-echo -e "\n"
+echo -e "\n1️⃣ REGISTER USERS"
 
-echo "2️⃣ Registering Agent User 2..."
-curl -s -X POST $API_URL/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "username": "agent2",
-    "email": "agent2@example.com",
-    "password": "Agent@456",
-    "name": "Agent Two",
-    "role": "ROLE_AGENT"
-  }'
-echo -e "\n"
+declare -A USERS
+USERS=( 
+  ["admin1"]="Admin@123" 
+  ["agent1"]="Agent@123" 
+  ["agent2"]="Agent@456" 
+  ["user1"]="User@123"
+)
 
-# -----------------------------------------------------------
-# 3️⃣ Register Default User (ROLE_USER)
-# -----------------------------------------------------------
-echo "3️⃣ Registering Default User..."
-curl -s -X POST $API_URL/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "username": "user1",
-    "email": "user1@example.com",
-    "password": "User@123",
-    "name": "Default User"
-  }'
-echo -e "\n"
+for USER in "${!USERS[@]}"; do
+  PASSWORD=${USERS[$USER]}
+  ROLE="ROLE_USER"
+  NAME="$USER"
+  EMAIL="$USER@example.com"
+  
+  if [[ "$USER" == "admin1" ]]; then ROLE="ROLE_ADMIN"; NAME="Admin User"; fi
+  if [[ "$USER" == "agent1" ]]; then ROLE="ROLE_AGENT"; NAME="Agent One"; fi
+  if [[ "$USER" == "agent2" ]]; then ROLE="ROLE_AGENT"; NAME="Agent Two"; fi
+  if [[ "$USER" == "user1" ]]; then NAME="Default User"; fi
 
-# -----------------------------------------------------------
-# 4️⃣ Login & print JWT token for each user
-# -----------------------------------------------------------
-echo "4️⃣ Logging in users and printing JWT tokens..."
-
-for USER in admin1 agent1 agent2 user1
-do
-  TOKEN=$(curl -s -X POST $API_URL/login \
+  echo -e "\n💡 Registering $USER..."
+  curl -s -X POST "$API_URL/register" \
     -H "Content-Type: application/json" \
-    -d "{\"username\": \"$USER\", \"password\": \"$(if [ "$USER" == "admin1" ]; then echo "Admin@123"; elif [[ "$USER" == agent* ]]; then echo "Agent@123"; else echo "User@123"; fi)\"}")
-  echo "$USER JWT Token: $TOKEN"
+    -d "{
+      \"username\": \"$USER\",
+      \"email\": \"$EMAIL\",
+      \"password\": \"$PASSWORD\",
+      \"name\": \"$NAME\",
+      \"role\": \"$ROLE\"
+    }" | jq
 done
-echo -e "\n"
 
 # -----------------------------------------------------------
-# 5️⃣ Database Check
+# 2️⃣ LOGIN USERS
 # -----------------------------------------------------------
-echo "5️⃣ Database Check:"
-echo "Check manually via MySQL client:"
+echo -e "\n2️⃣ LOGIN USERS"
+
+declare -A TOKENS
+
+for USER in "${!USERS[@]}"; do
+  PASSWORD=${USERS[$USER]}
+  echo -e "\n🔑 Logging in $USER..."
+  RESPONSE=$(curl -s -X POST "$API_URL/login" \
+    -H "Content-Type: application/json" \
+    -d "{
+      \"username\": \"$USER\",
+      \"password\": \"$PASSWORD\"
+    }")
+
+  TOKEN=$(echo $RESPONSE | jq -r '.token')
+  if [[ "$TOKEN" == "null" || -z "$TOKEN" ]]; then
+    echo "❌ Login failed for $USER. Response:"
+    echo $RESPONSE | jq
+  else
+    TOKENS[$USER]=$TOKEN
+    echo "✅ $USER JWT Token: $TOKEN"
+  fi
+done
+
+# -----------------------------------------------------------
+# 3️⃣ GET USERS
+# -----------------------------------------------------------
+echo -e "\n3️⃣ GET USERS"
+
+for USER in "${!TOKENS[@]}"; do
+  echo -e "\n👤 Fetching $USER info..."
+  curl -s -X GET "$API_URL/$USER" \
+    -H "Authorization: Bearer ${TOKENS[$USER]}" \
+    -H "Content-Type: application/json" | jq
+done
+
+# -----------------------------------------------------------
+# 4️⃣ UPDATE USER
+# -----------------------------------------------------------
+echo -e "\n4️⃣ UPDATE USER"
+UPDATE_USER="user1"
+echo -e "\n✏️ Updating $UPDATE_USER..."
+curl -s -X PUT "$API_URL/4" \
+  -H "Authorization: Bearer ${TOKENS[$UPDATE_USER]}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "User One Updated",
+    "email": "user1updated@example.com",
+    "role": "ROLE_USER",
+    "password": "User@123"
+  }' | jq
+
+# -----------------------------------------------------------
+# 5️⃣ DELETE USER
+# -----------------------------------------------------------
+echo -e "\n5️⃣ DELETE USER"
+DELETE_USER="agent2"
+echo -e "\n🗑️ Deleting $DELETE_USER..."
+curl -s -X DELETE "$API_URL/3" \
+  -H "Authorization: Bearer ${TOKENS[$DELETE_USER]}" \
+  -H "Content-Type: application/json" | jq
+
+# -----------------------------------------------------------
+# 6️⃣ MANUAL DATABASE CHECK
+# -----------------------------------------------------------
+echo -e "\n6️⃣ DATABASE CHECK (manual)"
+echo "Check via MySQL client:"
 echo "USE live_chat_db;"
 echo "SELECT * FROM users;"
 echo "SELECT * FROM roles;"
 echo "SELECT * FROM user_roles;"
 
-echo "========================"
-echo "PHASE 1 TEST COMPLETE"
-echo "========================"
+echo -e "\n==============================="
+echo "PHASE 1+2+3 POSTMAN STYLE TEST COMPLETE"
+echo "==============================="

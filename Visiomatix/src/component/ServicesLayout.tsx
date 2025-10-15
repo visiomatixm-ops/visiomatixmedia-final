@@ -1,20 +1,20 @@
 /**
- * File: ServicesLayout.tsx
- * Location: src/components/
+ * ===========================================================
+ * File: src/components/ServicesLayout.tsx
  * Author: Viral Prajapati
- * Date: 12-Oct-2025
+ * Date: 15-Oct-2025
  * Description:
- *  Displays a responsive grid layout of multimedia service cards with Framer Motion animations.
- *  Cards fade in when scrolled into view, fade out when scrolled out.
- *  Cards scale up smoothly on hover and scale down on exit.
- *  Card images are circular.
+ *  Light-themed responsive grid layout of multimedia service cards.
+ *  - Cards fade in/out when scrolled into/out of view.
+ *  - Cards scale up smoothly on hover and scale down on exit.
+ *  - Card images are circular.
+ *  - Light background with blue accent hover.
+ * ===========================================================
  */
 
 import React from "react";
 import ServiceCard from "./ServiceCard";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-// Framer Motion imports
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -28,35 +28,60 @@ import MotionImage from "/public/services/motion.jpg";
 import WebDesignImage from "/public/services/webdesign.jpg";
 import GraphicImage from "/public/services/graphic.jpg";
 
-// ✅ Custom style overrides (Bootstrap-safe)
+// ✅ Light Theme Styles
 const cardThemeStyles = `
   .card-theme {
-    background-color: #1e2d44ff !important; /* Dark background */
-    border: 1px solid rgba(0, 255, 255, 0.2); /* Subtle aqua border */
+    background-color: #ffffff !important; /* White background */
+    border: 1px solid rgba(0, 0, 0, 0.08); /* Subtle light border */
     border-radius: 1rem;
-    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1); /* Light aqua shadow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Soft gray shadow */
     transition: all 0.3s ease-in-out;
   }
 
   .card-theme:hover {
-    background-color: #222831 !important; /* Slightly lighter shade on hover */
-    transform: translateY(-5px);
+    background-color: #f8fbff !important; /* Soft blue-white hover */
+    border-color: rgba(0, 120, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 120, 255, 0.25);
+    transform: translateY(-6px);
   }
 
-  .card-theme h5,
+  .card-theme h5 {
+    color: #0b1e34 !important; /* Dark navy title */
+  }
+
   .card-theme p {
-    color: #e0f7fa !important; /* Soft aqua text */
+    color: #555555 !important; /* Muted text */
   }
 
   .card-theme img {
-    border-radius: 12px;
-    background:white;
-    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 50%; /* Circular image */
+    border: 2px solid rgba(0, 120, 255, 0.2);
+    background: #ffffff;
+    transition: all 0.4s ease;
+  }
+
+  .card-theme:hover img {
+    border-color: rgba(0, 120, 255, 0.5);
+    transform: scale(1.05);
+  }
+
+  h2.section-heading {
+    color: #0b1e34;
+    letter-spacing: 0.05em;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .card-theme {
+      border-radius: 0.8rem;
+    }
   }
 `;
 
 const ServicesLayout: React.FC = () => {
-  // Sample service data
   const services = [
     { image: EditingImage, title: "Video Editing", description: "Professional editing to create stunning cinematic visuals." },
     { image: AnimationImage, title: "2D/3D Animation", description: "Creative animation services for advertisements and films." },
@@ -68,7 +93,6 @@ const ServicesLayout: React.FC = () => {
     { image: GraphicImage, title: "Graphic Design", description: "Logos, posters, and marketing materials that stand out." },
   ];
 
-  // Framer Motion variants (unchanged)
   const cardVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.9 },
     visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6 } },
@@ -78,12 +102,12 @@ const ServicesLayout: React.FC = () => {
 
   return (
     <div className="container my-5">
-      {/* Inject local style overrides */}
+      {/* Inject local light theme styles */}
       <style>{cardThemeStyles}</style>
 
-      <h2 className="text-center mb-4 fw-bold text-light">Our Multimedia Services</h2>
+      <h2 className="text-center section-heading">Our Multimedia Services</h2>
 
-      {/* Responsive Bootstrap Grid */}
+      {/* Responsive Grid */}
       <div className="row g-4">
         {services.map((service, index) => {
           const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.2 });
@@ -103,6 +127,7 @@ const ServicesLayout: React.FC = () => {
                 image={service.image}
                 title={service.title}
                 description={service.description}
+                hoverRadius={120} // slightly rounder hover radius for circular cards
               />
             </motion.div>
           );

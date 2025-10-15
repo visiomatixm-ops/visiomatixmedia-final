@@ -2,14 +2,15 @@
  * ===========================================================
  * Filename: Services.tsx
  * Author: Viral Prajapati
- * Date: 10-Oct-2025
+ * Date: 15-Oct-2025
  * Description:
  *   "Our Services" page enhanced with cinematic animations using
  *   Framer Motion and useScroll:
- *   - Image scaling (Y) from bottom on scroll
- *   - Alternating text slide-in
- *   - Parallax hero background effect
- *   - Staggered text reveal (title → line → paragraph)
+ *   - Image scales vertically (Y-axis) from bottom on scroll
+ *   - Alternating text slide-in effect
+ *   - Parallax hero background motion
+ *   - Staggered reveal of heading, line, and paragraph
+ *   - Optimized responsive layout with contained images
  * ===========================================================
  */
 
@@ -20,63 +21,67 @@ import { motion, useScroll, useTransform } from "framer-motion";
 // Functional Component: Services
 // ===========================================================
 const Services: React.FC = () => {
-  // Array of all service details
+  // -----------------------------------------------------------
+  // Array of service data
+  // -----------------------------------------------------------
   const services = [
     {
       image: "/services/editing.webp",
       title: "Video Editing",
       description:
-        "Our expert editors craft professional-grade visuals that captivate your audience. Using cutting-edge tools like Premiere Pro and DaVinci Resolve, we enhance storytelling through seamless transitions, color grading, and cinematic effects. Whether it’s a product ad or a short film, we ensure your footage stands out.",
+        "Our expert editors craft professional-grade visuals that captivate your audience. Using cutting-edge tools like Premiere Pro and DaVinci Resolve, we enhance storytelling through seamless transitions, color grading, and cinematic effects.",
     },
     {
       image: "/services/animation.jpg",
       title: "2D/3D Animation",
       description:
-        "Bring your ideas to life with dynamic 2D and 3D animations. Our creative team blends art and motion to produce visually appealing advertisements, explainer videos, and character-based storytelling that leaves a lasting impression on viewers.",
+        "Bring your ideas to life with dynamic 2D and 3D animations. We create visually engaging advertisements, explainer videos, and character-driven storytelling for impactful communication.",
     },
     {
       image: "/services/branding.jpg",
       title: "Brand Design",
       description:
-        "Your brand is your story — we make sure it’s unforgettable. From logos and brand palettes to typography and tone, we create unique brand identities that resonate with your audience and reflect your business values perfectly.",
+        "Your brand is your identity — we ensure it’s memorable. From logos and color palettes to typography and tone, we build identities that resonate and endure.",
     },
     {
       image: "/services/photography.jpg",
       title: "Photography",
       description:
-        "Capture every detail with precision. We specialize in product, event, and portrait photography using professional-grade equipment and creative direction to deliver high-quality imagery that tells your story beautifully.",
+        "Capture moments that matter. We specialize in product, portrait, and event photography with professional direction and precision lighting.",
     },
     {
       image: "/services/videography.png",
       title: "Videography",
       description:
-        "Capture every detail with precision. We specialize in product, event, and portrait photography using professional-grade equipment and creative direction to deliver high-quality imagery that tells your story beautifully.",
+        "Our videographers transform visuals into stories. From corporate events to cinematic reels, every frame reflects your brand’s essence.",
     },
     {
       image: "/services/webdesign.jpg",
-      title: "WebDesign",
+      title: "Web Design",
       description:
-        "Capture every detail with precision. We specialize in product, event, and portrait photography using professional-grade equipment and creative direction to deliver high-quality imagery that tells your story beautifully.",
+        "We design responsive, aesthetic, and user-friendly websites that align with your brand’s goals and modern digital standards.",
     },
     {
       image: "/services/motion.jpg",
-      title: "MotionGraphics",
+      title: "Motion Graphics",
       description:
-        "Capture every detail with precision. We specialize in product, event, and portrait photography using professional-grade equipment and creative direction to deliver high-quality imagery that tells your story beautifully.",
+        "Engage your audience with fluid and dynamic visuals. We merge design and animation to create sleek motion graphics for digital storytelling.",
     },
   ];
 
-  // Refs for parallax effect in hero banner
+  // -----------------------------------------------------------
+  // Hero section parallax setup
+  // -----------------------------------------------------------
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
-
-  // Transform for parallax background (moves slower than scroll)
   const yParallax = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
-  // Animation variants for staggered text reveal
+  // -----------------------------------------------------------
+  // Staggered text animation variants
+  // -----------------------------------------------------------
   const textVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: (i: number) => ({
@@ -86,11 +91,14 @@ const Services: React.FC = () => {
     }),
   };
 
+  // ===========================================================
+  // Render JSX
+  // ===========================================================
   return (
     <>
-      {/* ============================================= */}
-      {/* Hero Banner Section with Parallax */}
-      {/* ============================================= */}
+      {/* =================================================== */}
+      {/* Hero Section with Parallax Background */}
+      {/* =================================================== */}
       <section
         ref={heroRef}
         className="jumbotron text-center text-light d-flex align-items-center justify-content-center position-relative"
@@ -100,7 +108,7 @@ const Services: React.FC = () => {
           marginBottom: "3rem",
         }}
       >
-        {/* Parallax background using motion.div */}
+        {/* Background motion layer */}
         <motion.div
           style={{
             backgroundImage: `url('/about/Blog.jpeg')`,
@@ -111,13 +119,13 @@ const Services: React.FC = () => {
           className="position-absolute w-100 h-100"
         />
 
-        {/* Overlay for better text visibility */}
+        {/* Dark overlay for text contrast */}
         <div
           className="position-absolute w-100 h-100"
           style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
         ></div>
 
-        {/* Staggered text reveal */}
+        {/* Staggered reveal text block */}
         <div className="position-relative z-3">
           <motion.h1
             className="display-5 fw-bold"
@@ -129,6 +137,7 @@ const Services: React.FC = () => {
           >
             Our Services
           </motion.h1>
+
           <motion.hr
             className="border-primary opacity-75 w-25 mx-auto"
             variants={textVariants}
@@ -137,6 +146,7 @@ const Services: React.FC = () => {
             viewport={{ once: true }}
             custom={1}
           />
+
           <motion.p
             className="lead"
             variants={textVariants}
@@ -150,9 +160,9 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* ============================================= */}
-      {/* Services Section */}
-      {/* ============================================= */}
+      {/* =================================================== */}
+      {/* Services Grid Section */}
+      {/* =================================================== */}
       <section className="dark-theme-font container my-5">
         {services.map((service, index) => (
           <motion.div
@@ -165,9 +175,9 @@ const Services: React.FC = () => {
             transition={{ duration: 0.6, ease: "easeInOut" }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            {/* Image Column - scales vertically on scroll */}
+            {/* ---------------- Image Column ---------------- */}
             <motion.div
-              className="col-md-6 mb-4 mb-md-0"
+              className="col-md-6 mb-4 mb-md-0 d-flex justify-content-center"
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
               exit={{ scaleY: 0 }}
@@ -180,14 +190,15 @@ const Services: React.FC = () => {
                 className="img-fluid rounded shadow-lg"
                 style={{
                   width: "100%",
-                  height: "45vh",
-                  objectFit: "cover",
-                  background:"white"
+                  height: "55vh",
+                  objectFit: "contain",
+                  background: "white",
+                  border: "1px solid rgba(255,255,255,0.1)",
                 }}
               />
             </motion.div>
 
-            {/* Text Column - slides in alternately */}
+            {/* ---------------- Text Column ---------------- */}
             <motion.div
               className="col-md-6"
               initial={{
@@ -204,8 +215,12 @@ const Services: React.FC = () => {
             >
               <h2 className="fw-bold mb-3 text-primary">{service.title}</h2>
               <p
-                className="dark-theme-font   mb-3"
-                style={{ textAlign: "justify" }}
+                className="dark-theme-font mb-3"
+                style={{
+                  textAlign: "justify",
+                  fontSize: "1rem",
+                  lineHeight: "1.7",
+                }}
               >
                 {service.description}
               </p>
@@ -215,9 +230,9 @@ const Services: React.FC = () => {
         ))}
       </section>
 
-      {/* ============================================= */}
+      {/* =================================================== */}
       {/* Outro Section */}
-      {/* ============================================= */}
+      {/* =================================================== */}
       <section
         className="text-center text-light py-5 position-relative overflow-hidden"
         style={{
@@ -240,10 +255,9 @@ const Services: React.FC = () => {
           <h2 className="fw-bold mb-3">Why Choose Visiomatix Media?</h2>
           <p className="w-75 mx-auto">
             We go beyond visuals — we deliver experiences. Our multidisciplinary
-            team works collaboratively to ensure that every project aligns with
-            your goals, reflects your vision, and connects with your audience.
-            Creativity, precision, and professionalism define every service we
-            offer.
+            team ensures that every project aligns with your goals, reflects
+            your vision, and connects with your audience. Creativity, precision,
+            and professionalism define every service we offer.
           </p>
         </motion.div>
       </section>

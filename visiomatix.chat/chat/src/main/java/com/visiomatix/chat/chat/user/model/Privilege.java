@@ -17,6 +17,7 @@ package com.visiomatix.chat.chat.user.model;
 // ===========================================================
 import jakarta.persistence.*; // For JPA annotations
 import java.util.Set; // To define relationship with Role
+import com.fasterxml.jackson.annotation.JsonIgnore; // Prevent circular reference
 
 @Entity
 @Table(name = "privileges")
@@ -34,6 +35,7 @@ public class Privilege {
 
     // Many privileges can belong to many roles
     @ManyToMany(mappedBy = "privileges")
+    @JsonIgnore // Prevent circular reference during JSON serialization
     private Set<Role> roles;
 
     // ===========================================================

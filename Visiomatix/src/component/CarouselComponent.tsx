@@ -60,7 +60,7 @@ const CarouselComponent = () => {
             style={{ backgroundColor: "rgba(0,0,0,0.25)", borderRadius: "12px" }}
           />
           <div
-            className="position-absolute bottom-3 start-50 translate-middle-x text-white text-center"
+            className="position-absolute bottom-3 start-50 translate-middle-x  text-center"
             style={{ fontSize: "1.3rem", fontWeight: "600" }}
           >
             {items[activeIndex].caption}

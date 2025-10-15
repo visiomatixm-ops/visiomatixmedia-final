@@ -2,30 +2,34 @@
  * ===========================================================
  * File: src/components/Menu.tsx
  * Author: Viral Prajapati
- * Date: 10-Oct-2025
+ * Date: 15-Oct-2025
  * Description:
- *   Dark-themed responsive navbar for Visiomatix Media using
+ *   Light-themed responsive navbar for Visiomatix Media using
  *   Bootstrap + Framer Motion pill animation.
- *   - Background: #0b1e34
- *   - Foreground: White
- *   - Accent: Aqua (#00ffff)
+ *   - Background: White (#ffffff)
+ *   - Foreground: Dark Navy (#0b1e34)
+ *   - Accent: Blue (#0078ff)
  *   - Fade-in animation on load
  * ===========================================================
  */
 
-import React, { useState } from "react"; // React for JSX and useState hook
-import { NavLink } from "react-router-dom"; // Route-aware navigation links
-import { motion, AnimatePresence } from "framer-motion"; // Animation effects
-import Logo2PNG from "/logo/Logo2PNG.png"; // Project logo import
-import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
-import "bootstrap/dist/js/bootstrap.bundle.min.js"; // Bootstrap JS (for toggler)
-// import AuthModal from "./AuthModal"; // Login/Signup modal
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import Logo2PNG from "/logo/Logo2PNG.png";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
+// ✅ Correctly load Orbitron font for the logo
+const fontLink = document.createElement("link");
+fontLink.href =
+  "https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap";
+fontLink.rel = "stylesheet";
+document.head.appendChild(fontLink);
 
 const Menu: React.FC = () => {
-  // Track hover state for link animation
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  // Navigation links
   const navItems = [
     { path: "/", label: "Home" },
     { path: "/about", label: "About Us" },
@@ -36,20 +40,15 @@ const Menu: React.FC = () => {
     { path: "/contact", label: "Contact Us" },
   ];
 
-  // Framer Motion fade-in variant
   const fadeInVariant = {
     hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 1 },
-    },
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
   };
 
   return (
     <>
       {/* ========================================================= */}
-      {/* NAVBAR WITH FADE-IN ANIMATION */}
+      {/* NAVBAR (LIGHT THEME) */}
       {/* ========================================================= */}
       <motion.nav
         className="navbar navbar-expand-lg py-3 shadow-sm position-relative visiomatix-navbar"
@@ -58,19 +57,35 @@ const Menu: React.FC = () => {
         animate="visible"
       >
         <div className="container-fluid px-4">
-          {/* Brand Logo and Title */}
+          {/* Brand Logo + Title */}
           <NavLink
             to="/"
-            className="navbar-brand d-flex align-items-center text-white"
+            className="navbar-brand d-flex align-items-center text-dark"
           >
             <img
               src={Logo2PNG}
               alt="Visiomatix Logo"
+              style={{width:"100%"}}
               width="45"
               height="45"
-              className="me-2"
+              className="m-2"
             />
-            <h1 className="fs-5 fw-bold mb-0">VISIOMATIX MEDIA</h1>
+            <h1
+              className="fs-5 fw-bold mb-0"
+              style={{
+                fontFamily: "'Orbitron', sans-serif",
+                fontWeight: "700",
+                textTransform: "uppercase",
+                letterSpacing: "0.15em",
+                fontSize: "2.2rem",
+                background: "linear-gradient(90deg, #0055ff, #00aaff)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                display: "inline-block",
+              }}
+            >
+              VISIOMATIX MEDIA
+            </h1>
           </NavLink>
 
           {/* Responsive Toggle Button */}
@@ -108,8 +123,7 @@ const Menu: React.FC = () => {
                     {({ isActive }) => (
                       <>
                         {item.label}
-
-                        {/* Animated Aqua Pill */}
+                        {/* Animated Blue Pill */}
                         <AnimatePresence>
                           {(isActive || hoveredIndex === index) && (
                             <motion.div
@@ -132,51 +146,39 @@ const Menu: React.FC = () => {
                 </li>
               ))}
             </ul>
-
-            {/* CTA: Login/Signup Button (optional) */}
-            {/* <div className="d-flex align-items-center ms-3">
-              <button
-                type="button"
-                className="btn btn-aqua cta-btn px-4 py-2 fw-semibold"
-                data-bs-toggle="modal"
-                data-bs-target="#authModal"
-              >
-                Login / Sign up
-              </button>
-            </div> */}
           </div>
         </div>
       </motion.nav>
 
       {/* ========================================================= */}
-      {/* CSS Styling Section */}
+      {/* LIGHT THEME CSS STYLING */}
       {/* ========================================================= */}
       <style>
         {`
-          /* Navbar Background & Foreground */
+          /* Light Navbar Base */
           .visiomatix-navbar {
-            background-color: #0b1e34;
-            box-shadow: 0px 0px 5pt 0em #00ffff !important;
+            background-color: #ffffff;
+            box-shadow: 0 0 8pt 0.1em rgba(0, 0, 0, 0.08);
             position: fixed !important;
             z-index: 10;
             width: 100%;
           }
 
-          /* NavLink default style */
+          /* NavLink default */
           .nav-link {
-            color: #ffffff !important;
+            color: #0b1e34 !important;
             transition: color 0.3s ease;
             position: relative;
             z-index: 2;
           }
 
-          /* Hover & Active color */
+          /* Hover & Active */
           .nav-link.active,
           .nav-link:hover {
-            color: #00ffff !important;
+            color: #0078ff !important;
           }
 
-          /* Animated Aqua Pill Underline */
+          /* Blue Pill Animation */
           .nav-pill {
             position: absolute;
             left: 0;
@@ -184,37 +186,30 @@ const Menu: React.FC = () => {
             width: 100%;
             height: 3px;
             border-radius: 50px;
-            background: linear-gradient(90deg, #00ffff, #00bcd4);
+            background: linear-gradient(90deg, #0078ff, #00aaff);
             transform-origin: center;
             z-index: 1;
           }
 
-          /* CTA Button Styling */
-          .btn-aqua {
-            background: linear-gradient(90deg, #00ffff, #00bcd4);
-            border: none;
-            color: #0b1e34;
-            transition: all 0.3s ease;
-          }
-
-          .btn-aqua:hover {
-            background: linear-gradient(90deg, #00bcd4, #00ffff);
-            transform: scale(1.05);
-          }
-
-          /* Navbar toggler for dark background */
+          /* Navbar toggler (light background) */
           .navbar-toggler {
-            background-color: rgba(255,255,255,0.2);
+            background-color: rgba(0, 0, 0, 0.05);
           }
 
           .navbar-toggler-icon {
-            filter: invert(1);
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(11,30,52,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+          }
+
+          /* Smooth fade for brand */
+          .navbar-brand h1 {
+            transition: transform 0.3s ease;
+          }
+
+          .navbar-brand:hover h1 {
+            transform: scale(1.05);
           }
         `}
       </style>
-
-      {/* Auth Modal */}
-      {/* <AuthModal /> */}
     </>
   );
 };

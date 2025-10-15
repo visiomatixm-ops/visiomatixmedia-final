@@ -19,6 +19,7 @@ package com.visiomatix.chat.chat.user.model;
 import jakarta.persistence.*; // For entity annotations
 import java.time.LocalDateTime; // For timestamps
 import java.util.Set; // For role relationships
+import com.fasterxml.jackson.annotation.JsonProperty; // Control JSON serialization
 
 @Entity
 @Table(name = "users")
@@ -38,6 +39,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Accept password input but never return it
     private String password;
 
     @Column(nullable = false, length = 150)

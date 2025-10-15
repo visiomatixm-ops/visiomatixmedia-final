@@ -8,20 +8,50 @@
  *   Service layer for User operations.
  *   Supports registration with role assignment, login with JWT,
  *   get user, and delete user functionality.
+ *
+ * -------------------------------
+ * Phase 2 Additions:
+ * - Added @Transactional for registration safety.
+ * - Introduced structured JWT response via JwtResponseDTO.
+ * - Added updateUser() method for profile/role edits.
+ * - Replaced direct RuntimeExceptions with custom messages.
+ * - Added inline comments for clarity.
+ * ===========================================================
+ */
+/**
+ * ===========================================================
+ * File: UserServiceImpl.java
+ * Location: com.visiomatix.chat.chat.user.service
+ * Author: Viral Prajapati
+ * Date: 13-Oct-2025
+ * Description:
+ *   Phase 1+2+3 Implementation
+ *   --------------------------
+ *   Service layer for user operations.
+ *   Phase 2: updateUser(), @Transactional, role assignment.
+ *   Phase 3: login() returns structured JwtResponseDTO.
  * ===========================================================
  */
 package com.visiomatix.chat.chat.user.service;
 
 import com.visiomatix.chat.chat.user.dto.UserDTO;
+import com.visiomatix.chat.chat.user.dto.JwtResponseDTO;
 import com.visiomatix.chat.chat.user.model.Role;
 import com.visiomatix.chat.chat.user.model.User;
 import com.visiomatix.chat.chat.user.repository.RoleRepository;
 import com.visiomatix.chat.chat.user.repository.UserRepository;
 import com.visiomatix.chat.chat.user.util.JwtUtil;
+import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.Set;
 
+/**
+ * UserServiceImpl
+ * ----------------
+ * Implements UserService interface
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -40,43 +70,75 @@ public class UserServiceImpl implements UserService {
     }
 
     // ===========================================================
-    // Register a new user with optional role
+    // Register new user with role
     // ===========================================================
+    @Transactional
     @Override
     public User registerUser(UserDTO userDTO) {
-        // Check if username already exists
-        if(userRepository.findByUsername(userDTO.getUsername()).isPresent())
+        if (userRepository.findByUsername(userDTO.getUsername()).isPresent())
             throw new RuntimeException("Username already exists");
 
-        // Create User entity
         User user = new User();
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
         user.setName(userDTO.getName());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
-        // Assign role: default ROLE_USER
-        String roleName = (userDTO.getRole() != null) ? userDTO.getRole() : "ROLE_USER";
+        final String roleName;
+        if (userDTO.getRoles() != null && !userDTO.getRoles().isEmpty()) {
+            roleName = userDTO.getRoles().iterator().next().getName();
+        } else {
+            roleName = "ROLE_USER"; // Default role for new users
+        }
         Role role = roleRepository.findByName(roleName)
                 .orElseThrow(() -> new RuntimeException("Role not found: " + roleName));
-        user.setRoles(Set.of(role));
 
-        // Save user in database
+        user.setRoles(Set.of(role));
         return userRepository.save(user);
     }
 
     // ===========================================================
-    // Login user and generate JWT
+    // Login user and return structured JWT response
     // ===========================================================
     @Override
-    public String login(String username, String password) {
+    public JwtResponseDTO login(String username, String password) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if(!passwordEncoder.matches(password, user.getPassword()))
+        if (!passwordEncoder.matches(password, user.getPassword()))
             throw new RuntimeException("Invalid credentials");
 
-        return jwtUtil.generateToken(username);
+        // Generate JWT token
+        String token = jwtUtil.generateToken(username);
+
+        // Retrieve primary role
+        String primaryRole = user.getRoles().stream()
+                .findFirst()
+                .map(Role::getName)
+                .orElse("ROLE_USER");
+
+        return new JwtResponseDTO(token, username, primaryRole);
+    }
+
+    // ===========================================================
+    // Update user profile / role
+    // ===========================================================
+    @Transactional
+    @Override
+    public User updateUser(Long userId, UserDTO dto) {
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (dto.getName() != null) existingUser.setName(dto.getName());
+        if (dto.getEmail() != null) existingUser.setEmail(dto.getEmail());
+        if (dto.getPassword() != null)
+            existingUser.setPassword(passwordEncoder.encode(dto.getPassword()));
+
+        if (dto.getRoles() != null && !dto.getRoles().isEmpty()) {
+            existingUser.setRoles(dto.getRoles());
+        }
+
+        return userRepository.save(existingUser);
     }
 
     // ===========================================================

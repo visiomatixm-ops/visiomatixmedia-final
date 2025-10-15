@@ -1,0 +1,572 @@
+{
+	"_type": "export",
+	"__export_format": 4,
+	"__export_date": "2025-10-14T08:34:00.000Z",
+	"__export_source": "insomnia.desktop.app:v2023.1.0",
+	"resources": [
+		{
+			"_id": "req_0001",
+			"parentId": "fld_auth",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/users/register",
+			"name": "Register User",
+			"description": "Register a new user account. No authentication required.",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n    \"username\": \"{{ _.test_username }}\",\n    \"email\": \"{{ _.test_email }}\",\n    \"password\": \"{{ _.test_password }}\",\n    \"name\": \"{{ _.test_name }}\",\n    \"active\": true\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697270400000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0002",
+			"parentId": "fld_auth",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/users/login",
+			"name": "Login User",
+			"description": "Authenticate user and receive JWT token. Token should be copied for use in other requests.",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n    \"username\": \"{{ _.login_username }}\",\n    \"password\": \"{{ _.login_password }}\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697270300000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0003",
+			"parentId": "fld_users",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/users/{{ _.username }}",
+			"name": "Get User by Username",
+			"description": "Get user details by username. Requires JWT authentication.",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697270200000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0004",
+			"parentId": "fld_users",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/users/{{ _.user_id }}",
+			"name": "Update User",
+			"description": "Update user information. Admin access required.",
+			"method": "PUT",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n    \"username\": \"updateduser\",\n    \"email\": \"updated@example.com\",\n    \"name\": \"Updated Name\",\n    \"active\": true\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697270100000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0005",
+			"parentId": "fld_users",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/users/{{ _.user_id }}",
+			"name": "Delete User",
+			"description": "Delete a user by ID. Admin access required.",
+			"method": "DELETE",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697270000000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0006",
+			"parentId": "fld_roles",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/roles/create",
+			"name": "Create Role",
+			"description": "Create a new role with permissions.",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n    \"name\": \"ROLE_MODERATOR\",\n    \"permissions\": [\n        {\n            \"id\": 1,\n            \"name\": \"MANAGE_CHAT\"\n        }\n    ]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697269900000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0007",
+			"parentId": "fld_roles",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/roles/list",
+			"name": "Get All Roles",
+			"description": "Retrieve all available roles.",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697269800000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0008",
+			"parentId": "fld_roles",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/roles/delete/{{ _.role_id }}",
+			"name": "Delete Role",
+			"description": "Delete a role by ID.",
+			"method": "DELETE",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697269700000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0009",
+			"parentId": "fld_permissions",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/permissions",
+			"name": "Create Permission",
+			"description": "Create a new permission.",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n    \"name\": \"MANAGE_REPORTS\",\n    \"description\": \"Allow user to manage reports\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697269600000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0010",
+			"parentId": "fld_permissions",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/permissions",
+			"name": "Get All Permissions",
+			"description": "Retrieve all available permissions.",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697269500000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0011",
+			"parentId": "fld_permissions",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/permissions/{{ _.permission_id }}",
+			"name": "Delete Permission",
+			"description": "Delete a permission by ID.",
+			"method": "DELETE",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697269400000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0012",
+			"parentId": "fld_test",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/users/register",
+			"name": "1. Register Test User",
+			"description": "Register a test user for workflow validation",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n    \"username\": \"apitest\",\n    \"email\": \"apitest@example.com\",\n    \"password\": \"test123\",\n    \"name\": \"API Test User\",\n    \"active\": true\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697269300000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0013",
+			"parentId": "fld_test",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/users/login",
+			"name": "2. Login Test User",
+			"description": "Login with test user credentials and get JWT token",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n    \"username\": \"apitest\",\n    \"password\": \"test123\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697269200000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0014",
+			"parentId": "fld_test",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"url": "{{ _.base_url }}/api/users/apitest",
+			"name": "3. Get Test User Info",
+			"description": "Retrieve test user information using JWT token",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1697269100000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "fld_auth",
+			"parentId": "wrk_main",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"name": "Authentication",
+			"description": "Authentication endpoints for user registration and login",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1697270400000,
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_users",
+			"parentId": "wrk_main",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"name": "User Management",
+			"description": "User management endpoints",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1697270300000,
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_roles",
+			"parentId": "wrk_main",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"name": "Role Management",
+			"description": "Role management endpoints",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1697270200000,
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_permissions",
+			"parentId": "wrk_main",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"name": "Permission Management",
+			"description": "Permission management endpoints",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1697270100000,
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_test",
+			"parentId": "wrk_main",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"name": "Quick Test Workflow",
+			"description": "Quick test workflow to validate API functionality",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1697270000000,
+			"_type": "request_group"
+		},
+		{
+			"_id": "wrk_main",
+			"parentId": null,
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"name": "Visiomatix Chat API",
+			"description": "Complete API collection for Visiomatix Chat application with JWT authentication, user management, role management, and permission management.",
+			"scope": "collection",
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_main",
+			"parentId": "wrk_main",
+			"modified": 1697270400000,
+			"created": 1697270400000,
+			"name": "Base Environment",
+			"data": {
+				"base_url": "http://localhost:8080",
+				"test_username": "testuser",
+				"test_email": "testuser@example.com",
+				"test_password": "password123",
+				"test_name": "Test User",
+				"login_username": "admin",
+				"login_password": "admin123",
+				"username": "admin",
+				"user_id": "1",
+				"role_id": "1",
+				"permission_id": "1",
+				"jwt_token": ""
+			},
+			"dataPropertyOrder": {
+				"&": [
+					"base_url",
+					"test_username",
+					"test_email", 
+					"test_password",
+					"test_name",
+					"login_username",
+					"login_password",
+					"username",
+					"user_id",
+					"role_id",
+					"permission_id",
+					"jwt_token"
+				]
+			},
+			"color": null,
+			"isPrivate": false,
+			"metaSortKey": 1697270400000,
+			"_type": "environment"
+		}
+	]
+}
