@@ -1,0 +1,3 @@
+2025-10-15 22:01:42.945 [http-nio-8080-exec-6] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Column 'sender_id' cannot be null
+2025-10-15 22:02:54.943 [http-nio-8080-exec-5] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Column 'sender_id' cannot be null
+2025-10-15 22:02:56.548 [http-nio-8080-exec-10] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Column 'sender_id' cannot be null

@@ -3,12 +3,12 @@
  * File: ChatMessageController.java
  * Location: com.visiomatix.chat.chat.chat.controller
  * Author: Viral Prajapati
- * Date: 14-Oct-2025
+ * Date: 15-Oct-2025
  * Description:
- *  REST + WebSocket bridge controller for handling chat messages.
- *  - Supports both HTTP-based message sending and WebSocket real-time delivery.
- *  - Integrates directly with ChatController’s DTOs (ChatSession + Message).
- *  - Ensures persisted delivery through ChatService and WebSocket broadcast.
+ *  REST + WebSocket Controller for managing chat sessions and messages.
+ *  - Allows creation of chat sessions between users.
+ *  - Handles sending and receiving of messages (REST + WebSocket bridge).
+ *  - Retrieves chat history between two users or by session ID.
  * ===========================================================
  */
 
@@ -17,138 +17,109 @@ package com.visiomatix.chat.chat.chat.controller;
 // ===========================================================
 // Import Statements
 // ===========================================================
+import com.visiomatix.chat.chat.chat.dto.ChatMessagePayload;
 import com.visiomatix.chat.chat.chat.model.ChatSession;
 import com.visiomatix.chat.chat.chat.model.Message;
-import com.visiomatix.chat.chat.chat.dto.ChatMessagePayload;
 import com.visiomatix.chat.chat.chat.service.ChatService;
 import com.visiomatix.chat.chat.user.model.User;
-
+import com.visiomatix.chat.chat.user.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
-/**
- * ===========================================================
- * Class: ChatMessageController
- * Purpose:
- *  - Acts as a bridge between REST API and WebSocket messaging layer.
- *  - Provides endpoints for sending messages, fetching message history,
- *    and broadcasting real-time updates to connected users.
- * ===========================================================
- */
+import org.slf4j.*;
+
+// ===========================================================
+// Controller Declaration
+// ===========================================================
 @RestController
-@RequestMapping("/api/chat/messages")
+@RequestMapping("/api/chat")
 public class ChatMessageController {
 
-    // ===========================================================
-    // Dependencies
-    // ===========================================================
-    private final ChatService chatService; // Service handling chat logic
-    private final SimpMessagingTemplate messagingTemplate; // WebSocket message broadcaster
+    private static final Logger logger = LoggerFactory.getLogger(ChatMessageController.class);
 
-    // ===========================================================
-    // Constructor Injection
-    // ===========================================================
+
+    private final ChatService chatService;
+    private final UserService userService;
+    private final SimpMessagingTemplate messagingTemplate;
+
     @Autowired
-    public ChatMessageController(ChatService chatService, SimpMessagingTemplate messagingTemplate) {
+    public ChatMessageController(ChatService chatService, UserService userService, SimpMessagingTemplate messagingTemplate) {
         this.chatService = chatService;
+        this.userService = userService;
         this.messagingTemplate = messagingTemplate;
     }
 
     // ===========================================================
-    // WebSocket Endpoint — Real-time Message Sending
+    // 1. Start or Retrieve Chat Session (REST Endpoint)
     // ===========================================================
-    /**
-     * Handles incoming WebSocket messages sent from the client.
-     * Persists the message, updates timestamps, and broadcasts
-     * it to all participants in the same chat session.
-     *
-     * @param payload DTO containing chat session, sender, and message content
-     */
-    @MessageMapping("/chat.sendMessage.rest")
-    public void handleWebSocketMessage(@Payload ChatMessagePayload payload) {
-        // Persist and broadcast via service
-        Message savedMessage = chatService.saveMessage(payload);
+    @PostMapping("/start")
+    public ChatSession startChat(@RequestBody Map<String, String> request) {
+        String senderUsername = request.get("participantA");
+        String receiverUsername = request.get("participantB");
 
-        // Broadcast the persisted message to the topic
-        messagingTemplate.convertAndSend(
-                "/topic/chat/" + savedMessage.getChatSession().getId(),
-                savedMessage
-        );
+        if (senderUsername == null || receiverUsername == null) {
+            throw new IllegalArgumentException("Sender and receiver usernames are required");
+        }
+
+        User sender = userService.getUserByUsername(senderUsername);
+        User receiver = userService.getUserByUsername(receiverUsername);
+
+        // Get or create session between sender and receiver
+        return chatService.getOrCreateSessionBetweenUsers(sender, receiver, ChatSession.SessionType.AGENT_CLIENT);
     }
 
     // ===========================================================
-    // REST Endpoint — Send Message via HTTP
+    // 2. Send Message via REST
     // ===========================================================
-    /**
-     * Allows message sending via REST endpoint.
-     * Useful for bots, integrations, or offline queues.
-     *
-     * @param payload DTO containing chat session, sender, and message content
-     * @return persisted message object with timestamps
-     */
     @PostMapping("/send")
-    public ResponseEntity<Message> sendMessage(@RequestBody ChatMessagePayload payload) {
-        Message message = chatService.saveMessage(payload);
-
-        // Push to WebSocket clients for real-time sync
-        messagingTemplate.convertAndSend(
-                "/topic/chat/" + message.getChatSession().getId(),
-                message
-        );
-
-        return ResponseEntity.ok(message);
+    public Message sendMessage(@RequestBody ChatMessagePayload payload) {
+        return chatService.saveMessage(payload);
     }
 
     // ===========================================================
-    // REST Endpoint — Get Chat History by Session
+    // 3. Get Chat History Between Two Users
     // ===========================================================
-    /**
-     * Retrieves ordered message history for a given chat session.
-     *
-     * @param sessionId unique chat session identifier
-     * @return ordered list of messages for that session
-     */
-    @GetMapping("/session/{sessionId}")
-    public ResponseEntity<List<Message>> getChatHistory(@PathVariable Long sessionId) {
-        ChatSession session = chatService.getChatSessionById(sessionId)
-            .orElseThrow(() -> new RuntimeException("Chat session not found"));
-        List<Message> messages = chatService.getMessagesForSession(sessionId, 0, Integer.MAX_VALUE);
-        return ResponseEntity.ok(messages);
+    @GetMapping("/history")
+    public List<Message> getChatHistory(@RequestParam String sender, @RequestParam String receiver) {
+        return chatService.getChatHistory(sender, receiver);
     }
 
     // ===========================================================
-    // REST Endpoint — Mark Messages as Read
+    // 4. Get Messages by Session ID
     // ===========================================================
-    /**
-     * Marks all unread messages as read for a given user in a specific session.
-     * Also triggers a real-time notification to update the recipient’s UI.
-     *
-     * @param sessionId target chat session
-     * @param userId recipient user ID
-     * @return count of updated messages
-     */
-    @PostMapping("/session/{sessionId}/read/{userId}")
-    public ResponseEntity<Long> markMessagesAsRead(@PathVariable Long sessionId, @PathVariable Long userId) {
-        // Assuming we need to get the user from service, but for now, we'll use a placeholder
-        // In a real implementation, you'd get the user by ID
-        // User user = userService.getUserById(userId);
-        // chatService.markAllMessagesAsReadInSession(sessionId, user);
-        // For now, return 0 as placeholder
-        long updatedCount = 0;
+    @GetMapping("/session/{sessionId}/messages")
+    public List<Message> getMessagesBySession(@PathVariable Long sessionId,
+                                              @RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "50") int size) {
+        return chatService.getMessagesForSession(sessionId, page, size);
+    }
 
-        // Notify WebSocket clients of the read update
-        messagingTemplate.convertAndSend(
-                "/topic/chat/" + sessionId + "/read",
-                "User " + userId + " read " + updatedCount + " messages at " + LocalDateTime.now()
-        );
+    // ===========================================================
+    // 5. WebSocket Endpoint for Real-time Messaging
+    // ===========================================================
+    @MessageMapping("/sendMessage")
+    public void handleWebSocketMessage(@Payload ChatMessagePayload payload) {
+        Message savedMessage = chatService.saveMessage(payload);
+        Long sessionId = savedMessage.getChatSession().getId();
+        messagingTemplate.convertAndSend("/topic/chat/" + sessionId, savedMessage);
+    }
 
-        return ResponseEntity.ok(updatedCount);
+    // ===========================================================
+    // 6. Typing Indicator (Optional Bridge)
+    // ===========================================================
+    @MessageMapping("/typing")
+    public void handleTypingEvent(@Payload Map<String, Object> typingEvent) {
+        Long sessionId = Long.valueOf(typingEvent.get("sessionId").toString());
+        String username = typingEvent.get("username").toString();
+        boolean isTyping = Boolean.parseBoolean(typingEvent.get("isTyping").toString());
+
+        User user = userService.getUserByUsername(username);
+        chatService.sendTypingIndicator(sessionId, user, isTyping);
     }
 }

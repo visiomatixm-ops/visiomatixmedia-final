@@ -7,13 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.slf4j.*;
 
 @RestController
 @RequestMapping("/api/permissions")
 @RequiredArgsConstructor
 public class PermissionController {
 
-    private final PermissionService permissionService;
+private static final Logger logger = LoggerFactory.getLogger(PermissionController.class);   
+ private final PermissionService permissionService;
 
     @PostMapping
     public ResponseEntity<Permission> create(@RequestBody Permission permission) {

@@ -494,37 +494,488 @@ chmod +x test_api.sh
 
 ---
 
-## ✅ **Validation & Testing Status**
+## 💬 Chat Management APIs
 
-**Password Serialization Issue Fixed**: 
-- Changed from `@JsonIgnore` to `@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)` 
-- This allows passwords in request bodies while preventing them in responses
-- ✅ Registration endpoint now works correctly
+### 12. Start or Retrieve Chat Session
+**Endpoint**: `POST /api/chat/start`
+**Access**: Authenticated Users
+**Description**: Start a new chat session or retrieve existing session between two users
 
-**Tested Commands**:
+**Request Body**:
+```json
+{
+  "sender": "user1",
+  "receiver": "user2"
+}
+```
+
+**Curl Command**:
 ```bash
-# ✅ WORKING: User Registration
-curl -X POST http://localhost:8080/api/users/register \
+curl -X POST http://localhost:8080/api/chat/start \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "username": "testuser",
-    "email": "testuser@example.com", 
-    "password": "password123",
-    "name": "Test User"
-  }'
-
-# ✅ WORKING: User Login  
-curl -X POST http://localhost:8080/api/users/login \
-  -H "Content-Type: application/json" \
-  -d '{
-    "username": "testuser",
-    "password": "password123"
+    "sender": "user1",
+    "receiver": "user2"
   }'
 ```
 
-**Note**: All endpoints have been fixed and validated for proper JSON serialization.
+**Expected Response**:
+```json
+{
+  "id": 1,
+  "sessionName": "Chat: user1 & user2",
+  "sessionType": "AGENT_CLIENT",
+  "active": true,
+  "participants": [
+    {
+      "id": 1,
+      "username": "user1"
+    },
+    {
+      "id": 2,
+      "username": "user2"
+    }
+  ],
+  "createdAt": "2025-10-16T06:59:00.000Z",
+  "lastMessageTime": null
+}
+```
+
+### 13. Send Message via REST
+**Endpoint**: `POST /api/chat/send`
+**Access**: Authenticated Users
+**Description**: Send a message using ChatMessagePayload
+
+**Request Body**:
+```json
+{
+  "sender": "user1",
+  "receiver": "user2",
+  "content": "Hello, how are you?",
+  "messageType": "TEXT"
+}
+```
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/chat/send \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sender": "user1",
+    "receiver": "user2",
+    "content": "Hello, how are you?",
+    "messageType": "TEXT"
+  }'
+```
+
+### 14. Get Chat History Between Two Users
+**Endpoint**: `GET /api/chat/history?sender={username}&receiver={username}`
+**Access**: Authenticated Users
+**Description**: Retrieve chat history between two specific users
+
+**Curl Command**:
+```bash
+curl -X GET "http://localhost:8080/api/chat/history?sender=user1&receiver=user2" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 15. Get Messages by Session ID
+**Endpoint**: `GET /api/chat/session/{sessionId}/messages?page={page}&size={size}`
+**Access**: Authenticated Users (Session Participants)
+**Description**: Get paginated messages for a specific chat session
+
+**Curl Command**:
+```bash
+curl -X GET "http://localhost:8080/api/chat/session/1/messages?page=0&size=50" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 16. Get User Sessions
+**Endpoint**: `GET /api/chat/sessions`
+**Access**: Authenticated Users
+**Description**: Get all active chat sessions for the authenticated user
+
+**Curl Command**:
+```bash
+curl -X GET http://localhost:8080/api/chat/sessions \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 17. Create Chat Session
+**Endpoint**: `POST /api/chat/sessions`
+**Access**: Authenticated Users
+**Description**: Create a new chat session
+
+**Request Body**:
+```json
+{
+  "sessionName": "Group Chat",
+  "sessionType": "AGENT_CLIENT"
+}
+```
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/chat/sessions \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sessionName": "Group Chat",
+    "sessionType": "AGENT_CLIENT"
+  }'
+```
+
+### 18. Get Chat Session Details
+**Endpoint**: `GET /api/chat/sessions/{sessionId}`
+**Access**: Authenticated Users (Session Participants)
+**Description**: Get details of a specific chat session
+
+**Curl Command**:
+```bash
+curl -X GET http://localhost:8080/api/chat/sessions/1 \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 19. Add Participant to Session
+**Endpoint**: `POST /api/chat/sessions/{sessionId}/participants/{userId}`
+**Access**: Authenticated Users
+**Description**: Add a participant to an existing chat session
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/chat/sessions/1/participants/2 \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 20. Close Chat Session
+**Endpoint**: `DELETE /api/chat/sessions/{sessionId}`
+**Access**: Authenticated Users (Session Participants)
+**Description**: Deactivate/close a chat session
+
+**Curl Command**:
+```bash
+curl -X DELETE http://localhost:8080/api/chat/sessions/1 \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 21. Get Messages for Session (Authenticated)
+**Endpoint**: `GET /api/chat/sessions/{sessionId}/messages?page={page}&size={size}`
+**Access**: Authenticated Users (Session Participants)
+**Description**: Get paginated messages for a session (authenticated version)
+
+**Curl Command**:
+```bash
+curl -X GET "http://localhost:8080/api/chat/sessions/1/messages?page=0&size=20" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 22. Get Recent Messages
+**Endpoint**: `GET /api/chat/sessions/{sessionId}/messages/recent?limit={limit}`
+**Access**: Authenticated Users
+**Description**: Get recent messages for quick loading
+
+**Curl Command**:
+```bash
+curl -X GET "http://localhost:8080/api/chat/sessions/1/messages/recent?limit=10" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 23. Mark All Messages as Read
+**Endpoint**: `POST /api/chat/sessions/{sessionId}/messages/mark-read`
+**Access**: Authenticated Users
+**Description**: Mark all messages in a session as read for the current user
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/chat/sessions/1/messages/mark-read \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 24. Get Unread Message Count
+**Endpoint**: `GET /api/chat/sessions/{sessionId}/unread-count`
+**Access**: Authenticated Users
+**Description**: Get count of unread messages in a session
+
+**Curl Command**:
+```bash
+curl -X GET http://localhost:8080/api/chat/sessions/1/unread-count \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+**Expected Response**:
+```json
+{
+  "unreadCount": 5
+}
+```
+
+### 25. Search Messages in Session
+**Endpoint**: `GET /api/chat/sessions/{sessionId}/messages/search?query={searchTerm}`
+**Access**: Authenticated Users (Session Participants)
+**Description**: Search for messages containing specific text in a session
+
+**Curl Command**:
+```bash
+curl -X GET "http://localhost:8080/api/chat/sessions/1/messages/search?query=hello" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 26. Send Message to Session
+**Endpoint**: `POST /api/chat/sessions/{sessionId}/messages`
+**Access**: Authenticated Users (Session Participants)
+**Description**: Send a message directly to a specific session
+
+**Request Body**:
+```json
+{
+  "content": "This is a test message",
+  "messageType": "TEXT"
+}
+```
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/chat/sessions/1/messages \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "content": "This is a test message",
+    "messageType": "TEXT"
+  }'
+```
+
+### 27. Get Chat Statistics (Admin)
+**Endpoint**: `GET /api/chat/admin/statistics`
+**Access**: Admin Users
+**Description**: Get chat statistics for admin dashboard
+
+**Curl Command**:
+```bash
+curl -X GET http://localhost:8080/api/chat/admin/statistics \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 28. Get Active Sessions Count (Admin)
+**Endpoint**: `GET /api/chat/admin/active-sessions-count`
+**Access**: Admin Users
+**Description**: Get count of active chat sessions
+
+**Curl Command**:
+```bash
+curl -X GET http://localhost:8080/api/chat/admin/active-sessions-count \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+**Expected Response**:
+```json
+{
+  "activeSessionsCount": 15
+}
+```
 
 ---
 
-*Document Status: All API endpoints tested and working*  
-*Last Validation: October 14, 2025*
+## 🔄 WebSocket Endpoints
+
+### 29. Send Message via WebSocket
+**Endpoint**: `WebSocket /app/sendMessage`
+**Access**: Authenticated Users
+**Description**: Send message via WebSocket for real-time communication
+
+**WebSocket Message**:
+```json
+{
+  "sender": "user1",
+  "receiver": "user2",
+  "content": "Real-time message",
+  "messageType": "TEXT"
+}
+```
+
+### 30. Typing Indicator
+**Endpoint**: `WebSocket /app/typing`
+**Access**: Authenticated Users
+**Description**: Send typing indicators
+
+**WebSocket Message**:
+```json
+{
+  "sessionId": 1,
+  "username": "user1",
+  "isTyping": true
+}
+```
+
+### 31. Receive Messages
+**Subscription**: `WebSocket /topic/chat/{sessionId}`
+**Access**: Authenticated Users (Session Participants)
+**Description**: Subscribe to receive messages for a specific session
+
+### 32. Receive Typing Indicators
+**Subscription**: `WebSocket /topic/typing/{sessionId}`
+**Access**: Authenticated Users (Session Participants)
+**Description**: Subscribe to receive typing indicators for a session
+
+### 33. Receive User Status Updates
+**Subscription**: `WebSocket /topic/user/status`
+**Access**: Authenticated Users
+**Description**: Subscribe to receive user online/offline status updates
+
+### 34. Receive Session Events
+**Subscription**: `WebSocket /topic/session/{event}`
+**Access**: Authenticated Users
+**Description**: Subscribe to session-related events (closed, etc.)
+
+---
+
+## 🔄 Complete Chat Testing Workflow
+
+### Step 1: Register and Login Users
+```bash
+# Register user1
+curl -X POST http://localhost:8080/api/users/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "user1",
+    "email": "user1@example.com",
+    "password": "password123",
+    "name": "User One"
+  }'
+
+# Register user2
+curl -X POST http://localhost:8080/api/users/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "user2",
+    "email": "user2@example.com",
+    "password": "password123",
+    "name": "User Two"
+  }'
+
+# Login user1 and get token
+LOGIN_RESPONSE=$(curl -s -X POST http://localhost:8080/api/users/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "user1",
+    "password": "password123"
+  }')
+USER1_TOKEN=$(echo $LOGIN_RESPONSE | jq -r '.token')
+
+# Login user2 and get token
+LOGIN_RESPONSE=$(curl -s -X POST http://localhost:8080/api/users/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "user2",
+    "password": "password123"
+  }')
+USER2_TOKEN=$(echo $LOGIN_RESPONSE | jq -r '.token')
+```
+
+### Step 2: Start Chat Session
+```bash
+# Start chat session between user1 and user2
+SESSION_RESPONSE=$(curl -s -X POST http://localhost:8080/api/chat/start \
+  -H "Authorization: Bearer $USER1_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sender": "user1",
+    "receiver": "user2"
+  }')
+SESSION_ID=$(echo $SESSION_RESPONSE | jq -r '.id')
+echo "Session ID: $SESSION_ID"
+```
+
+### Step 3: Send Messages
+```bash
+# User1 sends message
+curl -X POST http://localhost:8080/api/chat/send \
+  -H "Authorization: Bearer $USER1_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sender": "user1",
+    "receiver": "user2",
+    "content": "Hello from user1!",
+    "messageType": "TEXT"
+  }'
+
+# User2 sends message
+curl -X POST http://localhost:8080/api/chat/send \
+  -H "Authorization: Bearer $USER2_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sender": "user2",
+    "receiver": "user1",
+    "content": "Hi user1, how are you?",
+    "messageType": "TEXT"
+  }'
+```
+
+### Step 4: Get Chat History
+```bash
+# Get chat history
+curl -X GET "http://localhost:8080/api/chat/history?sender=user1&receiver=user2" \
+  -H "Authorization: Bearer $USER1_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### Step 5: Get Session Messages
+```bash
+# Get messages by session ID
+curl -X GET "http://localhost:8080/api/chat/session/$SESSION_ID/messages?page=0&size=50" \
+  -H "Authorization: Bearer $USER1_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+---
+
+## ✅ **Validation & Testing Status**
+
+**Password Serialization Issue Fixed**:
+- Changed from `@JsonIgnore` to `@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)`
+- This allows passwords in request bodies while preventing them in responses
+- ✅ Registration endpoint now works correctly
+
+**Chat API Testing**:
+```bash
+# ✅ WORKING: Start Chat Session
+curl -X POST http://localhost:8080/api/chat/start \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"sender": "user1", "receiver": "user2"}'
+
+# ✅ WORKING: Send Message
+curl -X POST http://localhost:8080/api/chat/send \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"sender": "user1", "receiver": "user2", "content": "Test message", "messageType": "TEXT"}'
+
+# ✅ WORKING: Get Chat History
+curl -X GET "http://localhost:8080/api/chat/history?sender=user1&receiver=user2" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# ✅ WORKING: Get Session Messages
+curl -X GET "http://localhost:8080/api/chat/session/1/messages?page=0&size=20" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+**Note**: All endpoints have been documented and validated for proper functionality.
+
+---
+
+*Document Status: All API endpoints documented and tested*
+*Last Validation: October 16, 2025*

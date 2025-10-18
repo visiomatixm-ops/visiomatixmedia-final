@@ -16,9 +16,11 @@ package com.visiomatix.chat.chat.chat.controller;
 // ===========================================================
 // Import Statements
 // ===========================================================
+import com.visiomatix.chat.chat.chat.dto.MessageDTO;
 import com.visiomatix.chat.chat.chat.model.ChatSession;
 import com.visiomatix.chat.chat.chat.model.Message;
 import com.visiomatix.chat.chat.chat.service.ChatService;
+import com.visiomatix.chat.chat.chat.service.MessagePersistenceService;
 import com.visiomatix.chat.chat.user.model.User;
 import com.visiomatix.chat.chat.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +33,31 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Arrays;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 @RestController
 @RequestMapping("/api/chat")
 public class ChatController {
 
-    @Autowired
-    private ChatService chatService;
+    private final ChatService chatService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final MessagePersistenceService messagePersistenceService;
+
+    private final SimpMessagingTemplate messagingTemplate;
+    private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
+
+
+    public ChatController(ChatService chatService, UserService userService, MessagePersistenceService messagePersistenceService, SimpMessagingTemplate messagingTemplate) {
+        this.chatService = chatService;
+        this.userService = userService;
+        this.messagePersistenceService = messagePersistenceService;
+        this.messagingTemplate = messagingTemplate;
+    }
 
     // ===========================================================
     // Chat Session Management Endpoints
@@ -49,6 +66,7 @@ public class ChatController {
     /**
      * Get all active chat sessions for the authenticated user
      */
+    
     @GetMapping("/sessions")
     public ResponseEntity<List<ChatSession>> getUserSessions(Authentication authentication) {
         try {
@@ -388,4 +406,69 @@ public class ChatController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    /**
+     * =================================================================================================
+     * Handles REST endpoints for initiating and managing chat sessions 
+     * =================================================================================================
+     */
+
+    @PostMapping("/sessions/{sessionId}/messages")
+    public ResponseEntity<?> postMessageToSession(
+            @PathVariable Long sessionId,
+            @RequestBody Map<String, Object> body,
+            Authentication authentication) {
+
+        try {
+            User currentUser = userService.getUserByUsername(authentication.getName());
+            if (currentUser == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of("error", "User not found or unauthorized"));
+            }
+
+            // Verify user is participant in this session
+            Optional<ChatSession> session = chatService.getChatSessionById(sessionId);
+            if (session.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(Map.of("error", "Chat session not found"));
+            }
+
+            boolean isParticipant = session.get().getParticipants()
+                .stream()
+                .anyMatch(user -> user.getId().equals(currentUser.getId()));
+
+            if (!isParticipant) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body(Map.of("error", "User is not a participant in this chat session"));
+            }
+
+            String content = (String) body.get("content");
+            String type = (String) body.getOrDefault("messageType", "TEXT");
+            Message.MessageType messageType = Message.MessageType.valueOf(type);
+
+            Message saved = chatService.sendMessage(sessionId, currentUser, content, messageType);
+            messagingTemplate.convertAndSend("/topic/chat/" + sessionId, saved);
+
+            // Persist message asynchronously
+            messagePersistenceService.saveMessage(saved);
+
+            // Convert to DTO for response
+            MessageDTO dto = new MessageDTO(
+                saved.getId(),
+                saved.getSender().getUsername(),
+                null, // receiver not needed for this endpoint
+                saved.getContent(),
+                saved.getMessageType().toString(),
+                saved.getChatSession().getId(),
+                saved.getSentAt()
+            );
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", e.getMessage()));
+        }
+    }
+
+
 }

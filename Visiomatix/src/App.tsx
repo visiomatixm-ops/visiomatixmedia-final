@@ -12,6 +12,7 @@ import { Routes, Route } from 'react-router-dom'; // ✅ Only Routes here
 import Menu from './component/Menu';
 import Footer from './component/Footer';
 import PageLoader from './component/PageLoader';
+import ChatWidget from './component/ChatWidget';
 
 // ✅ Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
@@ -38,7 +39,14 @@ const App: React.FC = () => {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </Suspense>
-      <Footer />
+      <div>
+        <h1>Agent Dashboard</h1>
+          <ChatWidget
+            sessionId={52}
+            username="agent"
+            token="YOUR_JWT_TOKEN_HERE"
+          />
+    </div>      <Footer />
     </>
   );
 };

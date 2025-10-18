@@ -250,7 +250,11 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate
     );
-
+    
+    
+    // existing methods...
+    @Query("SELECT m FROM Message m WHERE m.chatSession.id = :sessionId ORDER BY m.sentAt ASC")
+    List<Message> findByChatSessionOrderBySentAtAsc(@Param("sessionId") Long sessionId);
     /**
      * Retrieve recent messages for a session, limited by the specified number.
      */
@@ -258,4 +262,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
         Pageable pageable = PageRequest.of(0, limit, Sort.by("sentAt").descending());
         return findByChatSession(chatSession, pageable).getContent();
     }
+
+    @Query("SELECT m FROM Message m WHERE m.chatSession.id = :sessionId ORDER BY m.sentAt ASC")
+    List<Message> getMessagesForSessionOrdered(@Param("sessionId") Long sessionId);
 }

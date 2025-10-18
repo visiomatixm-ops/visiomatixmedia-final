@@ -13,6 +13,7 @@
 
 package com.visiomatix.chat.chat.chat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 // ===========================================================
 // Import Statements
 // ===========================================================
@@ -24,6 +25,8 @@ import java.util.HashSet;
 
 @Entity
 @Table(name = "chat_sessions")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 public class ChatSession {
 
     // ===========================================================
@@ -44,13 +47,20 @@ public class ChatSession {
     private boolean active = true;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     @Column(name = "last_message_at")
     private LocalDateTime lastMessageAt;
+
+    @Column(name = "session_expiry")
+    private LocalDateTime sessionExpiry;
+
+
+    // constructors, addParticipant, removeParticipant, etc. kept as before
+
 
     // ===========================================================
     // Relationship Mappings
@@ -66,6 +76,9 @@ public class ChatSession {
     @OneToMany(mappedBy = "chatSession", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Message> messages = new HashSet<>();
 
+
+
+  
     // ===========================================================
     // Enum Definitions
     // ===========================================================
@@ -116,6 +129,34 @@ public class ChatSession {
 
     public void updateLastMessageTime() {
         this.lastMessageAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    //===============================================
+    //Session Expiry Handling
+    //===============================================
+
+
+
+    public boolean isExpired() {
+        return sessionExpiry != null && LocalDateTime.now().isAfter(sessionExpiry);
+    }
+public void extendSessionMillis(long millis) {
+        if (this.sessionExpiry == null) {
+            this.sessionExpiry = LocalDateTime.now().plusNanos(millis * 1_000_000);
+        } else {
+            this.sessionExpiry = this.sessionExpiry.plusNanos(millis * 1_000_000);
+        }
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void setSessionExpiryFromNowMillis(long millis) {
+        this.sessionExpiry = LocalDateTime.now().plusNanos(millis * 1_000_000);
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    // convenience
+    public void touch() {
         this.updatedAt = LocalDateTime.now();
     }
 
@@ -176,5 +217,10 @@ public class ChatSession {
 
     public void setMessages(Set<Message> messages) {
         this.messages = messages;
+    }
+
+    public void setLastMessageAt(LocalDateTime now) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setLastMessageAt'");
     }
 }

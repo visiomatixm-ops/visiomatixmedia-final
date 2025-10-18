@@ -373,10 +373,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Value;
 
 @Service
 @Transactional
 public class ChatServiceImpl implements ChatService {
+
+    @Value("${chat.session.timeout.duration:14400000}")
+    private long sessionTimeoutMillis;
 
     private final ChatSessionRepository chatSessionRepository;
     private final MessageRepository messageRepository;
@@ -558,13 +563,13 @@ public class ChatServiceImpl implements ChatService {
         ChatSession chatSession = chatSessionRepository.findById(sessionId)
             .orElseThrow(() -> new RuntimeException("Chat session not found"));
 
-        List<Message> unreadMessages = messageRepository.findUnreadMessagesForUser(user);
-        for (Message message : unreadMessages) {
-            if (message.getChatSession().getId().equals(sessionId)) {
-                message.markAsRead();
-            }
-        }
-        messageRepository.saveAll(unreadMessages);
+        List<Message> unreadMessagesInSession = messageRepository.findUnreadMessagesForUser(user)
+            .stream()
+            .filter(message -> message.getChatSession().getId().equals(sessionId))
+            .collect(Collectors.toList());
+
+        unreadMessagesInSession.forEach(Message::markAsRead);
+        messageRepository.saveAll(unreadMessagesInSession);
     }
 
     @Override
@@ -694,9 +699,10 @@ public class ChatServiceImpl implements ChatService {
     // ===========================================================
     // Private Helper Methods
     // ===========================================================
-
+    @Transactional
     private void sendSystemMessage(ChatSession chatSession, String content) {
-        Message systemMessage = new Message(content, Message.MessageType.SYSTEM, null, chatSession);
+        User systemUser = userService.getOrCreateSystemUser();
+        Message systemMessage = new Message(content, Message.MessageType.SYSTEM, systemUser, chatSession);
         messageRepository.save(systemMessage);
         broadcastMessageToSession(chatSession.getId(), systemMessage);
     }

@@ -19,7 +19,7 @@ import com.visiomatix.chat.chat.user.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.slf4j.*;
 import java.util.List;
 
 @RestController
@@ -28,6 +28,7 @@ import java.util.List;
 public class RoleController {
 
     private final RoleService roleService;
+    private static final Logger logger = LoggerFactory.getLogger(RoleController.class);
 
     // ===========================================================
     // Create a new Role

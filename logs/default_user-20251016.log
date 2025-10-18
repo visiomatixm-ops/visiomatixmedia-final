@@ -1,0 +1,841 @@
+=== Default User CLI ===
+2025-10-16 13:51:09 Attempting login as defaultuser
+2025-10-16 13:51:09 Login successful. Token acquired.
+2025-10-16 13:51:09 Starting/Getting chat session with agent
+2025-10-16 13:51:11 Session created/retrieved id=52
+{
+  "id": 52,
+  "sessionName": "Chat: defaultuser & agent",
+  "sessionType": "AGENT_CLIENT",
+  "active": true,
+  "createdAt": "2025-10-16T13:51:09.955840961",
+  "updatedAt": "2025-10-16T13:51:09.964588642",
+  "lastMessageAt": "2025-10-16T13:51:09.960487315",
+  "participants": [
+    {
+      "id": 25,
+      "username": "defaultuser",
+      "email": "default@example.com",
+      "name": "Default User",
+      "active": true,
+      "roles": [
+        {
+          "id": 3,
+          "name": "ROLE_USER",
+          "privileges": [
+            {
+              "id": 3,
+              "name": "MANAGE_CHAT"
+            }
+          ],
+          "permissions": []
+        }
+      ],
+      "createdBy": null,
+      "modifiedBy": null,
+      "lastLoginAt": null
+    },
+    {
+      "id": 26,
+      "username": "agent",
+      "email": "agent@example.com",
+      "name": "Support Agent",
+      "active": true,
+      "roles": [
+        {
+          "id": 3,
+          "name": "ROLE_USER",
+          "privileges": [
+            {
+              "id": 3,
+              "name": "MANAGE_CHAT"
+            }
+          ],
+          "permissions": []
+        }
+      ],
+      "createdBy": null,
+      "modifiedBy": null,
+      "lastLoginAt": null
+    }
+  ],
+  "messages": []
+}
+2025-10-16 13:51:11 Sending initial message to sessionId=52
+2025-10-16 13:51:12 Message sent id=8
+2025-10-16 13:51:12 Default user flow complete.
+=== Done ===
+=== Default User CLI ===
+2025-10-16 13:51:46 Attempting login as defaultuser
+2025-10-16 13:51:46 Login successful. Token acquired.
+2025-10-16 13:51:46 Starting/Getting chat session with agent
+2025-10-16 13:51:46 Create session attempt 1 failed: {"path":"/api/chat/start","error":"Bad Request","message":"Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]","timestamp":"2025-10-16T13:51:46.144651654","status":400}
+2025-10-16 13:51:48 Create session attempt 2 failed: {"path":"/api/chat/start","error":"Bad Request","message":"Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]","timestamp":"2025-10-16T13:51:48.172916774","status":400}
+2025-10-16 13:51:50 Create session attempt 3 failed: {"path":"/api/chat/start","error":"Bad Request","message":"Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]","timestamp":"2025-10-16T13:51:50.197998328","status":400}
+2025-10-16 13:51:52 Create session attempt 4 failed: {"path":"/api/chat/start","error":"Bad Request","message":"Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]","timestamp":"2025-10-16T13:51:52.223448811","status":400}
+2025-10-16 13:51:54 Create session attempt 5 failed: {"path":"/api/chat/start","error":"Bad Request","message":"Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]","timestamp":"2025-10-16T13:51:54.249395878","status":400}
+2025-10-16 13:51:56 Failed to create chat session after retries. Exiting.
+=== Default User CLI ===
+2025-10-16 13:59:30 Attempting login as defaultuser
+2025-10-16 13:59:30 Login successful. Token acquired.
+2025-10-16 13:59:30 Starting/Getting chat session with agent
+2025-10-16 13:59:30 Session created/retrieved id=52
+{
+  "id": 52,
+  "sessionName": "Chat: defaultuser & agent",
+  "sessionType": "AGENT_CLIENT",
+  "active": true,
+  "createdAt": "2025-10-16T13:51:09.955841",
+  "updatedAt": "2025-10-16T13:52:15.035393",
+  "lastMessageAt": "2025-10-16T13:52:15.034947",
+  "participants": [
+    {
+      "id": 26,
+      "username": "agent",
+      "email": "agent@example.com",
+      "name": "Support Agent",
+      "active": true,
+      "roles": [
+        {
+          "id": 3,
+          "name": "ROLE_USER",
+          "privileges": [
+            {
+              "id": 3,
+              "name": "MANAGE_CHAT"
+            }
+          ],
+          "permissions": []
+        }
+      ],
+      "createdBy": null,
+      "modifiedBy": null,
+      "lastLoginAt": null
+    },
+    {
+      "id": 25,
+      "username": "defaultuser",
+      "email": "default@example.com",
+      "name": "Default User",
+      "active": true,
+      "roles": [
+        {
+          "id": 3,
+          "name": "ROLE_USER",
+          "privileges": [
+            {
+              "id": 3,
+              "name": "MANAGE_CHAT"
+            }
+          ],
+          "permissions": []
+        }
+      ],
+      "createdBy": null,
+      "modifiedBy": null,
+      "lastLoginAt": null
+    }
+  ],
+  "messages": [
+    {
+      "id": 7,
+      "content": "Chat session created",
+      "messageType": "SYSTEM",
+      "sentAt": "2025-10-16T13:51:09.960274",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 27,
+        "username": "system",
+        "email": "system@visiomatix.com",
+        "name": "System",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 10,
+      "content": "Hello There",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:52:15.033847",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 26,
+        "username": "agent",
+        "email": "agent@example.com",
+        "name": "Support Agent",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 8,
+      "content": "Hi agent, I need help with my account.",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:51:11.219044",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 25,
+        "username": "defaultuser",
+        "email": "default@example.com",
+        "name": "Default User",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 9,
+      "content": "Hello There",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:51:38.801245",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 26,
+        "username": "agent",
+        "email": "agent@example.com",
+        "name": "Support Agent",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    }
+  ]
+}
+2025-10-16 13:59:30 Sending initial message to sessionId=52
+2025-10-16 13:59:31 Message sent id=11
+2025-10-16 13:59:31 Default user flow complete.
+=== Done ===
+=== Default User CLI ===
+2025-10-16 13:59:38 Attempting login as defaultuser
+2025-10-16 13:59:38 Login successful. Token acquired.
+2025-10-16 13:59:38 Starting/Getting chat session with agent
+2025-10-16 13:59:38 Session created/retrieved id=52
+{
+  "id": 52,
+  "sessionName": "Chat: defaultuser & agent",
+  "sessionType": "AGENT_CLIENT",
+  "active": true,
+  "createdAt": "2025-10-16T13:51:09.955841",
+  "updatedAt": "2025-10-16T13:59:30.62087",
+  "lastMessageAt": "2025-10-16T13:59:30.619298",
+  "participants": [
+    {
+      "id": 26,
+      "username": "agent",
+      "email": "agent@example.com",
+      "name": "Support Agent",
+      "active": true,
+      "roles": [
+        {
+          "id": 3,
+          "name": "ROLE_USER",
+          "privileges": [
+            {
+              "id": 3,
+              "name": "MANAGE_CHAT"
+            }
+          ],
+          "permissions": []
+        }
+      ],
+      "createdBy": null,
+      "modifiedBy": null,
+      "lastLoginAt": null
+    },
+    {
+      "id": 25,
+      "username": "defaultuser",
+      "email": "default@example.com",
+      "name": "Default User",
+      "active": true,
+      "roles": [
+        {
+          "id": 3,
+          "name": "ROLE_USER",
+          "privileges": [
+            {
+              "id": 3,
+              "name": "MANAGE_CHAT"
+            }
+          ],
+          "permissions": []
+        }
+      ],
+      "createdBy": null,
+      "modifiedBy": null,
+      "lastLoginAt": null
+    }
+  ],
+  "messages": [
+    {
+      "id": 8,
+      "content": "Hi agent, I need help with my account.",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:51:11.219044",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 25,
+        "username": "defaultuser",
+        "email": "default@example.com",
+        "name": "Default User",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 10,
+      "content": "Hello There",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:52:15.033847",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 26,
+        "username": "agent",
+        "email": "agent@example.com",
+        "name": "Support Agent",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 7,
+      "content": "Chat session created",
+      "messageType": "SYSTEM",
+      "sentAt": "2025-10-16T13:51:09.960274",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 27,
+        "username": "system",
+        "email": "system@visiomatix.com",
+        "name": "System",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 11,
+      "content": "Hi agent, I need help with my account.",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:59:30.617244",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 25,
+        "username": "defaultuser",
+        "email": "default@example.com",
+        "name": "Default User",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 9,
+      "content": "Hello There",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:51:38.801245",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 26,
+        "username": "agent",
+        "email": "agent@example.com",
+        "name": "Support Agent",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    }
+  ]
+}
+2025-10-16 13:59:38 Sending initial message to sessionId=52
+2025-10-16 13:59:38 Message sent id=12
+2025-10-16 13:59:38 Default user flow complete.
+=== Done ===
+=== Default User CLI ===
+2025-10-16 13:59:58 Attempting login as defaultuser
+2025-10-16 13:59:58 Login successful. Token acquired.
+2025-10-16 13:59:58 Starting/Getting chat session with agent
+2025-10-16 13:59:58 Session created/retrieved id=52
+{
+  "id": 52,
+  "sessionName": "Chat: defaultuser & agent",
+  "sessionType": "AGENT_CLIENT",
+  "active": true,
+  "createdAt": "2025-10-16T13:51:09.955841",
+  "updatedAt": "2025-10-16T13:59:47.402559",
+  "lastMessageAt": "2025-10-16T13:59:47.401915",
+  "participants": [
+    {
+      "id": 25,
+      "username": "defaultuser",
+      "email": "default@example.com",
+      "name": "Default User",
+      "active": true,
+      "roles": [
+        {
+          "id": 3,
+          "name": "ROLE_USER",
+          "privileges": [
+            {
+              "id": 3,
+              "name": "MANAGE_CHAT"
+            }
+          ],
+          "permissions": []
+        }
+      ],
+      "createdBy": null,
+      "modifiedBy": null,
+      "lastLoginAt": null
+    },
+    {
+      "id": 26,
+      "username": "agent",
+      "email": "agent@example.com",
+      "name": "Support Agent",
+      "active": true,
+      "roles": [
+        {
+          "id": 3,
+          "name": "ROLE_USER",
+          "privileges": [
+            {
+              "id": 3,
+              "name": "MANAGE_CHAT"
+            }
+          ],
+          "permissions": []
+        }
+      ],
+      "createdBy": null,
+      "modifiedBy": null,
+      "lastLoginAt": null
+    }
+  ],
+  "messages": [
+    {
+      "id": 11,
+      "content": "Hi agent, I need help with my account.",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:59:30.617244",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 25,
+        "username": "defaultuser",
+        "email": "default@example.com",
+        "name": "Default User",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 8,
+      "content": "Hi agent, I need help with my account.",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:51:11.219044",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 25,
+        "username": "defaultuser",
+        "email": "default@example.com",
+        "name": "Default User",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 13,
+      "content": "Hello There",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:59:47.400835",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 26,
+        "username": "agent",
+        "email": "agent@example.com",
+        "name": "Support Agent",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 10,
+      "content": "Hello There",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:52:15.033847",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 26,
+        "username": "agent",
+        "email": "agent@example.com",
+        "name": "Support Agent",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 7,
+      "content": "Chat session created",
+      "messageType": "SYSTEM",
+      "sentAt": "2025-10-16T13:51:09.960274",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 27,
+        "username": "system",
+        "email": "system@visiomatix.com",
+        "name": "System",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 12,
+      "content": "Hi agent, I need help with my account.",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:59:38.606735",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 25,
+        "username": "defaultuser",
+        "email": "default@example.com",
+        "name": "Default User",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    },
+    {
+      "id": 9,
+      "content": "Hello There",
+      "messageType": "TEXT",
+      "sentAt": "2025-10-16T13:51:38.801245",
+      "deliveredAt": null,
+      "readAt": null,
+      "edited": false,
+      "editedAt": null,
+      "sender": {
+        "id": 26,
+        "username": "agent",
+        "email": "agent@example.com",
+        "name": "Support Agent",
+        "active": true,
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_USER",
+            "privileges": [
+              {
+                "id": 3,
+                "name": "MANAGE_CHAT"
+              }
+            ],
+            "permissions": []
+          }
+        ],
+        "createdBy": null,
+        "modifiedBy": null,
+        "lastLoginAt": null
+      },
+      "delivered": false,
+      "read": false
+    }
+  ]
+}
+2025-10-16 13:59:58 Sending initial message to sessionId=52
+2025-10-16 14:00:00 Message sent id=14
+2025-10-16 14:00:00 Default user flow complete.
+=== Done ===

@@ -1,0 +1,72 @@
+{
+  "timestamp": "2025-10-16 13:51:06",
+  "event": "login",
+  "status": "success",
+  "details": "token-acquired"
+}
+{
+  "timestamp": "2025-10-16 13:51:12",
+  "event": "detect_session",
+  "status": "success",
+  "details": "{\"path\":\"/api/chat/history\",\"error\":\"Bad Request\",\"message\":\"Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]\",\"timestamp\":\"2025-10-16T13:51:12.535704508\",\"status\":400}"
+}
+{
+  "timestamp": "2025-10-16 13:51:39",
+  "event": "send_message",
+  "status": "success",
+  "details": "{\"id\":9,\"content\":\"Hello There\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:51:38.801245364\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":26,\"username\":\"agent\",\"email\":\"agent@example.com\",\"name\":\"Support Agent\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false}"
+}
+{
+  "timestamp": "2025-10-16 13:52:10",
+  "event": "login",
+  "status": "success",
+  "details": "token-acquired"
+}
+{
+  "timestamp": "2025-10-16 13:52:10",
+  "event": "detect_session",
+  "status": "success",
+  "details": "{\"path\":\"/api/chat/history\",\"error\":\"Bad Request\",\"message\":\"Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]\",\"timestamp\":\"2025-10-16T13:52:10.410226764\",\"status\":400}"
+}
+{
+  "timestamp": "2025-10-16 13:52:16",
+  "event": "send_message",
+  "status": "success",
+  "details": "{\"id\":10,\"content\":\"Hello There\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:52:15.033846868\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":26,\"username\":\"agent\",\"email\":\"agent@example.com\",\"name\":\"Support Agent\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false}"
+}
+{
+  "timestamp": "2025-10-16 13:59:34",
+  "event": "login",
+  "status": "success",
+  "details": "token-acquired"
+}
+{
+  "timestamp": "2025-10-16 13:59:34",
+  "event": "detect_session",
+  "status": "success",
+  "details": "[{\"id\":7,\"content\":\"Chat session created\",\"messageType\":\"SYSTEM\",\"sentAt\":\"2025-10-16T13:51:09.960274\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":27,\"username\":\"system\",\"email\":\"system@visiomatix.com\",\"name\":\"System\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false},{\"id\":8,\"content\":\"Hi agent, I need help with my account.\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:51:11.219044\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":25,\"username\":\"defaultuser\",\"email\":\"default@example.com\",\"name\":\"Default User\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false},{\"id\":9,\"content\":\"Hello There\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:51:38.801245\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":26,\"username\":\"agent\",\"email\":\"agent@example.com\",\"name\":\"Support Agent\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false},{\"id\":10,\"content\":\"Hello There\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:52:15.033847\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":26,\"username\":\"agent\",\"email\":\"agent@example.com\",\"name\":\"Support Agent\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false},{\"id\":11,\"content\":\"Hi agent, I need help with my account.\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:59:30.617244\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":25,\"username\":\"defaultuser\",\"email\":\"default@example.com\",\"name\":\"Default User\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false}]"
+}
+{
+  "timestamp": "2025-10-16 13:59:48",
+  "event": "send_message",
+  "status": "success",
+  "details": "{\"id\":13,\"content\":\"Hello There\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:59:47.400834941\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":26,\"username\":\"agent\",\"email\":\"agent@example.com\",\"name\":\"Support Agent\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false}"
+}
+{
+  "timestamp": "2025-10-16 14:00:11",
+  "event": "send_message",
+  "status": "success",
+  "details": "{\"id\":15,\"content\":\"How may I help you\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T14:00:11.527183852\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":26,\"username\":\"agent\",\"email\":\"agent@example.com\",\"name\":\"Support Agent\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false}"
+}
+{
+  "timestamp": "2025-10-16 16:12:28",
+  "event": "login",
+  "status": "success",
+  "details": "token-acquired"
+}
+{
+  "timestamp": "2025-10-16 16:12:28",
+  "event": "detect_session",
+  "status": "success",
+  "details": "[{\"id\":7,\"content\":\"Chat session created\",\"messageType\":\"SYSTEM\",\"sentAt\":\"2025-10-16T13:51:09.960274\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":27,\"username\":\"system\",\"email\":\"system@visiomatix.com\",\"name\":\"System\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false},{\"id\":8,\"content\":\"Hi agent, I need help with my account.\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:51:11.219044\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":25,\"username\":\"defaultuser\",\"email\":\"default@example.com\",\"name\":\"Default User\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false},{\"id\":9,\"content\":\"Hello There\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:51:38.801245\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":26,\"username\":\"agent\",\"email\":\"agent@example.com\",\"name\":\"Support Agent\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false},{\"id\":10,\"content\":\"Hello There\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:52:15.033847\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":26,\"username\":\"agent\",\"email\":\"agent@example.com\",\"name\":\"Support Agent\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false},{\"id\":11,\"content\":\"Hi agent, I need help with my account.\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:59:30.617244\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":25,\"username\":\"defaultuser\",\"email\":\"default@example.com\",\"name\":\"Default User\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false},{\"id\":12,\"content\":\"Hi agent, I need help with my account.\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:59:38.606735\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":25,\"username\":\"defaultuser\",\"email\":\"default@example.com\",\"name\":\"Default User\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false},{\"id\":13,\"content\":\"Hello There\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:59:47.400835\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":26,\"username\":\"agent\",\"email\":\"agent@example.com\",\"name\":\"Support Agent\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false},{\"id\":14,\"content\":\"Hi agent, I need help with my account.\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T13:59:58.393292\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":25,\"username\":\"defaultuser\",\"email\":\"default@example.com\",\"name\":\"Default User\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false},{\"id\":15,\"content\":\"How may I help you\",\"messageType\":\"TEXT\",\"sentAt\":\"2025-10-16T14:00:11.527184\",\"deliveredAt\":null,\"readAt\":null,\"edited\":false,\"editedAt\":null,\"sender\":{\"id\":26,\"username\":\"agent\",\"email\":\"agent@example.com\",\"name\":\"Support Agent\",\"active\":true,\"roles\":[{\"id\":3,\"name\":\"ROLE_USER\",\"privileges\":[{\"id\":3,\"name\":\"MANAGE_CHAT\"}],\"permissions\":[]}],\"createdBy\":null,\"modifiedBy\":null,\"lastLoginAt\":null},\"delivered\":false,\"read\":false}]"
+}

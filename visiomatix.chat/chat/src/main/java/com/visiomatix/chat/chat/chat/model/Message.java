@@ -18,6 +18,8 @@ package com.visiomatix.chat.chat.chat.model;
 // ===========================================================
 import com.visiomatix.chat.chat.user.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -25,6 +27,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "messages")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 public class Message {
 
     // ===========================================================
@@ -61,8 +65,8 @@ public class Message {
     // ===========================================================
     // Relationship Mappings
     // ===========================================================
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY,optional=true)
+    @JoinColumn(name = "sender_id", nullable = true)
     private User sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -91,8 +95,11 @@ public class Message {
     public Message(String content, User sender, ChatSession chatSession) {
         this();
         this.content = content;
+        this.messageType = messageType;
+
         this.sender = sender;
         this.chatSession = chatSession;
+        this.sentAt = LocalDateTime.now();
     }
 
     public Message(String content, MessageType messageType, User sender, ChatSession chatSession) {
@@ -142,79 +149,23 @@ public class Message {
     // ===========================================================
     // Getters and Setters
     // ===========================================================
-    public Long getId() {
-        return id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public MessageType getMessageType() {
-        return messageType;
-    }
-
-    public void setMessageType(MessageType messageType) {
-        this.messageType = messageType;
-    }
-
-    public LocalDateTime getSentAt() {
-        return sentAt;
-    }
-
-    public void setSentAt(LocalDateTime sentAt) {
-        this.sentAt = sentAt;
-    }
-
-    public LocalDateTime getDeliveredAt() {
-        return deliveredAt;
-    }
-
-    public void setDeliveredAt(LocalDateTime deliveredAt) {
-        this.deliveredAt = deliveredAt;
-    }
-
-    public LocalDateTime getReadAt() {
-        return readAt;
-    }
-
-    public void setReadAt(LocalDateTime readAt) {
-        this.readAt = readAt;
-    }
-
-    public boolean isEdited() {
-        return edited;
-    }
-
-    public void setEdited(boolean edited) {
-        this.edited = edited;
-    }
-
-    public LocalDateTime getEditedAt() {
-        return editedAt;
-    }
-
-    public void setEditedAt(LocalDateTime editedAt) {
-        this.editedAt = editedAt;
-    }
-
-    public User getSender() {
-        return sender;
-    }
-
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
-
-    public ChatSession getChatSession() {
-        return chatSession;
-    }
-
-    public void setChatSession(ChatSession chatSession) {
-        this.chatSession = chatSession;
-    }
+    public Long getId() {        return id;    }
+    public String getContent() {        return content;    }
+    public void setContent(String content) {        this.content = content;    }
+    public MessageType getMessageType() {        return messageType;    }
+    public void setMessageType(MessageType messageType) {        this.messageType = messageType;    }
+    public LocalDateTime getSentAt() {        return sentAt;    }
+    public void setSentAt(LocalDateTime sentAt) {        this.sentAt = sentAt;    }
+    public LocalDateTime getDeliveredAt() {        return deliveredAt;    }
+    public void setDeliveredAt(LocalDateTime deliveredAt) {        this.deliveredAt = deliveredAt;    }
+    public LocalDateTime getReadAt() {        return readAt;    }
+    public void setReadAt(LocalDateTime readAt) {        this.readAt = readAt;    }
+    public boolean isEdited() {        return edited;    }
+    public void setEdited(boolean edited) {        this.edited = edited;    }
+    public LocalDateTime getEditedAt() {        return editedAt;    }
+    public void setEditedAt(LocalDateTime editedAt) {        this.editedAt = editedAt;    }
+    public User getSender() {        return sender;    }
+    public void setSender(User sender) {        this.sender = sender;    }
+    public ChatSession getChatSession() {        return chatSession;    }
+    public void setChatSession(ChatSession chatSession) {        this.chatSession = chatSession;    }
 }

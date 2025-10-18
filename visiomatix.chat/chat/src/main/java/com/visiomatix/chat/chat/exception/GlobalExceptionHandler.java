@@ -46,7 +46,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-
+import org.slf4j.*;
 // ============================================================
 // Class Declaration
 // ============================================================
@@ -58,6 +58,8 @@ import org.springframework.web.context.request.WebRequest;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     // ============================================================
     // Handle all RuntimeExceptions

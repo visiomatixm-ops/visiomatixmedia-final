@@ -458,6 +458,530 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_0015",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/start",
+			"name": "Start Chat Session",
+			"description": "Start or retrieve a chat session between two users",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n    \"sender\": \"{{ _.chat_user1 }}\",\n    \"receiver\": \"{{ _.chat_user2 }}\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760572700000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0016",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/send",
+			"name": "Send Message",
+			"description": "Send a message using ChatMessagePayload",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n    \"sender\": \"{{ _.chat_user1 }}\",\n    \"receiver\": \"{{ _.chat_user2 }}\",\n    \"content\": \"Hello, how are you?\",\n    \"messageType\": \"TEXT\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760572600000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0017",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/history?sender={{ _.chat_user1 }}&receiver={{ _.chat_user2 }}",
+			"name": "Get Chat History",
+			"description": "Get chat history between two users",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760572500000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0018",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/session/{{ _.session_id }}/messages?page=0&size=50",
+			"name": "Get Session Messages",
+			"description": "Get paginated messages for a specific chat session",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760572400000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0019",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/sessions",
+			"name": "Get User Sessions",
+			"description": "Get all active chat sessions for the authenticated user",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760572300000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0020",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/sessions",
+			"name": "Create Chat Session",
+			"description": "Create a new chat session",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n    \"sessionName\": \"Group Chat\",\n    \"sessionType\": \"AGENT_CLIENT\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760572200000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0021",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/sessions/{{ _.session_id }}",
+			"name": "Get Session Details",
+			"description": "Get details of a specific chat session",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760572100000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0022",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/sessions/{{ _.session_id }}/participants/{{ _.participant_id }}",
+			"name": "Add Participant",
+			"description": "Add a participant to a chat session",
+			"method": "POST",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760572000000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0023",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/sessions/{{ _.session_id }}",
+			"name": "Close Session",
+			"description": "Close/deactivate a chat session",
+			"method": "DELETE",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760571900000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0024",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/sessions/{{ _.session_id }}/messages/recent?limit=10",
+			"name": "Get Recent Messages",
+			"description": "Get recent messages for quick loading",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760571800000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0025",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/sessions/{{ _.session_id }}/messages/mark-read",
+			"name": "Mark Messages Read",
+			"description": "Mark all messages as read in a session",
+			"method": "POST",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760571700000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0026",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/sessions/{{ _.session_id }}/unread-count",
+			"name": "Get Unread Count",
+			"description": "Get count of unread messages in a session",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760571600000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0027",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/sessions/{{ _.session_id }}/messages/search?query=hello",
+			"name": "Search Messages",
+			"description": "Search messages containing specific text",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760571500000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0028",
+			"parentId": "fld_chat",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/sessions/{{ _.session_id }}/messages",
+			"name": "Send Message to Session",
+			"description": "Send a message directly to a specific session",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n    \"content\": \"This is a test message\",\n    \"messageType\": \"TEXT\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760571400000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0029",
+			"parentId": "fld_chat_admin",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/admin/statistics",
+			"name": "Get Chat Statistics",
+			"description": "Get chat statistics for admin dashboard",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760571300000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0030",
+			"parentId": "fld_chat_admin",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"url": "{{ _.base_url }}/api/chat/admin/active-sessions-count",
+			"name": "Get Active Sessions Count",
+			"description": "Get count of active chat sessions",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ _.jwt_token }}"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1760571200000,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
 			"_id": "fld_auth",
 			"parentId": "wrk_main",
 			"modified": 1697270400000,
@@ -506,6 +1030,30 @@
 			"_type": "request_group"
 		},
 		{
+			"_id": "fld_chat",
+			"parentId": "wrk_main",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"name": "Chat Management",
+			"description": "Chat session and message management endpoints",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1760572800000,
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_chat_admin",
+			"parentId": "wrk_main",
+			"modified": 1760572800000,
+			"created": 1760572800000,
+			"name": "Chat Admin",
+			"description": "Chat administration and statistics endpoints",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1760572700000,
+			"_type": "request_group"
+		},
+		{
 			"_id": "fld_test",
 			"parentId": "wrk_main",
 			"modified": 1697270400000,
@@ -523,7 +1071,7 @@
 			"modified": 1697270400000,
 			"created": 1697270400000,
 			"name": "Visiomatix Chat API",
-			"description": "Complete API collection for Visiomatix Chat application with JWT authentication, user management, role management, and permission management.",
+			"description": "Complete API collection for Visiomatix Chat application with JWT authentication, user management, role management, permission management, and comprehensive chat functionality.",
 			"scope": "collection",
 			"_type": "workspace"
 		},
@@ -545,13 +1093,17 @@
 				"user_id": "1",
 				"role_id": "1",
 				"permission_id": "1",
-				"jwt_token": ""
+				"jwt_token": "",
+				"chat_user1": "user1",
+				"chat_user2": "user2",
+				"session_id": "1",
+				"participant_id": "2"
 			},
 			"dataPropertyOrder": {
 				"&": [
 					"base_url",
 					"test_username",
-					"test_email", 
+					"test_email",
 					"test_password",
 					"test_name",
 					"login_username",
@@ -560,7 +1112,11 @@
 					"user_id",
 					"role_id",
 					"permission_id",
-					"jwt_token"
+					"jwt_token",
+					"chat_user1",
+					"chat_user2",
+					"session_id",
+					"participant_id"
 				]
 			},
 			"color": null,

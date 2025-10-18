@@ -45,6 +45,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -158,5 +159,32 @@ public class UserServiceImpl implements UserService {
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    // ===========================================================
+    // Get or create system user
+    // ===========================================================
+    @Transactional
+    @Override
+    public User getOrCreateSystemUser() {
+        String systemUsername = "system";
+        Optional<User> existingSystemUser = userRepository.findByUsername(systemUsername);
+        if (existingSystemUser.isPresent()) {
+            return existingSystemUser.get();
+        }
+
+        // Create system user if not exists
+        User systemUser = new User();
+        systemUser.setUsername(systemUsername);
+        systemUser.setEmail("system@visiomatix.com");
+        systemUser.setName("System");
+        systemUser.setPassword(passwordEncoder.encode("system")); // Dummy password, not used for login
+
+        // Assign a default role, e.g., ROLE_SYSTEM or ROLE_USER
+        Role role = roleRepository.findByName("ROLE_USER")
+                .orElseThrow(() -> new RuntimeException("Default role not found"));
+        systemUser.setRoles(Set.of(role));
+
+        return userRepository.save(systemUser);
     }
 }

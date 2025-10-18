@@ -60,7 +60,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry
             .addEndpoint("/ws-chat")                    // Main WebSocket connection endpoint
             .addInterceptors(new HttpSessionHandshakeInterceptor())
-            .setAllowedOriginPatterns("*")              // Allow all origins for dev
+            .setAllowedOriginPatterns(
+                            "http://localhost:5173",
+                            "http://localhost:5174",
+                            "http://127.0.0.1:*",
+                            "http://localhost:3000"
+                        )
             .withSockJS();                              // Enables SockJS fallback for browsers without WS support
     }
 
@@ -73,7 +78,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     // ===========================================================
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/topic");  // Enables simple in-memory broker
+        registry.enableSimpleBroker("/topic","/queue");  // Enables simple in-memory broker
         registry.setApplicationDestinationPrefixes("/app"); // Prefix for messages sent from client
     }
 

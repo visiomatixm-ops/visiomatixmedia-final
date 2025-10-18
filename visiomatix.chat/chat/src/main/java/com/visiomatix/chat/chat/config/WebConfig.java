@@ -17,7 +17,12 @@ package com.visiomatix.chat.chat.config;
 // ===========================================================
 // Import Statements
 // ===========================================================
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration; // Marks this class as a configuration bean
+import java.util.List;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry; // Used to define CORS rules
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer; // Interface for customizing Spring MVC configuration
 
@@ -46,9 +51,42 @@ public class WebConfig implements WebMvcConfigurer {
         // - Support credentials (cookies, authorization headers)
         // =======================================================
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173") // Update this for your deployed frontend URL
+                // Allow both local dev frontends + deployed domains
+                .allowedOriginPatterns("http://localhost:5173", "http://localhost:5174", "http://127.0.0.1:*", "http://localhost:3000", "http://localhost:5173/")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .allowCredentials(true);
+                .exposedHeaders("Authorization")
+                .allowCredentials(true)
+                .maxAge(3600);
+    }
+
+
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+
+        // Allow both your React apps
+        config.setAllowedOrigins(List.of(
+            "http://localhost:5173",
+            "http://localhost:5174",
+            "http://127.0.0.1:5173",
+            "http://127.0.0.1:5174"
+        ));
+
+        // Allow necessary HTTP methods
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // Allow necessary headers (including Authorization)
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Cache-Control"));
+
+        // Allow sending credentials (JWT or cookies)
+        config.setAllowCredentials(true);
+
+        // Cache preflight responses for 1 hour
+        config.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 }

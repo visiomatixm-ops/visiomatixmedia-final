@@ -19,10 +19,14 @@ package com.visiomatix.chat.chat.user.model;
 import jakarta.persistence.*; // For entity annotations
 import java.time.LocalDateTime; // For timestamps
 import java.util.Set; // For role relationships
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty; // Control JSON serialization
 
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 public class User {
 
     // ===========================================================

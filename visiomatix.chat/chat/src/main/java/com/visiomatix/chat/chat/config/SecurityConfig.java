@@ -82,6 +82,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+          .cors()
+          .and()
             // Disable CSRF for API usage
             .csrf(csrf -> csrf.disable())
 
@@ -98,7 +100,7 @@ public class SecurityConfig {
                 // Permit registration and login endpoints
                 .requestMatchers("/api/users/register", "/api/users/login").permitAll()
                 // Optional: permit WebSocket handshake if using JWT over STOMP
-                .requestMatchers("/ws/**").permitAll()
+                .requestMatchers("/ws/**", "/ws-chat/**").permitAll()
                 // Permit H2 console during dev (optional)
                 .requestMatchers("/h2-console/**").permitAll()
                 // Require authentication for all others

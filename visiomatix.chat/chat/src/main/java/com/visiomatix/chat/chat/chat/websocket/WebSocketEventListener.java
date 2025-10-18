@@ -60,7 +60,10 @@ public class WebSocketEventListener {
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        String username = (String) headerAccessor.getSessionAttributes().get("username");
+        String username = null;
+        if (headerAccessor.getSessionAttributes() != null) {
+            username = (String) headerAccessor.getSessionAttributes().get("username");
+        }
 
         log.info("🔗 WebSocket connected: {}", username != null ? username : "Anonymous");
         messagingTemplate.convertAndSend("/topic/system", "User connected at " + LocalDateTime.now());
@@ -72,7 +75,10 @@ public class WebSocketEventListener {
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        String username = (String) headerAccessor.getSessionAttributes().get("username");
+        String username = null;
+        if (headerAccessor.getSessionAttributes() != null) {
+            username = (String) headerAccessor.getSessionAttributes().get("username");
+        }
 
         log.info("❌ WebSocket disconnected: {}", username != null ? username : "Anonymous");
         messagingTemplate.convertAndSend("/topic/system", "User disconnected at " + LocalDateTime.now());

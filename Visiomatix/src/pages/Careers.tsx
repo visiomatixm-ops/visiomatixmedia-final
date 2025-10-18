@@ -22,6 +22,28 @@ import {
 import { PlusCircle } from "react-bootstrap-icons";
 
 // ===========================================================
+// Type Definitions
+// ===========================================================
+interface School {
+  name: string;
+  year: string;
+  percentage: string;
+}
+
+interface College {
+  name: string;
+  degree: string;
+  year: string;
+  cgpa: string;
+}
+
+interface Experience {
+  company: string;
+  role: string;
+  years: string;
+}
+
+// ===========================================================
 // Component: Careers
 // ===========================================================
 const Careers: React.FC = () => {
@@ -43,9 +65,9 @@ const Careers: React.FC = () => {
   // --------------------------------------
   // Dynamic data arrays
   // --------------------------------------
-  const [schools, setSchools] = useState([{ name: "", year: "", percentage: "" }]);
-  const [colleges, setColleges] = useState([{ name: "", degree: "", year: "", cgpa: "" }]);
-  const [experiences, setExperiences] = useState([{ company: "", role: "", years: "" }]);
+  const [schools, setSchools] = useState<School[]>([{ name: "", year: "", percentage: "" }]);
+  const [colleges, setColleges] = useState<College[]>([{ name: "", degree: "", year: "", cgpa: "" }]);
+  const [experiences, setExperiences] = useState<Experience[]>([{ company: "", role: "", years: "" }]);
 
   // --------------------------------------
   // Job listing data
@@ -84,24 +106,29 @@ const Careers: React.FC = () => {
   // ===========================================================
   // Handlers
   // ===========================================================
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+const handleChange = (e: React.ChangeEvent<any>) => {
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+};
 
   const handleDynamicChange = (
     type: "schools" | "colleges" | "experiences",
     index: number,
-    field: string,
+    field: keyof School | keyof College | keyof Experience,
     value: string
   ) => {
-    const stateSetter =
-      type === "schools" ? setSchools : type === "colleges" ? setColleges : setExperiences;
-    const currentData =
-      type === "schools" ? [...schools] : type === "colleges" ? [...colleges] : [...experiences];
-    currentData[index][field] = value;
-    stateSetter(currentData);
+    if (type === "schools") {
+      const updatedSchools = [...schools];
+      updatedSchools[index] = { ...updatedSchools[index], [field]: value };
+      setSchools(updatedSchools);
+    } else if (type === "colleges") {
+      const updatedColleges = [...colleges];
+      updatedColleges[index] = { ...updatedColleges[index], [field]: value };
+      setColleges(updatedColleges);
+    } else if (type === "experiences") {
+      const updatedExperiences = [...experiences];
+      updatedExperiences[index] = { ...updatedExperiences[index], [field]: value };
+      setExperiences(updatedExperiences);
+    }
   };
 
   const handleAddField = (type: "schools" | "colleges" | "experiences") => {

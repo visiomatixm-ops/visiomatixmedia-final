@@ -1,109 +1,121 @@
-#!/bin/bash
-# ===========================================================
-# File: agent_session.sh
-# Author: Viral Prajapati
-# Date: 14-Oct-2025
-# Description:
-#   Simulates Agent user login and waits for chat sessions
-#   - Logs in as agent
-#   - Polls for new chat sessions every few seconds
-#   - Displays and replies to user messages in the active session
-# ===========================================================
+#!/usr/bin/env bash
+set -euo pipefail
 
-BASE_URL="http://localhost:8080"
+# agent_user_chat.sh
+# Phase-1 ready: login as agent, wait for session/history, poll messages, allow reply (sends via /api/chat/send)
+# Produces: logs/agent_user-YYYYMMDD.log and logs/agent_user-YYYYMMDD.json
+
+API="http://localhost:8080/api"
 USERNAME="agent"
 PASSWORD="agent123"
-EMAIL="agent@example.com"
-NAME="Support Agent"
+POLL_INTERVAL=3
+RETRY=6
+RETRY_WAIT=2
+LOG_DIR="./logs"
+mkdir -p "$LOG_DIR"
 
-echo "=== Agent Chat Session ==="
+timestamp() { date +"%Y-%m-%d %H:%M:%S"; }
+file_ts()   { date +"%Y%m%d"; }
 
-# -----------------------------------------------------------
-# Function to make authorized API calls
-# -----------------------------------------------------------
-api_call() {
-  local method=$1
-  local endpoint=$2
-  local data=$3
-  local token=$4
+LOG_FILE="$LOG_DIR/agent_user-$(file_ts).log"
+JSON_FILE="$LOG_DIR/agent_user-$(file_ts).json"
 
-  if [ "$method" = "GET" ]; then
-    curl -s -X $method "$BASE_URL$endpoint" \
-      -H "Authorization: Bearer $token" \
-      -H "Content-Type: application/json"
-  else
-    curl -s -X $method "$BASE_URL$endpoint" \
-      -H "Authorization: Bearer $token" \
-      -H "Content-Type: application/json" \
-      -d "$data"
-  fi
+C_INFO="\033[1;34m"
+C_SUCCESS="\033[1;32m"
+C_ERROR="\033[1;31m"
+C_RESET="\033[0m"
+
+log()    { echo -e "${C_INFO}[INFO]${C_RESET} $(timestamp) $1"; printf "%s %s\n" "$(timestamp)" "$1" >> "$LOG_FILE"; }
+success(){ echo -e "${C_SUCCESS}[SUCCESS]${C_RESET} $(timestamp) $1"; printf "%s %s\n" "$(timestamp)" "$1" >> "$LOG_FILE"; }
+error()  { echo -e "${C_ERROR}[ERROR]${C_RESET} $(timestamp) $1"; printf "%s %s\n" "$(timestamp)" "$1" >> "$LOG_FILE"; }
+
+json_write() {
+  jq -n --arg ts "$(timestamp)" --arg e "$1" --arg s "$2" --arg d "$3" \
+    '{timestamp:$ts,event:$e,status:$s,details:$d}' >> "$JSON_FILE"
 }
 
-# -----------------------------------------------------------
-# Step 1 - Login as agent (register if missing)
-# -----------------------------------------------------------
-echo "[1/3] Logging in as agent..."
-LOGIN_RESPONSE=$(curl -s -X POST "$BASE_URL/api/users/login" \
-  -H "Content-Type: application/json" \
-  -d "{\"username\": \"$USERNAME\", \"password\": \"$PASSWORD\"}")
-
-AGENT_TOKEN=$(echo $LOGIN_RESPONSE | jq -r '.token // empty')
-
-if [ -z "$AGENT_TOKEN" ] || [ "$AGENT_TOKEN" = "null" ]; then
-  echo "⚠️ Agent not found, registering..."
-  REGISTER_RESPONSE=$(curl -s -X POST "$BASE_URL/api/users/register" \
-    -H "Content-Type: application/json" \
-    -d "{\"username\": \"$USERNAME\", \"email\": \"$EMAIL\", \"password\": \"$PASSWORD\", \"name\": \"$NAME\", \"active\": true}")
-
-  LOGIN_RESPONSE=$(curl -s -X POST "$BASE_URL/api/users/login" \
-    -H "Content-Type: application/json" \
-    -d "{\"username\": \"$USERNAME\", \"password\": \"$PASSWORD\"}")
-  AGENT_TOKEN=$(echo $LOGIN_RESPONSE | jq -r '.token // empty')
-fi
-
-if [ -z "$AGENT_TOKEN" ] || [ "$AGENT_TOKEN" = "null" ]; then
-  echo "❌ Agent login failed!"
+if ! command -v jq >/dev/null 2>&1; then
+  echo -e "${C_ERROR}[ERROR]${C_RESET} $(timestamp) 'jq' is required. Install jq and re-run." >&2
   exit 1
 fi
 
-echo "✅ Agent logged in successfully."
+echo "=== Starting Agent Chat CLI ===" | tee -a "$LOG_FILE"
+log "Logging in as $USERNAME"
 
-# -----------------------------------------------------------
-# Step 2 - Wait for active sessions
-# -----------------------------------------------------------
-echo "[2/3] Waiting for active chat sessions..."
-LAST_SESSION_ID=""
+# login retries
+count=0
+TOKEN=""
+while [ $count -lt $RETRY ]; do
+  R=$(curl -sS -X POST "$API/users/login" -H "Content-Type: application/json" \
+    -d "{\"username\":\"$USERNAME\",\"password\":\"$PASSWORD\"}" ) || true
 
-while true; do
-  SESSIONS=$(api_call GET "/api/chat/sessions" "" "$AGENT_TOKEN")
-  SESSION_COUNT=$(echo $SESSIONS | jq '. | length')
-
-  if [ "$SESSION_COUNT" -gt 0 ]; then
-    SESSION_ID=$(echo $SESSIONS | jq -r '.[0].id')
-    if [ "$SESSION_ID" != "$LAST_SESSION_ID" ]; then
-      echo "💬 Found session ID: $SESSION_ID"
-      LAST_SESSION_ID=$SESSION_ID
-    fi
-
-    # Fetch recent messages
-    MESSAGES=$(api_call GET "/api/chat/sessions/$SESSION_ID/messages/recent?limit=5" "" "$AGENT_TOKEN")
-    echo "$MESSAGES" | jq -r '.[] | "\(.sender.name): \(.content)"'
-
-    echo
-    read -p "$NAME: " agent_msg
-    if [ "$agent_msg" = "quit" ]; then
-      echo "👋 Ending session."
-      exit 0
-    fi
-
-    if [ -n "$agent_msg" ]; then
-      api_call POST "/api/chat/sessions/$SESSION_ID/messages" \
-        "{\"content\": \"$agent_msg\", \"messageType\": \"TEXT\"}" \
-        "$AGENT_TOKEN" >/dev/null
-      echo "✅ Message sent."
-    fi
+  TOKEN=$(echo "$R" | jq -r '.token // empty' || true)
+  if [[ -n "$TOKEN" ]]; then
+    success "Login successful. Token acquired."
+    json_write "login" "success" "token-acquired"
+    break
   else
-    echo "⏳ Waiting for new chat session..."
-    sleep 3
+    error "Login attempt $((count+1)) failed: $(echo "$R" | jq -c '.' 2>/dev/null || echo "$R")"
+    json_write "login" "failure" "$(echo "$R" | jq -c '.' 2>/dev/null || echo "$R")"
+    count=$((count+1)); sleep $RETRY_WAIT
+  fi
+done
+
+if [[ -z "$TOKEN" ]]; then
+  error "All login attempts failed. Exiting."
+  exit 2
+fi
+
+# WAIT for session between agent and defaultuser by polling history
+log "Waiting for chat session with defaultuser..."
+while true; do
+  HIST=$(curl -sS -H "Authorization: Bearer $TOKEN" \
+    "$API/chat/history?sender=agent&receiver=defaultuser" ) || true
+
+  # Expect [] (no messages) or array
+  # If session exists but no messages, the controller returns [] per current impl
+  if [[ "$HIST" != "[]" && -n "$HIST" ]]; then
+    success "Detected chat history / session between agent and defaultuser"
+    printf "%s\n" "$HIST" | jq '.' >> "$LOG_FILE" 2>/dev/null || true
+    json_write "detect_session" "success" "$(echo "$HIST" | jq -c '.' 2>/dev/null || echo "$HIST")"
+    break
+  fi
+
+  # poll until default user creates session + sends a message
+  sleep $POLL_INTERVAL
+done
+
+# Enter simple REPL for sending messages
+success "You may type replies now. Press Ctrl+C to quit."
+while true; do
+  printf "\n${C_INFO}[AGENT]${C_RESET} Type message: "
+  if ! read -r MSG; then
+    echo; error "Input closed. Exiting."; exit 0
+  fi
+  [[ -z "${MSG// }" ]] && { log "Empty message ignored."; continue; }
+
+  PAYLOAD=$(jq -n --arg s "$USERNAME" --arg r "defaultuser" --arg c "$MSG" '{sender:$s,receiver:$r,content:$c,messageType:"TEXT"}')
+  S_RESP=$(curl -sS -X POST "$API/chat/send" \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: application/json" \
+    -d "$PAYLOAD" ) || true
+
+  MID=$(echo "$S_RESP" | jq -r '.id // empty' || true)
+  if [[ -n "$MID" ]]; then
+    success "Message sent id=$MID"
+    json_write "send_message" "success" "$(echo "$S_RESP" | jq -c '.')"
+  else
+    error "Failed to send message: $(echo "$S_RESP" | jq -c '.' 2>/dev/null || echo "$S_RESP")"
+    json_write "send_message" "failure" "$(echo "$S_RESP" | jq -c '.' 2>/dev/null || echo "$S_RESP")"
+  fi
+
+  # fetch recent history to show to agent
+  log "Fetching latest history..."
+  LATEST=$(curl -sS -H "Authorization: Bearer $TOKEN" \
+    "$API/chat/history?sender=agent&receiver=defaultuser" ) || true
+
+  if [[ -n "$LATEST" ]]; then
+    echo "$LATEST" | jq -r '.[] | "\(.sentAt) \(.sender.username): \(.content)"' 2>/dev/null || echo "$LATEST"
+    printf "%s\n" "$LATEST" | jq '.' >> "$LOG_FILE" 2>/dev/null || true
   fi
 done

@@ -19,6 +19,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Logo2PNG from "/logo/Logo2PNG.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import AuthModal from './AuthModal'; // Auth modal component (created above)
 
 // ✅ Correctly load Orbitron font for the logo
 const fontLink = document.createElement("link");
@@ -142,12 +143,26 @@ const Menu: React.FC = () => {
                         </AnimatePresence>
                       </>
                     )}
+                    
                   </NavLink>
                 </li>
               ))}
             </ul>
+          <div className="d-flex align-items-center ms-3">
+              <button
+                type="button"
+                className="btn btn-primary cta-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#authModal"
+              >
+                Agent Login
+              </button>
+              </div>
           </div>
         </div>
+              {/* Render modal so it exists in DOM. */}
+      <AuthModal />
+
       </motion.nav>
 
       {/* ========================================================= */}
@@ -208,6 +223,9 @@ const Menu: React.FC = () => {
           .navbar-brand:hover h1 {
             transform: scale(1.05);
           }
+            .modal-backdrop.fade.show {
+               z-index: 2;
+            }
         `}
       </style>
     </>
