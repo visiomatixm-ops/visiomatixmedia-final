@@ -42,9 +42,12 @@ import com.visiomatix.chat.chat.user.repository.RoleRepository;
 import com.visiomatix.chat.chat.user.repository.UserRepository;
 import com.visiomatix.chat.chat.user.util.JwtUtil;
 import jakarta.transaction.Transactional;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -186,5 +189,102 @@ public class UserServiceImpl implements UserService {
         systemUser.setRoles(Set.of(role));
 
         return userRepository.save(systemUser);
+    }
+
+    // ===========================================================
+    // Get user by ID
+    // ===========================================================
+    @Override
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    // ===========================================================
+    // Admin: Get all users
+    // ===========================================================
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    // ===========================================================
+    // Admin: Assign role to user
+    // ===========================================================
+    @Transactional
+    @Override
+    public User assignRoleToUser(Long userId, Long roleId, String modifiedBy) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+
+        user.getRoles().add(role);
+        user.setModifiedBy(modifiedBy);
+        return userRepository.save(user);
+    }
+
+    // ===========================================================
+    // Admin: Remove role from user
+    // ===========================================================
+    @Transactional
+    @Override
+    public User removeRoleFromUser(Long userId, Long roleId, String modifiedBy) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+
+        user.getRoles().remove(role);
+        user.setModifiedBy(modifiedBy);
+        return userRepository.save(user);
+    }
+
+    // ===========================================================
+    // Admin: Create user with audit trail
+    // ===========================================================
+    @Transactional
+    @Override
+    public User createUser(UserDTO userDTO, String createdBy) {
+        if (userRepository.findByUsername(userDTO.getUsername()).isPresent())
+            throw new RuntimeException("Username already exists");
+
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+        user.setName(userDTO.getName());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setCreatedBy(createdBy);
+
+        final String roleName;
+        if (userDTO.getRoles() != null && !userDTO.getRoles().isEmpty()) {
+            roleName = userDTO.getRoles().iterator().next().getName();
+        } else {
+            roleName = "ROLE_AGENT"; // Default role for admin-created users
+        }
+        Role role = roleRepository.findByName(roleName)
+                .orElseThrow(() -> new RuntimeException("Role not found: " + roleName));
+
+        user.setRoles(Set.of(role));
+        return userRepository.save(user);
+    }
+
+    // ===========================================================
+    // Security helper: Check if current user matches ID
+    // ===========================================================
+    @Override
+    public boolean isCurrentUser(Long userId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return false;
+        }
+
+        String currentUsername = authentication.getName();
+        try {
+            User currentUser = getUserByUsername(currentUsername);
+            return currentUser.getId().equals(userId);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

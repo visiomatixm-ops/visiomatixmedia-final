@@ -11,6 +11,7 @@
  *   - Parallax hero background motion
  *   - Staggered reveal of heading, line, and paragraph
  *   - Optimized responsive layout with contained images
+ *   - SEO-optimized, descriptive service content for digital marketing and creative media
  * ===========================================================
  */
 
@@ -29,43 +30,43 @@ const Services: React.FC = () => {
       image: "/services/editing.webp",
       title: "Video Editing",
       description:
-        "Our expert editors craft professional-grade visuals that captivate your audience. Using cutting-edge tools like Premiere Pro and DaVinci Resolve, we enhance storytelling through seamless transitions, color grading, and cinematic effects.",
+        "Transform raw footage into professional, cinematic-quality videos with our expert video editing services. Utilizing industry-standard tools like Adobe Premiere Pro and DaVinci Resolve, we enhance storytelling through precise color grading, smooth transitions, motion effects, and sound design. Perfect for marketing campaigns, brand storytelling, YouTube content, and corporate videos, our editing services help your content stand out and captivate audiences.",
     },
     {
       image: "/services/animation.jpg",
       title: "2D/3D Animation",
       description:
-        "Bring your ideas to life with dynamic 2D and 3D animations. We create visually engaging advertisements, explainer videos, and character-driven storytelling for impactful communication.",
+        "Bring imagination to life with our high-quality 2D and 3D animation services. We create engaging explainer videos, animated commercials, and character-driven storytelling for brands, startups, and enterprises. Our animations not only attract attention but also improve brand recall and simplify complex messages, making your communication both entertaining and effective.",
     },
     {
       image: "/services/branding.jpg",
       title: "Brand Design",
       description:
-        "Your brand is your identity — we ensure it’s memorable. From logos and color palettes to typography and tone, we build identities that resonate and endure.",
+        "Build a powerful and memorable brand identity with our branding services. From logos, typography, and color palettes to complete brand guidelines, we craft cohesive visual systems that resonate with your target audience. Our branding solutions focus on enhancing recognition, credibility, and trust, ensuring your brand stands out in competitive markets.",
     },
     {
       image: "/services/photography.jpg",
       title: "Photography",
       description:
-        "Capture moments that matter. We specialize in product, portrait, and event photography with professional direction and precision lighting.",
+        "Capture the essence of your brand, products, or events with professional photography. Our team specializes in product photography, lifestyle shoots, corporate portraits, and event coverage. With attention to lighting, composition, and storytelling, we create visually compelling images that strengthen your brand identity and increase engagement across digital channels.",
     },
     {
       image: "/services/videography.png",
       title: "Videography",
       description:
-        "Our videographers transform visuals into stories. From corporate events to cinematic reels, every frame reflects your brand’s essence.",
+        "Deliver cinematic storytelling through our expert videography services. We cover corporate events, product launches, promotional campaigns, and creative content production. Every frame is crafted to engage your audience, reflect your brand’s identity, and leave a lasting impression that drives visibility and growth.",
     },
     {
       image: "/services/webdesign.jpg",
       title: "Web Design",
       description:
-        "We design responsive, aesthetic, and user-friendly websites that align with your brand’s goals and modern digital standards.",
+        "Design impactful, responsive, and visually striking websites that enhance user experience and drive conversions. We specialize in creating user-friendly interfaces, intuitive navigation, and seamless mobile optimization. Each website is strategically designed to reflect your brand identity, attract visitors, and convert them into loyal customers.",
     },
     {
       image: "/services/motion.jpg",
       title: "Motion Graphics",
       description:
-        "Engage your audience with fluid and dynamic visuals. We merge design and animation to create sleek motion graphics for digital storytelling.",
+        "Bring your brand to life with dynamic motion graphics that communicate ideas effectively. We design animations for social media, presentations, advertisements, and explainer videos. By combining design, movement, and storytelling, our motion graphics help increase engagement, retention, and brand awareness across multiple platforms.",
     },
   ];
 
@@ -126,7 +127,17 @@ const Services: React.FC = () => {
         ></div>
 
         {/* Staggered reveal text block */}
-        <div className="position-relative z-3">
+        <div className="position-relative z-3" 
+                style={{
+                  position: "relative",
+                  zIndex: 2,
+                  backgroundColor: "rgba(255, 255, 255, 0.15)",
+                  borderRadius: "12px",
+                  width:"90%",
+                  padding:"1em",
+                  backdropFilter: "blur(5px)",
+                }}
+        >
           <motion.h1
             className="display-5 fw-bold"
             variants={textVariants}
@@ -155,7 +166,27 @@ const Services: React.FC = () => {
             viewport={{ once: true }}
             custom={2}
           >
-            Transforming your ideas into powerful visual experiences.
+          Explore our comprehensive range of creative and digital services, thoughtfully designed to elevate your brand presence across multiple platforms. From innovative graphic design and visually striking branding solutions to data-driven digital marketing strategies, we help you connect with your target audience and boost engagement at every touchpoint.
+                </motion.p>
+        <motion.p
+            className="lead"
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={2}
+          >      
+          Our services are crafted to deliver measurable results, whether online or offline. Leverage our expertise in website design and development, social media marketing, search engine optimization (SEO), content creation, and multimedia campaigns to ensure your brand not only stands out but also drives conversions and business growth.
+                </motion.p>
+        <motion.p
+            className="lead"
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={2}
+          >   
+          Partner with us to transform your ideas into impactful campaigns, increase visibility, and maximize ROI through tailored strategies that resonate with your audience and strengthen your market presence.
           </motion.p>
         </div>
       </section>
@@ -186,7 +217,7 @@ const Services: React.FC = () => {
             >
               <img
                 src={service.image}
-                alt={service.title}
+                alt={service.title + " - Professional Service by Visiomatix Media"}
                 className="img-fluid rounded shadow-lg"
                 style={{
                   width: "100%",
@@ -254,10 +285,12 @@ const Services: React.FC = () => {
         >
           <h2 className="fw-bold mb-3">Why Choose Visiomatix Media?</h2>
           <p className="w-75 mx-auto">
-            We go beyond visuals — we deliver experiences. Our multidisciplinary
-            team ensures that every project aligns with your goals, reflects
-            your vision, and connects with your audience. Creativity, precision,
-            and professionalism define every service we offer.
+            At Visiomatix Media, we combine creativity, technology, and strategy
+            to deliver outstanding digital solutions. From conceptualization to
+            execution, every service is designed to enhance brand identity,
+            increase audience engagement, and generate measurable business
+            results. Partner with us to transform ideas into compelling visual
+            experiences that leave a lasting impact.
           </p>
         </motion.div>
       </section>

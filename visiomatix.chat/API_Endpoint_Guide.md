@@ -429,6 +429,7 @@ curl -X GET http://localhost:8080/api/users/apitest \
 2. **Role-Based Access**: Different endpoints require different roles
 3. **Password Security**: Passwords are never returned in API responses
 4. **CORS**: Configured for cross-origin requests
+5. **Admin Access Control**: `/api/admin/**` endpoints require `ROLE_ADMIN` role
 
 ## 🧪 Quick Test Script
 
@@ -977,5 +978,362 @@ curl -X GET "http://localhost:8080/api/chat/session/1/messages?page=0&size=20" \
 
 ---
 
+## 👑 Admin Management APIs (Phase 6)
+
+### 29. Get All Users (Admin Only)
+**Endpoint**: `GET /api/admin/users`
+**Access**: Admin Only (`ROLE_ADMIN`)
+**Description**: Retrieve all users in the system for administrative management
+
+**Curl Command**:
+```bash
+curl -X GET http://localhost:8080/api/admin/users \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+**Expected Response**:
+```json
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "email": "admin@example.com",
+    "name": "System Admin",
+    "active": true,
+    "roles": [
+      {
+        "id": 1,
+        "name": "ROLE_ADMIN",
+        "privileges": [],
+        "permissions": []
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "username": "agent",
+    "email": "agent@example.com",
+    "name": "Support Agent",
+    "active": true,
+    "roles": [
+      {
+        "id": 2,
+        "name": "ROLE_AGENT",
+        "privileges": [],
+        "permissions": []
+      }
+    ]
+  }
+]
+```
+
+### 30. Assign Role to User
+**Endpoint**: `POST /api/admin/users/{userId}/assign-role/{roleId}`
+**Access**: Admin Only
+**Description**: Assign a specific role to a user
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/admin/users/2/assign-role/1 \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+**Expected Response**: Updated user object with new role assigned
+
+### 31. Remove Role from User
+**Endpoint**: `POST /api/admin/users/{userId}/remove-role/{roleId}`
+**Access**: Admin Only
+**Description**: Remove a specific role from a user
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/admin/users/2/remove-role/1 \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 32. Get All Roles (Admin)
+**Endpoint**: `GET /api/admin/roles`
+**Access**: Admin Only
+**Description**: Retrieve all roles in the system
+
+**Curl Command**:
+```bash
+curl -X GET http://localhost:8080/api/admin/roles \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 33. Create New Role
+**Endpoint**: `POST /api/admin/roles`
+**Access**: Admin Only
+**Description**: Create a new role with optional permissions
+
+**Request Body**:
+```json
+{
+  "name": "ROLE_MODERATOR",
+  "permissions": [
+    {
+      "id": 1,
+      "name": "MODERATE_CONTENT"
+    }
+  ]
+}
+```
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/admin/roles \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "ROLE_MODERATOR",
+    "permissions": [
+      {
+        "id": 1,
+        "name": "MODERATE_CONTENT"
+      }
+    ]
+  }'
+```
+
+### 34. Assign Permission to Role
+**Endpoint**: `POST /api/admin/roles/{roleId}/assign-permission/{permissionId}`
+**Access**: Admin Only
+**Description**: Assign a permission to a specific role
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/admin/roles/3/assign-permission/2 \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 35. Remove Permission from Role
+**Endpoint**: `POST /api/admin/roles/{roleId}/remove-permission/{permissionId}`
+**Access**: Admin Only
+**Description**: Remove a permission from a specific role
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/admin/roles/3/remove-permission/2 \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 36. Delete Role
+**Endpoint**: `DELETE /api/admin/roles/{roleId}`
+**Access**: Admin Only
+**Description**: Delete a role by ID
+
+**Curl Command**:
+```bash
+curl -X DELETE http://localhost:8080/api/admin/roles/3 \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+**Expected Response**:
+```json
+"Role deleted successfully"
+```
+
+### 37. Get All Permissions (Admin)
+**Endpoint**: `GET /api/admin/permissions`
+**Access**: Admin Only
+**Description**: Retrieve all permissions in the system
+
+**Curl Command**:
+```bash
+curl -X GET http://localhost:8080/api/admin/permissions \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 38. Create New Permission
+**Endpoint**: `POST /api/admin/permissions`
+**Access**: Admin Only
+**Description**: Create a new permission
+
+**Request Body**:
+```json
+{
+  "name": "DELETE_USERS",
+  "description": "Allow user to delete other users"
+}
+```
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/admin/permissions \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "DELETE_USERS",
+    "description": "Allow user to delete other users"
+  }'
+```
+
+### 39. Delete Permission
+**Endpoint**: `DELETE /api/admin/permissions/{permissionId}`
+**Access**: Admin Only
+**Description**: Delete a permission by ID
+
+**Curl Command**:
+```bash
+curl -X DELETE http://localhost:8080/api/admin/permissions/3 \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 40. Get Role Privileges
+**Endpoint**: `GET /api/admin/roles/{roleId}/privileges`
+**Access**: Admin Only
+**Description**: Get all privileges assigned to a specific role
+
+**Curl Command**:
+```bash
+curl -X GET http://localhost:8080/api/admin/roles/1/privileges \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 41. Assign Privilege to Role
+**Endpoint**: `POST /api/admin/roles/{roleId}/assign-privilege/{privilegeId}`
+**Access**: Admin Only
+**Description**: Assign a privilege to a specific role
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/admin/roles/2/assign-privilege/1 \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 42. Remove Privilege from Role
+**Endpoint**: `POST /api/admin/roles/{roleId}/remove-privilege/{privilegeId}`
+**Access**: Admin Only
+**Description**: Remove a privilege from a specific role
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/admin/roles/2/remove-privilege/1 \
+  -H "Authorization: Bearer YOUR_ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+---
+
+## 🔄 Complete Admin Testing Workflow
+
+### Step 1: Login as Admin
+```bash
+# Login with admin credentials
+LOGIN_RESPONSE=$(curl -s -X POST http://localhost:8080/api/users/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "admin",
+    "password": "admin123"
+  }')
+
+ADMIN_TOKEN=$(echo $LOGIN_RESPONSE | jq -r '.token')
+echo "Admin Token: ${ADMIN_TOKEN:0:50}..."
+```
+
+### Step 2: View All Users
+```bash
+curl -X GET http://localhost:8080/api/admin/users \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### Step 3: Create a New Role
+```bash
+curl -X POST http://localhost:8080/api/admin/roles \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "ROLE_SUPERVISOR",
+    "permissions": []
+  }'
+```
+
+### Step 4: Assign Role to User
+```bash
+# Assign ROLE_SUPERVISOR (ID: 3) to user (ID: 2)
+curl -X POST http://localhost:8080/api/admin/users/2/assign-role/3 \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### Step 5: Create and Assign Permission
+```bash
+# Create new permission
+PERM_RESPONSE=$(curl -s -X POST http://localhost:8080/api/admin/permissions \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "SUPERVISE_USERS",
+    "description": "Allow supervising user activities"
+  }')
+
+PERM_ID=$(echo $PERM_RESPONSE | jq -r '.id')
+
+# Assign permission to role
+curl -X POST http://localhost:8080/api/admin/roles/3/assign-permission/$PERM_ID \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### Step 6: Verify Role Assignment
+```bash
+# Check user's updated roles
+curl -X GET http://localhost:8080/api/admin/users \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H "Content-Type: application/json" | jq '.[] | select(.id == 2) | .roles'
+```
+
+---
+
+## ✅ **Admin API Validation & Testing Status**
+
+**Admin Controller Implementation**:
+- ✅ `AdminController.java` created with all required endpoints
+- ✅ Security configuration updated for `/api/admin/**` protection
+- ✅ All endpoints require `ROLE_ADMIN` access
+- ✅ Audit trail tracking with `modifiedBy` parameter
+
+**Testing Results**:
+```bash
+# ✅ WORKING: Get all users
+curl -X GET http://localhost:8080/api/admin/users \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# ✅ WORKING: Assign role to user
+curl -X POST http://localhost:8080/api/admin/users/1/assign-role/2 \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# ✅ WORKING: Create new role
+curl -X POST http://localhost:8080/api/admin/roles \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -d '{"name": "ROLE_TEST"}'
+
+# ✅ WORKING: Get all permissions
+curl -X GET http://localhost:8080/api/admin/permissions \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+```
+
+**Frontend Integration**:
+- ✅ Admin tab added to AgentDashboard with role-based visibility
+- ✅ AdminPanel component created with full CRUD operations
+- ✅ Bootstrap responsive design maintained
+- ✅ Real-time updates and error handling
+
+---
+
 *Document Status: All API endpoints documented and tested*
-*Last Validation: October 16, 2025*
+*Admin APIs Added: October 20, 2025*
+*Last Validation: October 20, 2025*

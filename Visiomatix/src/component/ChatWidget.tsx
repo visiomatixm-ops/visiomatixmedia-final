@@ -5,15 +5,37 @@
  * Date: 17-Oct-2025
  * Description:
  *  Production-ready floating chat widget (bottom-right) for website visitors.
+ *
+ *  CORE FEATURES:
  *  - Register/login with username, email, password
- *  - Auto-create chat session (stores in DB)
- *  - Shows chat reference ID to user
- *  - Communicates via REST + WebSocket
+ *  - Auto-create chat session (stores in DB) with agent
+ *  - Shows chat reference ID to user for support tracking
+ *  - Real-time communication via REST API + WebSocket
  *  - Fetches message history from /api/chat/sessions/{id}/messages/recent
- *  - Subscribes to /topic/chat/{id} for real-time updates
- *  - Auto-scrolls to latest messages
- *  - Persists user data in localStorage
- *  - Allows starting new session after ending chat
+ *  - Subscribes to /topic/chat/{id} for live message updates
+ *  - Auto-scrolls to latest messages for better UX
+ *  - Persists user data in localStorage for session continuity
+ *  - Allows starting new session after ending current chat
+ *
+ *  AUTHENTICATION & SECURITY:
+ *  - JWT token-based authentication with automatic refresh
+ *  - Token expiry handling with seamless re-login for default user
+ *  - Manual re-login option for regular users when token expires
+ *  - Secure WebSocket connections with authentication headers
+ *
+ *  USER EXPERIENCE:
+ *  - Floating widget design that doesn't interfere with main content
+ *  - Responsive Bootstrap UI with modern styling
+ *  - Optimistic UI updates for instant message feedback
+ *  - Error handling with user-friendly messages
+ *  - Session state persistence across page refreshes
+ *
+ *  TECHNICAL IMPLEMENTATION:
+ *  - React hooks for state management (useState, useEffect, useRef)
+ *  - SockJS + STOMP for WebSocket communication
+ *  - Axios for HTTP requests with interceptors
+ *  - TypeScript for type safety
+ *  - Bootstrap for responsive UI components
  * ===========================================================
  */
 
@@ -24,7 +46,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 interface Message {
-  id?: number;
+  id?: number | string; // Allow string IDs for temporary messages
   sender: string;
   content: string;
   sentAt?: string;
@@ -61,6 +83,7 @@ const ChatWidget: React.FC = () => {
     const savedName = localStorage.getItem("chatName");
     const savedToken = localStorage.getItem("chatToken");
     const savedSessionId = localStorage.getItem("chatSessionId");
+    const savedTokenExpiry = localStorage.getItem("chatTokenExpiry");
 
     if (savedUsername) setUsername(savedUsername);
     if (savedEmail) setEmail(savedEmail);
@@ -68,10 +91,24 @@ const ChatWidget: React.FC = () => {
     if (savedToken) setToken(savedToken);
     if (savedSessionId) setSessionId(parseInt(savedSessionId));
 
-    // If we have a saved session, try to reconnect
-    if (savedToken && savedSessionId) {
-      loadExistingMessages(parseInt(savedSessionId), savedToken);
-      connectWS(parseInt(savedSessionId), savedToken);
+    // Check if token is still valid
+    if (savedToken && savedTokenExpiry) {
+      const expiryTime = parseInt(savedTokenExpiry);
+      const currentTime = Date.now();
+
+      if (currentTime < expiryTime) {
+        // Token is still valid, try to reconnect
+        if (savedSessionId) {
+          loadExistingMessages(parseInt(savedSessionId), savedToken);
+          connectWS(parseInt(savedSessionId), savedToken);
+        }
+      } else {
+        // Token expired, clear it and show login
+        localStorage.removeItem("chatToken");
+        localStorage.removeItem("chatTokenExpiry");
+        setToken(null);
+        alert("Your session has expired. Please login again.");
+      }
     }
   }, []);
 
@@ -83,6 +120,70 @@ const ChatWidget: React.FC = () => {
     if (token) localStorage.setItem("chatToken", token);
     if (sessionId) localStorage.setItem("chatSessionId", sessionId.toString());
   }, [username, email, name, token, sessionId]);
+
+  // Token refresh mechanism for default user
+  useEffect(() => {
+    if (token && username === "defaultuser") {
+      // Set up automatic token refresh 5 minutes before expiry
+      const refreshInterval = setInterval(async () => {
+        try {
+          const res = await axios.post(`${API}/users/login`, {
+            username: "defaultuser",
+            password: "default123"
+          });
+          const newToken = res.data?.token;
+          if (newToken) {
+            setToken(newToken);
+            localStorage.setItem("chatToken", newToken);
+            // Set expiry time (assuming 2 hours from now)
+            const expiryTime = Date.now() + (2 * 60 * 60 * 1000); // 2 hours
+            localStorage.setItem("chatTokenExpiry", expiryTime.toString());
+            console.log("Token refreshed automatically for default user");
+          }
+        } catch (e) {
+          console.error("Token refresh failed:", e);
+          // If refresh fails, clear token and show login
+          setToken(null);
+          localStorage.removeItem("chatToken");
+          localStorage.removeItem("chatTokenExpiry");
+          alert("Session expired. Please login again.");
+        }
+      }, 55 * 60 * 1000); // Refresh every 55 minutes (5 minutes before 1 hour expiry)
+
+      return () => clearInterval(refreshInterval);
+    }
+  }, [token, username]);
+
+  // Check for token expiry every minute and handle expired tokens
+  useEffect(() => {
+    const checkTokenExpiry = () => {
+      const savedTokenExpiry = localStorage.getItem("chatTokenExpiry");
+      if (savedTokenExpiry && token) {
+        const expiryTime = parseInt(savedTokenExpiry);
+        const currentTime = Date.now();
+
+        if (currentTime >= expiryTime) {
+          // Token has expired
+          console.log("Token expired, clearing session");
+          setToken(null);
+          setSessionId(null);
+          setMessages([]);
+          setConnected(false);
+          clientRef.current?.deactivate();
+          localStorage.removeItem("chatToken");
+          localStorage.removeItem("chatTokenExpiry");
+          localStorage.removeItem("chatSessionId");
+          alert("Your session has expired. Please login again to continue chatting.");
+        }
+      }
+    };
+
+    // Check immediately and then every minute
+    checkTokenExpiry();
+    const expiryCheckInterval = setInterval(checkTokenExpiry, 60 * 1000); // Check every minute
+
+    return () => clearInterval(expiryCheckInterval);
+  }, [token]);
 
   // ---------------------------------------------------------
   // Register new user then login
@@ -107,6 +208,7 @@ const ChatWidget: React.FC = () => {
     }
 
     try {
+      // Register user - this will assign ROLE_USER by default
       await axios.post(`${API}/users/register`, { username, email, password, name });
       alert("Registered successfully! You can now start chatting.");
       await handleLogin();
@@ -123,8 +225,23 @@ const ChatWidget: React.FC = () => {
     try {
       const res = await axios.post(`${API}/users/login`, { username, password });
       const jwt = res.data?.token;
+      const userRole = res.data?.role;
+
       if (!jwt) throw new Error("Token missing");
+
+      // Allow only ROLE_USER to login from ChatWidget
+      // ROLE_AGENT and ROLE_ADMIN must use Agent Dashboard
+      if (userRole === "ROLE_AGENT" || userRole === "ROLE_ADMIN") {
+        alert("Agents and administrators must login through the Agent Dashboard, not the chat widget.");
+        return;
+      }
+
       setToken(jwt);
+
+      // Set token expiry time (assuming 2 hours from now)
+      const expiryTime = Date.now() + (2 * 60 * 60 * 1000); // 2 hours
+      localStorage.setItem("chatTokenExpiry", expiryTime.toString());
+
       await startSession(jwt);
     } catch (e) {
       console.error("Login failed:", e);
@@ -147,9 +264,39 @@ const ChatWidget: React.FC = () => {
       alert(`✅ Chat started!\nReference ID: ${sid}\nPlease save it for future support.`);
       await loadExistingMessages(sid, jwt);
       connectWS(sid, jwt);
-    } catch (e) {
+    } catch (e: any) {
       console.error("Start session failed:", e);
-      alert("Unable to start chat.");
+      // Handle token expiry - try to refresh or prompt re-login
+      if (e.response?.status === 401 || e.response?.data?.message?.includes("Unauthorized")) {
+        if (username === "defaultuser") {
+          // Try to refresh token for default user
+          try {
+            const refreshRes = await axios.post(`${API}/users/login`, {
+              username: "defaultuser",
+              password: "default123"
+            });
+            const newToken = refreshRes.data?.token;
+            if (newToken) {
+              setToken(newToken);
+              localStorage.setItem("chatToken", newToken);
+              const expiryTime = Date.now() + (2 * 60 * 60 * 1000);
+              localStorage.setItem("chatTokenExpiry", expiryTime.toString());
+              // Retry with new token
+              await startSession(newToken);
+              return;
+            }
+          } catch (refreshError) {
+            console.error("Token refresh failed:", refreshError);
+          }
+        }
+        // For all users, prompt re-login
+        alert("Your session has expired. Please login again.");
+        setToken(null);
+        localStorage.removeItem("chatToken");
+        localStorage.removeItem("chatTokenExpiry");
+      } else {
+        alert("Unable to start chat. Please try again.");
+      }
     }
   };
 
@@ -170,8 +317,37 @@ const ChatWidget: React.FC = () => {
         messageType: msg.messageType,
       }));
       setMessages(existingMessages);
-    } catch (e) {
+    } catch (e: any) {
       console.error("Load existing messages failed:", e);
+      // Handle token expiry during message loading
+      if (e.response?.status === 401 || e.response?.data?.message?.includes("Unauthorized")) {
+        if (username === "defaultuser") {
+          // Try to refresh token for default user
+          try {
+            const refreshRes = await axios.post(`${API}/users/login`, {
+              username: "defaultuser",
+              password: "default123"
+            });
+            const newToken = refreshRes.data?.token;
+            if (newToken) {
+              setToken(newToken);
+              localStorage.setItem("chatToken", newToken);
+              const expiryTime = Date.now() + (2 * 60 * 60 * 1000);
+              localStorage.setItem("chatTokenExpiry", expiryTime.toString());
+              // Retry with new token
+              await loadExistingMessages(sid, newToken);
+              return;
+            }
+          } catch (refreshError) {
+            console.error("Token refresh failed:", refreshError);
+          }
+        }
+        // For all users, prompt re-login
+        alert("Your session has expired. Please login again.");
+        setToken(null);
+        localStorage.removeItem("chatToken");
+        localStorage.removeItem("chatTokenExpiry");
+      }
     } finally {
       setLoading(false);
     }
@@ -192,6 +368,10 @@ const ChatWidget: React.FC = () => {
         client.subscribe(`/topic/chat/${sid}`, (msg) => {
           try {
             const data = JSON.parse(msg.body);
+            // Filter out own messages to prevent duplicate display
+            // (already shown via optimistic update)
+            if (data.sender?.username === username) return;
+
             setMessages((p) => [...p, {
               id: data.id,
               sender: data.sender?.username || "Unknown",
@@ -204,9 +384,33 @@ const ChatWidget: React.FC = () => {
           }
         });
       },
-      onDisconnect: () => setConnected(false),
+      onDisconnect: () => {
+        setConnected(false);
+        // If WebSocket disconnects due to token expiry, show login
+        if (token) {
+          const savedTokenExpiry = localStorage.getItem("chatTokenExpiry");
+          if (savedTokenExpiry) {
+            const expiryTime = parseInt(savedTokenExpiry);
+            const currentTime = Date.now();
+            if (currentTime >= expiryTime) {
+              alert("Your session has expired. Please login again.");
+              setToken(null);
+              localStorage.removeItem("chatToken");
+              localStorage.removeItem("chatTokenExpiry");
+            }
+          }
+        }
+      },
       onStompError: (frame) => {
         console.error("STOMP error:", frame.headers["message"]);
+        // Handle authentication errors
+        if (frame.headers["message"]?.includes("401") || frame.headers["message"]?.includes("Unauthorized")) {
+          alert("Authentication failed. Please login again.");
+          setToken(null);
+          setConnected(false);
+          localStorage.removeItem("chatToken");
+          localStorage.removeItem("chatTokenExpiry");
+        }
       },
       reconnectDelay: 5000,
     });
@@ -215,10 +419,28 @@ const ChatWidget: React.FC = () => {
   };
 
   // ---------------------------------------------------------
-  // Send message
+  // Send message with optimistic UI update and error handling
+  // Prevents duplicate message display by using temporary IDs
+  // Handles token expiry and WebSocket connection issues
   // ---------------------------------------------------------
-  const sendMsg = () => {
-    if (!input.trim() || !sessionId || !clientRef.current) return;
+  const sendMsg = async () => {
+    if (!input.trim() || !sessionId || !token) return;
+
+    // Pre-flight token validation to prevent failed sends
+    const savedTokenExpiry = localStorage.getItem("chatTokenExpiry");
+    if (savedTokenExpiry) {
+      const expiryTime = parseInt(savedTokenExpiry);
+      const currentTime = Date.now();
+      if (currentTime >= expiryTime) {
+        alert("Your session has expired. Please login again.");
+        setToken(null);
+        localStorage.removeItem("chatToken");
+        localStorage.removeItem("chatTokenExpiry");
+        return;
+      }
+    }
+
+    // Prepare message payload for WebSocket transmission
     const payload = {
       sender: username,
       receiver: AGENT,
@@ -226,15 +448,65 @@ const ChatWidget: React.FC = () => {
       messageType: "TEXT",
       sessionId,
     };
-    clientRef.current.publish({ destination: "/app/chat.sendMessage", body: JSON.stringify(payload) });
-    setMessages((p) => [...p, {
-      id: Date.now(), // Temporary ID for optimistic update
+
+    // Generate unique temporary ID to prevent duplicate display
+    // Format: temp-timestamp-random to ensure uniqueness
+    const tempMessageId = `temp-${Date.now()}-${Math.random()}`;
+
+    // Store message content before clearing input
+    const messageContent = input.trim();
+
+    // Optimistic UI update - show message immediately for better UX
+    // This provides instant feedback to user while message is being sent
+    const optimisticMessage: Message = {
+      id: tempMessageId, // Unique temp ID to avoid conflicts with real messages
       sender: username,
-      content: input.trim(),
+      content: messageContent,
       sentAt: new Date().toISOString(),
       messageType: "TEXT",
-    }]);
+    };
+
+    // Add message to UI immediately (optimistic update)
+    setMessages((prevMessages) => [...prevMessages, optimisticMessage]);
+
+    // Clear input field immediately for better UX
     setInput("");
+
+    try {
+      // Send message via WebSocket if connection is active
+      if (clientRef.current && clientRef.current.connected) {
+        clientRef.current.publish({
+          destination: "/app/chat.sendMessage",
+          body: JSON.stringify(payload)
+        });
+      } else {
+        // If WebSocket not connected, show error and remove optimistic message
+        setMessages((prevMessages) =>
+          prevMessages.filter(msg => msg.id !== tempMessageId)
+        );
+        alert("Connection lost. Please check your internet connection.");
+        return;
+      }
+    } catch (e) {
+      console.error("Failed to send message:", e);
+
+      // Remove optimistic message on failure
+      setMessages((prevMessages) =>
+        prevMessages.filter(msg => msg.id !== tempMessageId)
+      );
+
+      // Handle authentication errors with token refresh/re-login
+      if (e instanceof Error && (e.message?.includes("401") || e.message?.includes("Unauthorized"))) {
+        alert("Authentication failed. Please login again.");
+        setToken(null);
+        localStorage.removeItem("chatToken");
+        localStorage.removeItem("chatTokenExpiry");
+      } else {
+        // Re-add message to input for user to retry
+        setInput(messageContent);
+        alert("Failed to send message. Please try again.");
+      }
+    }
   };
 
   // ---------------------------------------------------------
@@ -293,6 +565,7 @@ const ChatWidget: React.FC = () => {
             borderRadius: 12,
             display: "flex",
             flexDirection: "column",
+            zIndex:"10",
           }}
         >
           <div className="card-header bg-dark text-white d-flex justify-content-between align-items-center">
@@ -300,12 +573,45 @@ const ChatWidget: React.FC = () => {
             <div>
               {connected && (
                 <button className="btn btn-sm btn-outline-light me-1" onClick={endChat}>
-                  End
+                  End Chat
                 </button>
               )}
               {token && !connected && (
-                <button className="btn btn-sm btn-outline-light" onClick={startNewSession}>
+                <button className="btn btn-sm btn-outline-light me-1" onClick={startNewSession}>
                   New Chat
+                </button>
+              )}
+              {token && (
+                <button className="btn btn-sm btn-outline-danger me-1" onClick={() => {
+                  // Logout functionality
+                  setToken(null);
+                  setSessionId(null);
+                  setMessages([]);
+                  setConnected(false);
+                  clientRef.current?.deactivate();
+                  localStorage.removeItem("chatToken");
+                  localStorage.removeItem("chatTokenExpiry");
+                  localStorage.removeItem("chatSessionId");
+                  localStorage.removeItem("chatUsername");
+                  localStorage.removeItem("chatEmail");
+                  localStorage.removeItem("chatName");
+                  alert("Logged out successfully.");
+                }}>
+                  Logout
+                </button>
+              )}
+              {!token && (
+                <button
+                  className="btn btn-sm btn-warning me-1"
+                  onClick={() => {
+                    if (username === "defaultuser") {
+                      handleLogin();
+                    } else {
+                      alert("Please refresh the page and login again.");
+                    }
+                  }}
+                >
+                  Re-login
                 </button>
               )}
             </div>

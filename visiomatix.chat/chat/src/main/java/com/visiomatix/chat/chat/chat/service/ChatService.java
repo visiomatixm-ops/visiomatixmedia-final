@@ -176,6 +176,7 @@ import com.visiomatix.chat.chat.chat.model.ChatSession;
 import com.visiomatix.chat.chat.chat.model.Message;
 import com.visiomatix.chat.chat.user.model.User;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface ChatService {
@@ -321,4 +322,53 @@ public interface ChatService {
      * @param message - saved Message entity
      */
     void broadcastMessage(Message message);
+
+    // ===========================================================
+    // Admin Analytics and Monitoring
+    // ===========================================================
+
+    /**
+     * Get all active chat sessions for admin monitoring
+     */
+    List<ChatSession> getAllActiveSessions();
+
+    /**
+     * Get chat sessions for a specific agent
+     */
+    List<ChatSession> getSessionsForAgent(Long agentId);
+
+    /**
+     * Get performance metrics for an agent
+     */
+    Map<String, Object> getAgentPerformanceMetrics(Long agentId);
+
+    /**
+     * Get system-wide chat statistics
+     */
+    Map<String, Object> getSystemStatistics();
+
+    // Monthly Reports and Analytics
+    Map<String, Object> generateMonthlyChatReport(int year, int month);
+    Map<String, Object> generateAgentMonthlyReport(Long agentId, int year, int month);
+
+    // Quarterly and Yearly Reports
+    Map<String, Object> generateQuarterlyChatReport(int year, int quarter);
+    Map<String, Object> generateYearlyChatReport(int year);
+    Map<String, Object> generateAgentQuarterlyReport(Long agentId, int year, int quarter);
+    Map<String, Object> generateAgentYearlyReport(Long agentId, int year);
+
+    // Chat Handling Statistics
+    Map<String, Object> getUserChatHandlingStatsMonthly(Long userId, int year, int month);
+    Map<String, Object> getUserChatHandlingStatsQuarterly(Long userId, int year, int quarter);
+    Map<String, Object> getUserChatHandlingStatsYearly(Long userId, int year);
+
+    // Chat History and Session Management for Admins/Agents
+    List<ChatSession> getAllSessionsForAdmin();
+    List<ChatSession> getAllSessionsForAgent(Long agentId);
+    List<ChatSession> getSessionsByDateRange(java.time.LocalDateTime startDate, java.time.LocalDateTime endDate);
+    List<ChatSession> getSessionsByUser(Long userId);
+    Map<String, Object> getSessionDetailsWithMessages(Long sessionId);
+
+    // Security helper methods
+    boolean canUserAccessSession(Long sessionId, String username);
 }

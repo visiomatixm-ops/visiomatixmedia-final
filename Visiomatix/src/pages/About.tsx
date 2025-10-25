@@ -5,6 +5,7 @@
 // Description:
 //   About Us page for Visiomatix Media including a hero banner,
 //   company story, vision, mission, and team profiles section.
+//   Enhanced with SEO-optimized content and improved narrative clarity.
 //
 // Dependencies:
 //   - React
@@ -52,7 +53,7 @@ const About: React.FC = () => {
         <div style={{ position: 'relative', zIndex: 2 }}>
           <h1 className="display-4 fw-bold">About Visiomatix Media</h1>
           <p className="lead">
-            Where Creativity Meets Innovation in the World of Digital Media.
+            Empowering brands through creative storytelling, digital innovation, and technology-driven solutions that inspire growth.
           </p>
         </div>
       </section>
@@ -65,7 +66,7 @@ const About: React.FC = () => {
           <div className="col-md-6 mb-4 mb-md-0">
             <img
               src="/about/Digital-Marketing-Services-banner.jpg"
-              alt="Company Story"
+              alt="Visiomatix Company Story"
               className="img-fluid rounded shadow"
             />
           </div>
@@ -73,10 +74,10 @@ const About: React.FC = () => {
           <div className="col-md-6">
             <h2 className="fw-bold mb-3">Our Story</h2>
             <p>
-              Founded with a vision to redefine creativity, <strong>Visiomatix Media</strong> began its journey as a small team of passionate creators. Over time, we’ve evolved into a full-fledged digital agency providing comprehensive solutions across design, media, and technology.
+              Founded with a vision to redefine the intersection of creativity and technology, <strong>Visiomatix Media</strong> began as a small team of digital enthusiasts driven by passion, purpose, and imagination. Today, we stand as a multidisciplinary digital agency delivering solutions that connect brands to audiences through innovative storytelling and design.
             </p>
             <p>
-              From concept to execution, our team blends strategy with storytelling to help brands grow in today’s digital-first world.
+              Our journey has always been fueled by curiosity and collaboration. From crafting visually stunning brand identities to executing impactful marketing campaigns, we help businesses thrive in a rapidly evolving digital landscape — where creativity isn’t just seen but felt.
             </p>
           </div>
         </div>
@@ -96,7 +97,7 @@ const About: React.FC = () => {
               >
                 <h4 className="fw-bold text-info">Our Vision</h4>
                 <p className='text-light'>
-                  To become a globally recognized media house that inspires creativity, empowers brands, and drives innovation in digital storytelling.
+                  To become a globally trusted creative and technology partner that empowers brands to lead through innovation, authenticity, and meaningful digital experiences. We envision a world where design and technology work together to shape the future of communication.
                 </p>
               </div>
             </div>
@@ -108,7 +109,7 @@ const About: React.FC = () => {
               >
                 <h4 className="fw-bold text-success">Our Mission</h4>
                 <p className='text-light'>
-                  To deliver impactful visual experiences by combining art, technology, and strategy — transforming ideas into engaging digital realities that connect with audiences.
+                  To craft impactful digital experiences that resonate with audiences, inspire creativity, and deliver measurable results. Our mission is to merge art and analytics — designing strategies that drive engagement, enhance visibility, and elevate brands beyond expectations.
                 </p>
               </div>
             </div>
@@ -143,10 +144,8 @@ const About: React.FC = () => {
         <div className="container position-relative" style={{ zIndex: 2 }}>
           <h2 className="text-center fw-bold mb-4 text-aqua">What We Offer</h2>
           <p className="text-center w-75 mx-auto">
-            Our expertise spans across branding, digital marketing,
-            photography, videography, animation, and web design.  
-            Each project we undertake is an opportunity to innovate,
-            inspire, and deliver exceptional visual experiences.
+            At Visiomatix, we specialize in crafting comprehensive digital solutions tailored to each client’s unique vision. Our expertise includes branding, social media strategy, SEO optimization, photography, videography, animation, and web design.  
+            Every project we take on is guided by a single purpose — to create immersive experiences that engage audiences and drive business growth.
           </p>
         </div>
       </section>
@@ -163,10 +162,10 @@ const About: React.FC = () => {
             <div
               className="card border-0 h-100 transition-all"
               style={{
-                backgroundColor: '#102a4a', // Lighter navy
+                backgroundColor: '#102a4a',
                 color: 'white',
                 minHeight: '520px',
-                boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)', // Aqua glow
+                boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
                 borderRadius: '12px',
                 transition: 'all 0.3s ease',
               }}
@@ -181,7 +180,7 @@ const About: React.FC = () => {
             >
               <img
                 src="/team/rohitshinde.jpg"
-                alt="Rohit Shinde"
+                alt="Rohit Shinde - CEO of Visiomatix Media"
                 className="card-img-top"
                 style={{
                   objectFit: 'cover',
@@ -194,7 +193,7 @@ const About: React.FC = () => {
                 <h5 className="fw-bold text-aqua">Rohit Shinde</h5>
                 <p className="text-light mb-1">CEO & Founder</p>
                 <p className="small text-secondary text-light">
-                  A visionary leader shaping the future of digital storytelling. With a passion for creativity and innovation, Rohit founded Visiomatix Media to bridge art and technology — delivering impactful visuals and transformative experiences.
+                  A visionary entrepreneur and creative strategist, Rohit founded <strong>Visiomatix Media</strong> with a mission to redefine how stories are told in the digital age. His forward-thinking approach blends creativity with innovation — empowering brands to engage, inspire, and evolve.
                 </p>
               </div>
             </div>
@@ -223,7 +222,7 @@ const About: React.FC = () => {
             >
               <img
                 src="/team/poojapatil.jpg"
-                alt="Pooja Patil"
+                alt="Pooja Patil - Managing Director of Visiomatix Media"
                 className="card-img-top"
                 style={{
                   objectFit: 'cover',
@@ -236,7 +235,7 @@ const About: React.FC = () => {
                 <h5 className="fw-bold text-aqua">Pooja Patil</h5>
                 <p className="text-light mb-1">Managing Director</p>
                 <p className="small text-secondary text-light">
-                  A dynamic leader driving creative excellence and operational growth. Pooja ensures Visiomatix Media continues to deliver impactful stories and visionary media experiences.
+                  A dynamic leader committed to creative excellence and brand innovation. Pooja drives operational success and ensures that every Visiomatix project reflects precision, passion, and purpose — turning ideas into visually compelling digital experiences.
                 </p>
               </div>
             </div>

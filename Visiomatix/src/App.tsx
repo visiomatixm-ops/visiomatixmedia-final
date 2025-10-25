@@ -40,12 +40,7 @@ const App: React.FC = () => {
         </Routes>
       </Suspense>
       <div>
-        <h1>Agent Dashboard</h1>
-          <ChatWidget
-            sessionId={52}
-            username="agent"
-            token="YOUR_JWT_TOKEN_HERE"
-          />
+          <ChatWidget />
     </div>      <Footer />
     </>
   );

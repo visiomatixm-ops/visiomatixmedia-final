@@ -32,6 +32,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import java.util.List;
 
 import com.visiomatix.chat.chat.config.JwtAuthenticationFilter; // Ensure correct import
 
@@ -77,41 +81,71 @@ public class SecurityConfig {
     }
 
     // ===========================================================
+    // Bean Declaration - CORS Configuration Source
+    // ===========================================================
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of(
+            "http://localhost:5173",
+            "http://localhost:5174",
+            "http://127.0.0.1:5173",
+            "http://127.0.0.1:5174"
+        ));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Cache-Control"));
+        configuration.setExposedHeaders(List.of("Authorization"));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+    // ===========================================================
     // Bean Declaration - Security Filter Chain
     // ===========================================================
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-          .cors()
-          .and()
+            // CORS configuration - must be first
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+
             // Disable CSRF for API usage
             .csrf(csrf -> csrf.disable())
 
-            // Handle unauthorized access (prevents "Pre-auth entry point called")
+            // Handle unauthorized access
             .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler))
 
-            // Enforce stateless session (no HTTP session maintained)
+            // Enforce stateless session
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
 
-            // Configure authorization rules
+            // Configure authorization rules - ORDER MATTERS (most specific first)
             .authorizeHttpRequests(auth -> auth
-                // Permit registration and login endpoints
+                // Public endpoints - must be FIRST
                 .requestMatchers("/api/users/register", "/api/users/login").permitAll()
-                // Optional: permit WebSocket handshake if using JWT over STOMP
                 .requestMatchers("/ws/**", "/ws-chat/**").permitAll()
-                // Permit H2 console during dev (optional)
                 .requestMatchers("/h2-console/**").permitAll()
-                // Require authentication for all others
-                .anyRequest().authenticated()
+                // Admin endpoints require ROLE_ADMIN, but allow agents to access their own data
+                .requestMatchers("/api/admin/users/*/chat-stats/**").hasAnyRole("ADMIN", "AGENT")
+                .requestMatchers("/api/admin/users/*/sessions").hasAnyRole("ADMIN", "AGENT")
+                .requestMatchers("/api/admin/sessions/*/details").hasAnyRole("ADMIN", "AGENT")
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                // All other API endpoints require authentication
+                .requestMatchers("/api/**").authenticated()
+                // Static resources and other requests
+                .anyRequest().permitAll()
             )
 
-            // Disable default login mechanisms (API only)
+            // Disable default login mechanisms
             .httpBasic(basic -> basic.disable())
-            .formLogin(form -> form.disable());
+            .formLogin(form -> form.disable())
+            .logout(logout -> logout.disable());
 
-        // Insert JWT filter before UsernamePasswordAuthenticationFilter
+        // JWT filter must be added BEFORE the security filter chain
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         // Allow frames for H2 console

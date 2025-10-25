@@ -13,11 +13,12 @@ import React from "react";
 interface BannerProps {
   title: string;
   subtitle?: string;
+  description?:string;
   bgImage: string;
   height?: string;
 }
 
-const Banner: React.FC<BannerProps> = ({ title, subtitle, bgImage, height = "70vh" }) => {
+const Banner: React.FC<BannerProps> = ({ title, subtitle, description, bgImage, height = "70vh" }) => {
   return (
     <div
       className="d-flex align-items-center justify-content-center text-center text-white"
@@ -52,6 +53,8 @@ const Banner: React.FC<BannerProps> = ({ title, subtitle, bgImage, height = "70v
       >
         <h1 className="fw-bold">{title}</h1>
         {subtitle && <p className="lead mt-2">{subtitle}</p>}
+        {description && <p className="lead mt-2"> {description}</p>}
+
       </div>
     </div>
   );

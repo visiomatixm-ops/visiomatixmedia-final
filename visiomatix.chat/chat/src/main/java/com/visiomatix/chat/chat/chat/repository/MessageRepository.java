@@ -265,4 +265,37 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     @Query("SELECT m FROM Message m WHERE m.chatSession.id = :sessionId ORDER BY m.sentAt ASC")
     List<Message> getMessagesForSessionOrdered(@Param("sessionId") Long sessionId);
+
+    // ===========================================================
+    // Section 8: Agent Performance Analytics Queries
+    // ===========================================================
+
+    /**
+     * Count messages sent by a specific user across multiple sessions.
+     * Used for agent performance metrics.
+     */
+    @Query("""
+        SELECT COUNT(m) FROM Message m
+        WHERE m.sender = :sender
+          AND m.chatSession IN :sessions
+        """)
+    long countMessagesBySenderAndSessions(
+            @Param("sender") User sender,
+            @Param("sessions") List<ChatSession> sessions
+    );
+
+    /**
+     * Count total messages sent by an agent across all their sessions.
+     * Alternative method for agent performance calculation.
+     */
+    @Query("""
+        SELECT COUNT(m) FROM Message m
+        WHERE m.sender.id = :senderId
+          AND m.chatSession IN (
+              SELECT cs FROM ChatSession cs
+              JOIN cs.participants p
+              WHERE p.id = :senderId
+          )
+        """)
+    long countTotalMessagesByAgent(@Param("senderId") Long senderId);
 }
