@@ -34,6 +34,7 @@ import com.visiomatix.chat.chat.user.model.Privilege;
 import com.visiomatix.chat.chat.user.model.Role;
 import com.visiomatix.chat.chat.user.model.User;
 import com.visiomatix.chat.chat.user.service.PermissionService;
+import com.visiomatix.chat.chat.user.service.PrivilegeService;
 import com.visiomatix.chat.chat.user.service.RoleService;
 import com.visiomatix.chat.chat.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -71,6 +72,7 @@ public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
     private final PermissionService permissionService;
+    private final PrivilegeService privilegeService;
     private final ChatService chatService;
 
     // ===========================================================
@@ -667,9 +669,84 @@ public class AdminController {
                 session.getSessionName().toLowerCase().contains(searchTerm.toLowerCase()) ||
                 session.getParticipants().stream()
                     .anyMatch(user -> user.getName().toLowerCase().contains(searchTerm.toLowerCase()) ||
-                                   user.getUsername().toLowerCase().contains(searchTerm.toLowerCase()))
+                                    user.getUsername().toLowerCase().contains(searchTerm.toLowerCase()))
             )
             .collect(Collectors.toList());
         return ResponseEntity.ok(sessions);
+    }
+
+    // ===========================================================
+    // Privilege Management Endpoints
+    // ===========================================================
+
+    /**
+     * List all privileges in the system
+     * @return List of all privileges
+     */
+    @GetMapping("/privileges")
+    public ResponseEntity<List<Privilege>> getAllPrivileges() {
+        logger.info("Admin requesting list of all privileges");
+        List<Privilege> privileges = privilegeService.getAllPrivileges();
+        return ResponseEntity.ok(privileges);
+    }
+
+    /**
+     * Create a new privilege
+     * @param privilege Privilege data
+     * @param authentication Current admin authentication
+     * @return Created privilege
+     */
+    @PostMapping("/privileges")
+    public ResponseEntity<Privilege> createPrivilege(@RequestBody Privilege privilege,
+                                                   Authentication authentication) {
+        logger.info("Admin {} creating new privilege: {}", authentication.getName(), privilege.getName());
+        Privilege createdPrivilege = privilegeService.createPrivilege(privilege, authentication.getName());
+        return ResponseEntity.ok(createdPrivilege);
+    }
+
+    /**
+     * Delete a privilege by ID
+     * @param privilegeId Privilege ID to delete
+     * @param authentication Current admin authentication
+     * @return Success message
+     */
+    @DeleteMapping("/privileges/{privilegeId}")
+    public ResponseEntity<String> deletePrivilege(@PathVariable Long privilegeId,
+                                                Authentication authentication) {
+        logger.info("Admin {} deleting privilege {}", authentication.getName(), privilegeId);
+        privilegeService.deletePrivilege(privilegeId, authentication.getName());
+        return ResponseEntity.ok("Privilege deleted successfully");
+    }
+
+    /**
+     * Assign a privilege to a permission
+     * @param privilegeId Privilege ID
+     * @param permissionId Permission ID to assign
+     * @param authentication Current admin authentication
+     * @return Updated privilege
+     */
+    @PostMapping("/privileges/{privilegeId}/assign-permission/{permissionId}")
+    public ResponseEntity<Privilege> assignPrivilegeToPermission(@PathVariable Long privilegeId,
+                                                               @PathVariable Long permissionId,
+                                                               Authentication authentication) {
+        logger.info("Admin {} assigning permission {} to privilege {}", authentication.getName(), permissionId, privilegeId);
+        Privilege updatedPrivilege = privilegeService.assignPrivilegeToPermission(privilegeId, permissionId, authentication.getName());
+        return ResponseEntity.ok(updatedPrivilege);
+    }
+
+    /**
+     * Remove a privilege from a permission
+     * @param privilegeId Privilege ID
+     * @param permissionId Permission ID to remove
+     * @param authentication Current admin authentication
+     * @return Updated privilege
+     */
+    @PostMapping("/privileges/{privilegeId}/remove-permission/{permissionId}")
+    public ResponseEntity<Privilege> removePrivilegeFromPermission(@PathVariable Long privilegeId,
+                                                                 @PathVariable Long permissionId,
+                                                                 Authentication authentication) {
+        logger.info("Admin {} removing permission {} from privilege {}", authentication.getName(), permissionId, privilegeId);
+        Privilege updatedPrivilege = privilegeService.removePrivilegeFromPermission(privilegeId, permissionId, authentication.getName());
+        return ResponseEntity.ok(updatedPrivilege);
     }
 }

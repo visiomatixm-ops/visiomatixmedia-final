@@ -52,10 +52,10 @@ public class WebConfig implements WebMvcConfigurer {
         // =======================================================
         registry.addMapping("/**")
                 // Allow both local dev frontends + deployed domains
-                .allowedOriginPatterns("http://localhost:5173", "http://localhost:5174", "http://127.0.0.1:*", "http://localhost:3000", "http://localhost:5173/")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedOriginPatterns("http://localhost:5173", "http://localhost:5174", "http://127.0.0.1:*", "http://localhost:3000", "http://localhost:5173/", "http://localhost:5174/")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                 .allowedHeaders("*")
-                .exposedHeaders("Authorization")
+                .exposedHeaders("Authorization", "Content-Type", "Cache-Control")
                 .allowCredentials(true)
                 .maxAge(3600);
     }
@@ -65,19 +65,21 @@ public class WebConfig implements WebMvcConfigurer {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // Allow both your React apps
-        config.setAllowedOrigins(List.of(
-            "http://localhost:5173",
-            "http://localhost:5174",
-            "http://127.0.0.1:5173",
-            "http://127.0.0.1:5174"
+        // Allow both your React apps - be more permissive
+        config.setAllowedOriginPatterns(List.of(
+            "http://localhost:*",
+            "http://127.0.0.1:*",
+            "http://0.0.0.0:*"
         ));
 
         // Allow necessary HTTP methods
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 
         // Allow necessary headers (including Authorization)
-        config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Cache-Control"));
+        config.setAllowedHeaders(List.of("*"));
+
+        // Expose necessary headers
+        config.setExposedHeaders(List.of("Authorization", "Content-Type", "Cache-Control"));
 
         // Allow sending credentials (JWT or cookies)
         config.setAllowCredentials(true);

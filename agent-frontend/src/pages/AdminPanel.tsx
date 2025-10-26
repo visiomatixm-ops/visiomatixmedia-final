@@ -15,6 +15,7 @@ import DashboardTab from "../components/admin/DashboardTab";
 import UsersTab from "../components/admin/UsersTab";
 import RolesTab from "../components/admin/RolesTab";
 import PermissionsTab from "../components/admin/PermissionsTab";
+import PrivilegesTab from "../components/admin/PrivilegesTab";
 import StatisticsTab from "../components/admin/StatisticsTab";
 import ChatHistoryTab from "../components/admin/ChatHistoryTab";
 
@@ -23,6 +24,7 @@ const AdminPanel = ({ token }) => {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
   const [permissions, setPermissions] = useState([]);
+  const [privileges, setPrivileges] = useState([]);
   const [sessions, setSessions] = useState([]);
   const [statistics, setStatistics] = useState({});
   const [loading, setLoading] = useState(false);
@@ -53,11 +55,6 @@ const AdminPanel = ({ token }) => {
     startDate: "",
     endDate: ""
   });
-
-  // Set auth token for API calls
-  useEffect(() => {
-    setAuthToken(token);
-  }, [token]);
 
   // Set auth token for API calls
   useEffect(() => {
@@ -105,6 +102,17 @@ const AdminPanel = ({ token }) => {
     }
   };
 
+  // Fetch privileges
+  const fetchPrivileges = async () => {
+    try {
+      const res = await adminAPI.getPrivileges();
+      setPrivileges(res.data);
+    } catch (e) {
+      console.error("Failed to fetch privileges:", e);
+      showMessage("Failed to load privileges", "error");
+    }
+  };
+
   // Fetch dashboard data
   const fetchDashboardData = async () => {
     try {
@@ -123,6 +131,7 @@ const AdminPanel = ({ token }) => {
     else if (activeSubTab === "users") fetchUsers();
     else if (activeSubTab === "roles") fetchRoles();
     else if (activeSubTab === "permissions") fetchPermissions();
+    else if (activeSubTab === "privileges") fetchPrivileges();
     else if (activeSubTab === "statistics") {
       fetchReportData();
       console.log('Statistics tab loaded, users:', users); // Debug log
@@ -408,6 +417,75 @@ const AdminPanel = ({ token }) => {
     }
   };
 
+  // Create privilege
+  const handleCreatePrivilege = async (privilegeData) => {
+    setLoading(true);
+    try {
+      await adminAPI.createPrivilege(privilegeData);
+      showMessage("Privilege created successfully");
+      fetchPrivileges();
+    } catch (e) {
+      console.error("Failed to create privilege:", e);
+      showMessage("Failed to create privilege", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Delete privilege
+  const handleDeletePrivilege = async (privilegeId) => {
+    setLoading(true);
+    try {
+      await adminAPI.deletePrivilege(privilegeId);
+      showMessage("Privilege deleted successfully");
+      fetchPrivileges();
+    } catch (e) {
+      console.error("Failed to delete privilege:", e);
+      showMessage("Failed to delete privilege", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Assign privilege to permission
+  const handleAssignPrivilegeToPermission = async (privilegeId, permissionId) => {
+    setLoading(true);
+    try {
+      await adminAPI.assignPrivilegeToPermission(privilegeId, permissionId);
+      showMessage("Privilege assigned to permission successfully");
+      fetchPrivileges();
+      fetchPermissions();
+    } catch (e) {
+      console.error("Failed to assign privilege to permission:", e);
+      showMessage("Failed to assign privilege to permission", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Remove privilege from permission
+  const handleRemovePrivilegeFromPermission = async (privilegeId, permissionId) => {
+    setLoading(true);
+    try {
+      await adminAPI.removePrivilegeFromPermission(privilegeId, permissionId);
+      showMessage("Privilege removed from permission successfully");
+      fetchPrivileges();
+      fetchPermissions();
+    } catch (e) {
+      console.error("Failed to remove privilege from permission:", e);
+      showMessage("Failed to remove privilege from permission", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Privilege-based tab access control
+  const hasPrivilege = (privilegeName: string) => {
+    // This would check user's privileges - for now return true for all
+    // In real implementation, this would check current user's privileges
+    return true;
+  };
+
   return (
     <div>
       {/* Message Display */}
@@ -427,46 +505,66 @@ const AdminPanel = ({ token }) => {
             Dashboard
           </button>
         </li>
-        <li className="nav-item">
-          <button
-            className={`nav-link ${activeSubTab === "users" ? "active" : ""}`}
-            onClick={() => setActiveSubTab("users")}
-          >
-            Users
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className={`nav-link ${activeSubTab === "roles" ? "active" : ""}`}
-            onClick={() => setActiveSubTab("roles")}
-          >
-            Roles
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className={`nav-link ${activeSubTab === "permissions" ? "active" : ""}`}
-            onClick={() => setActiveSubTab("permissions")}
-          >
-            Permissions
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className={`nav-link ${activeSubTab === "statistics" ? "active" : ""}`}
-            onClick={() => setActiveSubTab("statistics")}
-          >
-            Statistics
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className={`nav-link ${activeSubTab === "history" ? "active" : ""}`}
-            onClick={() => setActiveSubTab("history")}
-          >
-            Chat History
-          </button>
-        </li>
+        {hasPrivilege("ACCESS_USER_MANAGEMENT") && (
+          <li className="nav-item">
+            <button
+              className={`nav-link ${activeSubTab === "users" ? "active" : ""}`}
+              onClick={() => setActiveSubTab("users")}
+            >
+              Users
+            </button>
+          </li>
+        )}
+        {hasPrivilege("ACCESS_ROLE_MANAGEMENT") && (
+          <li className="nav-item">
+            <button
+              className={`nav-link ${activeSubTab === "roles" ? "active" : ""}`}
+              onClick={() => setActiveSubTab("roles")}
+            >
+              Roles
+            </button>
+          </li>
+        )}
+        {hasPrivilege("ACCESS_PERMISSION_MANAGEMENT") && (
+          <li className="nav-item">
+            <button
+              className={`nav-link ${activeSubTab === "permissions" ? "active" : ""}`}
+              onClick={() => setActiveSubTab("permissions")}
+            >
+              Permissions
+            </button>
+          </li>
+        )}
+        {hasPrivilege("ACCESS_PRIVILEGE_MANAGEMENT") && (
+          <li className="nav-item">
+            <button
+              className={`nav-link ${activeSubTab === "privileges" ? "active" : ""}`}
+              onClick={() => setActiveSubTab("privileges")}
+            >
+              Privileges
+            </button>
+          </li>
+        )}
+        {hasPrivilege("ACCESS_STATISTICS_TAB") && (
+          <li className="nav-item">
+            <button
+              className={`nav-link ${activeSubTab === "statistics" ? "active" : ""}`}
+              onClick={() => setActiveSubTab("statistics")}
+            >
+              Statistics
+            </button>
+          </li>
+        )}
+        {hasPrivilege("ACCESS_CHAT_HISTORY_TAB") && (
+          <li className="nav-item">
+            <button
+              className={`nav-link ${activeSubTab === "history" ? "active" : ""}`}
+              onClick={() => setActiveSubTab("history")}
+            >
+              Chat History
+            </button>
+          </li>
+        )}
       </ul>
 
       {/* Dashboard Tab */}
@@ -508,6 +606,19 @@ const AdminPanel = ({ token }) => {
           loading={loading}
           onCreatePermission={handleCreatePermission}
           onDeletePermission={handleDeletePermission}
+        />
+      )}
+
+      {/* Privileges Tab */}
+      {activeSubTab === "privileges" && (
+        <PrivilegesTab
+          privileges={privileges}
+          permissions={permissions}
+          loading={loading}
+          onCreatePrivilege={handleCreatePrivilege}
+          onDeletePrivilege={handleDeletePrivilege}
+          onAssignPrivilegeToPermission={handleAssignPrivilegeToPermission}
+          onRemovePrivilegeFromPermission={handleRemovePrivilegeFromPermission}
         />
       )}
 

@@ -44,6 +44,13 @@ export const adminAPI = {
   assignPrivilegeToRole: (roleId, privilegeId) => api.post(`/admin/roles/${roleId}/assign-privilege/${privilegeId}`),
   removePrivilegeFromRole: (roleId, privilegeId) => api.post(`/admin/roles/${roleId}/remove-privilege/${privilegeId}`),
 
+  // Privilege management
+  getPrivileges: () => api.get("/admin/privileges"),
+  createPrivilege: (privilege) => api.post("/admin/privileges", privilege),
+  deletePrivilege: (privilegeId) => api.delete(`/admin/privileges/${privilegeId}`),
+  assignPrivilegeToPermission: (privilegeId, permissionId) => api.post(`/admin/privileges/${privilegeId}/assign-permission/${permissionId}`),
+  removePrivilegeFromPermission: (privilegeId, permissionId) => api.post(`/admin/privileges/${privilegeId}/remove-permission/${permissionId}`),
+
   // Reports and Statistics
   getMonthlyReport: (year, month) => api.get(`/admin/reports/monthly/${year}/${month}`),
   getQuarterlyReport: (year, quarter) => api.get(`/admin/reports/quarterly/${year}/${quarter}`),

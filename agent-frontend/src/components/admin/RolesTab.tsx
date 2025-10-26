@@ -9,6 +9,7 @@ interface Role {
 interface Permission {
   id: number;
   name: string;
+  description?: string;
 }
 
 interface RolesTabProps {
@@ -62,6 +63,42 @@ const RolesTab: React.FC<RolesTabProps> = ({
   return (
     <div>
       <h5>Role Management</h5>
+
+      {/* Permission Mapping Info */}
+      <div className="alert alert-info mb-4">
+        <h6>Role Management with Permissions & Privileges:</h6>
+        <div className="row">
+          <div className="col-md-6">
+            <h6>Available Permissions:</h6>
+            <ul className="mb-2">
+              <li><strong>CHAT_ACCESS</strong> - General chat access</li>
+              <li><strong>CHAT_WITH_AGENT</strong> - Chat with agents</li>
+              <li><strong>CHAT_WITH_USER</strong> - Chat with users</li>
+              <li><strong>CHAT_WITH_DEFAULT</strong> - Default chat access</li>
+              <li><strong>ADMIN_ACCESS</strong> - Administrative access</li>
+              <li><strong>USER_MANAGEMENT</strong> - User CRUD operations</li>
+              <li><strong>ROLE_MANAGEMENT</strong> - Role management</li>
+              <li><strong>SYSTEM_MONITORING</strong> - System monitoring</li>
+            </ul>
+          </div>
+          <div className="col-md-6">
+            <h6>Privilege-Based Access:</h6>
+            <ul className="mb-0">
+              <li><strong>ACCESS_CHAT_HISTORY_TAB</strong> - Chat History tab</li>
+              <li><strong>ACCESS_STATISTICS_TAB</strong> - Statistics tab</li>
+              <li><strong>ACCESS_USER_MANAGEMENT</strong> - Users tab</li>
+              <li><strong>ACCESS_ROLE_MANAGEMENT</strong> - Roles tab</li>
+              <li><strong>ACCESS_PERMISSION_MANAGEMENT</strong> - Permissions tab</li>
+              <li><strong>ACCESS_PRIVILEGE_MANAGEMENT</strong> - Privileges tab</li>
+              <li><strong>ACCESS_AGENT_DASHBOARD</strong> - Agent Dashboard</li>
+            </ul>
+          </div>
+        </div>
+        <p className="mb-0 mt-2"><small className="text-muted">
+          Use the "Permissions" dropdown to assign multiple permissions to roles.
+          Privileges provide granular access control for specific admin panel tabs.
+        </small></p>
+      </div>
 
       {/* Create Role Button */}
       <div className="mb-3">
@@ -191,29 +228,42 @@ const RolesTab: React.FC<RolesTabProps> = ({
                         type="button"
                         data-bs-toggle="dropdown"
                       >
-                        Permissions
+                        Permissions ({role.permissions?.length || 0})
                       </button>
-                      <ul className="dropdown-menu">
-                        {permissions.map((perm) => (
-                          <li key={perm.id}>
-                            <button
-                              className="dropdown-item"
-                              onClick={() => onAssignPermission(role.id, perm.id)}
-                              disabled={loading || role.permissions?.some((p) => p.id === perm.id)}
-                            >
-                              Assign {perm.name}
-                            </button>
-                            {role.permissions?.some((p) => p.id === perm.id) && (
-                              <button
-                                className="dropdown-item text-danger"
-                                onClick={() => onRemovePermission(role.id, perm.id)}
-                                disabled={loading}
-                              >
-                                Remove {perm.name}
-                              </button>
-                            )}
-                          </li>
-                        ))}
+                      <ul className="dropdown-menu" style={{maxHeight: '300px', overflowY: 'auto'}}>
+                        {permissions.map((perm) => {
+                          const isAssigned = role.permissions?.some((p) => p.id === perm.id);
+                          return (
+                            <li key={perm.id}>
+                              <div className="dropdown-item">
+                                <div className="form-check">
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    id={`perm-${role.id}-${perm.id}`}
+                                    checked={isAssigned}
+                                    onChange={(e) => {
+                                      if (e.target.checked) {
+                                        onAssignPermission(role.id, perm.id);
+                                      } else {
+                                        onRemovePermission(role.id, perm.id);
+                                      }
+                                    }}
+                                    disabled={loading}
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor={`perm-${role.id}-${perm.id}`}
+                                  >
+                                    {perm.name}
+                                    <br />
+                                    <small className="text-muted">{perm.description}</small>
+                                  </label>
+                                </div>
+                              </div>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </div>
                   </div>

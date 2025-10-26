@@ -48,12 +48,18 @@ public class DataSeeder implements CommandLineRunner {
         // -------------------------------------------------------
         // 1. Create Base Privileges
         // -------------------------------------------------------
-        Privilege createUser = privilegeRepository.findByName("CREATE_USER")
-                .orElseGet(() -> privilegeRepository.save(new Privilege("CREATE_USER")));
-        Privilege deleteUser = privilegeRepository.findByName("DELETE_USER")
-                .orElseGet(() -> privilegeRepository.save(new Privilege("DELETE_USER")));
-        Privilege manageChat = privilegeRepository.findByName("MANAGE_CHAT")
-                .orElseGet(() -> privilegeRepository.save(new Privilege("MANAGE_CHAT")));
+        Privilege createUser = privilegeRepository.findByName("CREATE_USER");
+        if (createUser == null) {
+            createUser = privilegeRepository.save(new Privilege("CREATE_USER"));
+        }
+        Privilege deleteUser = privilegeRepository.findByName("DELETE_USER");
+        if (deleteUser == null) {
+            deleteUser = privilegeRepository.save(new Privilege("DELETE_USER"));
+        }
+        Privilege manageChat = privilegeRepository.findByName("MANAGE_CHAT");
+        if (manageChat == null) {
+            manageChat = privilegeRepository.save(new Privilege("MANAGE_CHAT"));
+        }
 
         // -------------------------------------------------------
         // 2. Create Permissions with enhanced chat access control
@@ -88,22 +94,29 @@ public class DataSeeder implements CommandLineRunner {
         // -------------------------------------------------------
         // 2. Create Roles and attach privileges
         // -------------------------------------------------------
+        final Privilege finalCreateUser = createUser;
+        final Privilege finalDeleteUser = deleteUser;
+        final Privilege finalManageChat = manageChat;
+        final Permission finalChatAccess = chatAccess;
+        final Permission finalChatWithDefault = chatWithDefault;
+        final Permission finalChatWithAgent = chatWithAgent;
+
         Role adminRole = roleRepository.findByName("ROLE_ADMIN").orElseGet(() -> {
             Role role = new Role("ROLE_ADMIN");
-            role.setPrivileges(Set.of(createUser, deleteUser, manageChat));
+            role.setPrivileges(Set.of(finalCreateUser, finalDeleteUser, finalManageChat));
             return roleRepository.save(role);
         });
 
         Role agentRole = roleRepository.findByName("ROLE_AGENT").orElseGet(() -> {
             Role role = new Role("ROLE_AGENT");
-            role.setPrivileges(Set.of(manageChat));
+            role.setPrivileges(Set.of(finalManageChat));
             return roleRepository.save(role);
         });
 
         Role userRole = roleRepository.findByName("ROLE_USER").orElseGet(() -> {
             Role role = new Role("ROLE_USER");
-            role.setPrivileges(Set.of(manageChat));
-            role.setPermissions(Set.of(chatAccess, chatWithDefault, chatWithAgent));
+            role.setPrivileges(Set.of(finalManageChat));
+            role.setPermissions(Set.of(finalChatAccess, finalChatWithDefault, finalChatWithAgent));
             return roleRepository.save(role);
         });
 
