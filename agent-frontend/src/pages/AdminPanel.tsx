@@ -18,6 +18,7 @@ import PermissionsTab from "../components/admin/PermissionsTab";
 import PrivilegesTab from "../components/admin/PrivilegesTab";
 import StatisticsTab from "../components/admin/StatisticsTab";
 import ChatHistoryTab from "../components/admin/ChatHistoryTab";
+import Menu from "../components/Menu";
 
 const AdminPanel = ({ token }) => {
   const [activeSubTab, setActiveSubTab] = useState("dashboard");
@@ -28,7 +29,7 @@ const AdminPanel = ({ token }) => {
   const [sessions, setSessions] = useState([]);
   const [statistics, setStatistics] = useState({});
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<{text: string, type: string} | null>(null);
   const [showUserForm, setShowUserForm] = useState(false);
   const [newUser, setNewUser] = useState({
     username: "",
@@ -59,12 +60,16 @@ const AdminPanel = ({ token }) => {
   // Set auth token for API calls
   useEffect(() => {
     setAuthToken(token);
+    // Load initial data when component mounts
+    fetchRoles();
+    fetchPermissions();
+    fetchPrivileges();
   }, [token]);
 
   // Show temporary message
   const showMessage = (msg, type = "success") => {
     setMessage({ text: msg, type });
-    setTimeout(() => setMessage(""), 3000);
+    setTimeout(() => setMessage(null), 3000);
   };
 
   // Fetch users
@@ -128,9 +133,18 @@ const AdminPanel = ({ token }) => {
   // Load data based on active sub-tab
   useEffect(() => {
     if (activeSubTab === "dashboard") fetchDashboardData();
-    else if (activeSubTab === "users") fetchUsers();
-    else if (activeSubTab === "roles") fetchRoles();
-    else if (activeSubTab === "permissions") fetchPermissions();
+    else if (activeSubTab === "users") {
+      fetchUsers();
+      fetchRoles(); // Load roles immediately for user creation
+    }
+    else if (activeSubTab === "roles") {
+      fetchRoles();
+      fetchPrivileges(); // Also fetch privileges for role management
+    }
+    else if (activeSubTab === "permissions") {
+      fetchPermissions();
+      fetchPrivileges(); // Load privileges for permission management
+    }
     else if (activeSubTab === "privileges") fetchPrivileges();
     else if (activeSubTab === "statistics") {
       fetchReportData();
@@ -282,27 +296,18 @@ const AdminPanel = ({ token }) => {
   };
 
   // Create new user
-  const handleCreateUser = async (e) => {
-    e.preventDefault();
+  const handleCreateUser = async (userData) => {
     setLoading(true);
     try {
       const userDTO = {
-        username: newUser.username,
-        email: newUser.email,
-        name: newUser.name,
-        password: newUser.password,
-        roles: [{ name: newUser.role }]
+        username: userData.username,
+        email: userData.email,
+        name: userData.name,
+        password: userData.password,
+        roles: userData.roles // Now accepts array of role objects
       };
       await adminAPI.createUser(userDTO);
-      showMessage("User created successfully");
-      setShowUserForm(false);
-      setNewUser({
-        username: "",
-        email: "",
-        name: "",
-        password: "",
-        role: "ROLE_AGENT"
-      });
+      showMessage("User created successfully with automatic role-based permissions and privileges");
       fetchUsers();
     } catch (e) {
       console.error("Failed to create user:", e);
@@ -347,8 +352,9 @@ const AdminPanel = ({ token }) => {
     setLoading(true);
     try {
       await adminAPI.createRole(roleData);
-      showMessage("Role created successfully");
+      showMessage("Role created successfully with automatic permission and privilege assignment");
       fetchRoles();
+      fetchPrivileges(); // Refresh privileges data as well
     } catch (e) {
       console.error("Failed to create role:", e);
       showMessage("Failed to create role", "error");
@@ -479,14 +485,69 @@ const AdminPanel = ({ token }) => {
     }
   };
 
+  // Assign privilege to role
+  const assignPrivilegeToRole = async (roleId, privilegeId) => {
+    setLoading(true);
+    try {
+      await adminAPI.assignPrivilegeToRole(roleId, privilegeId);
+      showMessage("Privilege assigned to role successfully");
+      fetchRoles();
+    } catch (e) {
+      console.error("Failed to assign privilege:", e);
+      showMessage("Failed to assign privilege", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Remove privilege from role
+  const removePrivilegeFromRole = async (roleId, privilegeId) => {
+    setLoading(true);
+    try {
+      await adminAPI.removePrivilegeFromRole(roleId, privilegeId);
+      showMessage("Privilege removed from role successfully");
+      fetchRoles();
+    } catch (e) {
+      console.error("Failed to remove privilege:", e);
+      showMessage("Failed to remove privilege", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Delete user
+  const handleDeleteUser = async (userId) => {
+    setLoading(true);
+    try {
+      await adminAPI.deleteUser(userId);
+      showMessage("User deleted successfully");
+      fetchUsers();
+    } catch (e) {
+      console.error("Failed to delete user:", e);
+      showMessage("Failed to delete user", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Privilege-based tab access control
   const hasPrivilege = (privilegeName: string) => {
-    // This would check user's privileges - for now return true for all
-    // In real implementation, this would check current user's privileges
+    // Check if current user has the required privilege through their roles
+    // This would need to be implemented by checking the user's roles and their associated privileges
+    // For now, return true for all to maintain existing functionality until proper implementation
+    // TODO: Implement proper privilege checking by fetching user's roles and their privileges
     return true;
   };
 
   return (
+    <>
+    <style>
+      {`
+        .nav-link.active {
+          color: white !important;
+        }
+      `}
+    </style>
     <div>
       {/* Message Display */}
       {message && (
@@ -500,6 +561,7 @@ const AdminPanel = ({ token }) => {
         <li className="nav-item">
           <button
             className={`nav-link ${activeSubTab === "dashboard" ? "active" : ""}`}
+            style={activeSubTab === "dashboard" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
             onClick={() => setActiveSubTab("dashboard")}
           >
             Dashboard
@@ -509,6 +571,7 @@ const AdminPanel = ({ token }) => {
           <li className="nav-item">
             <button
               className={`nav-link ${activeSubTab === "users" ? "active" : ""}`}
+              style={activeSubTab === "users" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveSubTab("users")}
             >
               Users
@@ -519,6 +582,7 @@ const AdminPanel = ({ token }) => {
           <li className="nav-item">
             <button
               className={`nav-link ${activeSubTab === "roles" ? "active" : ""}`}
+              style={activeSubTab === "roles" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveSubTab("roles")}
             >
               Roles
@@ -529,6 +593,7 @@ const AdminPanel = ({ token }) => {
           <li className="nav-item">
             <button
               className={`nav-link ${activeSubTab === "permissions" ? "active" : ""}`}
+              style={activeSubTab === "permissions" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveSubTab("permissions")}
             >
               Permissions
@@ -539,6 +604,7 @@ const AdminPanel = ({ token }) => {
           <li className="nav-item">
             <button
               className={`nav-link ${activeSubTab === "privileges" ? "active" : ""}`}
+              style={activeSubTab === "privileges" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveSubTab("privileges")}
             >
               Privileges
@@ -549,6 +615,7 @@ const AdminPanel = ({ token }) => {
           <li className="nav-item">
             <button
               className={`nav-link ${activeSubTab === "statistics" ? "active" : ""}`}
+              style={activeSubTab === "statistics" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveSubTab("statistics")}
             >
               Statistics
@@ -559,6 +626,7 @@ const AdminPanel = ({ token }) => {
           <li className="nav-item">
             <button
               className={`nav-link ${activeSubTab === "history" ? "active" : ""}`}
+              style={activeSubTab === "history" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveSubTab("history")}
             >
               Chat History
@@ -582,6 +650,7 @@ const AdminPanel = ({ token }) => {
           onRemoveRole={removeRoleFromUser}
           onCreateUser={handleCreateUser}
           onRefreshUsers={fetchUsers}
+          onDeleteUser={handleDeleteUser}
         />
       )}
 
@@ -590,9 +659,12 @@ const AdminPanel = ({ token }) => {
         <RolesTab
           roles={roles}
           permissions={permissions}
+          privileges={privileges}
           loading={loading}
           onAssignPermission={assignPermissionToRole}
           onRemovePermission={removePermissionFromRole}
+          onAssignPrivilege={assignPrivilegeToRole}
+          onRemovePrivilege={removePrivilegeFromRole}
           onCreateRole={handleCreateRole}
           onUpdateRole={handleUpdateRole}
           onDeleteRole={handleDeleteRole}
@@ -656,6 +728,7 @@ const AdminPanel = ({ token }) => {
         />
       )}
     </div>
+    </>
   );
 };
 

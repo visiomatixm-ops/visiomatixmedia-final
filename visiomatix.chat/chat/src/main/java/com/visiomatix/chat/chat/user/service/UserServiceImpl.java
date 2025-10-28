@@ -115,13 +115,26 @@ public class UserServiceImpl implements UserService {
         // Generate JWT token
         String token = jwtUtil.generateToken(username);
 
-        // Retrieve primary role
+        // Retrieve primary role - prioritize ADMIN over AGENT over USER
         String primaryRole = user.getRoles().stream()
-                .findFirst()
                 .map(Role::getName)
+                .sorted((a, b) -> {
+                    // Priority: ADMIN > AGENT > USER
+                    if (a.equals("ROLE_ADMIN")) return -1;
+                    if (b.equals("ROLE_ADMIN")) return 1;
+                    if (a.equals("ROLE_AGENT")) return -1;
+                    if (b.equals("ROLE_AGENT")) return 1;
+                    return 0;
+                })
+                .findFirst()
                 .orElse("ROLE_USER");
 
-        return new JwtResponseDTO(token, username, primaryRole);
+        // Get all roles for the user (for privilege-based access control)
+        List<String> allRoles = user.getRoles().stream()
+                .map(Role::getName)
+                .toList();
+
+        return new JwtResponseDTO(token, username, primaryRole, allRoles);
     }
 
     // ===========================================================

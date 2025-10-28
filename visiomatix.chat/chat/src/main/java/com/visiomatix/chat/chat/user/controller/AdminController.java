@@ -184,6 +184,22 @@ public class AdminController {
     }
 
     /**
+     * Update a role by ID
+     * @param roleId Role ID to update
+     * @param roleDTO Updated role data
+     * @param authentication Current admin authentication
+     * @return Updated role
+     */
+    @PutMapping("/roles/{roleId}")
+    public ResponseEntity<Role> updateRole(@PathVariable Long roleId,
+                                          @RequestBody RoleDTO roleDTO,
+                                          Authentication authentication) {
+        logger.info("Admin {} updating role {} with name: {}", authentication.getName(), roleId, roleDTO.getName());
+        Role updatedRole = roleService.updateRole(roleId, roleDTO, authentication.getName());
+        return ResponseEntity.ok(updatedRole);
+    }
+
+    /**
      * Delete a role by ID
      * @param roleId Role ID to delete
      * @param authentication Current admin authentication
@@ -300,10 +316,24 @@ public class AdminController {
      */
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO,
-                                          Authentication authentication) {
+                                           Authentication authentication) {
         logger.info("Admin {} creating new user: {}", authentication.getName(), userDTO.getUsername());
         User createdUser = userService.createUser(userDTO, authentication.getName());
         return ResponseEntity.ok(createdUser);
+    }
+
+    /**
+     * Delete a user by ID
+     * @param userId User ID to delete
+     * @param authentication Current admin authentication
+     * @return Success message
+     */
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long userId,
+                                           Authentication authentication) {
+        logger.info("Admin {} deleting user {}", authentication.getName(), userId);
+        userService.deleteUser(userId);
+        return ResponseEntity.ok("User deleted successfully");
     }
 
     // ===========================================================

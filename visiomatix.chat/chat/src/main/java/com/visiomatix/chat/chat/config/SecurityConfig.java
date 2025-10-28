@@ -125,6 +125,7 @@ public class SecurityConfig {
             // Configure authorization rules - ORDER MATTERS (most specific first)
             .authorizeHttpRequests(auth -> auth
                 // Public endpoints - must be FIRST
+                .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
                 .requestMatchers("/api/users/register", "/api/users/login").permitAll()
                 .requestMatchers("/ws/**", "/ws-chat/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()

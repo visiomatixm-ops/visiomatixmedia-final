@@ -17,6 +17,7 @@ package com.visiomatix.chat.chat.user.model;
 // ===========================================================
 import jakarta.persistence.*; // For JPA annotations
 import java.util.Set; // To define relationship with Role
+import java.util.HashSet; // For HashSet initialization
 import com.fasterxml.jackson.annotation.JsonIgnore; // Prevent circular reference
 
 @Entity
@@ -37,6 +38,15 @@ public class Privilege {
     @ManyToMany(mappedBy = "privileges")
     @JsonIgnore // Prevent circular reference during JSON serialization
     private Set<Role> roles;
+
+    // Many privileges can be mapped to many permissions
+    @ManyToMany
+    @JoinTable(
+        name = "privilege_permissions",
+        joinColumns = @JoinColumn(name = "privilege_id"),
+        inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private Set<Permission> permissions = new HashSet<>();
 
     // ===========================================================
     // Constructors
@@ -59,4 +69,8 @@ public class Privilege {
     public Set<Role> getRoles() { return roles; }
 
     public void setRoles(Set<Role> roles) { this.roles = roles; }
+
+    public Set<Permission> getPermissions() { return permissions; }
+
+    public void setPermissions(Set<Permission> permissions) { this.permissions = permissions; }
 }

@@ -3,9 +3,9 @@ import Login from "./pages/Login";
 import AgentDashboard from "./pages/AgentDashboard";
 
 export default function App() {
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState<{token: string; role: string} | null>(null);
 
-  const handleLogin = (authData) => {
+  const handleLogin = (authData: {token: string; role: string}) => {
     setAuth(authData);
   };
 

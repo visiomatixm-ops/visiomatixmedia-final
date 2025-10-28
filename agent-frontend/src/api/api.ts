@@ -14,6 +14,7 @@ export const adminAPI = {
   // User management
   getUsers: () => api.get("/admin/users"),
   createUser: (userDTO) => api.post("/admin/users", userDTO),
+  deleteUser: (userId) => api.delete(`/admin/users/${userId}`),
   assignRoleToUser: (userId, roleId) => api.post(`/admin/users/${userId}/assign-role/${roleId}`),
   removeRoleFromUser: (userId, roleId) => api.post(`/admin/users/${userId}/remove-role/${roleId}`),
 

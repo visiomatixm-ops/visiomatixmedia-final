@@ -77,12 +77,12 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         Permission permission = permissionRepository.findById(permissionId)
             .orElseThrow(() -> new RuntimeException("Permission not found with ID: " + permissionId));
 
-        // Note: In a real implementation, you might want to create a many-to-many relationship
-        // between privileges and permissions. For now, we'll just log the assignment.
-        // The actual relationship would depend on your business logic.
+        // Add permission to privilege's permission set
+        privilege.getPermissions().add(permission);
 
+        Privilege savedPrivilege = privilegeRepository.save(privilege);
         logger.info("Permission {} assigned to privilege {} successfully", permissionId, privilegeId);
-        return privilege;
+        return savedPrivilege;
     }
 
     @Override
@@ -95,10 +95,11 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         Permission permission = permissionRepository.findById(permissionId)
             .orElseThrow(() -> new RuntimeException("Permission not found with ID: " + permissionId));
 
-        // Note: In a real implementation, you would remove the relationship here.
-        // For now, we'll just log the removal.
+        // Remove permission from privilege's permission set
+        privilege.getPermissions().remove(permission);
 
+        Privilege savedPrivilege = privilegeRepository.save(privilege);
         logger.info("Permission {} removed from privilege {} successfully", permissionId, privilegeId);
-        return privilege;
+        return savedPrivilege;
     }
 }

@@ -7,7 +7,8 @@ const UsersTab = ({
   onAssignRole,
   onRemoveRole,
   onCreateUser,
-  onRefreshUsers
+  onRefreshUsers,
+  onDeleteUser
 }) => {
   const [showUserForm, setShowUserForm] = useState(false);
   const [newUser, setNewUser] = useState({
@@ -15,20 +16,35 @@ const UsersTab = ({
     email: "",
     name: "",
     password: "",
-    role: "ROLE_AGENT"
+    roles: ["ROLE_AGENT"]
   });
 
-  const handleCreateUser = async (e) => {
+  const [selectedRoles, setSelectedRoles] = useState<string[]>(["ROLE_AGENT"]);
+
+  const handleCreateUser = async (e: React.FormEvent) => {
     e.preventDefault();
-    await onCreateUser(newUser);
+    // Pass the newUser object with selected roles to the parent handler
+    await onCreateUser({
+      ...newUser,
+      roles: selectedRoles.map(roleName => ({ name: roleName }))
+    });
     setShowUserForm(false);
     setNewUser({
       username: "",
       email: "",
       name: "",
       password: "",
-      role: "ROLE_AGENT"
+      roles: ["ROLE_AGENT"]
     });
+    setSelectedRoles(["ROLE_AGENT"]);
+  };
+
+  const handleRoleToggle = (roleName: string) => {
+    setSelectedRoles(prev =>
+      prev.includes(roleName)
+        ? prev.filter(r => r !== roleName)
+        : [...prev, roleName]
+    );
   };
 
   return (
@@ -104,16 +120,33 @@ const UsersTab = ({
                 </div>
               </div>
               <div className="mb-3">
-                <label className="form-label">Role</label>
-                <select
-                  className="form-control"
-                  value={newUser.role}
-                  onChange={(e) => setNewUser({...newUser, role: e.target.value})}
-                >
-                  <option value="ROLE_AGENT">Agent</option>
-                  <option value="ROLE_ADMIN">Admin</option>
-                  <option value="ROLE_USER">User</option>
-                </select>
+                <label className="form-label">Roles (Select multiple)</label>
+                <div className="border rounded p-3">
+                  {roles.map((role) => (
+                    <div key={role.id} className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id={`role-${role.id}`}
+                        checked={selectedRoles.includes(role.name)}
+                        onChange={() => handleRoleToggle(role.name)}
+                      />
+                      <label className="form-check-label" htmlFor={`role-${role.id}`}>
+                        {role.name}
+                        {role.name.includes('CUSTOMER_SUCCESS') && (
+                          <small className="text-info ms-2">(Auto-assigns comprehensive permissions & privileges)</small>
+                        )}
+                        {role.name === 'CUSTOMER_SUCCESS_LEAD' && (
+                          <small className="text-success ms-2">(SYSTEM_MONITORING, CHAT_WITH_AGENT, CHAT_ACCESS, CHAT_WITH_DEFAULT, CHAT_WITH_USER, USER_MANAGEMENT + 10 privileges)</small>
+                        )}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+                <small className="text-muted">
+                  Users will automatically inherit all permissions and privileges from their assigned roles.
+                  Multiple roles combine their access levels.
+                </small>
               </div>
               <div className="d-flex gap-2">
                 <button type="submit" className="btn btn-success" disabled={loading}>
@@ -159,36 +192,50 @@ const UsersTab = ({
                   ))}
                 </td>
                 <td>
-                  <div className="dropdown">
-                    <button
-                      className="btn btn-sm btn-outline-primary dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                    >
-                      Manage Roles
-                    </button>
-                    <ul className="dropdown-menu">
-                      {roles.map((role) => (
-                        <li key={role.id}>
-                          <button
-                            className="dropdown-item"
-                            onClick={() => onAssignRole(user.id, role.id)}
-                            disabled={loading || user.roles?.some((r) => r.id === role.id)}
-                          >
-                            Assign {role.name}
-                          </button>
-                          {user.roles?.some((r) => r.id === role.id) && (
+                  <div className="btn-group" role="group">
+                    <div className="dropdown">
+                      <button
+                        className="btn btn-sm btn-outline-primary dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                      >
+                        Manage Roles
+                      </button>
+                      <ul className="dropdown-menu">
+                        {roles.map((role) => (
+                          <li key={role.id}>
                             <button
-                              className="dropdown-item text-danger"
-                              onClick={() => onRemoveRole(user.id, role.id)}
-                              disabled={loading}
+                              className="dropdown-item"
+                              onClick={() => onAssignRole(user.id, role.id)}
+                              disabled={loading || user.roles?.some((r) => r.id === role.id)}
                             >
-                              Remove {role.name}
+                              Assign {role.name}
                             </button>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
+                            {user.roles?.some((r) => r.id === role.id) && (
+                              <button
+                                className="dropdown-item text-danger"
+                                onClick={() => onRemoveRole(user.id, role.id)}
+                                disabled={loading}
+                              >
+                                Remove {role.name}
+                              </button>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <button
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={() => {
+                        if (window.confirm(`Are you sure you want to delete user "${user.username}"? This action cannot be undone.`)) {
+                          onDeleteUser(user.id);
+                        }
+                      }}
+                      disabled={loading}
+                      title="Delete User"
+                    >
+                      🗑️
+                    </button>
                   </div>
                 </td>
               </tr>

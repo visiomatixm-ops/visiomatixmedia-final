@@ -4,3 +4,18 @@
   padding: 2rem;
   text-align: center;
 }
+
+.logo-container{
+  margin-bottom: 4em;
+}
+
+.parent-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 12vh;
+}
+
+.nav-link.active {
+    color: white !important;
+}

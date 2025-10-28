@@ -34,6 +34,7 @@ package com.visiomatix.chat.chat.user.dto;
 // Import Statements
 // ============================================================
 import java.io.Serializable;
+import java.util.List;
 // Serializable interface is used so that this DTO can be transferred
 // over the network or stored in a session if needed.
 
@@ -56,6 +57,7 @@ public class JwtResponseDTO implements Serializable {
     private String token;      // Holds the JWT access token string
     private String username;   // Holds the authenticated user's username
     private String role;       // Holds the user's primary role name (e.g., ROLE_ADMIN)
+    private List<String> roles; // Holds all roles assigned to the user for privilege-based access
 
     // ============================================================
     // Constructors
@@ -78,6 +80,20 @@ public class JwtResponseDTO implements Serializable {
         this.token = token;
         this.username = username;
         this.role = role;
+    }
+
+    /**
+     * Parameterized constructor with all roles for privilege-based access
+     * @param token    JWT token string
+     * @param username Authenticated user's username
+     * @param role     User's primary role
+     * @param roles    All roles assigned to the user
+     */
+    public JwtResponseDTO(String token, String username, String role, List<String> roles) {
+        this.token = token;
+        this.username = username;
+        this.role = role;
+        this.roles = roles;
     }
 
     // ============================================================
@@ -108,6 +124,14 @@ public class JwtResponseDTO implements Serializable {
         this.role = role;
     }
 
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
     // ============================================================
     // toString() Method
     // ============================================================
@@ -117,6 +141,7 @@ public class JwtResponseDTO implements Serializable {
                 "token='" + token + '\'' +
                 ", username='" + username + '\'' +
                 ", role='" + role + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }

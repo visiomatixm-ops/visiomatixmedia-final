@@ -42,6 +42,7 @@ import { Client } from "@stomp/stompjs";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminPanel from "./AdminPanel";
+import Menu from "../components/Menu";
 
 const AgentDashboard = ({ token, userRole }) => {
   const [sessions, setSessions] = useState([]);
@@ -401,7 +402,23 @@ const AgentDashboard = ({ token, userRole }) => {
   // UI
   // ---------------------------------------------------------
   return (
-    <div className="container-fluid py-4">
+    <div className="parent-container"
+    style={{
+      display:"flex",
+      flexDirection:"column",
+      gap:"12vh",
+    }}
+    >
+    <style>
+      {`
+        .nav-link.active {
+          color: white !important;
+        }
+      `}
+    </style>
+      <div className="logo-container"><Menu /></div>      
+
+    <div className="margin-top container-fluid py-4 px-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h4 className="mb-0">Agent Dashboard</h4>
         <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
@@ -414,6 +431,7 @@ const AgentDashboard = ({ token, userRole }) => {
         <li className="nav-item">
           <button
             className={`nav-link ${activeTab === "chats" ? "active" : ""}`}
+            style={activeTab === "chats" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
             onClick={() => setActiveTab("chats")}
           >
             Chats
@@ -422,6 +440,7 @@ const AgentDashboard = ({ token, userRole }) => {
         <li className="nav-item">
           <button
             className={`nav-link ${activeTab === "stats" ? "active" : ""}`}
+            style={activeTab === "stats" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
             onClick={() => setActiveTab("stats")}
           >
             My Statistics
@@ -430,6 +449,7 @@ const AgentDashboard = ({ token, userRole }) => {
         <li className="nav-item">
           <button
             className={`nav-link ${activeTab === "history" ? "active" : ""}`}
+            style={activeTab === "history" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
             onClick={() => setActiveTab("history")}
           >
             Chat History
@@ -439,6 +459,7 @@ const AgentDashboard = ({ token, userRole }) => {
           <li className="nav-item">
             <button
               className={`nav-link ${activeTab === "admin" ? "active" : ""}`}
+              style={activeTab === "admin" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveTab("admin")}
             >
               Admin Panel
@@ -450,6 +471,13 @@ const AgentDashboard = ({ token, userRole }) => {
       {/* Tab Content */}
       {activeTab === "chats" && (
         <div className="row">
+              <style>
+                      {`
+                        .nav-link.active {
+                          color: white !important;
+                        }
+                      `}
+                    </style>
           {/* Sessions */}
           <div className="col-4 border-end">
             <h6>Active Sessions ({sessions.length})</h6>
@@ -518,6 +546,13 @@ const AgentDashboard = ({ token, userRole }) => {
       {/* Statistics Tab */}
       {activeTab === "stats" && (
         <div>
+              <style>
+                  {`
+                    .nav-link.active {
+                      color: white !important;
+                    }
+                  `}
+                </style>
           <h5>My Chat Statistics</h5>
 
           {/* Period Selection */}
@@ -667,6 +702,13 @@ const AgentDashboard = ({ token, userRole }) => {
       {/* Chat History Tab for Agents */}
       {activeTab === "history" && (
         <div>
+              <style>
+                  {`
+                    .nav-link.active {
+                      color: white !important;
+                    }
+                  `}
+                </style>
           <h5>My Chat History Review</h5>
 
           <div className="row">
@@ -777,6 +819,7 @@ const AgentDashboard = ({ token, userRole }) => {
       {activeTab === "admin" && userRole === "ROLE_ADMIN" && (
         <AdminPanel token={token} />
       )}
+    </div>
     </div>
   );
 };
