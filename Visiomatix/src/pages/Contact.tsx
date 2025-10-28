@@ -10,6 +10,7 @@
 //   - Google Maps embedded for location
 // ===========================================================
 
+import { Helmet } from "react-helmet-async";
 import React, { useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 
@@ -46,6 +47,15 @@ const Contact: React.FC = () => {
   // ===========================================================
   return (
     <>
+      {/* ====================== SEO Meta Tags ====================== */}
+      <Helmet>
+    <title>Contact Visiomatix Media | Get in Touch for IT Solutions</title>
+<meta name="description" content="Reach out to Visiomatix Media for business inquiries, project collaborations, or support. Let's build your digital future together." />
+<meta name="keywords" content="contact visiomatix, get in touch, IT services inquiry, software company contact, web development support" />
+<link rel="canonical" href="https://visiomatix.com/contact" />
+
+      
+      </Helmet>
       {/* =================================================== */}
       {/* Hero Section */}
       {/* =================================================== */}
@@ -67,7 +77,10 @@ const Contact: React.FC = () => {
         <div style={{ position: "relative", zIndex: 2 }}>
           <h1 className="display-5 fw-bold">Contact Us</h1>
           <p className="lead mb-0">
-            We'd love to hear from you. Reach out with your questions or ideas.
+            We'd love to hear from you. Reach out with your questions or ideas.At Visiomatix Media,
+             we value collaboration, innovation, and connection. Whether you're looking to start a 
+             new project, request a demo, or simply learn more about our services — our team is 
+             here to help.
           </p>
         </div>
       </section>
@@ -269,3 +282,8 @@ const Contact: React.FC = () => {
 };
 
 export default Contact;
+
+
+
+
+

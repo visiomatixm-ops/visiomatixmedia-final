@@ -10,6 +10,7 @@
  * ===========================================================
  */
 
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
@@ -43,7 +44,7 @@ const blogPosts = [
     image: "services/photography.jpg",
     title: "How Professional Photography Can Transform Your Brand Image",
     excerpt:
-      "Photography goes beyond visuals — it’s brand storytelling. See how high-quality imagery builds trust and enhances your digital presence.",
+      "Photography goes beyond visuals — it's brand storytelling. See how high-quality imagery builds trust and enhances your digital presence.",
     author: "Photography Studio",
     date: "August 30, 2025",
   },
@@ -57,9 +58,9 @@ const blogPosts = [
   },
   {
     image: "services/seo-infographic-concept-background_823925-1180.jpg",
-    title: "SEO in 2025: Beyond Keywords — It’s About Intent",
+    title: "SEO in 2025: Beyond Keywords — It's About Intent",
     excerpt:
-      "Google’s algorithms now reward authenticity and relevance. Learn how our SEO experts blend human psychology and data-driven strategy to improve rankings.",
+      "Google's algorithms now reward authenticity and relevance. Learn how our SEO experts blend human psychology and data-driven strategy to improve rankings.",
     author: "SEO & Analytics Team",
     date: "July 28, 2025",
   },
@@ -75,7 +76,7 @@ const blogPosts = [
     image: "services/editing.webp",
     title: "Design Thinking: The Secret to Better UI/UX Experiences",
     excerpt:
-      "At Visiomatix, design isn’t just visual — it’s emotional. We share how user empathy and design thinking drive every digital interface we create.",
+      "At Visiomatix, design isn't just visual — it's emotional. We share how user empathy and design thinking drive every digital interface we create.",
     author: "UI/UX Design Lab",
     date: "June 30, 2025",
   },
@@ -84,6 +85,32 @@ const blogPosts = [
 const Blog: React.FC = () => {
   return (
     <>
+      {/* ====================== SEO Metadata Section ====================== */}
+      <Helmet>
+        {/* Basic Meta Tags */}
+        <title>Visiomatix Media Blog | Digital Marketing, Tech Trends & Insights</title>
+        <meta
+          name="description"
+          content="Stay updated with the latest trends in digital marketing, web development, and technology innovation from the experts at Visiomatix Media."
+        />
+        <meta name="keywords" content="Visiomatix blog, digital marketing blog, tech trends, web development insights, SEO tips, branding strategies" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.visiomatix.com/blog" />
+
+        {/* Open Graph (Facebook/LinkedIn) */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Visiomatix Media Blog | Digital Marketing, Tech Trends & Insights" />
+        <meta property="og:description" content="Stay updated with the latest trends in digital marketing, web development, and technology innovation from the experts at Visiomatix Media." />
+        <meta property="og:url" content="https://www.visiomatix.com/blog" />
+        <meta property="og:image" content="https://www.visiomatix.com/about/Social-Media-Infographics-in-Detail-1.jpg" />
+        <meta property="og:site_name" content="Visiomatix Media" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Visiomatix Media Blog | Digital Marketing, Tech Trends & Insights" />
+        <meta name="twitter:description" content="Stay updated with the latest trends in digital marketing, web development, and technology innovation from the experts at Visiomatix Media." />
+        <meta name="twitter:image" content="https://www.visiomatix.com/about/Social-Media-Infographics-in-Detail-1.jpg" />
+      </Helmet>
       {/* ====================== Page Fade Animation ====================== */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -121,6 +148,14 @@ const Blog: React.FC = () => {
           </h1>
           <p className="lead text-white-50" style={{ fontSize: "0.95rem" }}>
             Insights, trends, and creative updates from our digital experts.
+            Welcome to the Visiomatix Media Blog — your go-to destination for the latest in 
+            technology, innovation, and digital transformation.
+            Here, we share expert insights, industry trends, and success stories that inspire
+             businesses to stay ahead in an ever-evolving digital world.
+             At Visiomatix, we believe that knowledge grows when it's shared. 
+             Whether you're a startup exploring new tech solutions or an enterprise 
+             scaling your digital infrastructure, our blog delivers valuable perspectives to 
+             help you make informed decisions.
           </p>
         </div>
       </section>

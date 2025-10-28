@@ -7,8 +7,10 @@
 //   showing client projects, results, and success stories.
 // ===========================================================
 
+
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import PeopleCard from "../component/PeopleCard";
+import { Helmet } from 'react-helmet-async';
 
 // Visiomatix Media Projects (dummy data)
 const portfolio = [
@@ -34,7 +36,7 @@ const portfolio = [
     project: "Professional Photography & Portfolio Development",
     image: "/services/photography.jpg",
     description:
-      "Captured high-quality photography and developed a visually compelling portfolio for client’s marketing campaigns.",
+      "Captured high-quality photography and developed a visually compelling portfolio for client's marketing campaigns.",
   },
   {
     client: "FilmStudioX",
@@ -81,6 +83,14 @@ const portfolio = [
 const Testimonials: React.FC = () => {
   return (
     <>
+      <Helmet>
+        <title>Our Portfolio & Success Stories | Visiomatix Media</title>
+        <meta
+          name="description"
+          content="Explore Visiomatix Media's portfolio showcasing diverse projects in software, web, and mobile solutions. Discover our success stories and client testimonials."
+        />
+        <link rel="canonical" href="https://visiomatixmedia.com/testimonials" />
+      </Helmet>
       {/* Hero Banner */}
       <section
         className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
@@ -106,7 +116,11 @@ const Testimonials: React.FC = () => {
         <div style={{ position: "relative", zIndex: 2 }}>
           <h1 className="display-5 fw-bold">Our Portfolio & Success Stories</h1>
           <p className="lead">
-            Explore how Visiomatix Media delivers creative solutions for clients across media domains.
+            At Visiomatix, every project is a story of transformation — where 
+            ideas evolve into impactful digital products. Our portfolio showcases a diverse 
+            range of software, web, and mobile solutions developed for clients across the globe. 
+            We take pride in crafting high-performance systems that empower businesses, enhance 
+            customer engagement, and accelerate growth
           </p>
         </div>
       </section>
