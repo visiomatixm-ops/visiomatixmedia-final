@@ -18,6 +18,45 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
+interface Service {
+  image: string;
+  title: string;
+  description: string;
+}
+
+interface ServiceCardWrapperProps {
+  service: Service;
+  cardVariants: {
+    hidden: { opacity: number; y: number; scale: number };
+    visible: { opacity: number; y: number; scale: number; transition: { duration: number } };
+    exit: { opacity: number; y: number; scale: number; transition: { duration: number } };
+    hover: { scale: number; transition: { duration: number } };
+  };
+}
+
+const ServiceCardWrapper: React.FC<ServiceCardWrapperProps> = ({ service, cardVariants }) => {
+  const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.2 });
+
+  return (
+    <motion.div
+      ref={ref}
+      className="card-theme col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center p-3"
+      variants={cardVariants}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      exit="exit"
+      whileHover="hover"
+    >
+      <ServiceCard
+        image={service.image}
+        title={service.title}
+        description={service.description}
+        hoverRadius={120} // slightly rounder hover radius for circular cards
+      />
+    </motion.div>
+  );
+};
+
 // Example service images
 import EditingImage from "/public/services/editing.webp";
 import AnimationImage from "/public/services/animation.jpg";
@@ -110,26 +149,12 @@ const ServicesLayout: React.FC = () => {
       {/* Responsive Grid */}
       <div className="row g-4">
         {services.map((service, index) => {
-          const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.2 });
-
           return (
-            <motion.div
+            <ServiceCardWrapper
               key={index}
-              ref={ref}
-              className="card-theme col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center p-3"
-              variants={cardVariants}
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              exit="exit"
-              whileHover="hover"
-            >
-              <ServiceCard
-                image={service.image}
-                title={service.title}
-                description={service.description}
-                hoverRadius={120} // slightly rounder hover radius for circular cards
-              />
-            </motion.div>
+              service={service}
+              cardVariants={cardVariants}
+            />
           );
         })}
       </div>

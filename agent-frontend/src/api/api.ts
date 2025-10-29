@@ -21,6 +21,7 @@ export const adminAPI = {
   // Role management
   getRoles: () => api.get("/admin/roles"),
   createRole: (roleDTO) => api.post("/admin/roles", roleDTO),
+  createOrOverrideRole: (roleDTO) => api.post("/api/roles/create-or-override", roleDTO),
   updateRole: (roleId, roleDTO) => api.put(`/admin/roles/${roleId}`, roleDTO),
   assignPermissionToRole: (roleId, permissionId) => api.post(`/admin/roles/${roleId}/assign-permission/${permissionId}`),
   removePermissionFromRole: (roleId, permissionId) => api.post(`/admin/roles/${roleId}/remove-permission/${permissionId}`),

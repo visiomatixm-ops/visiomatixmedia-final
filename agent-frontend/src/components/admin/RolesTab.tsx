@@ -29,6 +29,7 @@ interface RolesTabProps {
   onAssignPrivilege: (roleId: number, privilegeId: number) => void;
   onRemovePrivilege: (roleId: number, privilegeId: number) => void;
   onCreateRole: (roleData: { name: string }) => void;
+  onCreateOrOverrideRole: (roleData: { name: string; permissionNames: string[]; privilegeNames: string[]; override: boolean; createdBy: string }) => void;
   onUpdateRole: (roleId: number, roleData: { name: string }) => void;
   onDeleteRole: (roleId: number) => void;
 }
@@ -43,6 +44,7 @@ const RolesTab: React.FC<RolesTabProps> = ({
   onAssignPrivilege,
   onRemovePrivilege,
   onCreateRole,
+  onCreateOrOverrideRole,
   onUpdateRole,
   onDeleteRole
 }) => {
@@ -50,11 +52,33 @@ const RolesTab: React.FC<RolesTabProps> = ({
   const [editingRole, setEditingRole] = useState<number | null>(null);
   const [newRoleName, setNewRoleName] = useState("");
   const [editRoleName, setEditRoleName] = useState("");
+  const [selectedPermissions, setSelectedPermissions] = useState<number[]>([]);
+  const [selectedPrivileges, setSelectedPrivileges] = useState<number[]>([]);
+  const [overrideChecked, setOverrideChecked] = useState(false);
 
   const handleCreateRole = () => {
     if (newRoleName.trim()) {
       onCreateRole({ name: newRoleName.trim() });
       setNewRoleName("");
+      setShowCreateForm(false);
+    }
+  };
+
+  const handleCreateOrOverrideRole = () => {
+    if (newRoleName.trim()) {
+      const permissionNames = selectedPermissions.map(id => permissions.find(p => p.id === id)?.name).filter(Boolean) as string[];
+      const privilegeNames = selectedPrivileges.map(id => privileges.find(p => p.id === id)?.name).filter(Boolean) as string[];
+      onCreateOrOverrideRole({
+        name: newRoleName.trim(),
+        permissionNames,
+        privilegeNames,
+        override: overrideChecked,
+        createdBy: "admin" // TODO: get from current user context
+      });
+      setNewRoleName("");
+      setSelectedPermissions([]);
+      setSelectedPrivileges([]);
+      setOverrideChecked(false);
       setShowCreateForm(false);
     }
   };
@@ -155,18 +179,92 @@ const RolesTab: React.FC<RolesTabProps> = ({
                   onClick={handleCreateRole}
                   disabled={loading || !newRoleName.trim()}
                 >
-                  Create Role
+                  Create Role (Legacy)
+                </button>
+                <button
+                  className="btn btn-success me-2"
+                  onClick={handleCreateOrOverrideRole}
+                  disabled={loading || !newRoleName.trim()}
+                >
+                  Create/Override Role
                 </button>
                 <button
                   className="btn btn-secondary"
                   onClick={() => {
                     setShowCreateForm(false);
                     setNewRoleName("");
+                    setSelectedPermissions([]);
+                    setSelectedPrivileges([]);
+                    setOverrideChecked(false);
                   }}
                 >
                   Cancel
                 </button>
               </div>
+            </div>
+            <div className="row mt-3">
+              <div className="col-md-6">
+                <h6>Permissions</h6>
+                <div style={{maxHeight: '200px', overflowY: 'auto'}}>
+                  {permissions.map((perm) => (
+                    <div key={perm.id} className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id={`create-perm-${perm.id}`}
+                        checked={selectedPermissions.includes(perm.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedPermissions([...selectedPermissions, perm.id]);
+                          } else {
+                            setSelectedPermissions(selectedPermissions.filter(id => id !== perm.id));
+                          }
+                        }}
+                      />
+                      <label className="form-check-label" htmlFor={`create-perm-${perm.id}`}>
+                        {perm.name}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="col-md-6">
+                <h6>Privileges</h6>
+                <div style={{maxHeight: '200px', overflowY: 'auto'}}>
+                  {privileges.map((priv) => (
+                    <div key={priv.id} className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id={`create-priv-${priv.id}`}
+                        checked={selectedPrivileges.includes(priv.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedPrivileges([...selectedPrivileges, priv.id]);
+                          } else {
+                            setSelectedPrivileges(selectedPrivileges.filter(id => id !== priv.id));
+                          }
+                        }}
+                      />
+                      <label className="form-check-label" htmlFor={`create-priv-${priv.id}`}>
+                        {priv.name}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="form-check mt-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="override-checkbox"
+                checked={overrideChecked}
+                onChange={(e) => setOverrideChecked(e.target.checked)}
+              />
+              <label className="form-check-label" htmlFor="override-checkbox">
+                Override existing role (if it exists)
+              </label>
             </div>
           </div>
         </div>

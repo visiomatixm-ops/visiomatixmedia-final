@@ -363,6 +363,22 @@ const AdminPanel = ({ token }) => {
     }
   };
 
+  // Create or override role
+  const handleCreateOrOverrideRole = async (roleData) => {
+    setLoading(true);
+    try {
+      await adminAPI.createOrOverrideRole(roleData);
+      showMessage("Role created/overridden successfully");
+      fetchRoles();
+      fetchPrivileges(); // Refresh privileges data as well
+    } catch (e) {
+      console.error("Failed to create/override role:", e);
+      showMessage("Failed to create/override role", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Update existing role
   const handleUpdateRole = async (roleId, roleData) => {
     setLoading(true);
@@ -666,6 +682,7 @@ const AdminPanel = ({ token }) => {
           onAssignPrivilege={assignPrivilegeToRole}
           onRemovePrivilege={removePrivilegeFromRole}
           onCreateRole={handleCreateRole}
+          onCreateOrOverrideRole={handleCreateOrOverrideRole}
           onUpdateRole={handleUpdateRole}
           onDeleteRole={handleDeleteRole}
         />

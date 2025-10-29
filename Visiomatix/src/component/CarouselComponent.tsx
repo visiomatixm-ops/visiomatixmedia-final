@@ -1,111 +1,72 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import ImageSlider1 from "/carousel/ImageSlider1.webp";
-import ImageSlider2 from "/carousel/ImageSlider2.webp";
-import ImageSlider3 from "/carousel/ImageSlider3.webp";
+import React, { useState, useEffect } from 'react'
+import { Helmet } from 'react-helmet'
+import { motion, AnimatePresence } from 'framer-motion'
 
-const items = [
-  { src: ImageSlider1, caption: "Beautiful Web Experience", key: 1 },
-  { src: ImageSlider2, caption: "Modern Design & Aesthetics", key: 2 },
-  { src: ImageSlider3, caption: "Responsive & Interactive UI", key: 3 },
-];
+import './views/slides.css'
+import Slide from './views/Slide.tsx'
+import { pages } from './views/pages.tsx'
 
-const CarouselComponent = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(0); // 1 for next, -1 for prev
+const CarouselComponent: React.FC = () => {
+  const [currentSlide, setCurrentSlide] = useState(0)
 
-  const next = () => {
-    setDirection(1);
-    setActiveIndex((activeIndex + 1) % items.length);
-  };
+  // Autoplay functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % pages.length)
+    }, 60000) // Change slide every 60 seconds
 
-  const prev = () => {
-    setDirection(-1);
-    setActiveIndex((activeIndex - 1 + items.length) % items.length);
-  };
+    return () => clearInterval(interval)
+  }, [])
 
-  const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
-    }),
-    center: { x: 0, opacity: 1 },
-    exit: (direction: number) => ({
-      x: direction > 0 ? -300 : 300,
-      opacity: 0,
-    }),
-  };
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % pages.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + pages.length) % pages.length)
+  }
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index)
+  }
 
   return (
-    <div className="w-85 mx-auto position-relative" style={{ height: "800px" }}>
-      <AnimatePresence initial={false} custom={direction}>
+    <div className="carousel-container">
+      <Helmet>
+        <title>Visiomatix</title>
+      </Helmet>
+
+      <AnimatePresence mode="wait">
         <motion.div
-          key={items[activeIndex].key}
-          custom={direction}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{ duration: 0.8 }}
-          className="position-absolute top-0 start-0 w-100 h-100"
+          key={currentSlide}
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -100 }}
+          transition={{
+            duration: 0.5,
+            ease: [0.25, 0.46, 0.45, 0.94] // ease-in-out cubic-bezier
+          }}
         >
-          <img
-            src={items[activeIndex].src}
-            alt={items[activeIndex].caption}
-            className="w-100 h-100"
-            style={{ objectFit: "cover", borderRadius: "12px" }}
-          />
-          <div
-            className="position-absolute top-0 start-0 w-100 h-100"
-            style={{ backgroundColor: "rgba(0,0,0,0.25)", borderRadius: "12px" }}
-          />
-          <div
-            className="position-absolute bottom-3 start-50 translate-middle-x  text-center"
-            style={{ fontSize: "1.3rem", fontWeight: "600" }}
-          >
-            {items[activeIndex].caption}
-          </div>
+          <Slide pageIndex={currentSlide} />
         </motion.div>
       </AnimatePresence>
 
-      {/* Buttons */}
-      <button
-        onClick={prev}
-        className="position-absolute top-50 start-0 translate-middle-y bg-dark bg-opacity-50 rounded-circle"
-        style={{ width: "40px", height: "40px", border: "none", zIndex: 10 }}
-      >
-        ‹
-      </button>
-      <button
-        onClick={next}
-        className="position-absolute top-50 end-0 translate-middle-y bg-dark bg-opacity-50 rounded-circle"
-        style={{ width: "40px", height: "40px", border: "none", zIndex: 10 }}
-      >
-        ›
-      </button>
-
-      {/* Indicators */}
-      <div className="position-absolute bottom-2 start-50 translate-middle-x d-flex gap-2">
-        {items.map((_, index) => (
-          <span
+      <div className="carousel-controls">
+        <button onClick={prevSlide} className="carousel-prev">←</button>
+        <button onClick={nextSlide} className="carousel-next">→</button>
+      </div>
+      <div className="carousel-indicators">
+        {pages.map((_, index) => (
+          <button
             key={index}
-            onClick={() => {
-              setDirection(index > activeIndex ? 1 : -1);
-              setActiveIndex(index);
-            }}
-            style={{
-              width: "12px",
-              height: "12px",
-              borderRadius: "50%",
-              backgroundColor: activeIndex === index ? "white" : "gray",
-              cursor: "pointer",
-              display: "inline-block",
-            }}
+            onClick={() => goToSlide(index)}
+            className={`carousel-indicator ${index === currentSlide ? 'active' : ''}`}
           />
         ))}
       </div>
-    </div>
-  );
-};
 
-export default CarouselComponent;
+    </div>
+  )
+}
+
+export default CarouselComponent

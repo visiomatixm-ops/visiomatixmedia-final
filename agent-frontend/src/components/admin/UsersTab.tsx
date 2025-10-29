@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { adminAPI } from "../../api/api";
 
 const UsersTab = ({
   users,
@@ -58,14 +59,14 @@ const UsersTab = ({
         permissions: selectedPermissions
       };
 
-      // This would be replaced with actual API call
-      // await adminAPI.createCustomRole(customRoleData);
+      // Call the backend API to create the role
+      const response = await adminAPI.createRole(customRoleData);
+      const createdRole = response.data;
 
-      // For now, we'll just add it to the selected roles
-      const customRoleNameFormatted = customRoleData.name;
-      setSelectedRoles(prev => [...prev, customRoleNameFormatted]);
+      // Add the newly created role to the selected roles
+      setSelectedRoles(prev => [...prev, createdRole.name]);
 
-      alert(`Custom role "${customRoleNameFormatted}" created successfully!`);
+      alert(`Custom role "${createdRole.name}" created successfully!`);
 
       // Reset form
       setCustomRoleName("");
