@@ -37,6 +37,11 @@ CREATE TABLE custom_role_privileges (
     PRIMARY KEY (custom_role_id, privilege_id)
 );
 
--- Add custom_role_id column to users table
-ALTER TABLE users ADD COLUMN custom_role_id BIGINT;
-ALTER TABLE users ADD CONSTRAINT fk_users_custom_role FOREIGN KEY (custom_role_id) REFERENCES custom_roles(id);
+-- Create user_custom_roles junction table for many-to-many relationship
+CREATE TABLE user_custom_roles (
+    user_id BIGINT,
+    custom_role_id BIGINT,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (custom_role_id) REFERENCES custom_roles(id) ON DELETE CASCADE,
+    PRIMARY KEY (user_id, custom_role_id)
+);

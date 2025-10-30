@@ -36,6 +36,7 @@ package com.visiomatix.chat.chat.user.service;
 
 import com.visiomatix.chat.chat.user.dto.UserDTO;
 import com.visiomatix.chat.chat.user.dto.JwtResponseDTO;
+import com.visiomatix.chat.chat.user.model.Permission;
 import com.visiomatix.chat.chat.user.model.Role;
 import com.visiomatix.chat.chat.user.model.User;
 import com.visiomatix.chat.chat.user.repository.RoleRepository;
@@ -43,13 +44,17 @@ import com.visiomatix.chat.chat.user.repository.UserRepository;
 import com.visiomatix.chat.chat.user.util.JwtUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * UserServiceImpl
@@ -112,8 +117,18 @@ public class UserServiceImpl implements UserService {
         if (!passwordEncoder.matches(password, user.getPassword()))
             throw new RuntimeException("Invalid credentials");
 
-        // Generate JWT token
-        String token = jwtUtil.generateToken(username);
+        // Generate JWT token with roles and permissions
+        List<String> roles = user.getRoles().stream()
+                .map(Role::getName)
+                .collect(Collectors.toList());
+
+        List<String> permissions = user.getRoles().stream()
+                .flatMap(role -> role.getPermissions().stream())
+                .map(Permission::getName)
+                .distinct()
+                .collect(Collectors.toList());
+
+        String token = jwtUtil.generateToken(user.getUsername(), roles, permissions);
 
         // Retrieve primary role - prioritize ADMIN over AGENT over USER
         String primaryRole = user.getRoles().stream()

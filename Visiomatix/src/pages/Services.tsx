@@ -27,19 +27,19 @@ const Services: React.FC = () => {
   // -----------------------------------------------------------
   const services = [
     {
-      image: "/services/editing.webp",
+      image: "/services/videoediting-1.jpg",
       title: "Video Editing",
       description:
         "Transform raw footage into professional, cinematic-quality videos with our expert video editing services. Utilizing industry-standard tools like Adobe Premiere Pro and DaVinci Resolve, we enhance storytelling through precise color grading, smooth transitions, motion effects, and sound design. Perfect for marketing campaigns, brand storytelling, YouTube content, and corporate videos, our editing services help your content stand out and captivate audiences.",
     },
     {
-      image: "/services/animation.jpg",
+      image: "/services/2d_3d animation-1.jpg",
       title: "2D/3D Animation",
       description:
         "Bring imagination to life with our high-quality 2D and 3D animation services. We create engaging explainer videos, animated commercials, and character-driven storytelling for brands, startups, and enterprises. Our animations not only attract attention but also improve brand recall and simplify complex messages, making your communication both entertaining and effective.",
     },
     {
-      image: "/services/branding.jpg",
+      image: "/services/brand-design-2.jpg",
       title: "Brand Design",
       description:
         "Build a powerful and memorable brand identity with our branding services. From logos, typography, and color palettes to complete brand guidelines, we craft cohesive visual systems that resonate with your target audience. Our branding solutions focus on enhancing recognition, credibility, and trust, ensuring your brand stands out in competitive markets.",
@@ -51,13 +51,13 @@ const Services: React.FC = () => {
         "Capture the essence of your brand, products, or events with professional photography. Our team specializes in product photography, lifestyle shoots, corporate portraits, and event coverage. With attention to lighting, composition, and storytelling, we create visually compelling images that strengthen your brand identity and increase engagement across digital channels.",
     },
     {
-      image: "/services/videography.png",
+      image: "/services/videography-1.jpg",
       title: "Videography",
       description:
         "Deliver cinematic storytelling through our expert videography services. We cover corporate events, product launches, promotional campaigns, and creative content production. Every frame is crafted to engage your audience, reflect your brand’s identity, and leave a lasting impression that drives visibility and growth.",
     },
     {
-      image: "/services/webdesign.jpg",
+      image: "/services/web-design-1.jpg",
       title: "Web Design",
       description:
         "Design impactful, responsive, and visually striking websites that enhance user experience and drive conversions. We specialize in creating user-friendly interfaces, intuitive navigation, and seamless mobile optimization. Each website is strategically designed to reflect your brand identity, attract visitors, and convert them into loyal customers.",

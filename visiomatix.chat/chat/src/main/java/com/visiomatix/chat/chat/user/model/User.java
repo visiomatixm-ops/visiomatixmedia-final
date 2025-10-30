@@ -18,6 +18,7 @@ package com.visiomatix.chat.chat.user.model;
 // ===========================================================
 import jakarta.persistence.*; // For entity annotations
 import java.time.LocalDateTime; // For timestamps
+import java.util.HashSet; // For initializing collections
 import java.util.Set; // For role relationships
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -60,6 +61,14 @@ public class User {
     )
     private Set<Role> roles;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "user_custom_roles",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "custom_role_id")
+    )
+    private Set<CustomRole> customRoles = new HashSet<>();
+
     // Auditing Fields
     private String createdBy;
     private String modifiedBy;
@@ -98,6 +107,10 @@ public class User {
     public Set<Role> getRoles() { return roles; }
 
     public void setRoles(Set<Role> roles) { this.roles = roles; }
+
+    public Set<CustomRole> getCustomRoles() { return customRoles; }
+
+    public void setCustomRoles(Set<CustomRole> customRoles) { this.customRoles = customRoles; }
 
     public String getCreatedBy() { return createdBy; }
 
