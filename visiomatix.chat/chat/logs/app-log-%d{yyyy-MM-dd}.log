@@ -14076,3 +14076,103 @@ java.lang.IllegalArgumentException: Could not resolve placeholder 'sessionId' in
 2025-10-31 17:49:48.425 [http-nio-8080-exec-3] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
 2025-10-31 17:49:51.427 [http-nio-8080-exec-8] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
 2025-10-31 17:49:51.428 [http-nio-8080-exec-8] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:49:58.425 [http-nio-8080-exec-4] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:49:58.425 [http-nio-8080-exec-4] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:01.427 [http-nio-8080-exec-2] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:01.427 [http-nio-8080-exec-2] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:08.425 [http-nio-8080-exec-10] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:08.425 [http-nio-8080-exec-10] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:11.427 [http-nio-8080-exec-7] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:11.427 [http-nio-8080-exec-7] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:18.425 [http-nio-8080-exec-5] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:18.425 [http-nio-8080-exec-5] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:21.426 [http-nio-8080-exec-6] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:21.427 [http-nio-8080-exec-6] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:28.425 [http-nio-8080-exec-9] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:28.425 [http-nio-8080-exec-9] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:31.434 [http-nio-8080-exec-1] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:31.435 [http-nio-8080-exec-1] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:38.425 [http-nio-8080-exec-3] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:38.426 [http-nio-8080-exec-3] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:41.449 [http-nio-8080-exec-8] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:41.450 [http-nio-8080-exec-8] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:48.425 [http-nio-8080-exec-4] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:48.425 [http-nio-8080-exec-4] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:51.430 [http-nio-8080-exec-2] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:51.431 [http-nio-8080-exec-2] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:58.425 [http-nio-8080-exec-10] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:50:58.425 [http-nio-8080-exec-10] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:01.435 [http-nio-8080-exec-7] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:01.436 [http-nio-8080-exec-7] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:08.425 [http-nio-8080-exec-5] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:08.425 [http-nio-8080-exec-5] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:11.426 [http-nio-8080-exec-6] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:11.427 [http-nio-8080-exec-6] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:18.425 [http-nio-8080-exec-9] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:18.426 [http-nio-8080-exec-9] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:21.427 [http-nio-8080-exec-1] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:21.428 [http-nio-8080-exec-1] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:28.432 [http-nio-8080-exec-3] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:28.433 [http-nio-8080-exec-3] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:31.426 [http-nio-8080-exec-8] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:31.427 [http-nio-8080-exec-8] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:38.425 [http-nio-8080-exec-4] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:38.425 [http-nio-8080-exec-4] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:41.426 [http-nio-8080-exec-2] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:41.427 [http-nio-8080-exec-2] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:48.526 [http-nio-8080-exec-10] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:48.528 [http-nio-8080-exec-10] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:51.427 [http-nio-8080-exec-7] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:51.427 [http-nio-8080-exec-7] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:58.425 [http-nio-8080-exec-5] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:51:58.425 [http-nio-8080-exec-5] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:01.431 [http-nio-8080-exec-6] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:01.431 [http-nio-8080-exec-6] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:08.425 [http-nio-8080-exec-9] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:08.425 [http-nio-8080-exec-9] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:11.426 [http-nio-8080-exec-1] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:11.426 [http-nio-8080-exec-1] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:18.425 [http-nio-8080-exec-3] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:18.425 [http-nio-8080-exec-3] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:21.426 [http-nio-8080-exec-8] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:21.427 [http-nio-8080-exec-8] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:28.426 [http-nio-8080-exec-4] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:28.426 [http-nio-8080-exec-4] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:31.427 [http-nio-8080-exec-2] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:31.428 [http-nio-8080-exec-2] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:38.425 [http-nio-8080-exec-10] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:38.425 [http-nio-8080-exec-10] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:41.426 [http-nio-8080-exec-7] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:41.427 [http-nio-8080-exec-7] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:48.425 [http-nio-8080-exec-5] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:48.425 [http-nio-8080-exec-5] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:51.426 [http-nio-8080-exec-6] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:51.427 [http-nio-8080-exec-6] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:58.426 [http-nio-8080-exec-9] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:52:58.426 [http-nio-8080-exec-9] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:53:01.472 [http-nio-8080-exec-1] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:53:01.473 [http-nio-8080-exec-1] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:53:08.426 [http-nio-8080-exec-3] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:53:08.426 [http-nio-8080-exec-3] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:53:11.427 [http-nio-8080-exec-8] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:53:11.428 [http-nio-8080-exec-8] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:53:18.426 [http-nio-8080-exec-4] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:53:18.427 [http-nio-8080-exec-4] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:53:21.323 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-10-31 17:53:21.324 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1754847640<open>)] for JPA transaction
+2025-10-31 17:53:21.324 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@15fd5ece]
+2025-10-31 17:53:21.324 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1754847640<open>)] for JPA transaction
+2025-10-31 17:53:21.324 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-10-31 17:53:21.325 [MessageBroker-6] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-10-31 17:53:21.326 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1754847640<open>)] for JPA transaction
+2025-10-31 17:53:21.326 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-10-31 17:53:21.326 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1754847640<open>)] for JPA transaction
+2025-10-31 17:53:21.326 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-10-31 17:53:21.326 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1754847640<open>)] for JPA transaction
+2025-10-31 17:53:21.326 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-10-31 17:53:21.327 [MessageBroker-6] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-10-31 17:53:21.327 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-10-31 17:53:21.327 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1754847640<open>)]
+2025-10-31 17:53:21.328 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1754847640<open>)] after transaction
+2025-10-31 17:53:21.427 [http-nio-8080-exec-2] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-31 17:53:21.428 [http-nio-8080-exec-2] DEBUG o.s.o.j.s.OpenEntityManagerInViewInterceptor - Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
