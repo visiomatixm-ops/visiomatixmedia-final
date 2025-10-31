@@ -18,6 +18,11 @@ import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import EcomWebApp from "/services/icons/5-LIST/5-1 E-commerce Website Development.svg";
+import MarketplaceAdvertising from "/services/icons/5-LIST/5-2 Marketplace Advertising.svg";
+import ProductListingOptimization from "/services/icons/5-LIST/5-3 Product Listing Optimization.svg";
+import PaymentGatewayIntegration from "/services/icons/5-LIST/5-4 Payment Gateway Integration.svg";
+import Banner from "/services/Banner/E-commerce Services with minimal illustration not more and not low-4.jpg";
 // ----------------------------------------------------
 // Framer Motion Variants
 // ----------------------------------------------------
@@ -174,37 +179,68 @@ const Ecommerce: React.FC = () => {
             variants={fadeInUp}
           >
             {/* Hero Section */}
-            <section className="bg-dark text-light py-5 position-relative overflow-hidden">
+            <section
+              className="text-light py-5 position-relative"
+              style={{
+                backgroundImage: `linear-gradient(120deg, rgba(13, 110, 253, 0.8), rgba(102, 16, 242, 0.8)), url(${Banner})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundBlendMode: 'overlay',
+                minHeight: '70vh',
+                display: 'flex',
+                alignItems: 'center'
+              }}
+            >
+              {/* Grey transparent overlay for better text visibility */}
               <div
                 className="position-absolute top-0 start-0 w-100 h-100"
                 style={{
-                  background:
-                    "radial-gradient(circle at top right, #0d6efd33, transparent 70%)",
+                  backgroundColor: '#091726b5',
+                  zIndex: 1
                 }}
               />
-              <div className="container position-relative">
+              <div className="container position-relative" style={{ zIndex: 2 }}>
                 <div className="row align-items-center">
                   <div className="col-md-6">
-                    <h1 className="display-5 fw-bold">E-commerce Solutions</h1>
-                    <p className="lead mt-3">
+                    <motion.h1
+                      className="display-5 fw-bold"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8 }}
+                    >
+                      E-commerce Solutions
+                    </motion.h1>
+                    <motion.p
+                      className="lead mt-3"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                    >
                       Build, advertise, and scale your online store with powerful
                       e-commerce technology and multi-marketplace growth strategies.
-                    </p>
+                    </motion.p>
                     <motion.a
                       href="#services"
                       className="btn btn-primary btn-lg mt-3"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
                     >
                       Discover More
                     </motion.a>
                   </div>
                   <div className="col-md-6 text-center mt-4 mt-md-0">
-                    <img
-                      src="https://www.yourdomain.com/images/ecommerce-hero.svg"
+                    {/* <motion.img
+                      src="/services/5_E-commerce Solutions.jpg"
                       alt="E-commerce Solutions Illustration"
                       className="img-fluid rounded-3 shadow-sm"
-                    />
+                      style={{width:"20em"}}
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.6 }}
+                    /> */}
                   </div>
                 </div>
               </div>
@@ -247,25 +283,25 @@ const Ecommerce: React.FC = () => {
                     {
                       title: "E-commerce Website Development",
                       text: "Custom-built online stores that deliver seamless shopping experiences. From user-friendly UI to scalable backend solutions — we craft stores designed to convert.",
-                      icon: "bi bi-cart-check text-primary",
+                      icon: EcomWebApp,
                       img: "https://www.yourdomain.com/images/ecommerce-website.svg",
                     },
                     {
                       title: "Marketplace Advertising (Amazon, Flipkart, etc.)",
                       text: "Maximize visibility across major marketplaces with optimized advertising campaigns that boost sales and improve return on ad spend.",
-                      icon: "bi bi-bag-heart text-success",
+                      icon: MarketplaceAdvertising,
                       img: "https://www.yourdomain.com/images/marketplace-ads.svg",
                     },
                     {
                       title: "Product Listing Optimization",
                       text: "Improve search rankings and conversion rates with SEO-optimized product titles, descriptions, and structured data for better discoverability.",
-                      icon: "bi bi-list-check text-warning",
+                      icon: ProductListingOptimization,
                       img: "https://www.yourdomain.com/images/product-listing.svg",
                     },
                     {
                       title: "Payment Gateway Integration",
                       text: "Secure and smooth checkout experiences with integrated payment gateways supporting all major providers — Stripe, PayPal, Razorpay, and more.",
-                      icon: "bi bi-credit-card text-danger",
+                      icon: PaymentGatewayIntegration,
                       img: "https://www.yourdomain.com/images/payment-gateway.svg",
                     },
                   ].map((service, idx) => (
@@ -275,14 +311,34 @@ const Ecommerce: React.FC = () => {
                       variants={cardVariant}
                     >
                       <div className="card border-0 shadow-sm h-100">
-                        <img
-                          src={service.img}
-                          alt={service.title}
-                          className="card-img-top rounded-top"
-                        />
-                        <div className="card-body">
+                        <div className="card-body text-center">
+                          <div className="mb-3">
+                            <motion.img
+                              src={service.icon}
+                              alt={service.title}
+                              style={{ width: '64px', height: '64px' }}
+                              className="mb-3"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 260,
+                                damping: 20,
+                                delay: idx * 0.1
+                              }}
+                              whileHover={{
+                                scale: 1.1,
+                                rotate: [0, -10, 10, -10, 0],
+                                transition: {
+                                  rotate: {
+                                    duration: 0.6,
+                                    ease: "easeInOut"
+                                  }
+                                }
+                              }}
+                            />
+                          </div>
                           <h5 className="card-title fw-bold">
-                            <i className={`${service.icon} me-2`}></i>
                             {service.title}
                           </h5>
                           <p className="card-text text-muted mt-2">

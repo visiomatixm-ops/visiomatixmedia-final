@@ -18,6 +18,12 @@ import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import BrandingIdentity from "/services/icons/6-LIST/6-1 Brand Identity & Positioning.svg";
+import MarketingStrategy from "/services/icons/6-LIST/6-2 Marketing Strategy & Funnel Planning.svg";
+import CampaignIdeation from "/services/icons/6-LIST/6-3 Campaign Ideation & Execution.svg";
+import CompetitorResearch from "/services/icons/6-LIST/6-4 Competitor & Market Research.svg";
+import Banner from "/services/Banner/Branding & Strategy Services-2.jpg";
+
 // ----------------------------------------------------
 // Framer Motion Variants
 // ----------------------------------------------------
@@ -163,18 +169,45 @@ const Branding: React.FC = () => {
             variants={fadeInUp}
           >
             {/* Hero Section */}
-            <section className="bg-gradient text-light py-5" style={{ background: "linear-gradient(120deg, #0d6efd, #6610f2)" }}>
+            <section
+              className="text-light py-5 position-relative"
+              style={{
+                backgroundImage: `linear-gradient(120deg, rgba(122, 122, 122, 0.47), rgba(231, 231, 231, 0.37)), url(${Banner})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundBlendMode: 'overlay',
+                minHeight: '70vh',
+                display: 'flex',
+                alignItems: 'center'
+              }}
+            >
               <div className="container text-center">
-                <h1 className="display-5 fw-bold">Branding & Strategy</h1>
-                <p className="lead mt-3 mx-auto" style={{ maxWidth: "750px" }}>
-                  Build a brand that connects, communicates, and converts.  
+                <motion.h1
+                  className="display-5 fw-bold"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  Branding & Strategy
+                </motion.h1>
+                <motion.p
+                  className="lead mt-3 mx-auto"
+                  style={{ maxWidth: "750px" }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                  Build a brand that connects, communicates, and converts.
                   From identity to execution — we transform your business vision into a strong, market-ready brand presence.
-                </p>
+                </motion.p>
                 <motion.a
                   href="#services"
                   className="btn btn-light btn-lg mt-3"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
                 >
                   Explore Services
                 </motion.a>
@@ -208,29 +241,52 @@ const Branding: React.FC = () => {
                 <div className="row g-4">
                   {[
                     {
-                      icon: "bi bi-badge-ad text-primary",
+                      icon: BrandingIdentity,
                       title: "Brand Identity & Positioning",
                       text: "Define how your audience perceives you — with visual identity, tone, and positioning that reflect your business values and vision.",
                     },
                     {
-                      icon: "bi bi-bar-chart-line text-success",
+                      icon: MarketingStrategy,
                       title: "Marketing Strategy & Funnel Planning",
                       text: "Develop data-backed strategies that optimize every stage of your customer journey — from awareness to conversion.",
                     },
                     {
-                      icon: "bi bi-megaphone text-warning",
+                      icon: CampaignIdeation,
                       title: "Campaign Ideation & Execution",
                       text: "Plan, create, and launch creative campaigns that boost brand visibility, engagement, and long-term customer loyalty.",
                     },
                     {
-                      icon: "bi bi-search text-danger",
+                      icon: CompetitorResearch,
                       title: "Competitor & Market Research",
                       text: "Analyze market trends, study competitors, and identify opportunities to ensure your brand stays ahead of the curve.",
                     },
                   ].map((item, idx) => (
                     <motion.div key={idx} className="col-md-6 col-lg-6" variants={cardVariant}>
-                      <div className="card h-100 border-0 shadow-sm p-4">
-                        <i className={`${item.icon} display-5 mb-3`}></i>
+                      <div className="card h-100 border-0 shadow-sm p-4 text-center">
+                        <motion.img
+                          src={item.icon}
+                          alt={item.title}
+                          style={{ width: '64px', height: '64px' }}
+                          className="mb-3"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 260,
+                            damping: 20,
+                            delay: idx * 0.1
+                          }}
+                          whileHover={{
+                            scale: 1.1,
+                            rotate: [0, -10, 10, -10, 0],
+                            transition: {
+                              rotate: {
+                                duration: 0.6,
+                                ease: "easeInOut"
+                              }
+                            }
+                          }}
+                        />
                         <h5 className="fw-bold">{item.title}</h5>
                         <p className="text-muted">{item.text}</p>
                       </div>

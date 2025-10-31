@@ -17,6 +17,13 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
+import WebApp from "/services/icons/3-LIST/3-1 Web App Development.svg";
+import WebsiteDesign from "/services/icons/3-LIST/3-2 Website Design & Development.svg";
+import MobileApp from "/services/icons/3-LIST/3-3 Mobile App Development.svg";
+import LandingPage from "/services/icons/3-LIST/3-4 Landing Page Optimization.svg";
+import CustomWebSolutions from "/services/icons/3-LIST/3-5 Custom Web Solutions.svg";
+import Banner from "/services/Banner/Web App Development-4.jpg";
+
 
 // ----------------------------------------------------
 // Motion Variants
@@ -183,25 +190,56 @@ const Webapp: React.FC = () => {
             variants={fadeIn}
           >
             {/* Hero Section */}
-            <motion.header
-              className="bg-primary text-white text-center py-5"
-              variants={fadeInUp}
+            <section
+              className="text-light py-5 position-relative"
+              style={{
+                backgroundImage: `linear-gradient(120deg, rgba(13, 110, 253, 0.8), rgba(102, 16, 242, 0.8)), url(${Banner})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundBlendMode: 'overlay',
+                minHeight: '70vh',
+                display: 'flex',
+                alignItems: 'center'
+              }}
             >
-              <div className="container">
-                <h1 className="display-4 fw-bold">Web & App Development</h1>
-                <p className="lead">
+              {/* Grey transparent overlay for better text visibility */}
+              <div
+                className="position-absolute top-0 start-0 w-100 h-100"
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                  zIndex: 1
+                }}
+              />
+              <div className="container text-center position-relative" style={{ zIndex: 2 }}>
+                <motion.h1
+                  className="display-4 fw-bold"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  Web & App Development
+                </motion.h1>
+                <motion.p
+                  className="lead"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
                   Build fast, secure, and modern digital experiences that connect your brand with users worldwide.
-                </p>
+                </motion.p>
                 <motion.a
                   href="#services"
                   className="btn btn-light btn-lg mt-3"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
                 >
                   Explore Services
                 </motion.a>
               </div>
-            </motion.header>
+            </section>
 
             {/* Content Section */}
             <motion.section
@@ -243,54 +281,86 @@ const Webapp: React.FC = () => {
                 <div className="row g-4">
                   {[
                     {
-                      icon: "bi bi-window-stack text-primary",
+                      icon: WebApp,
                       title: "Web App Development",
                       text: "We develop scalable, high-performance web applications using modern frameworks and RESTful APIs for seamless user experiences.",
-                      btnClass: "btn-outline-primary",
                     },
                     {
-                      icon: "bi bi-laptop text-success",
+                      icon: WebsiteDesign,
                       title: "Website Design & Development",
                       text: "From static to dynamic and e-commerce sites, our team delivers custom-built websites optimized for speed and SEO.",
-                      btnClass: "btn-outline-success",
                     },
                     {
-                      icon: "bi bi-phone text-warning",
+                      icon: MobileApp,
                       title: "Mobile App Development",
                       text: "Design and develop intuitive Android and iOS apps using React Native, Flutter, or native SDKs with responsive UI.",
-                      btnClass: "btn-outline-warning",
                     },
                     {
-                      icon: "bi bi-bullseye text-info",
+                      icon: LandingPage,
                       title: "Landing Page Optimization",
                       text: "Boost conversion rates with optimized layouts, engaging visuals, and performance-driven landing pages.",
-                      btnClass: "btn-outline-info",
                     },
                     {
-                      icon: "bi bi-code-slash text-danger",
+                      icon: CustomWebSolutions,
                       title: "Custom Web Solutions",
                       text: "Get tailor-made web solutions, dashboards, and integrations built around your workflow and business goals.",
-                      btnClass: "btn-outline-danger",
                     },
                   ].map((card, idx) => (
                     <motion.div
                       key={idx}
-                      className="col-md-4"
+                      className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center"
                       variants={cardVariant}
                     >
-                      <div className="card h-100 shadow-sm border-0">
-                        <div className="card-body text-center">
-                          <i
-                            className={`${card.icon} display-5 mb-3`}
-                            aria-hidden="true"
-                          ></i>
-                          <h5 className="card-title">{card.title}</h5>
-                          <p className="card-text text-muted">{card.text}</p>
-                          <a href="#" className={`btn ${card.btnClass}`}>
+                      <motion.div
+                        className="card h-100 border-0"
+                        style={{
+                          boxShadow: '0 4px 15px rgba(0, 25, 51, 0.3)',
+                          background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+                          width: '100%',
+                          maxWidth: '350px',
+                          minHeight: '300px'
+                        }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: idx * 0.1 }}
+                        whileHover={{
+                          y: -5,
+                          boxShadow: '0 8px 25px rgba(7, 18, 31, 0.76)',
+                          transition: { duration: 0.3 }
+                        }}
+                      >
+                        <div className="card-body text-center d-flex flex-column justify-content-center align-items-center"
+                        style={{
+                          height: '100%',
+                          minHeight: '250px',
+                          padding: '2rem 1rem'
+                        }}>
+                          <motion.img
+                            src={card.icon}
+                            alt={card.title}
+                            className="mb-3"
+                            style={{
+                              width: '4em',
+                              height: 'auto',
+                              maxWidth: '80px'
+                            }}
+                            whileHover={{ scale: 1.1, rotate: [0, -10, 10, -10, 0] }}
+                            transition={{ duration: 0.6, ease: "easeInOut" }}
+                          />
+                          <div >
+                          <h5 className="card-title" style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>{card.title}</h5>
+                          <p className="card-text text-muted" style={{ fontSize: '0.9rem', lineHeight: '1.4' }}>{card.text}</p>
+                          <motion.a
+                            href="#"
+                            className="btn btn-primary mt-auto"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
                             Learn More
-                          </a>
+                          </motion.a>
+                          </div>
                         </div>
-                      </div>
+                      </motion.div>
                     </motion.div>
                   ))}
                 </div>

@@ -18,7 +18,18 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
-import "bootstrap/dist/css/bootstrap.min.css";
+ 
+import SMM from "/services/icons/1-LIST/1-1 Social Media Marketing (SMM).png";
+import SEOIcon from "/services/icons/1-LIST/1-2 Search Engine Optimization (SEO).png";
+import PPC from "/services/icons/1-LIST/1-3 Google Ads & Pay-Per-Click (PPC) Campaigns.png";
+import EmailMarketing from "/services/icons/1-LIST/1-4 Email & Influencer Marketing.png";
+import ContentMarketing from "/services/icons/1-LIST/1-5 Content & Video Marketing.png";
+import ORM from "/services/icons/1-LIST/1-6 Online Reputation Management (ORM).png";
+import EcommerceMarketing from "/services/icons/1-LIST/1-7 E-commerce Marketing.png";
+import AnalyticsTracking from "/services/icons/1-LIST/1-8 Analytics & ROI Tracking.png";
+import { i } from "framer-motion/client";
+
+import Banner from "/services/Banner/Digital Marketing Services-3.jpg";
 
 // ----------------------------------------------------
 // Motion Variants
@@ -182,25 +193,56 @@ const DigitalMarketing: React.FC = () => {
             variants={fadeIn}
           >
             {/* Hero Section */}
-            <motion.header
-              className="bg-primary text-white text-center py-5"
-              variants={fadeInUp}
+            <section
+              className="text-light py-5 position-relative"
+              style={{
+                backgroundImage: `linear-gradient(120deg, rgba(13, 110, 253, 0.8), rgba(102, 16, 242, 0.8)), url(${Banner})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundBlendMode: 'overlay',
+                minHeight: '70vh',
+                display: 'flex',
+                alignItems: 'center'
+              }}
             >
-              <div className="container">
-                <h1 className="display-4 fw-bold">Digital Marketing Services</h1>
-                <p className="lead">
+              {/* Grey transparent overlay for better text visibility */}
+              <div
+                className="position-absolute top-0 start-0 w-100 h-100"
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                  zIndex: 1
+                }}
+              />
+              <div className="container text-center position-relative" style={{ zIndex: 2 }}>
+                <motion.h1
+                  className="display-4 fw-bold"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  Digital Marketing Services
+                </motion.h1>
+                <motion.p
+                  className="lead"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
                   Maximize your online presence through integrated strategies that convert traffic into loyal customers.
-                </p>
+                </motion.p>
                 <motion.a
                   href="#services"
                   className="btn btn-light btn-lg mt-3"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
                 >
                   Explore Services
                 </motion.a>
               </div>
-            </motion.header>
+            </section>
 
             {/* Expanded Content Section */}
             <motion.section
@@ -245,60 +287,99 @@ const DigitalMarketing: React.FC = () => {
                 <div className="row g-4">
                   {[
                     {
-                      icon: "bi bi-graph-up text-success",
+                      icon: SEOIcon,
                       title: "Search Engine Optimization (SEO)",
                       text: "Improve your organic rankings, drive traffic, and attract quality leads through strategic keyword optimization and content marketing.",
-                      btnClass: "btn-outline-success",
                     },
                     {
-                      icon: "bi bi-facebook text-primary",
+                      icon: SMM,
                       title: "Social Media Marketing (SMM)",
                       text: "Engage audiences and grow your community across Facebook, Instagram, LinkedIn, and TikTok with impactful social campaigns.",
-                      btnClass: "btn-outline-primary",
                     },
                     {
-                      icon: "bi bi-currency-dollar text-warning",
+                      icon: PPC,
                       title: "Google Ads & PPC Campaigns",
                       text: "Run high-converting paid campaigns that bring immediate visibility and measurable ROI with expert targeting and bid strategies.",
-                      btnClass: "btn-outline-warning",
                     },
                     {
-                      icon: "bi bi-envelope-paper text-info",
+                      icon: EmailMarketing,
                       title: "Email & Influencer Marketing",
                       text: "Build trust and awareness with personalized email automation and influencer partnerships that resonate with your target audience.",
-                      btnClass: "btn-outline-info",
                     },
                     {
-                      icon: "bi bi-film text-danger",
+                      icon: ContentMarketing,
                       title: "Content & Video Marketing",
                       text: "Tell your brand story through compelling visuals, educational blogs, and high-impact video content across all digital platforms.",
-                      btnClass: "btn-outline-danger",
                     },
                     {
-                      icon: "bi bi-star text-dark",
+                      icon: ORM,
                       title: "Online Reputation Management (ORM)",
                       text: "Protect and enhance your brand’s credibility through proactive reputation monitoring and customer engagement strategies.",
-                      btnClass: "btn-outline-dark",
                     },
+                    {
+                      icon: EcommerceMarketing,
+                      title: "E-commerce Marketing",
+                      text: "Drive sales and customer loyalty with targeted eCommerce strategies including product promotions, retargeting, and conversion optimization.",
+                    },
+                    {
+                      icon: AnalyticsTracking,
+                      title: "Analytics & ROI Tracking",
+                      text: "Measure the effectiveness of your marketing efforts with advanced analytics, conversion tracking, and data-driven insights.",
+                    }
                   ].map((card, idx) => (
                     <motion.div
                       key={idx}
-                      className="col-md-4"
+                      className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center"
                       variants={cardVariant}
                     >
-                      <div className="card h-100 shadow-sm border-0">
-                        <div className="card-body text-center">
-                          <i
-                            className={`${card.icon} display-5 mb-3`}
-                            aria-hidden="true"
-                          ></i>
-                          <h5 className="card-title">{card.title}</h5>
-                          <p className="card-text text-muted">{card.text}</p>
-                          <a href="#" className={`btn ${card.btnClass}`}>
+                      <motion.div
+                        className="card h-100 border-0"
+                        style={{
+                          boxShadow: '0 4px 15px rgba(0, 25, 51, 0.3)',
+                          background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+                          width: '100%',
+                          maxWidth: '350px',
+                          minHeight: '300px'
+                        }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: idx * 0.1 }}
+                        whileHover={{
+                          y: -5,
+                          boxShadow: '0 8px 25px rgba(0, 25, 51, 0.4)',
+                          transition: { duration: 0.3 }
+                        }}
+                      >
+                        <div className="card-body text-center d-flex flex-column justify-content-center align-items-center"
+                        style={{
+                          height: '100%',
+                          minHeight: '250px',
+                          padding: '2rem 1rem'
+                        }}>
+                          <motion.img
+                            src={card.icon}
+                            alt={card.title}
+                            className="mb-3"
+                            style={{
+                              width: '4em',
+                              height: 'auto',
+                              maxWidth: '80px'
+                            }}
+                            whileHover={{ scale: 1.1, rotate: [0, -10, 10, -10, 0] }}
+                            transition={{ duration: 0.6, ease: "easeInOut" }}
+                          />
+                          <h5 className="card-title" style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>{card.title}</h5>
+                          <p className="card-text text-muted" style={{ fontSize: '0.9rem', lineHeight: '1.4' }}>{card.text}</p>
+                          {/* <motion.a
+                            href="#"
+                            className="btn btn-primary mt-auto"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
                             Learn More
-                          </a>
+                          </motion.a> */}
                         </div>
-                      </div>
+                      </motion.div>
                     </motion.div>
                   ))}
                 </div>

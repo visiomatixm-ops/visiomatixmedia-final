@@ -18,6 +18,13 @@ import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import AIVoiceAssistant from "/services/businesssolutions/AI Voice Sales Assistant Integration-1.jpg";
+import BusinessAutomation from "/services/businesssolutions/Business Automation Tools-1.jpg";
+import CRMDevelopment from "/services/businesssolutions/CRM Development-1.jpg";
+import ERPDevelopment from "/services/businesssolutions/ERP Development 1.jpg";
+import HRMSDevelopment from "/services/businesssolutions/human resource management-1.jpg";
+import Banner from "/services/Banner/Business Software Expertise-2.jpg";
+
 // ----------------------------------------------------
 // Motion Variants
 // ----------------------------------------------------
@@ -37,6 +44,16 @@ const staggerContainer = {
 const cardVariant = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0 },
+};
+
+const imageVariant = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0 },
+};
+
+const textVariant = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { opacity: 1, x: 0 },
 };
 
 // ----------------------------------------------------
@@ -173,31 +190,66 @@ const Software: React.FC = () => {
             variants={fadeInUp}
           >
             {/* Split Hero Section */}
-            <section className="bg-primary text-light py-5">
-              <div className="container">
+            <section
+              className="text-light py-5 position-relative"
+              style={{
+                backgroundImage: `linear-gradient(120deg, rgba(13, 110, 253, 0.8), rgba(102, 16, 242, 0.8)), url(${Banner})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundBlendMode: 'overlay',
+                minHeight: '70vh',
+                display: 'flex',
+                alignItems: 'center'
+              }}
+            >
+              {/* Grey transparent overlay for better text visibility */}
+              <div
+                className="position-absolute top-0 start-0 w-100 h-100"
+                style={{
+                  backgroundColor: 'rgba(9, 23, 38, 0.71)',
+                  zIndex: 1
+                }}
+              />
+              <div className="container position-relative" style={{ zIndex: 2 }}>
                 <div className="row align-items-center">
                   <div className="col-md-6">
-                    <h1 className="display-5 fw-bold">
+                    <motion.h1
+                      className="display-5 fw-bold"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8 }}
+                    >
                       Business Software Solutions
-                    </h1>
-                    <p className="lead mt-3">
+                    </motion.h1>
+                    <motion.p
+                      className="lead mt-3"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                    >
                       Empower your enterprise with intelligent, automated, and data-driven software systems that redefine efficiency.
-                    </p>
+                    </motion.p>
                     <motion.a
                       href="#solutions"
                       className="btn btn-light btn-lg mt-3"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
                     >
                       Explore Solutions
                     </motion.a>
                   </div>
                   <div className="col-md-6 text-center mt-4 mt-md-0">
-                    <img
+                    {/* <motion.img
                       src="https://www.yourdomain.com/images/software-solutions-hero.svg"
                       alt="Business Software Solutions Illustration"
                       className="img-fluid rounded-3 shadow-sm"
-                    />
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.6 }}
+                    /> */}
                   </div>
                 </div>
               </div>
@@ -234,35 +286,35 @@ const Software: React.FC = () => {
                     title: "ERP Development",
                     text: "We build robust Enterprise Resource Planning (ERP) systems that centralize your business processes — from inventory and finance to HR and supply chain — into one unified platform.",
                     icon: "bi bi-diagram-3 text-primary",
-                    img: "https://www.yourdomain.com/images/erp-development.svg",
+                    img: ERPDevelopment,
                     reverse: false,
                   },
                   {
                     title: "CRM Development",
                     text: "Our CRM solutions help manage customer data, automate sales, and optimize marketing funnels to enhance retention and drive long-term growth.",
                     icon: "bi bi-people text-success",
-                    img: "https://www.yourdomain.com/images/crm-development.svg",
+                    img: CRMDevelopment,
                     reverse: true,
                   },
                   {
                     title: "HRMS Development",
                     text: "Simplify recruitment, attendance tracking, payroll, and performance evaluation with a secure, cloud-based HRMS system tailored to your organization.",
                     icon: "bi bi-person-workspace text-warning",
-                    img: "https://www.yourdomain.com/images/hrms-development.svg",
+                    img: HRMSDevelopment,
                     reverse: false,
                   },
                   {
                     title: "AI Voice Sales Assistant Integration",
                     text: "Integrate AI-powered voice assistants into your sales ecosystem for real-time conversation analysis, lead qualification, and smarter customer engagement.",
                     icon: "bi bi-robot text-info",
-                    img: "https://www.yourdomain.com/images/ai-voice-assistant.svg",
+                    img: AIVoiceAssistant,
                     reverse: true,
                   },
                   {
                     title: "Business Automation Tools",
                     text: "Automate repetitive workflows using custom-built tools that connect departments, reduce manual errors, and boost operational productivity.",
                     icon: "bi bi-lightning-charge text-danger",
-                    img: "https://www.yourdomain.com/images/business-automation.svg",
+                    img: BusinessAutomation,
                     reverse: false,
                   },
                 ].map((service, idx) => (
@@ -273,20 +325,33 @@ const Software: React.FC = () => {
                     }`}
                     variants={cardVariant}
                   >
-                    <div className="col-md-6 mb-4 mb-md-0">
+                    <motion.div
+                      className="col-md-6 mb-4 mb-md-0"
+                      initial={{ opacity: 0, x: -50 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      viewport={{ once: true, amount: 0.3 }}
+                    >
                       <img
                         src={service.img}
                         alt={service.title}
                         className="img-fluid rounded-3 shadow-sm"
+                        style={{ maxWidth: '75%', height: 'auto' }}
                       />
-                    </div>
-                    <div className="col-md-6">
+                    </motion.div>
+                    <motion.div
+                      className="col-md-6"
+                      initial={{ opacity: 0, x: 50 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      viewport={{ once: true, amount: 0.3 }}
+                    >
                       <h4 className="fw-bold">
                         <i className={`${service.icon} me-2`}></i>
                         {service.title}
                       </h4>
                       <p className="text-muted mt-2">{service.text}</p>
-                    </div>
+                    </motion.div>
                   </motion.div>
                 ))}
               </motion.div>

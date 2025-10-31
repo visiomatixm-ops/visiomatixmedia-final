@@ -58,15 +58,17 @@ const ServiceCardWrapper: React.FC<ServiceCardWrapperProps> = ({ service, cardVa
 };
 
 // Example service images
-import EditingImage from "/public/services/editing.webp";
-import AnimationImage from "/public/services/animation.jpg";
-import BrandingImage from "/public/services/branding.jpg";
-import PhotographyImage from "/public/services/photography.jpg";
-import VideographyImage from "/public/services/videography.png";
+import DigitalMarketing from "/public/services/1_DIGITAL MARKETING SERVICES.jpg";
+import AnimationImage from "/public/services/2d_3d animation-1.jpg";
+import BrandingImage from "/public/services/6_BRAND&STRATEGY.jpg";
+import PhotographyImage from "/public/services/photography-1.jpg";
+import VideographyImage from "/public/services/videography-1.jpg";
 import MotionImage from "/public/services/motion.jpg";
-import WebDesignImage from "/public/services/webdesign.jpg";
-import GraphicImage from "/public/services/graphic.jpg";
-
+import WebDesignImage from "/public/services/web-design-1.jpg";
+import GraphicImage from "/public/services/graphic-1.jpg";
+import BusinessSoultions from "/public/services/4_Business Software Solutions.jpg";
+import Eccommerce from "/public/services/5_E-commerce Solutions.jpg";
+import SEO from "/public/services/seo-infographic-concept-background_823925-1180.jpg";
 // ✅ Light Theme Styles
 const cardThemeStyles = `
   .card-theme {
@@ -122,7 +124,7 @@ const cardThemeStyles = `
 
 const ServicesLayout: React.FC = () => {
   const services = [
-    { image: EditingImage, title: "Video Editing", description: "Professional editing to create stunning cinematic visuals." },
+    { image: DigitalMarketing, title: "Digital Marketing", description: "Digital marketing is the strategic use of online channels to promote brands, engage audiences, and drive measurable business growth." },
     { image: AnimationImage, title: "2D/3D Animation", description: "Creative animation services for advertisements and films." },
     { image: BrandingImage, title: "Brand Design", description: "Crafting unique brand identities for your business." },
     { image: PhotographyImage, title: "Photography", description: "High-quality photoshoots for events, products, and portfolios." },
@@ -130,6 +132,9 @@ const ServicesLayout: React.FC = () => {
     { image: MotionImage, title: "Motion Graphics", description: "Eye-catching motion designs for social media and ads." },
     { image: WebDesignImage, title: "Web Design", description: "Modern and responsive websites for creative industries." },
     { image: GraphicImage, title: "Graphic Design", description: "Logos, posters, and marketing materials that stand out." },
+    { image: BusinessSoultions, title: "Business Software Solutions", description: "Custom software solutions to streamline your business operations." },
+    { image: Eccommerce, title: "ECommerce Solutions", description: "Comprehensive eCommerce platforms to grow your online sales." },
+    { image: SEO, title: "SEO Services", description: "Optimize your online presence to rank higher in search results." },
   ];
 
   const cardVariants = {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo2PNG from "/logo/Logo2PNG.png";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,6 +15,7 @@ document.head.appendChild(fontLink);
 const Menu: React.FC = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const location = useLocation(); // ✅ Track current route
+  const navigate = useNavigate(); // ✅ For programmatic navigation
 
   const navItems = [
     { path: "/", label: "Home" },
@@ -145,13 +146,15 @@ const Menu: React.FC = () => {
                     ) : (
                       /* ===================== DROPDOWN (SERVICES) ===================== */
                       <>
-                        <span
+                        <div
                           className={`nav-link fw-semibold dropdown-toggle px-3 py-2 ${
                             isServicesActive ? "active" : ""
                           }`}
                           role="button"
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
+                          onClick={() => navigate(item.basePath!)}
+                          style={{ cursor: 'pointer' }}
                         >
                           {item.label}
                           {/* ✅ Animated Blue Pill for Active Services */}
@@ -171,7 +174,7 @@ const Menu: React.FC = () => {
                               />
                             )}
                           </AnimatePresence>
-                        </span>
+                        </div>
                         <ul className="dropdown-menu border-0 shadow-sm">
                           {item.dropdown.map((subItem) => (
                             <li key={subItem.path}>

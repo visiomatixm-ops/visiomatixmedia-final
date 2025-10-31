@@ -28,6 +28,7 @@ const Footer: React.FC = () => {
     text.charAt(0).toUpperCase() + text.slice(1);
 
   return (
+    <>
     <footer className="bg-dark text-light pt-4 pb-2 mt-5">
       {/* Breadcrumb Section */}
       <div className="container mb-3">
@@ -142,6 +143,12 @@ const Footer: React.FC = () => {
         </span>
       </div>
     </footer>
+    <style>
+         {`li.breadcrumb-item.active {
+          color: #006aff !important;
+          }`} 
+    </style>
+    </>
   );
 };
 
