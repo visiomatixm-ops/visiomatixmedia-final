@@ -36,6 +36,38 @@ EC2 Instance (Backend)
 RDS (Database)
 ```
 
+## Port Configuration Overview
+
+### Default Ports Used in Visiomatix Deployment
+
+| Service | Port | Protocol | Purpose | AWS Service |
+|---------|------|----------|---------|-------------|
+| Backend API | 8080 | TCP | Spring Boot application | EC2 |
+| Frontend (HTTP) | 80 | TCP | Main website HTTP | CloudFront/S3 |
+| Frontend (HTTPS) | 443 | TCP | Main website HTTPS | CloudFront/S3 |
+| Agent Dashboard (HTTP) | 80 | TCP | Agent panel HTTP | CloudFront/S3 |
+| Agent Dashboard (HTTPS) | 443 | TCP | Agent panel HTTPS | CloudFront/S3 |
+| Database | 3306 | TCP | MySQL/PostgreSQL | RDS |
+| SSH | 22 | TCP | Server access | EC2 |
+| WebSocket | 8080 | WS/WSS | Real-time chat | EC2 |
+
+### Security Group Configuration
+
+**EC2 Security Group (visiomatix-backend-sg):**
+```
+Inbound Rules:
+- SSH (22) - TCP - Your IP/32 - For server access
+- HTTP (80) - TCP - 0.0.0.0/0 - For health checks (optional)
+- HTTPS (443) - TCP - 0.0.0.0/0 - For direct HTTPS access (optional)
+- Custom TCP (8080) - TCP - 0.0.0.0/0 - Backend API and WebSocket
+```
+
+**RDS Security Group (visiomatix-db-sg):**
+```
+Inbound Rules:
+- MySQL/Aurora (3306) - TCP - sg-xxxxx (EC2 security group) - Database access from EC2 only
+```
+
 ## Step 1: Launch EC2 Instance for Backend
 
 1. **Create EC2 Instance:**
@@ -44,11 +76,11 @@ RDS (Database)
    - AMI: Ubuntu Server 22.04 LTS (free tier eligible)
    - Instance Type: `t2.micro` (free tier)
    - Key Pair: Create or select existing
-   - Security Group:
+   - Security Group: Create new security group with the rules above
      - SSH (22) - Your IP only
-     - HTTP (80) - 0.0.0.0/0
-     - HTTPS (443) - 0.0.0.0/0
-     - Custom TCP (8080) - 0.0.0.0/0 (for backend)
+     - HTTP (80) - 0.0.0.0/0 (optional)
+     - HTTPS (443) - 0.0.0.0/0 (optional)
+     - Custom TCP (8080) - 0.0.0.0/0 (backend API and WebSocket)
    - Storage: 8GB (default, free tier)
 
 2. **Connect to EC2:**
@@ -194,6 +226,7 @@ RDS (Database)
    ```bash
    cd Visiomatix
    echo "VITE_API_BASE_URL=http://your-ec2-public-ip:8080" > .env.production
+   echo "VITE_WS_URL=ws://your-ec2-public-ip:8080/ws" >> .env.production
    npm run build
    ```
 
@@ -241,6 +274,11 @@ RDS (Database)
    aws s3 sync dist/ s3://visiomatix-agent-[suffix] --delete
    ```
 
+   **Port Configuration for Agent Frontend:**
+   - API calls: Port 8080 (backend)
+   - WebSocket connections: Port 8080 with `/ws` endpoint
+   - HTTPS termination: Handled by CloudFront (port 443)
+
 3. **Create CloudFront distribution for agent dashboard**
 
 ## Step 4: Set Up Domain (Optional but Recommended)
@@ -251,9 +289,14 @@ RDS (Database)
    - Update nameservers at your domain registrar
 
 2. **Create A Records:**
-   - Main site: `yourdomain.com` → CloudFront distribution
-   - Agent: `agent.yourdomain.com` → Agent CloudFront distribution
-   - API: `api.yourdomain.com` → EC2 Elastic IP
+   - Main site: `yourdomain.com` → CloudFront distribution (ports 80/443)
+   - Agent: `agent.yourdomain.com` → Agent CloudFront distribution (ports 80/443)
+   - API: `api.yourdomain.com` → EC2 Elastic IP (port 8080)
+
+   **Port Mapping:**
+   - Frontend domains use standard HTTP/HTTPS ports (80/443) via CloudFront
+   - API domain points directly to EC2 port 8080 for backend access
+   - WebSocket connections use WSS (port 443) through CloudFront or direct WS (port 8080)
 
 ## Step 5: SSL Certificate with ACM
 
@@ -368,6 +411,28 @@ RDS (Database)
    - Verify RDS security group allows EC2 access
    - Check database credentials
    - Test connection from EC2: `mysql -h your-rds-endpoint -u admin -p`
+
+### Port Testing and Verification
+
+```bash
+# Test backend API port (8080)
+curl -v http://localhost:8080/api/health
+
+# Test WebSocket port (8080)
+# Use a WebSocket testing tool or browser console
+
+# Test database port (3306) from EC2
+mysql -h your-rds-endpoint -u admin -p -e "SELECT 1;"
+
+# Test frontend ports via CloudFront (80/443)
+curl -I https://your-cloudfront-domain
+
+# Check open ports on EC2
+sudo netstat -tlnp | grep -E ':(80|443|8080|3306)'
+
+# Verify security groups
+aws ec2 describe-security-groups --group-ids your-sg-id
+```
 
 ### Monitoring Commands
 
