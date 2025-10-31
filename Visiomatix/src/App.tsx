@@ -18,6 +18,13 @@ import ChatWidget from './component/ChatWidget';
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
+const DigitalMarketing = lazy(() => import('./pages/services/DigitalMarketing'));
+const SMM = lazy(() => import('./pages/services/DigitalMarketing'));
+const Design = lazy(() => import('./pages/services/Desing'));
+const Webapp = lazy(() => import('./pages/services/Webapp'));
+const Software = lazy(() => import('./pages/services/Software'));
+const Ecommerce = lazy(() => import('./pages/services/Ecommerce'));
+const Branding = lazy(() => import('./pages/services/Branding'));
 const Blog = lazy(() => import('./pages/Blog'));
 const Careers = lazy(() => import('./pages/Careers'));
 const Testimonials = lazy(() => import('./pages/Testimonials'));
@@ -33,6 +40,13 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/services/DigitalMarketing" element={<DigitalMarketing />} />
+          <Route path="/services/SMM" element={<SMM />} />
+          <Route path="/services/Design" element={<Design />} />
+          <Route path="/services/Webapp" element={<Webapp />} />
+          <Route path="/services/Software" element={<Software />} />
+          <Route path="/services/Ecommerce" element={<Ecommerce />} />
+          <Route path="/services/Branding" element={<Branding />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/testimonials" element={<Testimonials />} />

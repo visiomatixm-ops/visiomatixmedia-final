@@ -18,7 +18,7 @@ const portfolio = [
     client: "Fashionista Inc.",
     role: "Marketing Director",
     project: "Social Media Branding Campaign",
-    image: "/services/branding.jpg",
+    image: "/services/brand-design-2.jpg",
     description:
       "Developed a cohesive brand identity and social media strategy, resulting in 50% increase in engagement and brand recognition.",
   },
@@ -42,7 +42,7 @@ const portfolio = [
     client: "FilmStudioX",
     role: "Creative Head",
     project: "Video Editing & Post-Production",
-    image: "/services/editing.webp",
+    image: "/services/videoediting-1.jpg",
     description:
       "Provided seamless video editing and post-production for multiple short films and advertisements, enhancing visual appeal and storytelling.",
   },
@@ -50,7 +50,7 @@ const portfolio = [
     client: "StartUp MediaHub",
     role: "CEO",
     project: "2D/3D Animation Series",
-    image: "/services/animation.jpg",
+    image: "/services/animation-1.jpg",
     description:
       "Designed a series of creative 2D/3D animations for advertising campaigns, increasing audience retention by 40%.",
   },
@@ -58,7 +58,7 @@ const portfolio = [
     client: "Webify Co.",
     role: "CTO",
     project: "Responsive Web Design & Development",
-    image: "/services/webdesign.jpg",
+    image: "/services/web-design-1.jpg",
     description:
       "Built modern and responsive websites for multiple clients, improving user experience and increasing session duration.",
   },

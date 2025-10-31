@@ -95,6 +95,36 @@ const Footer: React.FC = () => {
             </Link>
           </li>
           <li className="list-inline-item mx-3">
+            <Link to="/services/DigitalMarketing" className="text-light text-decoration-none">
+              Digital Marketing
+            </Link>
+          </li>
+          <li className="list-inline-item mx-3">
+            <Link to="/services/Design" className="text-light text-decoration-none">
+              Design and Creative Services
+            </Link>
+          </li>
+          <li className="list-inline-item mx-3">
+            <Link to="/services/Webapp" className="text-light text-decoration-none">
+              Web App Development
+            </Link>
+          </li>
+          <li className="list-inline-item mx-3">
+            <Link to="/services/Software" className="text-light text-decoration-none">
+              Business Software Solutions
+            </Link>
+          </li>
+          <li className="list-inline-item mx-3">
+            <Link to="/services/Ecommerce" className="text-light text-decoration-none">
+              ECommerce Solutions
+            </Link>
+          </li>
+          <li className="list-inline-item mx-3">
+            <Link to="/services/Branding" className="text-light text-decoration-none">
+              Branding and Strategy
+            </Link>
+          </li>
+          <li className="list-inline-item mx-3">
             <Link to="/gallery" className="text-light text-decoration-none">
               Gallery
             </Link>

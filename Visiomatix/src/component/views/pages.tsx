@@ -89,11 +89,11 @@ const ServicePage: React.FC<PageProps> = ({
 const Page1: React.FC<ServicePageProps> = ({ classPrefix }) => (
   <ServicePage
     classPrefix={classPrefix}
-    title="Video Editing"
+    title="UI UX Design"
     imageSrc="/carousel/img2826-55ip-1600w.png"
     imageAlt="img2826"
-    serviceTitle="Video Editing"
-    serviceDescription="Our expert editors craft professional-grade visuals that captivate your audience. Using cutting-edge tools like Premiere Pro and DaVinci Resolve, we enhance storytelling through seamless transitions, colour grading, and cinematic effects. Whether it's a product ad or a short film, we ensure your footage stands out."
+    serviceTitle="UI UX Design"
+    serviceDescription="Our design specialists create intuitive, user-centered interfaces that elevate every digital interaction. Leveraging industry-leading tools like Figma and Adobe XD, we craft seamless user journeys, modern layouts, and visually balanced experiences. Whether it’s a website, mobile app, or product dashboard, we ensure every design not only looks stunning but feels effortless to use."
     hasAnimation={true}
   />
 )
