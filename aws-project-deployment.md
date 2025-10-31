@@ -474,11 +474,129 @@ When ready for production:
 4. **WAF + Shield** for security
 5. **CloudFormation** for infrastructure as code
 
+## Alternative: Netlify Fullstack Setup
+
+For a simpler, more cost-effective alternative to AWS, consider deploying on Netlify with the following configuration:
+
+### Netlify Architecture Overview
+
+```
+Internet
+    ↓
+Netlify CDN (Global)
+    ↓
+Netlify Sites (Frontend)
+    ↓
+Netlify Functions (Backend API)
+    ↓
+External Database (PlanetScale/Supabase)
+    ↓
+WebSocket Service (Pusher)
+```
+
+### Port Configuration for Netlify
+
+| Service | Port | Protocol | Purpose | Netlify Equivalent |
+|---------|------|----------|---------|-------------------|
+| Frontend Sites | 80/443 | HTTP/HTTPS | Main website | Automatic HTTPS |
+| Netlify Functions | 9000 | Internal | Backend API | `/api/*` routes |
+| WebSocket | 443 | WSS | Real-time chat | Pusher/Socket.io |
+| Database | Provider-specific | TCP | Data storage | PlanetScale/Supabase |
+
+### Quick Netlify Setup
+
+1. **Deploy Main Frontend:**
+   ```bash
+   cd Visiomatix
+   echo "VITE_API_BASE_URL=https://your-netlify-site.netlify.app/api" > .env.production
+   echo "VITE_WS_URL=wss://your-pusher-app.pusherapp.com" >> .env.production
+   npm run build
+   # Deploy to Netlify (drag & drop dist/ or connect repo)
+   ```
+
+2. **Deploy Agent Frontend:**
+   ```bash
+   cd agent-frontend
+   echo "VITE_API_BASE_URL=https://your-netlify-site.netlify.app/api" > .env.production
+   echo "VITE_WS_URL=wss://your-pusher-app.pusherapp.com" >> .env.production
+   npm run build
+   # Deploy to separate Netlify site
+   ```
+
+3. **Create Netlify Functions:**
+   ```javascript
+   // netlify/functions/api.js
+   const express = require('express');
+   const serverless = require('serverless-http');
+
+   const app = express();
+
+   // CORS for multiple frontends
+   app.use((req, res, next) => {
+     const allowedOrigins = [
+       'https://your-main-site.netlify.app',
+       'https://your-agent-site.netlify.app'
+     ];
+     const origin = req.headers.origin;
+     if (allowedOrigins.includes(origin)) {
+       res.header('Access-Control-Allow-Origin', origin);
+     }
+     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+     next();
+   });
+
+   app.use(express.json());
+
+   app.get('/api/health', (req, res) => {
+     res.json({ status: 'ok', service: 'netlify-functions' });
+   });
+
+   module.exports.handler = serverless(app);
+   ```
+
+4. **Configure netlify.toml:**
+   ```toml
+   [build]
+     functions = "netlify/functions"
+
+   [[redirects]]
+     from = "/api/*"
+     to = "/.netlify/functions/api/:splat"
+     status = 200
+   ```
+
+### Netlify Cost Comparison
+
+| Service | AWS (After Free Tier) | Netlify |
+|---------|----------------------|---------|
+| Frontend Hosting | ~$1-5/month | $0 (100GB free) |
+| Backend Functions | ~$10-50/month | $0 (125K invocations free) |
+| Database | ~$12/month | ~$0 (PlanetScale free tier) |
+| CDN | ~$1-5/month | Included |
+| **Total** | **~$24-72/month** | **~$0-29/month** |
+
+### When to Choose Netlify vs AWS
+
+**Choose Netlify if:**
+- You want simpler deployment
+- Lower cost for small to medium applications
+- Don't need complex server management
+- Prefer serverless architecture
+
+**Choose AWS if:**
+- You need advanced customization
+- Higher traffic/enterprise requirements
+- Complex microservices architecture
+- Need full control over infrastructure
+
 ## Support Resources
 
 - AWS Free Tier: https://aws.amazon.com/free/
 - AWS Documentation: https://docs.aws.amazon.com/
 - AWS Support: Free for first 12 months
 - AWS Calculator: https://calculator.aws/
+- Netlify Docs: https://docs.netlify.com/
+- Netlify Pricing: https://www.netlify.com/pricing/
 
-This setup provides a cost-effective, scalable solution for hosting the Visiomatix application on AWS while maximizing free tier benefits.
+Both AWS and Netlify provide excellent hosting solutions. Netlify offers a simpler, more cost-effective option for most applications, while AWS provides more power and customization for complex deployments.
