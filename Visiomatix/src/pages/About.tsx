@@ -74,17 +74,25 @@ const About: React.FC = () => {
               src="/about/about us image.jpg"
               alt="Visiomatix Company Story"
               className="img-fluid rounded shadow"
+              style={{ width: '110%', height: 'auto' }}
             />
           </div>
 
           <div className="col-md-6">
             <h2 className="fw-bold mb-3">Our Story</h2>
             <p>
-              Founded with a vision to redefine the intersection of creativity and technology, <strong>Visiomatix Media</strong> began as a small team of digital enthusiasts driven by passion, purpose, and imagination. Today, we stand as a multidisciplinary digital agency delivering solutions that connect brands to audiences through innovative storytelling and design.
-            </p>
+                  Every big brand starts with a bold idea — and so did we.
+                  Visiomatix Media was founded with a simple yet powerful mission: to bring creative vision and digital innovation together under one roof.            </p>
             <p>
-              Our journey has always been fueled by curiosity and collaboration. From crafting visually stunning brand identities to executing impactful marketing campaigns, we help businesses thrive in a rapidly evolving digital landscape — where creativity isn’t just seen but felt.
-            </p>
+                   What began as a small team of passionate designers, developers, and marketers has evolved into a growing agency focused on helping businesses <strong>build their identity, expand their reach, and achieve real results online.</strong>
+              </p>
+              <p>
+                We may be new, but our ideas are bold, our energy is unstoppable, and our commitment to our clients is unmatched.
+
+              </p>
+              <p>At Visiomatix Media, we believe that <strong>great design, smart marketing, and strong strategy</strong> can transform any business — no matter its size — into a brand that stands out.</p>
+             <p>From <strong>branding and design</strong> to <strong>digital marketing and web development</strong>, every project we take on is an opportunity to create impact, tell stories that matter, and grow alongside our clients.</p>
+             <p>We’re not just another agency — <strong>we’re your creative growth partner in the digital world.</strong></p>
           </div>
         </div>
       </section>
@@ -92,36 +100,51 @@ const About: React.FC = () => {
       {/* ============================================= */}
       {/* Vision & Mission Section */}
       {/* ============================================= */}
-      <section className="py-5 ">
-        <div className="container text-center">
-          <h2 className="fw-bold mb-4 text-aqua">Our Vision & Mission</h2>
-          <div className="row">
-            <div className="col-md-6 mb-4">
-              <div
-                className="p-4 border-0 rounded shadow-sm h-100"
-                style={{ backgroundColor: '#0b1e34' }}
-              >
-                <h4 className="fw-bold text-info">Our Vision</h4>
-                <p className='text-light'>
-                  To become a globally trusted creative and technology partner that empowers brands to lead through innovation, authenticity, and meaningful digital experiences. We envision a world where design and technology work together to shape the future of communication.
-                </p>
-              </div>
-            </div>
-
-            <div className="col-md-6 mb-4">
-              <div
-                className="p-4 border-0 rounded shadow-sm h-100"
-                style={{ backgroundColor: '#0b1e34' }}
-              >
-                <h4 className="fw-bold text-success">Our Mission</h4>
-                <p className='text-light'>
-                  To craft impactful digital experiences that resonate with audiences, inspire creativity, and deliver measurable results. Our mission is to merge art and analytics — designing strategies that drive engagement, enhance visibility, and elevate brands beyond expectations.
-                </p>
-              </div>
-            </div>
-          </div>
+<section className="py-5">
+  <div className="container text-center">
+    <h2 className="fw-bold mb-4 text-aqua">Our Vision & Mission</h2>
+    <div className="row">
+      
+      <div className="col-md-6 mb-4">
+        <div
+          className="p-4 border-0 rounded shadow-sm h-100"
+          style={{ backgroundColor: '#0b1e34' }}
+        >
+          <h4 className="fw-bold text-info">Our Vision</h4>
+          <p className="text-light mb-3">
+            To become a globally trusted creative and technology partner that empowers brands to lead through innovation, authenticity, and meaningful digital experiences.
+          </p>
+          <ul className="text-light text-start mx-auto" style={{ maxWidth: '90%' }}>
+            <li>Build a future where design and technology work together seamlessly.</li>
+            <li>Inspire creativity that drives measurable growth for brands.</li>
+            <li>Set new standards in digital storytelling and brand communication.</li>
+            <li>Grow into a recognized global agency known for innovation and integrity.</li>
+          </ul>
         </div>
-      </section>
+      </div>
+
+      <div className="col-md-6 mb-4">
+        <div
+          className="p-4 border-0 rounded shadow-sm h-100"
+          style={{ backgroundColor: '#0b1e34' }}
+        >
+          <h4 className="fw-bold text-success">Our Mission</h4>
+          <p className="text-light mb-3">
+            To craft impactful digital experiences that resonate with audiences, inspire creativity, and deliver measurable results for every client.
+          </p>
+          <ul className="text-light text-start mx-auto" style={{ maxWidth: '90%' }}>
+            <li>Deliver innovative, high-quality, and result-driven media solutions.</li>
+            <li>Build long-term relationships through transparency, trust, and collaboration.</li>
+            <li>Empower young creators and professionals to grow in the digital landscape.</li>
+            <li>Bridge art and analytics — creating strategies that inspire and perform.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
       {/* ============================================= */}
       {/* What We Offer Section */}
@@ -160,7 +183,7 @@ const About: React.FC = () => {
       {/* Team Profiles Section */}
       {/* ============================================= */}
       <section className="container text-center my-5">
-        <h2 className="fw-bold mb-5 text-light">Meet Our Team</h2>
+        <h2 className="fw-bold mb-5">Meet Our Team</h2>
 
         <div className="row justify-content-center">
           {/* Team Member 1 */}
@@ -248,6 +271,226 @@ const About: React.FC = () => {
           </div>
         </div>
       </section>
+            {/* ============================================= */}
+      {/* The Founder's Story Section */}
+      {/* ============================================= */}
+      <section className="py-5" style={{ backgroundColor: '#08172b' }}>
+        <div className="container">
+          <div className="row align-items-center">
+            
+            {/* Founder Image */}
+            <div className="col-md-5 mb-4 mb-md-0">
+              <img
+                src="/team/rohitshinde.jpg"
+                alt="Rohit Shinde - Founder of Visiomatix Media"
+                className="img-fluid rounded shadow-lg"
+                style={{
+                  border: '3px solid #00ffff',
+                  borderRadius: '12px',
+                  objectFit: 'cover',
+                }}
+              />
+            </div>
+
+            {/* Founder Content */}
+            <div className="col-md-7 text-light">
+              <h2 className="fw-bold text-aqua mb-3">The Founder’s Story</h2>
+              <p>
+                <strong>Visiomatix Media</strong> was founded by <strong>Rohit Shinde</strong>, 
+                a passionate graphic designer and entrepreneur from Nashik. With years of hands-on 
+                experience in digital arts, branding, and creative storytelling, Rohit envisioned 
+                building an agency that doesn’t just “design” — but creates experiences that speak volumes.
+              </p>
+              <p>
+                His journey from working as a graphic designer at <strong>Shaurya Digital Arts</strong> 
+                to becoming the <strong>Founder & CEO of Visiomatix Media</strong> is a true story 
+                of passion, persistence, and innovation. Rohit believes in nurturing talent, adapting 
+                to evolving trends, and building a team that thrives on creativity, collaboration, and trust.
+              </p>
+              <ul className="text-start text-light" style={{ maxWidth: '90%' }}>
+                <li>Encourages innovation through creative freedom.</li>
+                <li>Focuses on empowering young designers and creators.</li>
+                <li>Leads with transparency, teamwork, and vision.</li>
+                <li>Believes in turning bold ideas into impactful digital experiences.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+                {/* ============================================= */}
+{/* Meet the Rest of the Team Section */}
+{/* ============================================= */}
+<section className="container text-center my-5">
+  <h2 className="fw-bold mb-4 text-aqua">Meet the Rest of the Team</h2>
+  <p className="text-light mb-5 w-75 mx-auto">
+    At <strong>Visiomatix Media</strong>, our team is our biggest strength.
+    We are a diverse group of designers, developers, marketers, and strategists
+    united by one goal — to create meaningful, result-driven digital experiences
+    that help brands grow and connect.
+  </p>
+
+  <div className="row justify-content-center">
+
+    {/* HR Team */}
+    <div className="col-md-3 mb-4">
+      <div
+        className="card border-0 h-100 text-light"
+        style={{
+          backgroundColor: '#102a4a',
+          boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
+          borderRadius: '12px',
+          transition: 'all 0.3s ease',
+        }}
+        onMouseEnter={(e) =>
+          (e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.8)')
+        }
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.boxShadow = '0 0 5px rgba(0, 255, 255, 0.4)')
+        }
+      >
+        <img
+          src="/people/Person1.jpeg"
+          alt="Dharshinie Anbazhagan - HR"
+          className="card-img-top"
+          style={{
+            height: '216px',
+            objectFit: 'cover',
+            borderTopLeftRadius: '12px',
+            borderTopRightRadius: '12px',
+          }}
+        />
+        <div className="card-body">
+          <h5 className="fw-bold text-aqua">Dharshinie Anbazhagan</h5>
+          <p className="text-light mb-1">Human Resources (HR)</p>
+          <p className="small text-secondary text-light">
+            Leads with a people-first approach — fostering collaboration, creativity,
+            and a strong workplace culture at Visiomatix Media.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* Design Team */}
+    <div className="col-md-3 mb-4">
+      <div
+        className="card border-0 h-100 text-light"
+        style={{
+          backgroundColor: '#102a4a',
+          boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
+          borderRadius: '12px',
+          transition: 'all 0.3s ease',
+        }}
+        onMouseEnter={(e) =>
+          (e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.8)')
+        }
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.boxShadow = '0 0 5px rgba(0, 255, 255, 0.4)')
+        }
+      >
+        <img
+          src="/people/Person2.jpeg"
+          alt="Design Team"
+          className="card-img-top"
+          style={{
+            height: '216px',
+            objectFit: 'cover',
+            borderTopLeftRadius: '12px',
+            borderTopRightRadius: '12px',
+          }}
+        />
+        <div className="card-body">
+          <h5 className="fw-bold text-aqua">Design Team</h5>
+          <p className="text-light mb-1">Creative Department</p>
+          <p className="small text-secondary text-light">
+            A passionate group of visual thinkers specializing in branding,
+            motion graphics, and UI/UX — turning ideas into stunning digital visuals.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* Marketing Team */}
+    <div className="col-md-3 mb-4">
+      <div
+        className="card border-0 h-100 text-light"
+        style={{
+          backgroundColor: '#102a4a',
+          boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
+          borderRadius: '12px',
+          transition: 'all 0.3s ease',
+        }}
+        onMouseEnter={(e) =>
+          (e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.8)')
+        }
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.boxShadow = '0 0 5px rgba(0, 255, 255, 0.4)')
+        }
+      >
+        <img
+          src="/people/Person3.jpeg"
+          alt="Marketing Team"
+          className="card-img-top"
+          style={{
+            height: '216px',
+            objectFit: 'cover',
+            borderTopLeftRadius: '12px',
+            borderTopRightRadius: '12px',
+          }}
+        />
+        <div className="card-body">
+          <h5 className="fw-bold text-aqua">Marketing Team</h5>
+          <p className="text-light mb-1">Digital Strategy</p>
+          <p className="small text-secondary text-light">
+            SEO experts, social media specialists, and ad strategists — driving engagement
+            and helping brands build lasting digital connections.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* Tech Team */}
+    <div className="col-md-3 mb-4">
+      <div
+        className="card border-0 h-100 text-light"
+        style={{
+          backgroundColor: '#102a4a',
+          boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
+          borderRadius: '12px',
+          transition: 'all 0.3s ease',
+        }}
+        onMouseEnter={(e) =>
+          (e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.8)')
+        }
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.boxShadow = '0 0 5px rgba(0, 255, 255, 0.4)')
+        }
+      >
+        <img
+          src="/people/Person3.jpeg"
+          alt="Tech Team"
+          className="card-img-top"
+          style={{
+            height: '216px',
+            objectFit: 'cover',
+            borderTopLeftRadius: '12px',
+            borderTopRightRadius: '12px',
+          }}
+        />
+        <div className="card-body">
+          <h5 className="fw-bold text-aqua">Tech Team</h5>
+          <p className="text-light mb-1">Development & IT</p>
+          <p className="small text-secondary text-light">
+            Web developers and IT professionals who bring creativity to life — ensuring
+            every digital experience is smooth, fast, and functional.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+                  
     </>
   );
 };
