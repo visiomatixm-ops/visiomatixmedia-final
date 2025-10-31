@@ -61,7 +61,7 @@ const Ecommerce: React.FC = () => {
   const businessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "BrandName E-commerce Solutions",
+    name: "Visiomatix E-commerce Solutions",
     image: "https://www.yourdomain.com/images/brand-logo.png",
     url: "https://www.yourdomain.com/ecommerce-solutions",
     telephone: "+1-800-555-0199",
@@ -96,7 +96,7 @@ const Ecommerce: React.FC = () => {
       "https://www.youtube.com/@yourbrand",
     ],
     description:
-      "BrandName specializes in E-commerce website development, marketplace advertising, product listing optimization, and payment gateway integration — delivering high-conversion online stores.",
+      "Visiomatix specializes in E-commerce website development, marketplace advertising, product listing optimization, and payment gateway integration — delivering high-conversion online stores.",
   };
 
   const serviceSchema = {
@@ -107,7 +107,7 @@ const Ecommerce: React.FC = () => {
       "E-commerce Development, Online Store Design, Marketplace Advertising, Payment Gateway Integration",
     provider: {
       "@type": "Organization",
-      name: "BrandName E-commerce Solutions",
+      name: "Visiomatix E-commerce Solutions",
       url: "https://www.yourdomain.com",
     },
     areaServed: {
@@ -136,7 +136,7 @@ const Ecommerce: React.FC = () => {
         <title>E-commerce Solutions | Online Store Development & Marketplace Advertising</title>
         <meta
           name="description"
-          content="Launch your online business with BrandName’s E-commerce Solutions — custom online stores, marketplace advertising (Amazon, Flipkart), product listing optimization, and secure payment gateways."
+          content="Launch your online business with Visiomatix’s E-commerce Solutions — custom online stores, marketplace advertising (Amazon, Flipkart), product listing optimization, and secure payment gateways."
         />
         <meta
           name="keywords"
@@ -257,7 +257,7 @@ const Ecommerce: React.FC = () => {
             <section className="py-5 bg-light">
               <div className="container">
                 <p className="lead text-muted text-center mx-auto" style={{ maxWidth: "850px" }}>
-                  With <strong>BrandName’s E-commerce Solutions</strong>, your online
+                  With <strong>Visiomatix’s E-commerce Solutions</strong>, your online
                   business gains the advantage of modern design, flawless user
                   experience, and deep marketplace integration. Whether it’s a
                   <strong> Shopify store, WooCommerce website,</strong> or a

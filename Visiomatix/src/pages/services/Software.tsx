@@ -63,7 +63,7 @@ const Software: React.FC = () => {
   const businessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "BrandName Business Software Solutions",
+    name: "Visiomatix Business Software Solutions",
     image: "https://www.yourdomain.com/images/brand-logo.png",
     url: "https://www.yourdomain.com/software-development",
     telephone: "+1-800-555-0199",
@@ -98,7 +98,7 @@ const Software: React.FC = () => {
       "https://www.youtube.com/@yourbrand",
     ],
     description:
-      "BrandName delivers custom Business Software Solutions — including ERP, CRM, HRMS, and AI automation tools — to streamline operations and scale enterprise productivity.",
+      "Visiomatix delivers custom Business Software Solutions — including ERP, CRM, HRMS, and AI automation tools — to streamline operations and scale enterprise productivity.",
   };
 
   const serviceSchema = {
@@ -108,7 +108,7 @@ const Software: React.FC = () => {
     serviceType: "Software Development, Business Automation, ERP, CRM",
     provider: {
       "@type": "Organization",
-      name: "BrandName Business Software Solutions",
+      name: "Visiomatix Business Software Solutions",
       url: "https://www.yourdomain.com",
     },
     areaServed: {
@@ -256,7 +256,7 @@ const Software: React.FC = () => {
             <section className="py-5 bg-light">
               <div className="container">
                 <p className="lead text-muted text-center mx-auto" style={{ maxWidth: "850px" }}>
-                  At <strong>BrandName</strong>, we design and develop intelligent business software that integrates data, workflows, and decision-making into one seamless platform.
+                  At <strong>Visiomatix</strong>, we design and develop intelligent business software that integrates data, workflows, and decision-making into one seamless platform.
                   From <strong>ERP systems</strong> that unify operations to <strong>CRM platforms</strong> that enhance customer relationships,
                   we create technology that transforms productivity.
                   Our <strong>HRMS tools</strong> streamline workforce management, while our <strong>AI Voice Sales Assistants</strong> and <strong>Automation Tools</strong> empower teams with real-time insights and task automation.

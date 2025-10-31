@@ -62,7 +62,7 @@ const Branding: React.FC = () => {
   const businessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "BrandName Branding & Strategy Agency",
+    name: "Visiomatix Branding & Strategy Agency",
     image: "https://www.yourdomain.com/images/brand-logo.png",
     url: "https://www.yourdomain.com/branding-strategy",
     telephone: "+1-800-555-0199",
@@ -91,7 +91,7 @@ const Branding: React.FC = () => {
       "https://www.youtube.com/@yourbrand",
     ],
     description:
-      "BrandName is a creative Branding & Strategy agency helping businesses establish strong brand identity, marketing strategy, and impactful campaign planning for growth.",
+      "Visiomatix is a creative Branding & Strategy agency helping businesses establish strong brand identity, marketing strategy, and impactful campaign planning for growth.",
   };
 
   const serviceSchema = {
@@ -101,7 +101,7 @@ const Branding: React.FC = () => {
     serviceType: "Brand Development, Strategy Planning, Campaign Execution",
     provider: {
       "@type": "Organization",
-      name: "BrandName Branding & Strategy Agency",
+      name: "Visiomatix Branding & Strategy Agency",
       url: "https://www.yourdomain.com",
     },
     areaServed: {
@@ -129,7 +129,7 @@ const Branding: React.FC = () => {
         <title>Branding & Strategy | Brand Identity, Marketing & Campaign Planning</title>
         <meta
           name="description"
-          content="Shape your brand identity and marketing direction with BrandName’s Branding & Strategy services — covering brand positioning, market research, and campaign execution."
+          content="Shape your brand identity and marketing direction with Visiomatix’s Branding & Strategy services — covering brand positioning, market research, and campaign execution."
         />
         <meta
           name="keywords"
@@ -226,7 +226,7 @@ const Branding: React.FC = () => {
             <section className="py-5 bg-light">
               <div className="container">
                 <p className="lead text-muted text-center mx-auto" style={{ maxWidth: "850px" }}>
-                  At <strong>BrandName</strong>, we craft powerful brand strategies that align creativity with data-driven insights.  
+                  At <strong>Visiomatix</strong>, we craft powerful brand strategies that align creativity with data-driven insights.  
                   Our experts analyze audience psychology, market behavior, and competitor dynamics to position your brand effectively.  
                   We help define your <strong>Brand Identity & Positioning</strong> with clear differentiation, develop holistic  
                   <strong> Marketing Strategies</strong> and conversion-driven <strong>Funnel Planning</strong>, and execute high-impact  

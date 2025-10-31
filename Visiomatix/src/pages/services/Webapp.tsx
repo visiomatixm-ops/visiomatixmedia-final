@@ -261,7 +261,7 @@ const Webapp: React.FC = () => {
                   className="lead text-muted text-center mx-auto"
                   style={{ maxWidth: "850px" }}
                 >
-                  At <strong>BrandName</strong>, we craft high-performance digital products that scale seamlessly
+                  At <strong>Visiomatix</strong>, we craft high-performance digital products that scale seamlessly
                   across devices and platforms. Our expertise covers full-stack <strong>Web App Development</strong>,
                   <strong> responsive Website Design</strong>, and <strong> Mobile App Development</strong> built with
                   modern frameworks for optimal performance.  
