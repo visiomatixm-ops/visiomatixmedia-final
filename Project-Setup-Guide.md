@@ -236,6 +236,423 @@ npm run build
 3. Test thoroughly
 4. Submit a pull request
 
+## Production Server Setup
+
+This section covers deploying the Visiomatix ecosystem to a production server, including backend, frontend, and chat widget integration.
+
+### Server Requirements
+
+- **Ubuntu 20.04+ or CentOS 7+** (Linux server)
+- **Java 17+** installed
+- **Node.js 18+** installed
+- **Nginx** or **Apache** web server
+- **SSL certificate** (Let's Encrypt recommended)
+- **Domain name** pointing to server IP
+- **Firewall configured** (ports 80, 443, 8080)
+
+### Backend Deployment (Spring Boot)
+
+1. **Prepare the server:**
+   ```bash
+   # Update system
+   sudo apt update && sudo apt upgrade -y
+
+   # Install Java 17
+   sudo apt install openjdk-17-jdk -y
+
+   # Install Maven
+   sudo apt install maven -y
+
+   # Create application directory
+   sudo mkdir -p /opt/visiomatix
+   sudo chown -R $USER:$USER /opt/visiomatix
+   ```
+
+2. **Deploy backend application:**
+   ```bash
+   # Copy backend files to server
+   scp -r visiomatix.chat user@your-server:/opt/visiomatix/
+
+   # Navigate to backend directory
+   cd /opt/visiomatix/visiomatix.chat/chat
+
+   # Build the application
+   mvn clean package -DskipTests
+
+   # Create systemd service
+   sudo nano /etc/systemd/system/visiomatix-backend.service
+   ```
+
+3. **Create systemd service file:**
+   ```ini
+   [Unit]
+   Description=Visiomatix Chat Backend
+   After=network.target
+
+   [Service]
+   Type=simple
+   User=visiomatix
+   WorkingDirectory=/opt/visiomatix/visiomatix.chat/chat
+   ExecStart=/usr/bin/java -jar target/chat-0.0.1-SNAPSHOT.jar --spring.profiles.active=production
+   Restart=always
+   RestartSec=10
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+4. **Configure production properties:**
+   ```bash
+   # Create production properties file
+   sudo nano /opt/visiomatix/visiomatix.chat/chat/src/main/resources/application-production.properties
+   ```
+
+   Add the following configuration:
+   ```properties
+   # Production Database Configuration
+   spring.datasource.url=jdbc:h2:file:/opt/visiomatix/data/chatdb;DB_CLOSE_ON_EXIT=FALSE
+   spring.datasource.driver-class-name=org.h2.Driver
+   spring.jpa.hibernate.ddl-auto=update
+
+   # Server Configuration
+   server.port=8080
+   server.address=127.0.0.1
+
+   # JWT Configuration
+   jwt.secret=your-production-jwt-secret-key-here
+   jwt.expiration=86400000
+
+   # CORS Configuration for production domains
+   app.cors.allowed-origins=https://yourdomain.com,https://agent.yourdomain.com,https://chat.yourdomain.com
+
+   # Logging
+   logging.level.com.visiomatix=INFO
+   logging.file.name=/opt/visiomatix/logs/visiomatix.log
+   ```
+
+5. **Start the backend service:**
+   ```bash
+   # Reload systemd and start service
+   sudo systemctl daemon-reload
+   sudo systemctl enable visiomatix-backend
+   sudo systemctl start visiomatix-backend
+
+   # Check status
+   sudo systemctl status visiomatix-backend
+   ```
+
+### Frontend Deployment (Main Website)
+
+1. **Build the main frontend:**
+   ```bash
+   cd Visiomatix
+
+   # Create production environment file
+   echo "VITE_API_BASE_URL=https://api.yourdomain.com" > .env.production
+
+   # Build for production
+   npm run build
+   ```
+
+2. **Deploy to web server:**
+   ```bash
+   # Copy build files to Nginx
+   sudo mkdir -p /var/www/visiomatix
+   sudo cp -r dist/* /var/www/visiomatix/
+
+   # Set proper permissions
+   sudo chown -R www-data:www-data /var/www/visiomatix
+   ```
+
+3. **Configure Nginx for main site:**
+   ```bash
+   sudo nano /etc/nginx/sites-available/visiomatix
+   ```
+
+   Add the following configuration:
+   ```nginx
+   server {
+       listen 80;
+       server_name yourdomain.com www.yourdomain.com;
+
+       # Redirect HTTP to HTTPS
+       return 301 https://$server_name$request_uri;
+   }
+
+   server {
+       listen 443 ssl http2;
+       server_name yourdomain.com www.yourdomain.com;
+
+       # SSL configuration
+       ssl_certificate /etc/letsencrypt/live/yourdomain.com/fullchain.pem;
+       ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;
+
+       # Security headers
+       add_header X-Frame-Options "SAMEORIGIN" always;
+       add_header X-XSS-Protection "1; mode=block" always;
+       add_header X-Content-Type-Options "nosniff" always;
+       add_header Referrer-Policy "no-referrer-when-downgrade" always;
+       add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
+
+       # Root directory
+       root /var/www/visiomatix;
+       index index.html;
+
+       # Handle client-side routing
+       location / {
+           try_files $uri $uri/ /index.html;
+       }
+
+       # API proxy to backend
+       location /api/ {
+           proxy_pass http://127.0.0.1:8080/;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection 'upgrade';
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+           proxy_cache_bypass $http_upgrade;
+       }
+
+       # WebSocket proxy
+       location /ws/ {
+           proxy_pass http://127.0.0.1:8080/;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection "upgrade";
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+       }
+   }
+   ```
+
+### Agent Dashboard Deployment
+
+1. **Build the agent frontend:**
+   ```bash
+   cd agent-frontend
+
+   # Create production environment file
+   cat > .env.production << EOF
+   VITE_API_BASE_URL=https://api.yourdomain.com
+   VITE_WS_URL=wss://api.yourdomain.com/ws
+   EOF
+
+   # Build for production
+   npm run build
+   ```
+
+2. **Deploy agent dashboard:**
+   ```bash
+   # Create directory for agent dashboard
+   sudo mkdir -p /var/www/agent.yourdomain.com
+   sudo cp -r dist/* /var/www/agent.yourdomain.com/
+   sudo chown -R www-data:www-data /var/www/agent.yourdomain.com
+   ```
+
+3. **Configure Nginx for agent dashboard:**
+   ```bash
+   sudo nano /etc/nginx/sites-available/agent.yourdomain.com
+   ```
+
+   Add the following configuration:
+   ```nginx
+   server {
+       listen 80;
+       server_name agent.yourdomain.com;
+
+       return 301 https://$server_name$request_uri;
+   }
+
+   server {
+       listen 443 ssl http2;
+       server_name agent.yourdomain.com;
+
+       ssl_certificate /etc/letsencrypt/live/yourdomain.com/fullchain.pem;
+       ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;
+
+       # Security headers
+       add_header X-Frame-Options "SAMEORIGIN" always;
+       add_header X-XSS-Protection "1; mode=block" always;
+       add_header X-Content-Type-Options "nosniff" always;
+       add_header Referrer-Policy "no-referrer-when-downgrade" always;
+
+       root /var/www/agent.yourdomain.com;
+       index index.html;
+
+       location / {
+           try_files $uri $uri/ /index.html;
+       }
+
+       # API proxy
+       location /api/ {
+           proxy_pass http://127.0.0.1:8080/;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection 'upgrade';
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+           proxy_cache_bypass $http_upgrade;
+       }
+
+       # WebSocket proxy
+       location /ws/ {
+           proxy_pass http://127.0.0.1:8080/;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection "upgrade";
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+       }
+   }
+   ```
+
+### Chat Widget Integration
+
+1. **Build and deploy chat widget:**
+   The chat widget is typically embedded in the main website. Ensure the widget script points to the correct API endpoints.
+
+2. **Widget configuration:**
+   Update the chat widget configuration to use production URLs:
+   ```javascript
+   // In your chat widget script
+   const config = {
+       apiUrl: 'https://api.yourdomain.com',
+       wsUrl: 'wss://api.yourdomain.com/ws',
+       domain: 'yourdomain.com'
+   };
+   ```
+
+### SSL Certificate Setup
+
+1. **Install Certbot:**
+   ```bash
+   sudo apt install certbot python3-certbot-nginx -y
+   ```
+
+2. **Obtain SSL certificates:**
+   ```bash
+   sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com -d agent.yourdomain.com -d api.yourdomain.com
+   ```
+
+3. **Set up auto-renewal:**
+   ```bash
+   sudo crontab -e
+   # Add this line:
+   0 12 * * * /usr/bin/certbot renew --quiet
+   ```
+
+### Firewall Configuration
+
+```bash
+# Allow SSH, HTTP, HTTPS, and backend port
+sudo ufw allow ssh
+sudo ufw allow 80
+sudo ufw allow 443
+sudo ufw allow 8080/tcp
+sudo ufw --force enable
+```
+
+### Monitoring and Logs
+
+1. **Backend logs:**
+   ```bash
+   sudo journalctl -u visiomatix-backend -f
+   ```
+
+2. **Nginx logs:**
+   ```bash
+   sudo tail -f /var/log/nginx/access.log
+   sudo tail -f /var/log/nginx/error.log
+   ```
+
+3. **Application logs:**
+   ```bash
+   tail -f /opt/visiomatix/logs/visiomatix.log
+   ```
+
+### Backup Strategy
+
+1. **Database backup:**
+   ```bash
+   # Create backup script
+   sudo nano /opt/visiomatix/backup.sh
+   ```
+
+   ```bash
+   #!/bin/bash
+   DATE=$(date +%Y%m%d_%H%M%S)
+   BACKUP_DIR="/opt/visiomatix/backups"
+   mkdir -p $BACKUP_DIR
+
+   # Stop service for consistent backup
+   sudo systemctl stop visiomatix-backend
+
+   # Backup database
+   cp /opt/visiomatix/data/chatdb.mv.db $BACKUP_DIR/chatdb_$DATE.mv.db
+
+   # Start service
+   sudo systemctl start visiomatix-backend
+
+   # Clean old backups (keep last 7 days)
+   find $BACKUP_DIR -name "chatdb_*.mv.db" -mtime +7 -delete
+   ```
+
+2. **Schedule backups:**
+   ```bash
+   sudo chmod +x /opt/visiomatix/backup.sh
+   sudo crontab -e
+   # Add: 0 2 * * * /opt/visiomatix/backup.sh
+   ```
+
+### Performance Optimization
+
+1. **Nginx optimization:**
+   ```bash
+   sudo nano /etc/nginx/nginx.conf
+   ```
+
+   Add worker optimizations:
+   ```
+   worker_processes auto;
+   worker_connections 1024;
+   ```
+
+2. **Backend JVM tuning:**
+   Update the systemd service to include JVM options:
+   ```ini
+   ExecStart=/usr/bin/java -Xmx2g -Xms512m -XX:+UseG1GC -jar target/chat-0.0.1-SNAPSHOT.jar --spring.profiles.active=production
+   ```
+
+### Domain and DNS Configuration
+
+Ensure your DNS is configured as follows:
+- `yourdomain.com` → Main website
+- `agent.yourdomain.com` → Agent dashboard
+- `api.yourdomain.com` → API endpoints (optional, can use main domain)
+
+### Testing Production Deployment
+
+1. **Test all endpoints:**
+   ```bash
+   curl -k https://yourdomain.com/api/health
+   curl -k https://agent.yourdomain.com
+   ```
+
+2. **Test WebSocket connection:**
+   Use browser developer tools to verify WebSocket connections work.
+
+3. **Load testing:**
+   Consider using tools like Apache Bench or JMeter for load testing.
+
 ## Support
 
 For issues or questions:
