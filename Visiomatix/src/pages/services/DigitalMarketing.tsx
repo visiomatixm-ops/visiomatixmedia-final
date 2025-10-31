@@ -27,7 +27,6 @@ import ContentMarketing from "/services/icons/1-LIST/1-5 Content & Video Marketi
 import ORM from "/services/icons/1-LIST/1-6 Online Reputation Management (ORM).png";
 import EcommerceMarketing from "/services/icons/1-LIST/1-7 E-commerce Marketing.png";
 import AnalyticsTracking from "/services/icons/1-LIST/1-8 Analytics & ROI Tracking.png";
-import { i } from "framer-motion/client";
 
 import Banner from "/services/Banner/Digital Marketing Services-3.jpg";
 

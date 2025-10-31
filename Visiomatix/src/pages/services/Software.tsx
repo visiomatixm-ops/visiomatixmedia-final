@@ -46,16 +46,6 @@ const cardVariant = {
   visible: { opacity: 1, y: 0 },
 };
 
-const imageVariant = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0 },
-};
-
-const textVariant = {
-  hidden: { opacity: 0, x: 50 },
-  visible: { opacity: 1, x: 0 },
-};
-
 // ----------------------------------------------------
 // Component: Software
 // ----------------------------------------------------
