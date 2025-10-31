@@ -205,6 +205,7 @@ const Services: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
             viewport={{ once: true, amount: 0.3 }}
+            style={{margin:"8em"}}
           >
             {/* ---------------- Image Column ---------------- */}
             <motion.div
@@ -213,7 +214,8 @@ const Services: React.FC = () => {
               whileInView={{ scaleY: 1 }}
               exit={{ scaleY: 0 }}
               transition={{ duration: 0.7, ease: "easeInOut" }}
-              style={{ originY: 1 }}
+              style={{ originY: 1
+               }}
             >
               <img
                 src={service.image}
@@ -221,7 +223,7 @@ const Services: React.FC = () => {
                 className="img-fluid rounded shadow-lg"
                 style={{
                   width: "100%",
-                  height: "55vh",
+                  height: "40vh",
                   objectFit: "contain",
                   background: "white",
                   border: "1px solid rgba(255,255,255,0.1)",
