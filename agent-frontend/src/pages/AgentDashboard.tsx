@@ -44,27 +44,64 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AdminPanel from "./AdminPanel";
 import Menu from "../components/Menu";
 
-const AgentDashboard = ({ token, userRole }) => {
-  const [sessions, setSessions] = useState([]);
-  const [selected, setSelected] = useState(null);
-  const [messages, setMessages] = useState({});
+interface Session {
+  id: number;
+  sessionName: string;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+  participants?: any[];
+}
+
+interface Message {
+  id: string;
+  sender: {
+    username: string;
+    name?: string;
+  } | string;
+  content: string;
+  sentAt: string;
+  messageType: string;
+}
+
+interface AgentStats {
+  totalSessionsHandled: number;
+  totalMessagesSent: number;
+  period: string;
+  userId: number;
+  userName: string;
+  userUsername: string;
+}
+
+interface SessionHistoryDetails {
+  session: Session;
+  participantCount: number;
+  messageCount: number;
+  sessionDuration: number;
+  messages: Message[];
+}
+
+const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }) => {
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [selected, setSelected] = useState<number | null>(null);
+  const [messages, setMessages] = useState<{ [key: number]: Message[] }>({});
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(userRole === "ROLE_ADMIN" ? "admin" : "chats");
-  const clientRef = useRef(null);
-  const messagesEndRef = useRef(null);
+  const clientRef = useRef<Client | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   // Agent statistics state
-  const [agentStats, setAgentStats] = useState({});
+  const [agentStats, setAgentStats] = useState<AgentStats>({ totalSessionsHandled: 0, totalMessagesSent: 0, period: "", userId: 0, userName: "", userUsername: "" });
   const [statsPeriod, setStatsPeriod] = useState("monthly");
   const [statsYear, setStatsYear] = useState(new Date().getFullYear());
   const [statsMonth, setStatsMonth] = useState(new Date().getMonth() + 1);
   const [statsQuarter, setStatsQuarter] = useState(1);
 
   // Chat history state
-  const [agentSessions, setAgentSessions] = useState([]);
-  const [selectedHistorySession, setSelectedHistorySession] = useState(null);
-  const [sessionHistoryDetails, setSessionHistoryDetails] = useState(null);
+  const [agentSessions, setAgentSessions] = useState<Session[]>([]);
+  const [selectedHistorySession, setSelectedHistorySession] = useState<number | null>(null);
+  const [sessionHistoryDetails, setSessionHistoryDetails] = useState<SessionHistoryDetails | null>(null);
 
   const API = "http://localhost:8080/api";
   const AGENT = "agent";
@@ -136,7 +173,9 @@ const AgentDashboard = ({ token, userRole }) => {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
-      setAgentStats(stats.data);
+      if (stats) {
+        setAgentStats(stats.data);
+      }
     } catch (e) {
       console.error("Failed to fetch agent stats:", e);
       // Set empty stats to show 0 values
@@ -201,8 +240,8 @@ const AgentDashboard = ({ token, userRole }) => {
           headers: { Authorization: `Bearer ${token}` },
         });
         // Filter sessions where the agent participated
-        const agentSessions = allSessionsResponse.data.filter(session =>
-          session.participants?.some(participant => participant.username === userId || participant.id === userId)
+        const agentSessions: Session[] = allSessionsResponse.data.filter((session: any) =>
+          session.participants?.some((participant: any) => participant.username === userId || participant.id === userId)
         );
         setAgentSessions(agentSessions);
       } catch (fallbackError) {
@@ -213,7 +252,7 @@ const AgentDashboard = ({ token, userRole }) => {
   };
 
   // Fetch session history details
-  const fetchSessionHistoryDetails = async (sessionId) => {
+  const fetchSessionHistoryDetails = async (sessionId: number) => {
     try {
       const response = await axios.get(`${API}/admin/sessions/${sessionId}/details`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -238,7 +277,7 @@ const AgentDashboard = ({ token, userRole }) => {
         });
         setMessages((prev) => ({
           ...prev,
-          [selected]: res.data.map((msg) => ({
+          [selected]: res.data.map((msg: any) => ({
             id: msg.id,
             sender: msg.sender?.username || "Unknown",
             content: msg.content,
@@ -509,7 +548,7 @@ const AgentDashboard = ({ token, userRole }) => {
                       }`}
                     >
                       <small>
-                        <b>{m.sender}:</b> {m.content}
+                        <b>{typeof m.sender === 'string' ? m.sender : m.sender.username}:</b> {m.content}
                         {m.sentAt && (
                           <div className="text-muted" style={{ fontSize: "0.7rem" }}>
                             {new Date(m.sentAt).toLocaleTimeString()}
@@ -786,11 +825,11 @@ const AgentDashboard = ({ token, userRole }) => {
                         <div
                           key={message.id || index}
                           className={`p-2 my-1 rounded ${
-                            message.sender?.username === 'agent' ? "bg-primary text-white text-end" : "bg-light text-start"
+                            (typeof message.sender === 'object' ? message.sender.username : message.sender) === 'agent' ? "bg-primary text-white text-end" : "bg-light text-start"
                           }`}
                         >
                           <small>
-                            <strong>{message.sender?.name || message.sender?.username || 'Unknown'}:</strong> {message.content}
+                            <strong>{typeof message.sender === 'object' ? (message.sender.name || message.sender.username) : message.sender || 'Unknown'}:</strong> {message.content}
                             <br />
                             <span className="text-muted">
                               {new Date(message.sentAt).toLocaleTimeString()}

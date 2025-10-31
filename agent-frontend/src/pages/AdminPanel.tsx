@@ -20,14 +20,47 @@ import StatisticsTab from "../components/admin/StatisticsTab";
 import ChatHistoryTab from "../components/admin/ChatHistoryTab";
 import Menu from "../components/Menu";
 
-const AdminPanel = ({ token }) => {
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  name: string;
+  roles?: any[];
+}
+
+interface Role {
+  id: number;
+  name: string;
+  permissions?: any[];
+  privileges?: any[];
+}
+
+interface Permission {
+  id: number;
+  name: string;
+  permissionType: string;
+  description: string;
+  resourcePattern: string;
+}
+
+interface Privilege {
+  id: number;
+  name: string;
+}
+
+interface Session {
+  id: number;
+  // Add other session properties as needed
+}
+
+const AdminPanel = ({ token }: { token: string }) => {
   const [activeSubTab, setActiveSubTab] = useState("dashboard");
-  const [users, setUsers] = useState([]);
-  const [roles, setRoles] = useState([]);
-  const [permissions, setPermissions] = useState([]);
-  const [privileges, setPrivileges] = useState([]);
-  const [sessions, setSessions] = useState([]);
-  const [statistics, setStatistics] = useState({});
+  const [users, setUsers] = useState<User[]>([]);
+  const [roles, setRoles] = useState<Role[]>([]);
+  const [permissions, setPermissions] = useState<Permission[]>([]);
+  const [privileges, setPrivileges] = useState<Privilege[]>([]);
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [statistics, setStatistics] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{text: string, type: string} | null>(null);
   const [showUserForm, setShowUserForm] = useState(false);
@@ -45,11 +78,11 @@ const AdminPanel = ({ token }) => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [selectedQuarter, setSelectedQuarter] = useState(1);
-  const [userChatStats, setUserChatStats] = useState({});
+  const [userChatStats, setUserChatStats] = useState<Record<number, any>>({});
 
   // Chat History state
   const [allSessions, setAllSessions] = useState([]);
-  const [selectedSession, setSelectedSession] = useState(null);
+  const [selectedSession, setSelectedSession] = useState<number | null>(null);
   const [sessionDetails, setSessionDetails] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [dateFilter, setDateFilter] = useState({
@@ -67,7 +100,7 @@ const AdminPanel = ({ token }) => {
   }, [token]);
 
   // Show temporary message
-  const showMessage = (msg, type = "success") => {
+  const showMessage = (msg: string, type = "success") => {
     setMessage({ text: msg, type });
     setTimeout(() => setMessage(null), 3000);
   };
@@ -184,7 +217,9 @@ const AdminPanel = ({ token }) => {
       } else if (selectedPeriod === "yearly") {
         report = await adminAPI.getYearlyReport(selectedYear);
       }
-      setReportData(report.data);
+      if (report) {
+        setReportData(report.data);
+      }
     } catch (e) {
       console.error("Failed to fetch report data:", e);
       showMessage("Failed to load report data", "error");
@@ -192,10 +227,10 @@ const AdminPanel = ({ token }) => {
   };
 
   // Fetch user chat statistics
-  const fetchUserChatStats = async (userId) => {
+  const fetchUserChatStats = async (userId: number) => {
     try {
       console.log('Fetching user chat stats for userId:', userId, 'period:', selectedPeriod); // Debug log
-      let stats;
+      let stats: any;
       if (selectedPeriod === "monthly") {
         stats = await adminAPI.getUserMonthlyChatStats(userId, selectedYear, selectedMonth);
       } else if (selectedPeriod === "quarterly") {
@@ -203,8 +238,10 @@ const AdminPanel = ({ token }) => {
       } else if (selectedPeriod === "yearly") {
         stats = await adminAPI.getUserYearlyChatStats(userId, selectedYear);
       }
-      console.log('Received stats for userId:', userId, 'stats:', stats.data); // Debug log
-      setUserChatStats(prev => ({ ...prev, [userId]: stats.data }));
+      if (stats) {
+        console.log('Received stats for userId:', userId, 'stats:', stats.data); // Debug log
+        setUserChatStats(prev => ({ ...prev, [userId]: stats.data }));
+      }
     } catch (e) {
       console.error("Failed to fetch user chat stats:", e);
       // Set empty stats on error to show 0 values
@@ -224,7 +261,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Fetch session details with messages
-  const fetchSessionDetails = async (sessionId) => {
+  const fetchSessionDetails = async (sessionId: number) => {
     try {
       const response = await adminAPI.getSessionDetails(sessionId);
       setSessionDetails(response.data);
@@ -266,7 +303,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Assign role to user
-  const assignRoleToUser = async (userId, roleId) => {
+  const assignRoleToUser = async (userId: number, roleId: number) => {
     setLoading(true);
     try {
       await adminAPI.assignRoleToUser(userId, roleId);
@@ -281,7 +318,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Remove role from user
-  const removeRoleFromUser = async (userId, roleId) => {
+  const removeRoleFromUser = async (userId: number, roleId: number) => {
     setLoading(true);
     try {
       await adminAPI.removeRoleFromUser(userId, roleId);
@@ -296,7 +333,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Create new user
-  const handleCreateUser = async (userData) => {
+  const handleCreateUser = async (userData: any) => {
     setLoading(true);
     try {
       const userDTO = {
@@ -318,7 +355,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Assign permission to role
-  const assignPermissionToRole = async (roleId, permissionId) => {
+  const assignPermissionToRole = async (roleId: number, permissionId: number) => {
     setLoading(true);
     try {
       await adminAPI.assignPermissionToRole(roleId, permissionId);
@@ -333,7 +370,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Remove permission from role
-  const removePermissionFromRole = async (roleId, permissionId) => {
+  const removePermissionFromRole = async (roleId: number, permissionId: number) => {
     setLoading(true);
     try {
       await adminAPI.removePermissionFromRole(roleId, permissionId);
@@ -348,7 +385,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Create new role
-  const handleCreateRole = async (roleData) => {
+  const handleCreateRole = async (roleData: any) => {
     setLoading(true);
     try {
       await adminAPI.createRole(roleData);
@@ -364,7 +401,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Create or override role
-  const handleCreateOrOverrideRole = async (roleData) => {
+  const handleCreateOrOverrideRole = async (roleData: any) => {
     setLoading(true);
     try {
       await adminAPI.createOrOverrideRole(roleData);
@@ -380,7 +417,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Update existing role
-  const handleUpdateRole = async (roleId, roleData) => {
+  const handleUpdateRole = async (roleId: number, roleData: any) => {
     setLoading(true);
     try {
       await adminAPI.updateRole(roleId, roleData);
@@ -395,7 +432,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Delete role
-  const handleDeleteRole = async (roleId) => {
+  const handleDeleteRole = async (roleId: number) => {
     setLoading(true);
     try {
       await adminAPI.deleteRole(roleId);
@@ -410,7 +447,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Create permission
-  const handleCreatePermission = async (permissionData) => {
+  const handleCreatePermission = async (permissionData: any) => {
     setLoading(true);
     try {
       await adminAPI.createPermission(permissionData);
@@ -425,7 +462,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Delete permission
-  const handleDeletePermission = async (permissionId) => {
+  const handleDeletePermission = async (permissionId: number) => {
     setLoading(true);
     try {
       await adminAPI.deletePermission(permissionId);
@@ -440,7 +477,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Create privilege
-  const handleCreatePrivilege = async (privilegeData) => {
+  const handleCreatePrivilege = async (privilegeData: any) => {
     setLoading(true);
     try {
       await adminAPI.createPrivilege(privilegeData);
@@ -455,7 +492,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Delete privilege
-  const handleDeletePrivilege = async (privilegeId) => {
+  const handleDeletePrivilege = async (privilegeId: number) => {
     setLoading(true);
     try {
       await adminAPI.deletePrivilege(privilegeId);
@@ -470,7 +507,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Assign privilege to permission
-  const handleAssignPrivilegeToPermission = async (privilegeId, permissionId) => {
+  const handleAssignPrivilegeToPermission = async (privilegeId: number, permissionId: number) => {
     setLoading(true);
     try {
       await adminAPI.assignPrivilegeToPermission(privilegeId, permissionId);
@@ -486,7 +523,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Remove privilege from permission
-  const handleRemovePrivilegeFromPermission = async (privilegeId, permissionId) => {
+  const handleRemovePrivilegeFromPermission = async (privilegeId: number, permissionId: number) => {
     setLoading(true);
     try {
       await adminAPI.removePrivilegeFromPermission(privilegeId, permissionId);
@@ -502,7 +539,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Assign privilege to role
-  const assignPrivilegeToRole = async (roleId, privilegeId) => {
+  const assignPrivilegeToRole = async (roleId: number, privilegeId: number) => {
     setLoading(true);
     try {
       await adminAPI.assignPrivilegeToRole(roleId, privilegeId);
@@ -517,7 +554,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Remove privilege from role
-  const removePrivilegeFromRole = async (roleId, privilegeId) => {
+  const removePrivilegeFromRole = async (roleId: number, privilegeId: number) => {
     setLoading(true);
     try {
       await adminAPI.removePrivilegeFromRole(roleId, privilegeId);
@@ -532,7 +569,7 @@ const AdminPanel = ({ token }) => {
   };
 
   // Delete user
-  const handleDeleteUser = async (userId) => {
+  const handleDeleteUser = async (userId: number) => {
     setLoading(true);
     try {
       await adminAPI.deleteUser(userId);
