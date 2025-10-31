@@ -113,16 +113,24 @@ const Testimonials: React.FC = () => {
             backgroundColor: "rgba(0,0,0,0.5)",
           }}
         />
-        <div style={{ position: "relative", zIndex: 2 }}>
-          <h1 className="display-5 fw-bold">Our Portfolio & Success Stories</h1>
-          <p className="lead">
-            At Visiomatix, every project is a story of transformation — where 
-            ideas evolve into impactful digital products. Our portfolio showcases a diverse 
-            range of software, web, and mobile solutions developed for clients across the globe. 
-            We take pride in crafting high-performance systems that empower businesses, enhance 
-            customer engagement, and accelerate growth
-          </p>
-        </div>
+        <div style={{
+          position: "relative",
+          zIndex: 2,
+          backgroundColor: "rgba(0, 40, 80, 0.45)",
+          borderRadius: "12px",
+          width:"90%",
+          padding:"1em",
+          backdropFilter: "blur(5px)",
+        }}>
+           <h1 className="display-5 fw-bold">Our Portfolio & Success Stories</h1>
+           <p className="lead">
+             At Visiomatix, every project is a story of transformation — where
+             ideas evolve into impactful digital products. Our portfolio showcases a diverse
+             range of software, web, and mobile solutions developed for clients across the globe.
+             We take pride in crafting high-performance systems that empower businesses, enhance
+             customer engagement, and accelerate growth
+           </p>
+         </div>
       </section>
 
       {/* Portfolio Grid */}

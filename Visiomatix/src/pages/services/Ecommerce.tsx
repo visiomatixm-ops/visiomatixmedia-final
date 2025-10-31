@@ -69,11 +69,11 @@ const Ecommerce: React.FC = () => {
     priceRange: "$$$",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "4567 Commerce Street",
-      addressLocality: "New York",
-      addressRegion: "NY",
-      postalCode: "10001",
-      addressCountry: "USA",
+      streetAddress: "Office No. 03, Om Sai Apartment, Near Petrol Pump, Ganur Road",
+      addressLocality: "Davkhar Nagar, Chandwad, Nashik",
+      addressRegion: "Maharashtra",
+      postalCode: "423101",
+      addressCountry: "India",
     },
     openingHoursSpecification: [
       {
@@ -182,7 +182,7 @@ const Ecommerce: React.FC = () => {
             <section
               className="text-light py-5 position-relative"
               style={{
-                backgroundImage: `linear-gradient(120deg, rgba(13, 110, 253, 0.8), rgba(102, 16, 242, 0.8)), url(${Banner})`,
+                backgroundImage: `url(${Banner})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundBlendMode: 'overlay',
@@ -199,51 +199,58 @@ const Ecommerce: React.FC = () => {
                   zIndex: 1
                 }}
               />
-              <div className="container position-relative" style={{ zIndex: 2 }}>
-                <div className="row align-items-center">
-                  <div className="col-md-6">
-                    <motion.h1
-                      className="display-5 fw-bold"
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8 }}
-                    >
-                      E-commerce Solutions
-                    </motion.h1>
-                    <motion.p
-                      className="lead mt-3"
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.2 }}
-                    >
-                      Build, advertise, and scale your online store with powerful
-                      e-commerce technology and multi-marketplace growth strategies.
-                    </motion.p>
-                    <motion.a
-                      href="#services"
-                      className="btn btn-primary btn-lg mt-3"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.4 }}
-                    >
-                      Discover More
-                    </motion.a>
-                  </div>
-                  <div className="col-md-6 text-center mt-4 mt-md-0">
-                    {/* <motion.img
-                      src="/services/5_E-commerce Solutions.jpg"
-                      alt="E-commerce Solutions Illustration"
-                      className="img-fluid rounded-3 shadow-sm"
-                      style={{width:"20em"}}
-                      initial={{ opacity: 0, x: 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.8, delay: 0.6 }}
-                    /> */}
-                  </div>
-                </div>
-              </div>
+              <div className="container position-relative" style={{
+                zIndex: 2,
+                backgroundColor: "rgba(0, 40, 80, 0.45)",
+                borderRadius: "12px",
+                width:"90%",
+                padding:"1em",
+                backdropFilter: "blur(5px)",
+              }}>
+                 <div className="row align-items-center">
+                   <div className="col-md-6">
+                     <motion.h1
+                       className="display-5 fw-bold"
+                       initial={{ opacity: 0, y: 30 }}
+                       animate={{ opacity: 1, y: 0 }}
+                       transition={{ duration: 0.8 }}
+                     >
+                       E-commerce Solutions
+                     </motion.h1>
+                     <motion.p
+                       className="lead mt-3"
+                       initial={{ opacity: 0, y: 30 }}
+                       animate={{ opacity: 1, y: 0 }}
+                       transition={{ duration: 0.8, delay: 0.2 }}
+                     >
+                       Build, advertise, and scale your online store with powerful
+                       e-commerce technology and multi-marketplace growth strategies.
+                     </motion.p>
+                     <motion.a
+                       href="#services"
+                       className="btn btn-primary btn-lg mt-3"
+                       whileHover={{ scale: 1.05 }}
+                       whileTap={{ scale: 0.95 }}
+                       initial={{ opacity: 0, y: 30 }}
+                       animate={{ opacity: 1, y: 0 }}
+                       transition={{ duration: 0.8, delay: 0.4 }}
+                     >
+                       Discover More
+                     </motion.a>
+                   </div>
+                   <div className="col-md-6 text-center mt-4 mt-md-0">
+                     {/* <motion.img
+                       src="/services/5_E-commerce Solutions.jpg"
+                       alt="E-commerce Solutions Illustration"
+                       className="img-fluid rounded-3 shadow-sm"
+                       style={{width:"20em"}}
+                       initial={{ opacity: 0, x: 30 }}
+                       animate={{ opacity: 1, x: 0 }}
+                       transition={{ duration: 0.8, delay: 0.6 }}
+                     /> */}
+                   </div>
+                 </div>
+               </div>
             </section>
 
             {/* Description Section */}

@@ -87,11 +87,11 @@ const DigitalMarketing: React.FC = () => {
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "1234 Marketing Avenue",
-      addressLocality: "New York",
-      addressRegion: "NY",
-      postalCode: "10001",
-      addressCountry: "USA",
+      streetAddress: "Office No. 03, Om Sai Apartment, Near Petrol Pump, Ganur Road",
+      addressLocality: "Davkhar Nagar, Chandwad, Nashik",
+      addressRegion: "Maharashtra",
+      postalCode: "423101",
+      addressCountry: "India",
     },
     openingHoursSpecification: [
       {
@@ -196,7 +196,7 @@ const DigitalMarketing: React.FC = () => {
             <section
               className="text-light py-5 position-relative"
               style={{
-                backgroundImage: `linear-gradient(120deg, rgba(13, 110, 253, 0.8), rgba(102, 16, 242, 0.8)), url(${Banner})`,
+                backgroundImage: `url(${Banner})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundBlendMode: 'overlay',
@@ -213,35 +213,42 @@ const DigitalMarketing: React.FC = () => {
                   zIndex: 1
                 }}
               />
-              <div className="container text-center position-relative" style={{ zIndex: 2 }}>
-                <motion.h1
-                  className="display-4 fw-bold"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  Digital Marketing Services
-                </motion.h1>
-                <motion.p
-                  className="lead"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                  Maximize your online presence through integrated strategies that convert traffic into loyal customers.
-                </motion.p>
-                <motion.a
-                  href="#services"
-                  className="btn btn-light btn-lg mt-3"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                >
-                  Explore Services
-                </motion.a>
-              </div>
+              <div className="container text-center position-relative" style={{
+                zIndex: 2,
+                backgroundColor: "rgba(0, 40, 80, 0.45)",
+                borderRadius: "12px",
+                width:"90%",
+                padding:"1em",
+                backdropFilter: "blur(5px)",
+              }}>
+                 <motion.h1
+                   className="display-4 fw-bold"
+                   initial={{ opacity: 0, y: 30 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ duration: 0.8 }}
+                 >
+                   Digital Marketing Services
+                 </motion.h1>
+                 <motion.p
+                   className="lead"
+                   initial={{ opacity: 0, y: 30 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ duration: 0.8, delay: 0.2 }}
+                 >
+                   Maximize your online presence through integrated strategies that convert traffic into loyal customers.
+                 </motion.p>
+                 <motion.a
+                   href="#services"
+                   className="btn btn-light btn-lg mt-3"
+                   whileHover={{ scale: 1.05 }}
+                   whileTap={{ scale: 0.95 }}
+                   initial={{ opacity: 0, y: 30 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ duration: 0.8, delay: 0.4 }}
+                 >
+                   Explore Services
+                 </motion.a>
+               </div>
             </section>
 
             {/* Expanded Content Section */}

@@ -12,6 +12,7 @@ const Slide: React.FC<SlideProps> = ({ pageIndex }) => {
 
   return (
     <motion.div
+      style={{width:"100%", display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{

@@ -124,7 +124,7 @@ const Blog: React.FC = () => {
         className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
         style={{
           backgroundImage:
-            "url('/about/Social-Media-Infographics-in-Detail-1.jpg')",
+            "url('/about/blog image.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           height: "50vh",
@@ -142,22 +142,30 @@ const Blog: React.FC = () => {
             backgroundColor: "rgba(0, 40, 80, 0.45)",
           }}
         />
-        <div style={{ position: "relative", zIndex: 2 }}>
-          <h1 className="display-6 fw-bold text-white">
-            Visiomatix Media Blog
-          </h1>
-          <p className="lead text-white-50" style={{ fontSize: "0.95rem" }}>
-            Insights, trends, and creative updates from our digital experts.
-            Welcome to the Visiomatix Media Blog — your go-to destination for the latest in 
-            technology, innovation, and digital transformation.
-            Here, we share expert insights, industry trends, and success stories that inspire
-             businesses to stay ahead in an ever-evolving digital world.
-             At Visiomatix, we believe that knowledge grows when it's shared. 
-             Whether you're a startup exploring new tech solutions or an enterprise 
-             scaling your digital infrastructure, our blog delivers valuable perspectives to 
-             help you make informed decisions.
-          </p>
-        </div>
+        <div style={{
+          position: "relative",
+          zIndex: 2,
+          backgroundColor: "rgba(0, 40, 80, 0.45)",
+          borderRadius: "12px",
+          width:"90%",
+          padding:"1em",
+          backdropFilter: "blur(5px)",
+        }}>
+           <h1 className="display-6 fw-bold text-white">
+             Visiomatix Media Blog
+           </h1>
+           <p className="lead text-white-80" style={{ fontSize: "1rem" }}>
+             Insights, trends, and creative updates from our digital experts.
+             Welcome to the Visiomatix Media Blog — your go-to destination for the latest in
+             technology, innovation, and digital transformation.
+             Here, we share expert insights, industry trends, and success stories that inspire
+              businesses to stay ahead in an ever-evolving digital world.
+              At Visiomatix, we believe that knowledge grows when it's shared.
+              Whether you're a startup exploring new tech solutions or an enterprise
+              scaling your digital infrastructure, our blog delivers valuable perspectives to
+              help you make informed decisions.
+           </p>
+         </div>
       </section>
 
       {/* ====================== Blog Grid Section ====================== */}

@@ -160,10 +160,10 @@ const handleChange = (e: React.ChangeEvent<any>) => {
       <section
         className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
         style={{
-          backgroundImage: `url('/about/careers.png')`,
+          backgroundImage: `url('/about/careers image.jpg')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          height: "50vh",
+          height: "80vh",
           position: "relative",
           marginBottom: "3rem",
         }}
@@ -175,10 +175,18 @@ const handleChange = (e: React.ChangeEvent<any>) => {
             backgroundColor: "rgba(0,0,64,0.6)",
           }}
         ></div>
-        <div style={{ position: "relative", zIndex: 2 }}>
-          <h1 className="display-5 fw-bold">Careers at Visiomatix</h1>
-          <p className="lead">Join our innovative engineering team.</p>
-        </div>
+        <div style={{
+          position: "relative",
+          zIndex: 2,
+          backgroundColor: "rgba(0, 40, 80, 0.42)",
+          borderRadius: "12px",
+          width:"90%",
+          padding:"1em",
+          backdropFilter: "blur(5px)",
+        }}>
+           <h1 className="display-5 fw-bold">Careers at Visiomatix</h1>
+           <p className="lead">Join our innovative engineering team.</p>
+         </div>
       </section>
 
       {/* ============================================= */}

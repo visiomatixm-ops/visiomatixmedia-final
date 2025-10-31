@@ -131,7 +131,7 @@ const Services: React.FC = () => {
                 style={{
                   position: "relative",
                   zIndex: 2,
-                  backgroundColor: "rgba(255, 255, 255, 0.15)",
+                  backgroundColor: "rgba(0, 40, 80, 0.45)",
                   borderRadius: "12px",
                   width:"90%",
                   padding:"1em",

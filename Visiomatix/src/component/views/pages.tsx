@@ -39,6 +39,7 @@ const ServicePage: React.FC<PageProps> = ({
       {hasAnimation ? (
         <motion.div
           className={`${classPrefix}text`}
+          style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", width:"100%"}}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{

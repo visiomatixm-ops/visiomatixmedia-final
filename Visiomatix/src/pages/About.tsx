@@ -19,7 +19,7 @@ import React from 'react';
 // Functional Component: About
 // ===========================================================
 const About: React.FC = () => {
-  const bgImage = "/about/banner.webp";
+  const bgImage = "/about/Digital-Marketing-Services-banner.jpg";
 
   return (
     <>
@@ -50,7 +50,13 @@ const About: React.FC = () => {
         ></div>
 
         {/* Banner Text */}
-        <div style={{ position: 'relative', zIndex: 2 }}>
+        <div style={{ position: 'relative', zIndex: 2,
+                     backgroundColor: "rgba(0, 40, 80, 0.45)",
+                     borderRadius: "12px",
+                     width:"90%",
+                     padding:"1em",
+                     backdropFilter: "blur(5px)",
+         }}>
           <h1 className="display-4 fw-bold">About Visiomatix Media</h1>
           <p className="lead">
             Empowering brands through creative storytelling, digital innovation, and technology-driven solutions that inspire growth.
@@ -65,7 +71,7 @@ const About: React.FC = () => {
         <div className="row align-items-center">
           <div className="col-md-6 mb-4 mb-md-0">
             <img
-              src="/about/Digital-Marketing-Services-banner.jpg"
+              src="/about/about us image.jpg"
               alt="Visiomatix Company Story"
               className="img-fluid rounded shadow"
             />

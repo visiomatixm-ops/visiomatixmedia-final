@@ -70,11 +70,11 @@ const Branding: React.FC = () => {
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "2345 Strategy Blvd",
-      addressLocality: "New York",
-      addressRegion: "NY",
-      postalCode: "10001",
-      addressCountry: "USA",
+      streetAddress: "Office No. 03, Om Sai Apartment, Near Petrol Pump, Ganur Road",
+      addressLocality: "Davkhar Nagar, Chandwad, Nashik",
+      addressRegion: "Maharashtra",
+      postalCode: "423101",
+      addressCountry: "India",
     },
     openingHoursSpecification: [
       {
@@ -172,7 +172,7 @@ const Branding: React.FC = () => {
             <section
               className="text-light py-5 position-relative"
               style={{
-                backgroundImage: `linear-gradient(120deg, rgba(122, 122, 122, 0.47), rgba(231, 231, 231, 0.37)), url(${Banner})`,
+                backgroundImage: `url(${Banner})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundBlendMode: 'overlay',
@@ -181,7 +181,15 @@ const Branding: React.FC = () => {
                 alignItems: 'center'
               }}
             >
-              <div className="container text-center">
+              <div className="container text-center" style={{
+                position: "relative",
+                zIndex: 2,
+                backgroundColor: "rgba(0, 40, 80, 0.45)",
+                borderRadius: "12px",
+                width:"90%",
+                padding:"1em",
+                backdropFilter: "blur(5px)",
+              }}>
                 <motion.h1
                   className="display-5 fw-bold"
                   initial={{ opacity: 0, y: 30 }}

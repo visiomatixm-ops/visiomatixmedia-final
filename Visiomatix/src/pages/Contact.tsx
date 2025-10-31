@@ -63,26 +63,34 @@ const Contact: React.FC = () => {
         className="jumbotron text-center text-light d-flex align-items-center justify-content-center position-relative"
         style={{
           backgroundImage:
-            "url('/about/contact-us-concept-icons-such-as-mobile-phone-e-mail-address-chat-global-communication-on-dark-blue-background-for-presentation-web-banner-article-business-and-network-connection-and-company-free-vector.jpg')",
+            "url('/about/contact us.jpg",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          height: "50vh",
+          height: "80vh",
           marginBottom: "3rem",
         }}
       >
         <div
           className="position-absolute w-100 h-100"
-          style={{ backgroundColor: "rgba(0,0,64,0.6)" }}
+          style={{ backgroundColor: "rgba(0, 49, 64, 0.37)" }}
         ></div>
-        <div style={{ position: "relative", zIndex: 2 }}>
-          <h1 className="display-5 fw-bold">Contact Us</h1>
-          <p className="lead mb-0">
-            We'd love to hear from you. Reach out with your questions or ideas.At Visiomatix Media,
-             we value collaboration, innovation, and connection. Whether you're looking to start a 
-             new project, request a demo, or simply learn more about our services — our team is 
-             here to help.
-          </p>
-        </div>
+        <div style={{
+          position: "relative",
+          zIndex: 2,
+          backgroundColor: "rgba(0, 40, 80, 0.45)",
+          borderRadius: "12px",
+          width:"90%",
+          padding:"1em",
+          backdropFilter: "blur(5px)",
+        }}>
+           <h1 className="display-5 fw-bold">Contact Us</h1>
+           <p className="lead mb-0">
+             We'd love to hear from you. Reach out with your questions or ideas.At Visiomatix Media,
+              we value collaboration, innovation, and connection. Whether you're looking to start a
+              new project, request a demo, or simply learn more about our services — our team is
+              here to help.
+           </p>
+         </div>
       </section>
 
       {/* =================================================== */}
@@ -117,8 +125,8 @@ const Contact: React.FC = () => {
               <div>
                 <h6 className="fw-bold mb-1">Our Office</h6>
                 <p className="mb-0">
-                  501, Creative Business Park,<br />
-                  Andheri West, Mumbai – 400058
+                  Office No. 03, Om Sai Apartment, Near Petrol Pump, Ganur Road,<br />
+                  Davkhar Nagar, Chandwad, Nashik – 423101. Maharashtra – India.
                 </p>
               </div>
             </div>
@@ -140,7 +148,7 @@ const Contact: React.FC = () => {
               </svg>
               <div>
                 <h6 className="fw-bold mb-1">Phone</h6>
-                <p className="mb-0">+91 98765 43210</p>
+                <p className="mb-0">+91–89991 01916</p>
               </div>
             </div>
 
@@ -158,7 +166,7 @@ const Contact: React.FC = () => {
               </svg>
               <div>
                 <h6 className="fw-bold mb-1">Email</h6>
-                <p className="mb-0">info@visiomatixmedia.com</p>
+                <p className="mb-0">info@visiomatixmedia.net</p>
               </div>
             </div>
 
