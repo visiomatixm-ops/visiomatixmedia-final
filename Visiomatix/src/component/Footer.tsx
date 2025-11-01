@@ -68,69 +68,69 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Footer Navigation Links */}
-      <div className="container text-center">
-        <ul className="list-inline mb-3">
-          <li className="list-inline-item mx-3">
+      <div className="container">
+        <div className="row justify-content-center align-items-start">
+          <div className="col-3 mb-3 d-flex justify-content-start">
             <Link to="/" className="text-light text-decoration-none">
               Home
             </Link>
-          </li>
-          <li className="list-inline-item mx-3">
+          </div>
+          <div className="col-3 mb-3 d-flex justify-content-start">
             <Link to="/about" className="text-light text-decoration-none">
               About Us
             </Link>
-          </li>
-          <li className="list-inline-item mx-3">
+          </div>
+          <div className="col-3 mb-3 d-flex justify-content-start">
             <Link to="/services" className="text-light text-decoration-none">
               Services
             </Link>
-          </li>
-          <li className="list-inline-item mx-3">
+          </div>
+          <div className="col-3 mb-3 d-flex justify-content-start">
             <Link to="/services/DigitalMarketing" className="text-light text-decoration-none">
               Digital Marketing
             </Link>
-          </li>
-          <li className="list-inline-item mx-3">
+          </div>
+          <div className="col-3 mb-3 d-flex justify-content-start">
             <Link to="/services/Design" className="text-light text-decoration-none">
               Design and Creative Services
             </Link>
-          </li>
-          <li className="list-inline-item mx-3">
+          </div>
+          <div className="col-3 mb-3 d-flex justify-content-start">
             <Link to="/services/Webapp" className="text-light text-decoration-none">
               Web App Development
             </Link>
-          </li>
-          <li className="list-inline-item mx-3">
+          </div>
+          <div className="col-3 mb-3 d-flex justify-content-start">
             <Link to="/services/Software" className="text-light text-decoration-none">
               Business Software Solutions
             </Link>
-          </li>
-          <li className="list-inline-item mx-3">
+          </div>
+          <div className="col-3 mb-3 d-flex justify-content-start">
             <Link to="/services/Ecommerce" className="text-light text-decoration-none">
               ECommerce Solutions
             </Link>
-          </li>
-          <li className="list-inline-item mx-3">
+          </div>
+          <div className="col-3 mb-3 d-flex justify-content-start">
             <Link to="/services/Branding" className="text-light text-decoration-none">
               Branding and Strategy
             </Link>
-          </li>
-          <li className="list-inline-item mx-3">
+          </div>
+          <div className="col-3 mb-3 d-flex justify-content-start">
             <Link to="/blog" className="text-light text-decoration-none">
               Blog
             </Link>
-          </li>
-          <li className="list-inline-item mx-3">
+          </div>
+          <div className="col-3 mb-3 d-flex justify-content-start">
             <Link to="/careers" className="text-light text-decoration-none">
               Careers
             </Link>
-          </li>
-          <li className="list-inline-item mx-3">
+          </div>
+          <div className="col-3 mb-3 d-flex justify-content-start">
             <Link to="/contact" className="text-light text-decoration-none">
               Contact Us
             </Link>
-          </li>
-        </ul>
+          </div>
+        </div>
 
         {/* Footer Bottom Info */}
         <span className="d-block small text-secondary">

@@ -1,0 +1,61 @@
+/* ===========================================================
+   File: Services.css
+   Author: Viral Prajapati
+   Description: Bootstrap-enhanced “Our Services” page styling.
+   =========================================================== */
+
+.hero-section {
+  background: linear-gradient(180deg, #112d5c 0%, #0a1f33 100%);
+  border-radius: 0 0 40px 40px;
+}
+
+.stat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* ===========================================================
+   File: Services.css
+   Description: Modern Bootstrap-aligned design for Services page
+   =========================================================== */
+
+.hero-section {
+  background: linear-gradient(135deg, #0d2c5a 0%, #092042 100%);
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+.hero-section p {
+  font-size: 1.15rem;
+  opacity: 0.9;
+}
+
+ul li {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.list-unstyled img {
+  flex-shrink: 0;
+}
+
+img.rounded-circle {
+  transition: transform 0.3s ease;
+}
+
+img.rounded-circle:hover {
+  transform: scale(1.05);
+}

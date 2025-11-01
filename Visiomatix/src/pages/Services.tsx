@@ -2,301 +2,245 @@
  * ===========================================================
  * Filename: Services.tsx
  * Author: Viral Prajapati
- * Date: 15-Oct-2025
+ * Date: 2025-11-01
  * Description:
- *   "Our Services" page enhanced with cinematic animations using
- *   Framer Motion and useScroll:
- *   - Image scales vertically (Y-axis) from bottom on scroll
- *   - Alternating text slide-in effect
- *   - Parallax hero background motion
- *   - Staggered reveal of heading, line, and paragraph
- *   - Optimized responsive layout with contained images
- *   - SEO-optimized, descriptive service content for digital marketing and creative media
+ *  Visiomatix Media – Complete Digital, Design & Development Solutions
+ *  Features:
+ *   - Hero section with call-to-action
+ *   - Each service category with SVG icons and bullet points
+ *   - Bootstrap responsive layout + Framer Motion animations
  * ===========================================================
  */
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Services.css";
 
-// ===========================================================
-// Functional Component: Services
-// ===========================================================
+// -----------------------------
+// ICON IMPORTS
+// -----------------------------
+const DigitalIcon = "/services/icons/digital.svg";
+const DesignIcon = "/services/icons/design.svg";
+const DevIcon = "/services/icons/dev.svg";
+const SoftwareIcon = "/services/icons/software.svg";
+const EcommerceIcon = "/services/icons/ecommerce.svg";
+const BrandingIcon = "/services/icons/branding.svg";
+const BulletIcon = "/services/icons/bullet.svg"; // small SVG circle/checkmark
+
+// -----------------------------
+// Component: Services
+// -----------------------------
 const Services: React.FC = () => {
-  // -----------------------------------------------------------
-  // Array of service data
-  // -----------------------------------------------------------
-  const services = [
+  const navigate = useNavigate();
+  const categories = [
     {
-      image: "/services/videoediting-1.jpg",
-      title: "Video Editing",
+      title: "Digital Marketing Services",
+      image: "/services/1_DIGITAL MARKETING SERVICES.jpg",
+      icon: DigitalIcon,
       description:
-        "Transform raw footage into professional, cinematic-quality videos with our expert video editing services. Utilizing industry-standard tools like Adobe Premiere Pro and DaVinci Resolve, we enhance storytelling through precise color grading, smooth transitions, motion effects, and sound design. Perfect for marketing campaigns, brand storytelling, YouTube content, and corporate videos, our editing services help your content stand out and captivate audiences.",
+        "Comprehensive digital marketing strategies designed to grow your business online and reach your audience effectively across all channels.",
+      bullets: [
+        "Social Media Marketing (SMM)",
+        "Search Engine Optimization (SEO)",
+        "Google Ads & Pay-Per-Click (PPC) Campaigns",
+        "Email & Influencer Marketing",
+        "Content & Video Marketing",
+        "Online Reputation Management (ORM)",
+        "E-commerce Marketing",
+        "Analytics & ROI Tracking",
+      ],
     },
     {
-      image: "/services/2d_3d animation-1.jpg",
-      title: "2D/3D Animation",
+      title: "Design & Creative Services",
+      image: "/services/2_DESIGN&CREATIVE_SERVICES.jpg",
+      icon: DesignIcon,
       description:
-        "Bring imagination to life with our high-quality 2D and 3D animation services. We create engaging explainer videos, animated commercials, and character-driven storytelling for brands, startups, and enterprises. Our animations not only attract attention but also improve brand recall and simplify complex messages, making your communication both entertaining and effective.",
+        "From visual identity to immersive digital experiences — our creative team crafts stunning visuals that communicate your brand’s essence.",
+      bullets: [
+        "UI/UX Design",
+        "Graphic Design (Logo, Brochure, Branding)",
+        "Motion Graphics & Animation",
+        "YouTube Thumbnails & Video Assets",
+        "3D Product Visualization",
+        "Visual Effects (VFX) & Post-Production",
+        "Product Photography & Videography",
+      ],
     },
     {
-      image: "/services/brand-design-2.jpg",
-      title: "Brand Design",
+      title: "Web & App Development",
+      image: "/services/3.WEB&APP_DEVELOPMENT.jpg",
+      icon: DevIcon,
       description:
-        "Build a powerful and memorable brand identity with our branding services. From logos, typography, and color palettes to complete brand guidelines, we craft cohesive visual systems that resonate with your target audience. Our branding solutions focus on enhancing recognition, credibility, and trust, ensuring your brand stands out in competitive markets.",
+        "We build secure, scalable, and high-performing websites and apps optimized for performance, conversion, and cross-device experiences.",
+      bullets: [
+        "Web App Development",
+        "Website Design & Development (Static / Dynamic / E-commerce)",
+        "Mobile App Development",
+        "Landing Page Optimization",
+        "Custom Web Solutions",
+      ],
     },
     {
-      image: "/services/photography.jpg",
-      title: "Photography",
+      title: "Business Software Solutions",
+      image: "/services/4_Business Software Solutions.jpg",
+      icon: SoftwareIcon,
       description:
-        "Capture the essence of your brand, products, or events with professional photography. Our team specializes in product photography, lifestyle shoots, corporate portraits, and event coverage. With attention to lighting, composition, and storytelling, we create visually compelling images that strengthen your brand identity and increase engagement across digital channels.",
+        "Streamline operations and automate workflows with tailored business software built to enhance productivity and customer relationships.",
+      bullets: [
+        "ERP Development",
+        "CRM Development",
+        "HRMS Development",
+        "AI Voice Sales Assistant Integration",
+        "Business Automation Tools",
+      ],
     },
     {
-      image: "/services/videography-1.jpg",
-      title: "Videography",
+      title: "E-commerce Solutions",
+      image: "/services/5_E-commerce Solutions.jpg",
+      icon: EcommerceIcon,
       description:
-        "Deliver cinematic storytelling through our expert videography services. We cover corporate events, product launches, promotional campaigns, and creative content production. Every frame is crafted to engage your audience, reflect your brand’s identity, and leave a lasting impression that drives visibility and growth.",
+        "Build and grow your online store with our end-to-end e-commerce solutions, optimized for conversions, payments, and marketplace growth.",
+      bullets: [
+        "E-commerce Website Development",
+        "Marketplace Advertising (Amazon, Flipkart, etc.)",
+        "Product Listing Optimization",
+        "Payment Gateway Integration",
+      ],
     },
     {
-      image: "/services/web-design-1.jpg",
-      title: "Web Design",
+      title: "Branding & Strategy",
+      image: "/services/6_BRAND&STRATEGY.jpg",
+      icon: BrandingIcon,
       description:
-        "Design impactful, responsive, and visually striking websites that enhance user experience and drive conversions. We specialize in creating user-friendly interfaces, intuitive navigation, and seamless mobile optimization. Each website is strategically designed to reflect your brand identity, attract visitors, and convert them into loyal customers.",
-    },
-    {
-      image: "/services/motion.jpg",
-      title: "Motion Graphics",
-      description:
-        "Bring your brand to life with dynamic motion graphics that communicate ideas effectively. We design animations for social media, presentations, advertisements, and explainer videos. By combining design, movement, and storytelling, our motion graphics help increase engagement, retention, and brand awareness across multiple platforms.",
+        "Define, position, and promote your brand with strategic insights and powerful creative campaigns that drive recognition and loyalty.",
+      bullets: [
+        "Brand Identity & Positioning",
+        "Marketing Strategy & Funnel Planning",
+        "Campaign Ideation & Execution",
+        "Competitor & Market Research",
+      ],
     },
   ];
 
-  // -----------------------------------------------------------
-  // Hero section parallax setup
-  // -----------------------------------------------------------
-  const heroRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const yParallax = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
-  // -----------------------------------------------------------
-  // Staggered text animation variants
-  // -----------------------------------------------------------
-  const textVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.2, duration: 0.6 },
-    }),
-  };
+// ----------------------------------------------------------- // 
+// Hero section parallax setup //
+//  -----------------------------------------------------------//
+ const heroRef = useRef(null); const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"], }); 
+ const yParallax = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]); 
+ // ----------------------------------------------------------- //
+ //  Staggered text animation variants //
+ //  -----------------------------------------------------------//
+  const textVariants = { hidden: { opacity: 0, y: 30 }, visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.2, duration: 0.6 }, }), };
 
-  // ===========================================================
-  // Render JSX
-  // ===========================================================
   return (
-    <>
-      {/* =================================================== */}
-      {/* Hero Section with Parallax Background */}
-      {/* =================================================== */}
-      <section
-        ref={heroRef}
-        className="jumbotron text-center text-light d-flex align-items-center justify-content-center position-relative"
-        style={{
-          height: "70vh",
-          overflow: "hidden",
-          marginBottom: "3rem",
-        }}
-      >
-        {/* Background motion layer */}
-        <motion.div
-          style={{
-            backgroundImage: `url('/about/Blog.jpeg')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            y: yParallax,
-          }}
-          className="position-absolute w-100 h-100"
-        />
+    <div className="services-page bg-light">
+      {/* =================================================== */} 
+      {/* Hero Section with Parallax Background */} 
+      {/* =================================================== */} 
+      <section ref={heroRef} className="jumbotron text-center text-light d-flex align-items-center justify-content-center position-relative" style={{ height: "70vh", overflow: "hidden", marginBottom: "3rem", }} > 
+        {/* Background motion layer */} <motion.div style={{ 
+          backgroundImage: "url('/about/Blog.jpeg')",
+           backgroundSize: "cover", 
+           backgroundPosition: "center", y: yParallax, }} 
+           className="position-absolute w-100 h-100" />
+         {/* Dark overlay for text contrast */}
+          <div className="position-absolute w-100 h-100" style={{ backgroundColor: "rgba(0,0,0,0.6)" }} ></div> {/* Staggered reveal text block */} 
+          <div className="position-relative z-3" style={{ position: "relative", zIndex: 2, backgroundColor: "rgba(0, 40, 80, 0.45)", borderRadius: "12px", width:"90%", padding:"1em", backdropFilter: "blur(5px)", }} > 
+            <motion.h1 className="display-5 fw-bold" variants={textVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} > 
+              Our Services </motion.h1> 
+            <motion.hr className="border-primary opacity-75 w-25 mx-auto" 
+            variants={textVariants} initial="hidden" 
+            whileInView="visible" viewport={{ once: true }} 
+            custom={1} />
+             <motion.p className="lead" 
+             variants={textVariants} initial="hidden" 
+             whileInView="visible" viewport={{ once: true }} 
+             custom={2} > 
+             Explore our comprehensive range of creative and digital services, thoughtfully designed to elevate your brand presence across multiple platforms. From innovative graphic design and visually striking branding solutions to data-driven digital marketing strategies, we help you connect with your target audience and boost engagement at every touchpoint. 
+             </motion.p> <motion.p className="lead" variants={textVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} > Our services are crafted to deliver measurable results, whether online or offline. Leverage our expertise in website design and development, social media marketing, search engine optimization (SEO), content creation, and multimedia campaigns to ensure your brand not only stands out but also drives conversions and business growth. 
+              </motion.p> <motion.p className="lead" variants={textVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} > Partner with us to transform your ideas into impactful campaigns, increase visibility, and maximize ROI through tailored strategies that resonate with your audience and strengthen your market presence. 
+                </motion.p> 
+                      <motion.button
+                        className="btn btn-light fw-semibold px-4 py-2"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => navigate('/contact')}
+                      >
+                        Get a Proposal →
+                      </motion.button>
+                </div> </section>
+      {/* =========================
+          HERO SECTION
+       ========================= */}
 
-        {/* Dark overlay for text contrast */}
-        <div
-          className="position-absolute w-100 h-100"
-          style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
-        ></div>
-
-        {/* Staggered reveal text block */}
-        <div className="position-relative z-3" 
-                style={{
-                  position: "relative",
-                  zIndex: 2,
-                  backgroundColor: "rgba(0, 40, 80, 0.45)",
-                  borderRadius: "12px",
-                  width:"90%",
-                  padding:"1em",
-                  backdropFilter: "blur(5px)",
-                }}
-        >
-          <motion.h1
-            className="display-5 fw-bold"
-            variants={textVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={0}
-          >
-            Our Services
-          </motion.h1>
-
-          <motion.hr
-            className="border-primary opacity-75 w-25 mx-auto"
-            variants={textVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={1}
-          />
-
-          <motion.p
-            className="lead"
-            variants={textVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={2}
-          >
-          Explore our comprehensive range of creative and digital services, thoughtfully designed to elevate your brand presence across multiple platforms. From innovative graphic design and visually striking branding solutions to data-driven digital marketing strategies, we help you connect with your target audience and boost engagement at every touchpoint.
-                </motion.p>
-        <motion.p
-            className="lead"
-            variants={textVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={2}
-          >      
-          Our services are crafted to deliver measurable results, whether online or offline. Leverage our expertise in website design and development, social media marketing, search engine optimization (SEO), content creation, and multimedia campaigns to ensure your brand not only stands out but also drives conversions and business growth.
-                </motion.p>
-        <motion.p
-            className="lead"
-            variants={textVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={2}
-          >   
-          Partner with us to transform your ideas into impactful campaigns, increase visibility, and maximize ROI through tailored strategies that resonate with your audience and strengthen your market presence.
-          </motion.p>
-        </div>
-      </section>
-
-      {/* =================================================== */}
-      {/* Services Grid Section */}
-      {/* =================================================== */}
-      <section className="dark-theme-font container my-5">
-        {services.map((service, index) => (
-          <motion.div
-            key={index}
-            className={`row align-items-center mb-5 ${
-              index % 2 === 0 ? "" : "flex-row-reverse"
-            }`}
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            viewport={{ once: true, amount: 0.3 }}
-            style={{margin:"8em"}}
-          >
-            {/* ---------------- Image Column ---------------- */}
+      {/* =========================
+          SERVICE CATEGORIES
+       ========================= */}
+      <section className="py-5">
+        <div className="container">
+          {categories.map((cat, index) => (
             <motion.div
-              className="col-md-6 mb-4 mb-md-0 d-flex justify-content-center"
-              initial={{ scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              exit={{ scaleY: 0 }}
-              transition={{ duration: 0.7, ease: "easeInOut" }}
-              style={{ originY: 1
-               }}
-            >
-              <img
-                src={service.image}
-                alt={service.title + " - Professional Service by Visiomatix Media"}
-                className="img-fluid rounded shadow-lg"
-                style={{
-                  width: "100%",
-                  height: "40vh",
-                  objectFit: "contain",
-                  background: "white",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                }}
-              />
-            </motion.div>
-
-            {/* ---------------- Text Column ---------------- */}
-            <motion.div
-              className="col-md-6"
-              initial={{
-                x: index % 2 === 0 ? -100 : 100,
-                opacity: 0,
-              }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.2,
-                ease: "easeInOut",
-              }}
+              key={index}
+              className={`row align-items-center py-5 ${
+                index % 2 === 0 ? "" : "flex-row-reverse"
+              }`}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true, amount: 0.3 }}
             >
-              <h2 className="fw-bold mb-3 text-primary">{service.title}</h2>
-              <p
-                className="dark-theme-font mb-3"
-                style={{
-                  textAlign: "justify",
-                  fontSize: "1rem",
-                  lineHeight: "1.7",
-                }}
-              >
-                {service.description}
-              </p>
-              <hr className="border-primary opacity-50 w-25" />
+              {/* IMAGE / ICON */}
+              <div className="col-md-5 text-center mb-4 mb-md-0">
+                <motion.img
+                  src={cat.image}
+                  alt={`${cat.title} image`}
+                  className="img-fluid rounded shadow-sm mb-3"
+                  style={{ width: "100%", maxWidth: "400px", height: "auto" }}
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6 }}
+                />
+
+              </div>
+
+              {/* CONTENT */}
+              <div className="col-md-7">
+                <h2 className="fw-bold text-primary mb-3">               
+               <motion.img
+                  src={cat.icon}
+                  alt={`${cat.title} icon`}
+                  className="img-fluid p-2 bg-white shadow-sm"
+                  style={{ width: "60px", height: "60px" }}
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                />{cat.title}</h2>
+                <p className="text-muted mb-3">{cat.description}</p>
+                <ul className="list-unstyled">
+                  {cat.bullets.map((point, i) => (
+                    <li
+                      key={i}
+                      className="d-flex align-items-start mb-2 text-dark"
+                    >
+                      <img
+                        src={BulletIcon}
+                        alt="bullet"
+                        className="me-2 mt-1"
+                        style={{ width: "16px", height: "16px" }}
+                      />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
-          </motion.div>
-        ))}
+          ))}
+        </div>
       </section>
-
-      {/* =================================================== */}
-      {/* Outro Section */}
-      {/* =================================================== */}
-      <section
-        className="text-center text-light py-5 position-relative overflow-hidden"
-        style={{
-          backgroundImage: `url('/about/Digital-Marketing-Services-banner.jpg')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div
-          className="position-absolute w-100 h-100"
-          style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
-        ></div>
-
-        <motion.div
-          className="container position-relative z-3"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <h2 className="fw-bold mb-3">Why Choose Visiomatix Media?</h2>
-          <p className="w-75 mx-auto">
-            At Visiomatix Media, we combine creativity, technology, and strategy
-            to deliver outstanding digital solutions. From conceptualization to
-            execution, every service is designed to enhance brand identity,
-            increase audience engagement, and generate measurable business
-            results. Partner with us to transform ideas into compelling visual
-            experiences that leave a lasting impact.
-          </p>
-        </motion.div>
-      </section>
-    </>
+    </div>
   );
 };
 
