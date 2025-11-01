@@ -750,3 +750,435 @@
 2025-11-01 14:20:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
 2025-11-01 14:20:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(97385562<open>)]
 2025-11-01 14:20:50.096 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(97385562<open>)] after transaction
+2025-11-01 14:25:50.092 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 14:25:50.092 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1454468684<open>)] for JPA transaction
+2025-11-01 14:25:50.093 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@344e89ac]
+2025-11-01 14:25:50.093 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1454468684<open>)] for JPA transaction
+2025-11-01 14:25:50.093 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:25:50.094 [MessageBroker-6] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 14:25:50.096 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1454468684<open>)] for JPA transaction
+2025-11-01 14:25:50.096 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:25:50.096 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1454468684<open>)] for JPA transaction
+2025-11-01 14:25:50.096 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:25:50.096 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1454468684<open>)] for JPA transaction
+2025-11-01 14:25:50.096 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:25:50.096 [MessageBroker-6] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 14:25:50.096 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 14:25:50.096 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1454468684<open>)]
+2025-11-01 14:25:50.097 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1454468684<open>)] after transaction
+2025-11-01 14:30:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 14:30:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(843232883<open>)] for JPA transaction
+2025-11-01 14:30:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@1c1008dc]
+2025-11-01 14:30:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(843232883<open>)] for JPA transaction
+2025-11-01 14:30:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:30:50.094 [MessageBroker-3] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 14:30:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(843232883<open>)] for JPA transaction
+2025-11-01 14:30:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:30:50.096 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(843232883<open>)] for JPA transaction
+2025-11-01 14:30:50.096 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:30:50.096 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(843232883<open>)] for JPA transaction
+2025-11-01 14:30:50.096 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:30:50.096 [MessageBroker-3] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 14:30:50.096 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 14:30:50.096 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(843232883<open>)]
+2025-11-01 14:30:50.097 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(843232883<open>)] after transaction
+2025-11-01 14:35:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 14:35:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(797398908<open>)] for JPA transaction
+2025-11-01 14:35:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@134ed999]
+2025-11-01 14:35:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(797398908<open>)] for JPA transaction
+2025-11-01 14:35:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:35:50.094 [MessageBroker-3] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 14:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(797398908<open>)] for JPA transaction
+2025-11-01 14:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(797398908<open>)] for JPA transaction
+2025-11-01 14:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(797398908<open>)] for JPA transaction
+2025-11-01 14:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:35:50.095 [MessageBroker-3] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 14:35:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 14:35:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(797398908<open>)]
+2025-11-01 14:35:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(797398908<open>)] after transaction
+2025-11-01 14:40:50.092 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 14:40:50.092 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1348494835<open>)] for JPA transaction
+2025-11-01 14:40:50.093 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@7f062205]
+2025-11-01 14:40:50.093 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1348494835<open>)] for JPA transaction
+2025-11-01 14:40:50.093 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:40:50.093 [MessageBroker-8] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 14:40:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1348494835<open>)] for JPA transaction
+2025-11-01 14:40:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:40:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1348494835<open>)] for JPA transaction
+2025-11-01 14:40:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:40:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1348494835<open>)] for JPA transaction
+2025-11-01 14:40:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:40:50.094 [MessageBroker-8] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 14:40:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 14:40:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1348494835<open>)]
+2025-11-01 14:40:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1348494835<open>)] after transaction
+2025-11-01 14:45:50.092 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 14:45:50.092 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(2054269930<open>)] for JPA transaction
+2025-11-01 14:45:50.093 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@665a2274]
+2025-11-01 14:45:50.093 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(2054269930<open>)] for JPA transaction
+2025-11-01 14:45:50.093 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:45:50.094 [MessageBroker-4] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 14:45:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(2054269930<open>)] for JPA transaction
+2025-11-01 14:45:50.095 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:45:50.095 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(2054269930<open>)] for JPA transaction
+2025-11-01 14:45:50.095 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:45:50.095 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(2054269930<open>)] for JPA transaction
+2025-11-01 14:45:50.095 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:45:50.095 [MessageBroker-4] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 14:45:50.095 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 14:45:50.095 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(2054269930<open>)]
+2025-11-01 14:45:50.095 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(2054269930<open>)] after transaction
+2025-11-01 14:50:50.092 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 14:50:50.092 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(331919696<open>)] for JPA transaction
+2025-11-01 14:50:50.093 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@48cceb5c]
+2025-11-01 14:50:50.093 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(331919696<open>)] for JPA transaction
+2025-11-01 14:50:50.093 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:50:50.093 [MessageBroker-4] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 14:50:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(331919696<open>)] for JPA transaction
+2025-11-01 14:50:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:50:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(331919696<open>)] for JPA transaction
+2025-11-01 14:50:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:50:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(331919696<open>)] for JPA transaction
+2025-11-01 14:50:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:50:50.094 [MessageBroker-4] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 14:50:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 14:50:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(331919696<open>)]
+2025-11-01 14:50:50.095 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(331919696<open>)] after transaction
+2025-11-01 14:55:50.092 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 14:55:50.092 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1031857170<open>)] for JPA transaction
+2025-11-01 14:55:50.093 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2ab736]
+2025-11-01 14:55:50.093 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1031857170<open>)] for JPA transaction
+2025-11-01 14:55:50.093 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:55:50.094 [MessageBroker-7] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 14:55:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1031857170<open>)] for JPA transaction
+2025-11-01 14:55:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:55:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1031857170<open>)] for JPA transaction
+2025-11-01 14:55:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:55:50.095 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1031857170<open>)] for JPA transaction
+2025-11-01 14:55:50.095 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 14:55:50.095 [MessageBroker-7] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 14:55:50.095 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 14:55:50.095 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1031857170<open>)]
+2025-11-01 14:55:50.095 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1031857170<open>)] after transaction
+2025-11-01 15:00:50.092 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 15:00:50.092 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(648185072<open>)] for JPA transaction
+2025-11-01 15:00:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@68d6baed]
+2025-11-01 15:00:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(648185072<open>)] for JPA transaction
+2025-11-01 15:00:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:00:50.093 [MessageBroker-2] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 15:00:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(648185072<open>)] for JPA transaction
+2025-11-01 15:00:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:00:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(648185072<open>)] for JPA transaction
+2025-11-01 15:00:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:00:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(648185072<open>)] for JPA transaction
+2025-11-01 15:00:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:00:50.094 [MessageBroker-2] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 15:00:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 15:00:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(648185072<open>)]
+2025-11-01 15:00:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(648185072<open>)] after transaction
+2025-11-01 15:05:50.092 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 15:05:50.092 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1041617862<open>)] for JPA transaction
+2025-11-01 15:05:50.093 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2fd144d0]
+2025-11-01 15:05:50.093 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1041617862<open>)] for JPA transaction
+2025-11-01 15:05:50.093 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:05:50.094 [MessageBroker-7] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 15:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1041617862<open>)] for JPA transaction
+2025-11-01 15:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1041617862<open>)] for JPA transaction
+2025-11-01 15:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1041617862<open>)] for JPA transaction
+2025-11-01 15:05:50.095 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:05:50.095 [MessageBroker-7] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 15:05:50.095 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 15:05:50.095 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1041617862<open>)]
+2025-11-01 15:05:50.095 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1041617862<open>)] after transaction
+2025-11-01 15:10:50.092 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 15:10:50.092 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(174625723<open>)] for JPA transaction
+2025-11-01 15:10:50.093 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@79430b02]
+2025-11-01 15:10:50.093 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(174625723<open>)] for JPA transaction
+2025-11-01 15:10:50.093 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:10:50.093 [MessageBroker-5] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 15:10:50.094 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(174625723<open>)] for JPA transaction
+2025-11-01 15:10:50.094 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:10:50.094 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(174625723<open>)] for JPA transaction
+2025-11-01 15:10:50.094 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:10:50.094 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(174625723<open>)] for JPA transaction
+2025-11-01 15:10:50.094 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:10:50.094 [MessageBroker-5] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 15:10:50.094 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 15:10:50.094 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(174625723<open>)]
+2025-11-01 15:10:50.095 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(174625723<open>)] after transaction
+2025-11-01 15:15:50.092 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 15:15:50.092 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(609320637<open>)] for JPA transaction
+2025-11-01 15:15:50.093 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@31abf5f7]
+2025-11-01 15:15:50.093 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(609320637<open>)] for JPA transaction
+2025-11-01 15:15:50.093 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:15:50.094 [MessageBroker-5] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 15:15:50.094 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(609320637<open>)] for JPA transaction
+2025-11-01 15:15:50.094 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:15:50.094 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(609320637<open>)] for JPA transaction
+2025-11-01 15:15:50.095 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:15:50.095 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(609320637<open>)] for JPA transaction
+2025-11-01 15:15:50.095 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:15:50.095 [MessageBroker-5] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 15:15:50.095 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 15:15:50.095 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(609320637<open>)]
+2025-11-01 15:15:50.095 [MessageBroker-5] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(609320637<open>)] after transaction
+2025-11-01 15:20:50.092 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 15:20:50.092 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1425976792<open>)] for JPA transaction
+2025-11-01 15:20:50.093 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@3a48a89b]
+2025-11-01 15:20:50.093 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1425976792<open>)] for JPA transaction
+2025-11-01 15:20:50.093 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:20:50.093 [MessageBroker-4] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 15:20:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1425976792<open>)] for JPA transaction
+2025-11-01 15:20:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:20:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1425976792<open>)] for JPA transaction
+2025-11-01 15:20:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:20:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1425976792<open>)] for JPA transaction
+2025-11-01 15:20:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:20:50.094 [MessageBroker-4] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 15:20:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 15:20:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1425976792<open>)]
+2025-11-01 15:20:50.095 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1425976792<open>)] after transaction
+2025-11-01 15:25:50.092 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 15:25:50.092 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1993648289<open>)] for JPA transaction
+2025-11-01 15:25:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@5dedda1b]
+2025-11-01 15:25:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1993648289<open>)] for JPA transaction
+2025-11-01 15:25:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:25:50.094 [MessageBroker-2] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 15:25:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1993648289<open>)] for JPA transaction
+2025-11-01 15:25:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:25:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1993648289<open>)] for JPA transaction
+2025-11-01 15:25:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:25:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1993648289<open>)] for JPA transaction
+2025-11-01 15:25:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:25:50.095 [MessageBroker-2] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 15:25:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 15:25:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1993648289<open>)]
+2025-11-01 15:25:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1993648289<open>)] after transaction
+2025-11-01 15:30:50.092 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 15:30:50.092 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(848526736<open>)] for JPA transaction
+2025-11-01 15:30:50.093 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4897d74d]
+2025-11-01 15:30:50.093 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(848526736<open>)] for JPA transaction
+2025-11-01 15:30:50.093 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:30:50.093 [MessageBroker-4] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 15:30:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(848526736<open>)] for JPA transaction
+2025-11-01 15:30:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:30:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(848526736<open>)] for JPA transaction
+2025-11-01 15:30:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:30:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(848526736<open>)] for JPA transaction
+2025-11-01 15:30:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:30:50.094 [MessageBroker-4] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 15:30:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 15:30:50.094 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(848526736<open>)]
+2025-11-01 15:30:50.095 [MessageBroker-4] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(848526736<open>)] after transaction
+2025-11-01 15:35:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 15:35:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(570170676<open>)] for JPA transaction
+2025-11-01 15:35:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@30b4c749]
+2025-11-01 15:35:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(570170676<open>)] for JPA transaction
+2025-11-01 15:35:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:35:50.094 [MessageBroker-3] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 15:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(570170676<open>)] for JPA transaction
+2025-11-01 15:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(570170676<open>)] for JPA transaction
+2025-11-01 15:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:35:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(570170676<open>)] for JPA transaction
+2025-11-01 15:35:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:35:50.095 [MessageBroker-3] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 15:35:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 15:35:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(570170676<open>)]
+2025-11-01 15:35:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(570170676<open>)] after transaction
+2025-11-01 15:40:50.092 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 15:40:50.093 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(40328657<open>)] for JPA transaction
+2025-11-01 15:40:50.095 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@6e757a89]
+2025-11-01 15:40:50.095 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(40328657<open>)] for JPA transaction
+2025-11-01 15:40:50.095 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:40:50.096 [MessageBroker-1] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 15:40:50.098 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(40328657<open>)] for JPA transaction
+2025-11-01 15:40:50.098 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:40:50.099 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(40328657<open>)] for JPA transaction
+2025-11-01 15:40:50.099 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:40:50.099 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(40328657<open>)] for JPA transaction
+2025-11-01 15:40:50.099 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:40:50.100 [MessageBroker-1] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 15:40:50.101 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 15:40:50.101 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(40328657<open>)]
+2025-11-01 15:40:50.103 [MessageBroker-1] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(40328657<open>)] after transaction
+2025-11-01 15:45:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 15:45:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(951408321<open>)] for JPA transaction
+2025-11-01 15:45:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2b962786]
+2025-11-01 15:45:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(951408321<open>)] for JPA transaction
+2025-11-01 15:45:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:45:50.093 [MessageBroker-3] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 15:45:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(951408321<open>)] for JPA transaction
+2025-11-01 15:45:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:45:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(951408321<open>)] for JPA transaction
+2025-11-01 15:45:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:45:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(951408321<open>)] for JPA transaction
+2025-11-01 15:45:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:45:50.094 [MessageBroker-3] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 15:45:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 15:45:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(951408321<open>)]
+2025-11-01 15:45:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(951408321<open>)] after transaction
+2025-11-01 15:50:50.092 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 15:50:50.092 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1712078721<open>)] for JPA transaction
+2025-11-01 15:50:50.093 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@1011d920]
+2025-11-01 15:50:50.093 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1712078721<open>)] for JPA transaction
+2025-11-01 15:50:50.093 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:50:50.094 [MessageBroker-8] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 15:50:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1712078721<open>)] for JPA transaction
+2025-11-01 15:50:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:50:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1712078721<open>)] for JPA transaction
+2025-11-01 15:50:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:50:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1712078721<open>)] for JPA transaction
+2025-11-01 15:50:50.094 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:50:50.095 [MessageBroker-8] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 15:50:50.095 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 15:50:50.095 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1712078721<open>)]
+2025-11-01 15:50:50.095 [MessageBroker-8] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1712078721<open>)] after transaction
+2025-11-01 15:55:50.092 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 15:55:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(354193400<open>)] for JPA transaction
+2025-11-01 15:55:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4bdf92d2]
+2025-11-01 15:55:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(354193400<open>)] for JPA transaction
+2025-11-01 15:55:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:55:50.094 [MessageBroker-2] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 15:55:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(354193400<open>)] for JPA transaction
+2025-11-01 15:55:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:55:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(354193400<open>)] for JPA transaction
+2025-11-01 15:55:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:55:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(354193400<open>)] for JPA transaction
+2025-11-01 15:55:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 15:55:50.095 [MessageBroker-2] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 15:55:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 15:55:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(354193400<open>)]
+2025-11-01 15:55:50.096 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(354193400<open>)] after transaction
+2025-11-01 16:00:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 16:00:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1695308535<open>)] for JPA transaction
+2025-11-01 16:00:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@31889dc1]
+2025-11-01 16:00:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1695308535<open>)] for JPA transaction
+2025-11-01 16:00:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:00:50.094 [MessageBroker-3] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 16:00:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1695308535<open>)] for JPA transaction
+2025-11-01 16:00:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:00:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1695308535<open>)] for JPA transaction
+2025-11-01 16:00:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:00:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1695308535<open>)] for JPA transaction
+2025-11-01 16:00:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:00:50.095 [MessageBroker-3] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 16:00:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 16:00:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1695308535<open>)]
+2025-11-01 16:00:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1695308535<open>)] after transaction
+2025-11-01 16:05:50.092 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 16:05:50.092 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(28181036<open>)] for JPA transaction
+2025-11-01 16:05:50.093 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@7cb3fcfc]
+2025-11-01 16:05:50.093 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(28181036<open>)] for JPA transaction
+2025-11-01 16:05:50.093 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:05:50.093 [MessageBroker-7] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 16:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(28181036<open>)] for JPA transaction
+2025-11-01 16:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(28181036<open>)] for JPA transaction
+2025-11-01 16:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(28181036<open>)] for JPA transaction
+2025-11-01 16:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:05:50.094 [MessageBroker-7] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 16:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 16:05:50.094 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(28181036<open>)]
+2025-11-01 16:05:50.095 [MessageBroker-7] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(28181036<open>)] after transaction
+2025-11-01 16:10:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 16:10:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1151149691<open>)] for JPA transaction
+2025-11-01 16:10:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4168f89b]
+2025-11-01 16:10:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1151149691<open>)] for JPA transaction
+2025-11-01 16:10:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:10:50.094 [MessageBroker-3] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 16:10:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1151149691<open>)] for JPA transaction
+2025-11-01 16:10:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:10:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1151149691<open>)] for JPA transaction
+2025-11-01 16:10:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:10:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1151149691<open>)] for JPA transaction
+2025-11-01 16:10:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:10:50.095 [MessageBroker-3] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 16:10:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 16:10:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1151149691<open>)]
+2025-11-01 16:10:50.096 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1151149691<open>)] after transaction
+2025-11-01 16:15:50.092 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 16:15:50.092 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(188758585<open>)] for JPA transaction
+2025-11-01 16:15:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@3d138c6d]
+2025-11-01 16:15:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(188758585<open>)] for JPA transaction
+2025-11-01 16:15:50.093 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:15:50.093 [MessageBroker-2] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 16:15:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(188758585<open>)] for JPA transaction
+2025-11-01 16:15:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:15:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(188758585<open>)] for JPA transaction
+2025-11-01 16:15:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:15:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(188758585<open>)] for JPA transaction
+2025-11-01 16:15:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:15:50.094 [MessageBroker-2] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 16:15:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 16:15:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(188758585<open>)]
+2025-11-01 16:15:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(188758585<open>)] after transaction
+2025-11-01 16:20:50.092 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 16:20:50.092 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1207273301<open>)] for JPA transaction
+2025-11-01 16:20:50.093 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4d80d4d3]
+2025-11-01 16:20:50.093 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1207273301<open>)] for JPA transaction
+2025-11-01 16:20:50.093 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:20:50.094 [MessageBroker-6] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 16:20:50.094 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1207273301<open>)] for JPA transaction
+2025-11-01 16:20:50.094 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:20:50.094 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1207273301<open>)] for JPA transaction
+2025-11-01 16:20:50.094 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:20:50.095 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1207273301<open>)] for JPA transaction
+2025-11-01 16:20:50.095 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:20:50.095 [MessageBroker-6] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 16:20:50.095 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 16:20:50.095 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1207273301<open>)]
+2025-11-01 16:20:50.095 [MessageBroker-6] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1207273301<open>)] after transaction
+2025-11-01 16:25:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 16:25:50.094 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(2081852441<open>)] for JPA transaction
+2025-11-01 16:25:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@456e88ba]
+2025-11-01 16:25:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(2081852441<open>)] for JPA transaction
+2025-11-01 16:25:50.095 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:25:50.098 [MessageBroker-2] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 16:25:50.099 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(2081852441<open>)] for JPA transaction
+2025-11-01 16:25:50.099 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:25:50.099 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(2081852441<open>)] for JPA transaction
+2025-11-01 16:25:50.099 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:25:50.099 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(2081852441<open>)] for JPA transaction
+2025-11-01 16:25:50.099 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:25:50.099 [MessageBroker-2] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 16:25:50.099 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 16:25:50.099 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(2081852441<open>)]
+2025-11-01 16:25:50.100 [MessageBroker-2] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(2081852441<open>)] after transaction
+2025-11-01 16:30:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 16:30:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1873573349<open>)] for JPA transaction
+2025-11-01 16:30:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@3fba8bb7]
+2025-11-01 16:30:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1873573349<open>)] for JPA transaction
+2025-11-01 16:30:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:30:50.094 [MessageBroker-3] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 16:30:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1873573349<open>)] for JPA transaction
+2025-11-01 16:30:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:30:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1873573349<open>)] for JPA transaction
+2025-11-01 16:30:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:30:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1873573349<open>)] for JPA transaction
+2025-11-01 16:30:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:30:50.095 [MessageBroker-3] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 16:30:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 16:30:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1873573349<open>)]
+2025-11-01 16:30:50.096 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1873573349<open>)] after transaction
+2025-11-01 16:35:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Creating new transaction with name [com.visiomatix.chat.chat.chat.service.SessionCleanupService.cleanInactiveSessions]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2025-11-01 16:35:50.092 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(67508350<open>)] for JPA transaction
+2025-11-01 16:35:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@3291f5d5]
+2025-11-01 16:35:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(67508350<open>)] for JPA transaction
+2025-11-01 16:35:50.093 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:35:50.093 [MessageBroker-3] DEBUG org.hibernate.SQL - select cs1_0.id,cs1_0.is_active,cs1_0.created_at,cs1_0.last_message_at,cs1_0.session_expiry,cs1_0.session_name,cs1_0.session_type,cs1_0.updated_at from chat_sessions cs1_0
+2025-11-01 16:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(67508350<open>)] for JPA transaction
+2025-11-01 16:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(67508350<open>)] for JPA transaction
+2025-11-01 16:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(67508350<open>)] for JPA transaction
+2025-11-01 16:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Participating in existing transaction
+2025-11-01 16:35:50.094 [MessageBroker-3] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/session/closed/1 session=null payload=Session has been closed
+2025-11-01 16:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Initiating transaction commit
+2025-11-01 16:35:50.094 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(67508350<open>)]
+2025-11-01 16:35:50.095 [MessageBroker-3] DEBUG o.s.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(67508350<open>)] after transaction
