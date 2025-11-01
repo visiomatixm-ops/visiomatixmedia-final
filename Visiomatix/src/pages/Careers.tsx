@@ -172,13 +172,13 @@ const handleChange = (e: React.ChangeEvent<any>) => {
           style={{
             position: "absolute",
             inset: 0,
-            backgroundColor: "rgba(0,0,64,0.6)",
+            backgroundColor: "rgba(2, 93, 145, 0.18)",
           }}
         ></div>
         <div style={{
           position: "relative",
           zIndex: 2,
-          backgroundColor: "rgba(0, 40, 80, 0.42)",
+          backgroundColor: "rgba(10, 125, 170, 0.42)",
           borderRadius: "12px",
           width:"90%",
           padding:"1em",

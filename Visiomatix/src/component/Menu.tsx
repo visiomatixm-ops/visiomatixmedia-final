@@ -5,8 +5,7 @@ import Logo2PNG from "/logo/Logo2PNG.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-// Import preload function from App.tsx
-import { preloadServicesRoutes } from '../App';
+// Removed preload function import
 
 // ✅ Orbitron font for logo
 const fontLink = document.createElement("link");
@@ -112,10 +111,6 @@ const Menu: React.FC = () => {
                     }`}
                     onMouseEnter={() => {
                       setHoveredIndex(index);
-                      // Preload Services routes on hover for faster navigation
-                      if (item.label === "Services") {
-                        preloadServicesRoutes();
-                      }
                     }}
                     onMouseLeave={() => setHoveredIndex(null)}
                   >

@@ -77,22 +77,12 @@ const Footer: React.FC = () => {
           </li>
           <li className="list-inline-item mx-3">
             <Link to="/about" className="text-light text-decoration-none">
-              About
-            </Link>
-          </li>
-          <li className="list-inline-item mx-3">
-            <Link to="/team" className="text-light text-decoration-none">
-              Our Team
-            </Link>
-          </li>
-          <li className="list-inline-item mx-3">
-            <Link to="/testimonials" className="text-light text-decoration-none">
-              Testimonials
+              About Us
             </Link>
           </li>
           <li className="list-inline-item mx-3">
             <Link to="/services" className="text-light text-decoration-none">
-              Our Services
+              Services
             </Link>
           </li>
           <li className="list-inline-item mx-3">
@@ -126,8 +116,13 @@ const Footer: React.FC = () => {
             </Link>
           </li>
           <li className="list-inline-item mx-3">
-            <Link to="/gallery" className="text-light text-decoration-none">
-              Gallery
+            <Link to="/blog" className="text-light text-decoration-none">
+              Blog
+            </Link>
+          </li>
+          <li className="list-inline-item mx-3">
+            <Link to="/careers" className="text-light text-decoration-none">
+              Careers
             </Link>
           </li>
           <li className="list-inline-item mx-3">

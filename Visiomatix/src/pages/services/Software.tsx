@@ -13,9 +13,9 @@
  *  - Call-to-action section
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import AIVoiceAssistant from "/services/businesssolutions/AI Voice Sales Assistant Integration-1.jpg";
@@ -50,12 +50,6 @@ const cardVariant = {
 // Component: Software
 // ----------------------------------------------------
 const Software: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   // ----------------------------------------------------
   // JSON-LD Structured Data (LocalBusiness + Service)
@@ -157,19 +151,6 @@ const Software: React.FC = () => {
         </script>
       </Helmet>
 
-      {/* Loader */}
-      <AnimatePresence>
-        {loading ? (
-          <motion.div
-            key="loader"
-            className="d-flex justify-content-center align-items-center vh-100 bg-dark text-light"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8 } }}
-          >
-            <div className="spinner-border text-light me-3" role="status" />
-            <strong>Loading Software Solutions Page...</strong>
-          </motion.div>
-        ) : (
           <motion.div
             key="content"
             id="content"
@@ -380,8 +361,6 @@ const Software: React.FC = () => {
               </div>
             </motion.section>
           </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 };

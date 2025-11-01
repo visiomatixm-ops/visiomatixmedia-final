@@ -317,178 +317,178 @@ const About: React.FC = () => {
           </div>
         </div>
       </section>
-                {/* ============================================= */}
-{/* Meet the Rest of the Team Section */}
-{/* ============================================= */}
-<section className="container text-center my-5">
-  <h2 className="fw-bold mb-4 text-aqua">Meet the Rest of the Team</h2>
-  <p className="text-light mb-5 w-75 mx-auto">
-    At <strong>Visiomatix Media</strong>, our team is our biggest strength.
-    We are a diverse group of designers, developers, marketers, and strategists
-    united by one goal — to create meaningful, result-driven digital experiences
-    that help brands grow and connect.
-  </p>
+                  {/* ============================================= */}
+                  {/* Meet the Rest of the Team Section */}
+                  {/* ============================================= */}
+                  <section className="container text-center my-5">
+                    <h2 className="fw-bold mb-4 text-aqua">Meet the Rest of the Team</h2>
+                    <p className="text-light mb-5 w-75 mx-auto">
+                      At <strong>Visiomatix Media</strong>, our team is our biggest strength.
+                      We are a diverse group of designers, developers, marketers, and strategists
+                      united by one goal — to create meaningful, result-driven digital experiences
+                      that help brands grow and connect.
+                    </p>
 
-  <div className="row justify-content-center">
+                    <div className="row justify-content-center">
 
-    {/* HR Team */}
-    <div className="col-md-3 mb-4">
-      <div
-        className="card border-0 h-100 text-light"
-        style={{
-          backgroundColor: '#102a4a',
-          boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
-          borderRadius: '12px',
-          transition: 'all 0.3s ease',
-        }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.8)')
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.boxShadow = '0 0 5px rgba(0, 255, 255, 0.4)')
-        }
-      >
-        <img
-          src="/people/Person1.jpeg"
-          alt="Dharshinie Anbazhagan - HR"
-          className="card-img-top"
-          style={{
-            height: '216px',
-            objectFit: 'cover',
-            borderTopLeftRadius: '12px',
-            borderTopRightRadius: '12px',
-          }}
-        />
-        <div className="card-body">
-          <h5 className="fw-bold text-aqua">Dharshinie Anbazhagan</h5>
-          <p className="text-light mb-1">Human Resources (HR)</p>
-          <p className="small text-secondary text-light">
-            Leads with a people-first approach — fostering collaboration, creativity,
-            and a strong workplace culture at Visiomatix Media.
-          </p>
-        </div>
-      </div>
-    </div>
+                      {/* HR Team */}
+                      <div className="col-md-3 mb-4">
+                        <div
+                          className="card border-0 h-100 text-light"
+                          style={{
+                            backgroundColor: '#102a4a',
+                            boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
+                            borderRadius: '12px',
+                            transition: 'all 0.3s ease',
+                          }}
+                          onMouseEnter={(e) =>
+                            (e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.8)')
+                          }
+                          onMouseLeave={(e) =>
+                            (e.currentTarget.style.boxShadow = '0 0 5px rgba(0, 255, 255, 0.4)')
+                          }
+                        >
+                          <img
+                            src="/people/Person1.jpeg"
+                            alt="Dharshinie Anbazhagan - HR"
+                            className="card-img-top"
+                            style={{
+                              height: '216px',
+                              objectFit: 'cover',
+                              borderTopLeftRadius: '12px',
+                              borderTopRightRadius: '12px',
+                            }}
+                          />
+                          <div className="card-body">
+                            <h5 className="fw-bold text-aqua">Dharshinie Anbazhagan</h5>
+                            <p className="text-light mb-1">Human Resources (HR)</p>
+                            <p className="small text-secondary text-light">
+                              Leads with a people-first approach — fostering collaboration, creativity,
+                              and a strong workplace culture at Visiomatix Media.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
 
-    {/* Design Team */}
-    <div className="col-md-3 mb-4">
-      <div
-        className="card border-0 h-100 text-light"
-        style={{
-          backgroundColor: '#102a4a',
-          boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
-          borderRadius: '12px',
-          transition: 'all 0.3s ease',
-        }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.8)')
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.boxShadow = '0 0 5px rgba(0, 255, 255, 0.4)')
-        }
-      >
-        <img
-          src="/people/Person2.jpeg"
-          alt="Design Team"
-          className="card-img-top"
-          style={{
-            height: '216px',
-            objectFit: 'cover',
-            borderTopLeftRadius: '12px',
-            borderTopRightRadius: '12px',
-          }}
-        />
-        <div className="card-body">
-          <h5 className="fw-bold text-aqua">Design Team</h5>
-          <p className="text-light mb-1">Creative Department</p>
-          <p className="small text-secondary text-light">
-            A passionate group of visual thinkers specializing in branding,
-            motion graphics, and UI/UX — turning ideas into stunning digital visuals.
-          </p>
-        </div>
-      </div>
-    </div>
+                      {/* Design Team */}
+                      <div className="col-md-3 mb-4">
+                        <div
+                          className="card border-0 h-100 text-light"
+                          style={{
+                            backgroundColor: '#102a4a',
+                            boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
+                            borderRadius: '12px',
+                            transition: 'all 0.3s ease',
+                          }}
+                          onMouseEnter={(e) =>
+                            (e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.8)')
+                          }
+                          onMouseLeave={(e) =>
+                            (e.currentTarget.style.boxShadow = '0 0 5px rgba(0, 255, 255, 0.4)')
+                          }
+                        >
+                          <img
+                            src="/people/Person2.jpeg"
+                            alt="Design Team"
+                            className="card-img-top"
+                            style={{
+                              height: '216px',
+                              objectFit: 'cover',
+                              borderTopLeftRadius: '12px',
+                              borderTopRightRadius: '12px',
+                            }}
+                          />
+                          <div className="card-body">
+                            <h5 className="fw-bold text-aqua">Design Team</h5>
+                            <p className="text-light mb-1">Creative Department</p>
+                            <p className="small text-secondary text-light">
+                              A passionate group of visual thinkers specializing in branding,
+                              motion graphics, and UI/UX — turning ideas into stunning digital visuals.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
 
-    {/* Marketing Team */}
-    <div className="col-md-3 mb-4">
-      <div
-        className="card border-0 h-100 text-light"
-        style={{
-          backgroundColor: '#102a4a',
-          boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
-          borderRadius: '12px',
-          transition: 'all 0.3s ease',
-        }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.8)')
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.boxShadow = '0 0 5px rgba(0, 255, 255, 0.4)')
-        }
-      >
-        <img
-          src="/people/Person3.jpeg"
-          alt="Marketing Team"
-          className="card-img-top"
-          style={{
-            height: '216px',
-            objectFit: 'cover',
-            borderTopLeftRadius: '12px',
-            borderTopRightRadius: '12px',
-          }}
-        />
-        <div className="card-body">
-          <h5 className="fw-bold text-aqua">Marketing Team</h5>
-          <p className="text-light mb-1">Digital Strategy</p>
-          <p className="small text-secondary text-light">
-            SEO experts, social media specialists, and ad strategists — driving engagement
-            and helping brands build lasting digital connections.
-          </p>
-        </div>
-      </div>
-    </div>
+                      {/* Marketing Team */}
+                      <div className="col-md-3 mb-4">
+                        <div
+                          className="card border-0 h-100 text-light"
+                          style={{
+                            backgroundColor: '#102a4a',
+                            boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
+                            borderRadius: '12px',
+                            transition: 'all 0.3s ease',
+                          }}
+                          onMouseEnter={(e) =>
+                            (e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.8)')
+                          }
+                          onMouseLeave={(e) =>
+                            (e.currentTarget.style.boxShadow = '0 0 5px rgba(0, 255, 255, 0.4)')
+                          }
+                        >
+                          <img
+                            src="/people/Person3.jpeg"
+                            alt="Marketing Team"
+                            className="card-img-top"
+                            style={{
+                              height: '216px',
+                              objectFit: 'cover',
+                              borderTopLeftRadius: '12px',
+                              borderTopRightRadius: '12px',
+                            }}
+                          />
+                          <div className="card-body">
+                            <h5 className="fw-bold text-aqua">Marketing Team</h5>
+                            <p className="text-light mb-1">Digital Strategy</p>
+                            <p className="small text-secondary text-light">
+                              SEO experts, social media specialists, and ad strategists — driving engagement
+                              and helping brands build lasting digital connections.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
 
-    {/* Tech Team */}
-    <div className="col-md-3 mb-4">
-      <div
-        className="card border-0 h-100 text-light"
-        style={{
-          backgroundColor: '#102a4a',
-          boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
-          borderRadius: '12px',
-          transition: 'all 0.3s ease',
-        }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.8)')
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.boxShadow = '0 0 5px rgba(0, 255, 255, 0.4)')
-        }
-      >
-        <img
-          src="/people/Person3.jpeg"
-          alt="Tech Team"
-          className="card-img-top"
-          style={{
-            height: '216px',
-            objectFit: 'cover',
-            borderTopLeftRadius: '12px',
-            borderTopRightRadius: '12px',
-          }}
-        />
-        <div className="card-body">
-          <h5 className="fw-bold text-aqua">Tech Team</h5>
-          <p className="text-light mb-1">Development & IT</p>
-          <p className="small text-secondary text-light">
-            Web developers and IT professionals who bring creativity to life — ensuring
-            every digital experience is smooth, fast, and functional.
-          </p>
-        </div>
-      </div>
-    </div>
+                      {/* Tech Team */}
+                      <div className="col-md-3 mb-4">
+                        <div
+                          className="card border-0 h-100 text-light"
+                          style={{
+                            backgroundColor: '#102a4a',
+                            boxShadow: '0 0 5px rgba(0, 255, 255, 0.4)',
+                            borderRadius: '12px',
+                            transition: 'all 0.3s ease',
+                          }}
+                          onMouseEnter={(e) =>
+                            (e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.8)')
+                          }
+                          onMouseLeave={(e) =>
+                            (e.currentTarget.style.boxShadow = '0 0 5px rgba(0, 255, 255, 0.4)')
+                          }
+                        >
+                          <img
+                            src="/people/Person3.jpeg"
+                            alt="Tech Team"
+                            className="card-img-top"
+                            style={{
+                              height: '216px',
+                              objectFit: 'cover',
+                              borderTopLeftRadius: '12px',
+                              borderTopRightRadius: '12px',
+                            }}
+                          />
+                          <div className="card-body">
+                            <h5 className="fw-bold text-aqua">Tech Team</h5>
+                            <p className="text-light mb-1">Development & IT</p>
+                            <p className="small text-secondary text-light">
+                              Web developers and IT professionals who bring creativity to life — ensuring
+                              every digital experience is smooth, fast, and functional.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
 
-  </div>
-</section>
+                    </div>
+                  </section>
 
                   
     </>

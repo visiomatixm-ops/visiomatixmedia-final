@@ -15,9 +15,9 @@
  *  - Footer
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
  
 import SMM from "/services/icons/1-LIST/1-1 Social Media Marketing (SMM).png";
 import SEOIcon from "/services/icons/1-LIST/1-2 Search Engine Optimization (SEO).png";
@@ -64,13 +64,6 @@ const fadeIn = {
 // Component: DigitalMarketing
 // ----------------------------------------------------
 const DigitalMarketing: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-
-  // Loader fade-out effect
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   // ----------------------------------------------------
   // JSON-LD Structured Data (LocalBusiness + Service)
@@ -169,19 +162,6 @@ const DigitalMarketing: React.FC = () => {
         </script>
       </Helmet>
 
-      {/* Loader */}
-      <AnimatePresence>
-        {loading ? (
-          <motion.div
-            key="loader"
-            className="d-flex justify-content-center align-items-center vh-100 bg-dark text-light"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8 } }}
-          >
-            <div className="spinner-border text-light me-3" role="status" />
-            <strong>Loading Digital Marketing Page...</strong>
-          </motion.div>
-        ) : (
           <motion.div
             key="content"
             id="content"
@@ -418,8 +398,6 @@ const DigitalMarketing: React.FC = () => {
               </div>
             </motion.section>
           </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 };

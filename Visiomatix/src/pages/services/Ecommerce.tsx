@@ -13,9 +13,9 @@
  *  - CTA Section
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import EcomWebApp from "/services/icons/5-LIST/5-1 E-commerce Website Development.svg";
@@ -48,12 +48,6 @@ const cardVariant = {
 // Component: Ecommerce
 // ----------------------------------------------------
 const Ecommerce: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   // ----------------------------------------------------
   // JSON-LD Schema (LocalBusiness + Service)
@@ -156,19 +150,6 @@ const Ecommerce: React.FC = () => {
         </script>
       </Helmet>
 
-      {/* Loader */}
-      <AnimatePresence>
-        {loading ? (
-          <motion.div
-            key="loader"
-            className="d-flex justify-content-center align-items-center vh-100 bg-dark text-light"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8 } }}
-          >
-            <div className="spinner-border text-light me-3" role="status" />
-            <strong>Loading E-commerce Solutions...</strong>
-          </motion.div>
-        ) : (
           <motion.div
             key="content"
             id="content"
@@ -228,7 +209,7 @@ const Ecommerce: React.FC = () => {
                      </motion.p>
                      <motion.a
                        href="#services"
-                       className="btn btn-primary btn-lg mt-3"
+                       className="btn btn-light btn-lg mt-3"
                        whileHover={{ scale: 1.05 }}
                        whileTap={{ scale: 0.95 }}
                        initial={{ opacity: 0, y: 30 }}
@@ -384,8 +365,6 @@ const Ecommerce: React.FC = () => {
               </div>
             </motion.section>
           </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 };

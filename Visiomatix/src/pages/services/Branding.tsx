@@ -13,9 +13,9 @@
  *  - CTA Section
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import BrandingIdentity from "/services/icons/6-LIST/6-1 Brand Identity & Positioning.svg";
@@ -49,12 +49,6 @@ const cardVariant = {
 // Component: Branding
 // ----------------------------------------------------
 const Branding: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   // ----------------------------------------------------
   // JSON-LD Schema: LocalBusiness + Service
@@ -147,19 +141,6 @@ const Branding: React.FC = () => {
         </script>
       </Helmet>
 
-      {/* Loader */}
-      <AnimatePresence>
-        {loading ? (
-          <motion.div
-            key="loader"
-            className="d-flex justify-content-center align-items-center vh-100 bg-dark text-light"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8 } }}
-          >
-            <div className="spinner-border text-light me-3" role="status" />
-            <strong>Loading Branding & Strategy...</strong>
-          </motion.div>
-        ) : (
           <motion.div
             key="content"
             id="content"
@@ -328,8 +309,6 @@ const Branding: React.FC = () => {
               </div>
             </motion.section>
           </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 };
