@@ -134,7 +134,7 @@ const Footer: React.FC = () => {
 
         {/* Footer Bottom Info */}
         <span className="d-block small text-secondary">
-          © {new Date().getFullYear()} Visiomatix | Phone: +91-XXXXXXXXXX
+          © {new Date().getFullYear()} Visiomatix | Phone: +91-89991 01916
         </span>
       </div>
     </footer>
