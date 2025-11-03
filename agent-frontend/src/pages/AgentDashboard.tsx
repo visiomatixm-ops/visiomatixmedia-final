@@ -107,10 +107,28 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
   const AGENT = "agent";
   const PASSWORD = "agent123";
 
+  // Notification sound function
+  const playNotificationSound = () => {
+    try {
+      const audio = new Audio('/notification.mp3');
+      audio.volume = 0.5; // Set volume to 50%
+      audio.play().catch(e => console.log('Audio play failed:', e));
+    } catch (e) {
+      console.log('Audio creation failed:', e);
+    }
+  };
+
   // Auto-scroll to latest message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, selected]);
+
+  // Request notification permission on mount
+  useEffect(() => {
+    if ("Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission();
+    }
+  }, []);
 
   // Restore selected session from localStorage
   useEffect(() => {
@@ -304,7 +322,23 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
         const res = await axios.get(`${API}/chat/sessions`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setSessions(res.data.slice(0, 4));
+        const newSessions = res.data.slice(0, 4);
+
+        // Check for new sessions and show notification
+        if (sessions.length > 0 && newSessions.length > sessions.length) {
+          const newSessionCount = newSessions.length - sessions.length;
+          if ("Notification" in window && Notification.permission === "granted") {
+            new Notification("New Chat Session", {
+              body: `${newSessionCount} new chat session${newSessionCount > 1 ? 's' : ''} available`,
+              icon: "/favicon.ico",
+              tag: "new-session"
+            });
+          }
+          // Play notification sound
+          playNotificationSound();
+        }
+
+        setSessions(newSessions);
       } catch (e) {
         console.error("Fetch sessions failed:", e);
       }
@@ -312,7 +346,7 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
     fetchSessions();
     const timer = setInterval(fetchSessions, 10000);
     return () => clearInterval(timer);
-  }, [token]);
+  }, [token, sessions.length]);
 
   // ---------------------------------------------------------
   // Connect WS & subscribe per session
@@ -346,6 +380,9 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
                 }
               ],
             }));
+
+            // Play notification sound for new messages
+            playNotificationSound();
           })
         );
       },

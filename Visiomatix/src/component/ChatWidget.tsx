@@ -71,6 +71,17 @@ const ChatWidget: React.FC = () => {
   const API = "http://localhost:8080/api";
   const AGENT = "agent";
 
+  // Notification sound function
+  const playNotificationSound = () => {
+    try {
+      const audio = new Audio('/notification.mp3');
+      audio.volume = 0.5; // Set volume to 50%
+      audio.play().catch(e => console.log('Audio play failed:', e));
+    } catch (e) {
+      console.log('Audio creation failed:', e);
+    }
+  };
+
   // Auto-scroll to latest message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -379,6 +390,9 @@ const ChatWidget: React.FC = () => {
               sentAt: data.sentAt,
               messageType: data.messageType,
             }]);
+
+            // Play notification sound for new messages
+            playNotificationSound();
           } catch (e) {
             console.error("Invalid message:", e);
           }
