@@ -43,6 +43,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminPanel from "./AdminPanel";
 import Menu from "../components/Menu";
+import PasswordChange from "../components/PasswordChange";
 
 interface Session {
   id: number;
@@ -102,6 +103,7 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
   const [agentSessions, setAgentSessions] = useState<Session[]>([]);
   const [selectedHistorySession, setSelectedHistorySession] = useState<number | null>(null);
   const [sessionHistoryDetails, setSessionHistoryDetails] = useState<SessionHistoryDetails | null>(null);
+  const [showPasswordChange, setShowPasswordChange] = useState(false);
 
   const API = "http://localhost:8080/api";
   const AGENT = "agent";
@@ -496,17 +498,25 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
 
     <div className="margin-top container-fluid py-4 px-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h4 className="mb-0">Agent Dashboard</h4>
-        <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
-          Logout
-        </button>
+        <h4 className="mb-0 text-lg sm:text-xl md:text-2xl lg:text-3xl">Agent Dashboard</h4>
+        <div>
+          <button
+            className="btn btn-outline-primary btn-sm me-2 text-xs sm:text-sm"
+            onClick={() => setShowPasswordChange(true)}
+          >
+            Change Password
+          </button>
+          <button className="btn btn-outline-danger btn-sm text-xs sm:text-sm" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
       </div>
 
       {/* Navigation Tabs */}
-      <ul className="nav nav-pills mb-4">
+      <ul className="nav nav-pills mb-3 sm:mb-4">
         <li className="nav-item">
           <button
-            className={`nav-link ${activeTab === "chats" ? "active" : ""}`}
+            className={`nav-link text-sm sm:text-base ${activeTab === "chats" ? "active" : ""}`}
             style={activeTab === "chats" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
             onClick={() => setActiveTab("chats")}
           >
@@ -515,7 +525,7 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
         </li>
         <li className="nav-item">
           <button
-            className={`nav-link ${activeTab === "stats" ? "active" : ""}`}
+            className={`nav-link text-sm sm:text-base ${activeTab === "stats" ? "active" : ""}`}
             style={activeTab === "stats" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
             onClick={() => setActiveTab("stats")}
           >
@@ -524,7 +534,7 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
         </li>
         <li className="nav-item">
           <button
-            className={`nav-link ${activeTab === "history" ? "active" : ""}`}
+            className={`nav-link text-sm sm:text-base ${activeTab === "history" ? "active" : ""}`}
             style={activeTab === "history" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
             onClick={() => setActiveTab("history")}
           >
@@ -534,7 +544,7 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
         {userRole === "ROLE_ADMIN" && (
           <li className="nav-item">
             <button
-              className={`nav-link ${activeTab === "admin" ? "active" : ""}`}
+              className={`nav-link text-sm sm:text-base ${activeTab === "admin" ? "active" : ""}`}
               style={activeTab === "admin" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveTab("admin")}
             >
@@ -555,13 +565,13 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
                       `}
                     </style>
           {/* Sessions */}
-          <div className="col-4 border-end">
-            <h6>Active Sessions ({sessions.length})</h6>
+          <div className="col-12 col-md-4 border-end">
+            <h6 className="text-sm sm:text-base">Active Sessions ({sessions.length})</h6>
             <ul className="list-group">
               {sessions.map((s) => (
                 <li
                   key={s.id}
-                  className={`list-group-item ${s.id === selected ? "active" : ""}`}
+                  className={`list-group-item text-sm sm:text-base ${s.id === selected ? "active" : ""}`}
                   style={{ cursor: "pointer" }}
                   onClick={() => setSelected(s.id)}
                 >
@@ -572,19 +582,19 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
           </div>
 
           {/* Chat Area */}
-          <div className="col-8 d-flex flex-column">
+          <div className="col-12 col-md-8 d-flex flex-column">
             {selected ? (
               <>
                 <div className="border rounded p-2 flex-grow-1 overflow-auto bg-light" style={{ maxHeight: "1900px" }}>
-                  {loading && <div className="text-center">Loading messages...</div>}
+                  {loading && <div className="text-center text-sm sm:text-base">Loading messages...</div>}
                   {(messages[selected] || []).map((m, i) => (
                     <div
                       key={m.id || i}
-                      className={`p-2 my-1 rounded ${
+                      className={`p-2 my-1 rounded text-sm sm:text-base ${
                         m.sender === AGENT ? "bg-primary text-white text-end" : "bg-white border text-start"
                       }`}
                     >
-                      <small>
+                      <small className="text-xs sm:text-sm">
                         <b>{typeof m.sender === 'string' ? m.sender : m.sender.username}:</b> {m.content}
                         {m.sentAt && (
                           <div className="text-muted" style={{ fontSize: "0.7rem" }}>
@@ -598,20 +608,20 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
                 </div>
                 <div className="mt-2 d-flex">
                   <input
-                    className="form-control"
+                    className="form-control text-sm sm:text-base"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && sendMsg()}
                     placeholder="Type message..."
                     disabled={loading}
                   />
-                  <button className="btn btn-dark ms-2" onClick={sendMsg} disabled={loading || !input.trim()}>
+                  <button className="btn btn-dark ms-2 text-sm sm:text-base" onClick={sendMsg} disabled={loading || !input.trim()}>
                     ➤
                   </button>
                 </div>
               </>
             ) : (
-              <div className="text-muted d-flex align-items-center justify-content-center h-100">
+              <div className="text-muted d-flex align-items-center justify-content-center h-100 text-sm sm:text-base">
                 Select a session to begin chatting
               </div>
             )}
@@ -629,7 +639,7 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
                     }
                   `}
                 </style>
-          <h5>My Chat Statistics</h5>
+          <h5 className="text-lg sm:text-xl md:text-2xl">My Chat Statistics</h5>
 
           {/* Period Selection */}
           <div className="row mb-4">
@@ -785,12 +795,12 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
                     }
                   `}
                 </style>
-          <h5>My Chat History Review</h5>
+          <h5 className="text-lg sm:text-xl md:text-2xl">My Chat History Review</h5>
 
           <div className="row">
             {/* Agent's Sessions List */}
             <div className="col-md-4">
-              <h6>My Chat Sessions ({agentSessions.length})</h6>
+              <h6 className="text-sm sm:text-base">My Chat Sessions ({agentSessions.length})</h6>
               <div className="list-group" style={{maxHeight: "600px", overflowY: "auto"}}>
                 {agentSessions.map((session) => (
                   <button
@@ -820,7 +830,7 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
                 <div>
                   <div className="card mb-3">
                     <div className="card-header">
-                      <h6 className="mb-0">Session #{sessionHistoryDetails.session.id} Details</h6>
+                      <h6 className="mb-0 text-sm sm:text-base">Session #{sessionHistoryDetails.session.id} Details</h6>
                     </div>
                     <div className="card-body">
                       <div className="row">
@@ -855,7 +865,7 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
 
                   <div className="card">
                     <div className="card-header">
-                      <h6 className="mb-0">Complete Message History</h6>
+                      <h6 className="mb-0 text-sm sm:text-base">Complete Message History</h6>
                     </div>
                     <div className="card-body" style={{maxHeight: "400px", overflowY: "auto"}}>
                       {sessionHistoryDetails.messages?.map((message, index) => (
@@ -894,6 +904,14 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
 
       {activeTab === "admin" && userRole === "ROLE_ADMIN" && (
         <AdminPanel token={token} />
+      )}
+
+      {/* Password Change Modal */}
+      {showPasswordChange && (
+        <PasswordChange
+          token={token}
+          onClose={() => setShowPasswordChange(false)}
+        />
       )}
     </div>
     </div>

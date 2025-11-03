@@ -184,8 +184,8 @@ const handleChange = (e: React.ChangeEvent<any>) => {
           padding:"1em",
           backdropFilter: "blur(5px)",
         }}>
-           <h1 className="display-5 fw-bold">Careers at Visiomatix</h1>
-           <p className="lead">Join our innovative engineering team.</p>
+           <h1 className="display-5 fw-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">Careers at Visiomatix</h1>
+           <p className="lead text-sm sm:text-base md:text-lg">Join our innovative engineering team.</p>
          </div>
       </section>
 
@@ -198,7 +198,7 @@ const handleChange = (e: React.ChangeEvent<any>) => {
             <Card.Body>
               <Row className="align-items-center">
                 <Col md={8}>
-                  <h4 className="fw-semibold mb-2 text-primary">{job.title}</h4>
+                  <h4 className="fw-semibold mb-2 text-primary text-sm sm:text-base md:text-lg lg:text-xl">{job.title}</h4>
                   <p className="mb-1">
                     <strong>Experience:</strong> {job.experience}
                   </p>
@@ -462,5 +462,6 @@ const handleChange = (e: React.ChangeEvent<any>) => {
     </>
   );
 };
+
 
 export default Careers;

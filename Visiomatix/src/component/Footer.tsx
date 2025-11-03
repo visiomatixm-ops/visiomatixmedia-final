@@ -69,63 +69,63 @@ const Footer: React.FC = () => {
 
       {/* Footer Navigation Links */}
       <div className="container">
-        <div className="row justify-content-center align-items-start">
-          <div className="col-3 mb-3 d-flex justify-content-start">
+        <div className="row justify-content-center align-items-start footer-links-row">
+          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
             <Link to="/" className="text-light text-decoration-none">
               Home
             </Link>
           </div>
-          <div className="col-3 mb-3 d-flex justify-content-start">
+          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
             <Link to="/about" className="text-light text-decoration-none">
               About Us
             </Link>
           </div>
-          <div className="col-3 mb-3 d-flex justify-content-start">
+          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
             <Link to="/services" className="text-light text-decoration-none">
               Services
             </Link>
           </div>
-          <div className="col-3 mb-3 d-flex justify-content-start">
+          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
             <Link to="/services/DigitalMarketing" className="text-light text-decoration-none">
               Digital Marketing
             </Link>
           </div>
-          <div className="col-3 mb-3 d-flex justify-content-start">
+          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
             <Link to="/services/Design" className="text-light text-decoration-none">
               Design and Creative Services
             </Link>
           </div>
-          <div className="col-3 mb-3 d-flex justify-content-start">
+          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
             <Link to="/services/Webapp" className="text-light text-decoration-none">
               Web App Development
             </Link>
           </div>
-          <div className="col-3 mb-3 d-flex justify-content-start">
+          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
             <Link to="/services/Software" className="text-light text-decoration-none">
               Business Software Solutions
             </Link>
           </div>
-          <div className="col-3 mb-3 d-flex justify-content-start">
+          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
             <Link to="/services/Ecommerce" className="text-light text-decoration-none">
               ECommerce Solutions
             </Link>
           </div>
-          <div className="col-3 mb-3 d-flex justify-content-start">
+          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
             <Link to="/services/Branding" className="text-light text-decoration-none">
               Branding and Strategy
             </Link>
           </div>
-          <div className="col-3 mb-3 d-flex justify-content-start">
+          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
             <Link to="/blog" className="text-light text-decoration-none">
               Blog
             </Link>
           </div>
-          <div className="col-3 mb-3 d-flex justify-content-start">
+          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
             <Link to="/careers" className="text-light text-decoration-none">
               Careers
             </Link>
           </div>
-          <div className="col-3 mb-3 d-flex justify-content-start">
+          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
             <Link to="/contact" className="text-light text-decoration-none">
               Contact Us
             </Link>
@@ -141,7 +141,18 @@ const Footer: React.FC = () => {
     <style>
          {`li.breadcrumb-item.active {
           color: #006aff !important;
-          }`} 
+          }
+
+          @media screen and (max-width: 500px) {
+            .footer-links-row {
+              display: grid !important;
+              grid-template-columns: 1fr 1fr !important;
+              gap: 1rem !important;
+            }
+            .footer-links-row > div {
+              margin-bottom: 0.5rem !important;
+            }
+          }`}
     </style>
     </>
   );

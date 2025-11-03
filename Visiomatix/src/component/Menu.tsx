@@ -47,10 +47,18 @@ const Menu: React.FC = () => {
   return (
     <>
       <motion.nav
-        className="navbar navbar-expand-lg py-3 shadow-sm position-relative visiomatix-navbar"
+        className="navbar navbar-expand-lg py-3 shadow-sm position-fixed visiomatix-navbar"
         variants={fadeInVariant}
         initial="hidden"
         animate="visible"
+        style={{
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1030,
+          width: '100%',
+          marginBottom: '80px' // Add bottom margin to prevent content overlap
+        }}
       >
         <div className="container-fluid px-4">
           {/* Brand Logo */}
@@ -124,6 +132,15 @@ const Menu: React.FC = () => {
                             isActive ? "active" : ""
                           }`
                         }
+                        onClick={() => {
+                          // Auto-collapse mobile menu after selection
+                          const navbarCollapse = document.getElementById('navbarNav');
+                          if (navbarCollapse && window.innerWidth < 992) {
+                            const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse, {
+                              hide: true
+                            });
+                          }
+                        }}
                       >
                         {({ isActive }) => (
                           <>
@@ -189,6 +206,15 @@ const Menu: React.FC = () => {
                                     isActive ? "text-primary" : ""
                                   }`
                                 }
+                                onClick={() => {
+                                  // Auto-collapse mobile menu after selection
+                                  const navbarCollapse = document.getElementById('navbarNav');
+                                  if (navbarCollapse && window.innerWidth < 992) {
+                                    const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse, {
+                                      hide: true
+                                    });
+                                  }
+                                }}
                               >
                                 {subItem.label}
                               </NavLink>
@@ -224,8 +250,11 @@ const Menu: React.FC = () => {
             background-color: #ffffff;
             box-shadow: 0 0 8pt 0.1em rgba(0, 0, 0, 0.08);
             position: fixed !important;
-            z-index: 10;
-            width: 100%;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 1030 !important;
+            width: 100% !important;
           }
 
           .nav-link {

@@ -197,6 +197,7 @@ const Webapp: React.FC = () => {
                 width:"90%",
                 padding:"1em",
                 backdropFilter: "blur(5px)",
+                marginTop: '7rem',
               }}>
                  <motion.h1
                    className="display-4 fw-bold"
@@ -380,8 +381,8 @@ const Webapp: React.FC = () => {
               </div>
             </motion.section>
           </motion.div>
-    </>
-  );
+   </>
+ );
 };
 
 export default Webapp;

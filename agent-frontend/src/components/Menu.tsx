@@ -31,11 +31,19 @@ const Menu: React.FC = () => {
   const navItems = [
     { path: "/", label: "Home" },
     { path: "/about", label: "About Us" },
-    { path: "/services", label: "Our Services" },
     { path: "/testimonials", label: "Testimonials / Portfolio" },
     { path: "/blog", label: "Blog" },
     { path: "/careers", label: "Careers" },
     { path: "/contact", label: "Contact Us" },
+  ];
+
+  const servicesItems = [
+    { path: "/services/digital-marketing", label: "Digital Marketing Services" },
+    { path: "/services/design-creative", label: "Design & Creative Services" },
+    { path: "/services/web-app-development", label: "Web & App Development" },
+    { path: "/services/business-software", label: "Business Software Solutions" },
+    { path: "/services/ecommerce-solutions", label: "E-commerce Solutions" },
+    { path: "/services/branding-strategy", label: "Branding & Strategy" },
   ];
 
   const fadeInVariant = {
@@ -64,13 +72,13 @@ const Menu: React.FC = () => {
               className="m-2"
             />
             <h1
-              className="fs-5 fw-bold mb-0"
+              className="fw-bold mb-0"
               style={{
                 fontFamily: "'Orbitron', sans-serif",
                 fontWeight: "700",
                 textTransform: "uppercase",
                 letterSpacing: "0.15em",
-                fontSize: "2.2rem",
+                fontSize: "clamp(1.2rem, 4vw, 1.2rem)",
                 background: "linear-gradient(90deg, #0055ff, #00aaff)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -91,17 +99,7 @@ const Menu: React.FC = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          {/* Collapsible Menu */}
-          <div
-            className="collapse navbar-collapse justify-content-end"
-            id="navbarNav"
-          >
-
-
-              </div>
-          </div>
-              {/* Render modal so it exists in DOM. */}
-
+        </div>
       </nav>
 
       {/* ========================================================= */}

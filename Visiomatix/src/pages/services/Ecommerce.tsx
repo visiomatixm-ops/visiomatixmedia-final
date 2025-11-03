@@ -187,6 +187,7 @@ const Ecommerce: React.FC = () => {
                 width:"90%",
                 padding:"1em",
                 backdropFilter: "blur(5px)",
+                marginTop: '7rem',
               }}>
                  <div className="row align-items-center">
                    <div className="col-md-6">

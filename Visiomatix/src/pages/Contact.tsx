@@ -82,13 +82,14 @@ const Contact: React.FC = () => {
           width:"90%",
           padding:"1em",
           backdropFilter: "blur(5px)",
+          marginTop: '7rem',
         }}>
-           <h1 className="display-5 fw-bold">Contact Us</h1>
-           <p className="lead mb-0">
+           <h1 className="display-5 fw-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">Contact Us</h1>
+           <p className="lead mb-0 text-sm sm:text-base md:text-lg">
              We'd love to hear from you. Reach out with your questions or ideas.At Visiomatix Media,
-              we value collaboration, innovation, and connection. Whether you're looking to start a
-              new project, request a demo, or simply learn more about our services — our team is
-              here to help.
+             we value collaboration, innovation, and connection. Whether you're looking to start a
+             new project, request a demo, or simply learn more about our services — our team is
+             here to help.
            </p>
          </div>
       </section>
@@ -106,7 +107,7 @@ const Contact: React.FC = () => {
               backgroundColor: "#0B1F3A",
             }}
           >
-            <h3 className="fw-bold mb-4 text-center text-uppercase">
+            <h3 className="fw-bold mb-4 text-center text-uppercase text-sm sm:text-base md:text-lg lg:text-xl">
               Get in Touch
             </h3>
 
@@ -193,7 +194,7 @@ const Contact: React.FC = () => {
           <Col md={7}>
             <Card className="shadow-lg rounded-4 border-0 p-4 h-100">
               <Card.Body>
-                <h4 className="fw-bold mb-4 text-center text-primary">
+                <h4 className="fw-bold mb-4 text-center text-primary text-sm sm:text-base md:text-lg lg:text-xl">
                   Send Us a Message
                 </h4>
                 <Form onSubmit={handleSubmit}>
@@ -271,7 +272,7 @@ const Contact: React.FC = () => {
       {/* Google Maps Section */}
       {/* =================================================== */}
       <Container className="mb-5">
-        <h4 className="fw-bold mb-4 text-center text-primary">Our Location</h4>
+        <h4 className="fw-bold mb-4 text-center text-primary text-sm sm:text-base md:text-lg lg:text-xl">Our Location</h4>
         <div className="ratio ratio-16x9 shadow rounded-4">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.123456789!2d72.8300!3d19.2300!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c00000000000%3A0x123456789abcdef!2sRandom%20Location!5e0!3m2!1sen!2sin!4v1696740000000!5m2!1sen!2sin"
@@ -290,8 +291,3 @@ const Contact: React.FC = () => {
 };
 
 export default Contact;
-
-
-
-
-

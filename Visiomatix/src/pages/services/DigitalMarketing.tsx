@@ -181,7 +181,8 @@ const DigitalMarketing: React.FC = () => {
                 backgroundBlendMode: 'overlay',
                 minHeight: '70vh',
                 display: 'flex',
-                alignItems: 'center'
+                alignItems: 'center',
+                marginTop: '5rem',
               }}
             >
               {/* Grey transparent overlay for better text visibility */}
@@ -403,3 +404,4 @@ const DigitalMarketing: React.FC = () => {
 };
 
 export default DigitalMarketing;
+

@@ -173,7 +173,7 @@ const Design: React.FC = () => {
                 className="position-absolute top-0 start-0 w-100 h-100"
                 style={{
                   backgroundColor: 'rgba(20, 40, 71, 0.57)',
-                  zIndex: 1
+                  zIndex: 1,
                 }}
               />
               <div className="container text-center position-relative" style={{
@@ -183,6 +183,8 @@ const Design: React.FC = () => {
                 width:"90%",
                 padding:"1em",
                 backdropFilter: "blur(5px)",
+                marginTop: '6rem',
+
               }}>
                  <motion.h1
                    className="display-4 fw-bold"
@@ -383,3 +385,4 @@ const Design: React.FC = () => {
 };
 
 export default Design;
+

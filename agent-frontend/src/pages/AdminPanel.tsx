@@ -610,10 +610,10 @@ const AdminPanel = ({ token }: { token: string }) => {
       )}
 
       {/* Sub-tabs */}
-      <ul className="nav nav-tabs mb-4">
+      <ul className="nav nav-tabs mb-3 sm:mb-4">
         <li className="nav-item">
           <button
-            className={`nav-link ${activeSubTab === "dashboard" ? "active" : ""}`}
+            className={`nav-link text-sm sm:text-base ${activeSubTab === "dashboard" ? "active" : ""}`}
             style={activeSubTab === "dashboard" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
             onClick={() => setActiveSubTab("dashboard")}
           >
@@ -623,7 +623,7 @@ const AdminPanel = ({ token }: { token: string }) => {
         {hasPrivilege("ACCESS_USER_MANAGEMENT") && (
           <li className="nav-item">
             <button
-              className={`nav-link ${activeSubTab === "users" ? "active" : ""}`}
+              className={`nav-link text-sm sm:text-base ${activeSubTab === "users" ? "active" : ""}`}
               style={activeSubTab === "users" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveSubTab("users")}
             >
@@ -634,7 +634,7 @@ const AdminPanel = ({ token }: { token: string }) => {
         {hasPrivilege("ACCESS_ROLE_MANAGEMENT") && (
           <li className="nav-item">
             <button
-              className={`nav-link ${activeSubTab === "roles" ? "active" : ""}`}
+              className={`nav-link text-sm sm:text-base ${activeSubTab === "roles" ? "active" : ""}`}
               style={activeSubTab === "roles" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveSubTab("roles")}
             >
@@ -645,7 +645,7 @@ const AdminPanel = ({ token }: { token: string }) => {
         {hasPrivilege("ACCESS_PERMISSION_MANAGEMENT") && (
           <li className="nav-item">
             <button
-              className={`nav-link ${activeSubTab === "permissions" ? "active" : ""}`}
+              className={`nav-link text-sm sm:text-base ${activeSubTab === "permissions" ? "active" : ""}`}
               style={activeSubTab === "permissions" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveSubTab("permissions")}
             >
@@ -656,7 +656,7 @@ const AdminPanel = ({ token }: { token: string }) => {
         {hasPrivilege("ACCESS_PRIVILEGE_MANAGEMENT") && (
           <li className="nav-item">
             <button
-              className={`nav-link ${activeSubTab === "privileges" ? "active" : ""}`}
+              className={`nav-link text-sm sm:text-base ${activeSubTab === "privileges" ? "active" : ""}`}
               style={activeSubTab === "privileges" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveSubTab("privileges")}
             >
@@ -667,7 +667,7 @@ const AdminPanel = ({ token }: { token: string }) => {
         {hasPrivilege("ACCESS_STATISTICS_TAB") && (
           <li className="nav-item">
             <button
-              className={`nav-link ${activeSubTab === "statistics" ? "active" : ""}`}
+              className={`nav-link text-sm sm:text-base ${activeSubTab === "statistics" ? "active" : ""}`}
               style={activeSubTab === "statistics" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveSubTab("statistics")}
             >
@@ -678,7 +678,7 @@ const AdminPanel = ({ token }: { token: string }) => {
         {hasPrivilege("ACCESS_CHAT_HISTORY_TAB") && (
           <li className="nav-item">
             <button
-              className={`nav-link ${activeSubTab === "history" ? "active" : ""}`}
+              className={`nav-link text-sm sm:text-base ${activeSubTab === "history" ? "active" : ""}`}
               style={activeSubTab === "history" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
               onClick={() => setActiveSubTab("history")}
             >

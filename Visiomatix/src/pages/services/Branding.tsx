@@ -170,9 +170,10 @@ const Branding: React.FC = () => {
                 width:"90%",
                 padding:"1em",
                 backdropFilter: "blur(5px)",
+                marginTop: '7rem',
               }}>
                 <motion.h1
-                  className="display-5 fw-bold"
+                  className="display-5 fw-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
@@ -180,7 +181,7 @@ const Branding: React.FC = () => {
                   Branding & Strategy
                 </motion.h1>
                 <motion.p
-                  className="lead mt-3 mx-auto"
+                  className="lead mt-3 mx-auto text-sm sm:text-base md:text-lg"
                   style={{ maxWidth: "750px" }}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -206,12 +207,12 @@ const Branding: React.FC = () => {
             {/* Content Section */}
             <section className="py-5 bg-light">
               <div className="container">
-                <p className="lead text-muted text-center mx-auto" style={{ maxWidth: "850px" }}>
-                  At <strong>Visiomatix</strong>, we craft powerful brand strategies that align creativity with data-driven insights.  
-                  Our experts analyze audience psychology, market behavior, and competitor dynamics to position your brand effectively.  
-                  We help define your <strong>Brand Identity & Positioning</strong> with clear differentiation, develop holistic  
-                  <strong> Marketing Strategies</strong> and conversion-driven <strong>Funnel Planning</strong>, and execute high-impact  
-                  <strong> Campaigns</strong> that deliver measurable growth.  
+                <p className="lead text-muted text-center mx-auto text-sm sm:text-base md:text-lg" style={{ maxWidth: "850px" }}>
+                  At <strong>Visiomatix</strong>, we craft powerful brand strategies that align creativity with data-driven insights.
+                  Our experts analyze audience psychology, market behavior, and competitor dynamics to position your brand effectively.
+                  We help define your <strong>Brand Identity & Positioning</strong> with clear differentiation, develop holistic
+                  <strong> Marketing Strategies</strong> and conversion-driven <strong>Funnel Planning</strong>, and execute high-impact
+                  <strong> Campaigns</strong> that deliver measurable growth.
                   Our in-depth <strong>Competitor & Market Research</strong> provides clarity and direction — enabling your brand to lead with confidence and creativity.
                 </p>
               </div>
@@ -226,7 +227,7 @@ const Branding: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true }}
               >
-                <h2 className="text-center fw-semibold mb-5">Our Branding & Strategy Services</h2>
+                <h2 className="text-center fw-semibold mb-5 text-sm sm:text-base md:text-lg lg:text-xl">Our Branding & Strategy Services</h2>
                 <div className="row g-4">
                   {[
                     {
@@ -276,8 +277,8 @@ const Branding: React.FC = () => {
                             }
                           }}
                         />
-                        <h5 className="fw-bold">{item.title}</h5>
-                        <p className="text-muted">{item.text}</p>
+                        <h5 className="fw-bold text-sm sm:text-base md:text-lg">{item.title}</h5>
+                        <p className="text-muted text-sm sm:text-base">{item.text}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -294,8 +295,8 @@ const Branding: React.FC = () => {
               viewport={{ once: true }}
             >
               <div className="container">
-                <h3 className="fw-bold mb-3">Ready to Build a Brand that Lasts?</h3>
-                <p className="lead">
+                <h3 className="fw-bold mb-3 text-sm sm:text-base md:text-lg lg:text-xl">Ready to Build a Brand that Lasts?</h3>
+                <p className="lead text-sm sm:text-base md:text-lg">
                   Partner with us to create a strategy that defines your identity and drives business growth.
                 </p>
                 <motion.a

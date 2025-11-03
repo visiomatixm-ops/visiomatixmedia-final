@@ -127,9 +127,10 @@ const Blog: React.FC = () => {
             "url('/about/blog image.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          height: "50vh",
+          height: "clamp(40vh, 60vh, 70vh)",
           position: "relative",
-          marginBottom: "3rem",
+          marginBottom: "2rem",
+          marginTop: "5rem",
         }}
       >
         <div
@@ -147,14 +148,18 @@ const Blog: React.FC = () => {
           zIndex: 2,
           backgroundColor: "rgba(0, 40, 80, 0.45)",
           borderRadius: "12px",
-          width:"90%",
-          padding:"1em",
+          width: "clamp(85%, 90%, 95%)",
+          maxWidth: "100%",
+          padding: "clamp(1rem, 3vw, 2rem)",
           backdropFilter: "blur(5px)",
+          wordWrap: "break-word",
+          overflowWrap: "break-word",
+          marginTop: "7em",
         }}>
-           <h1 className="display-6 fw-bold text-white">
+           <h1 className="display-5 display-sm-6 fw-bold text-white mb-3 mb-sm-4 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">
              Visiomatix Media Blog
            </h1>
-           <p className="lead text-white-80" style={{ fontSize: "1rem" }}>
+           <p className="lead text-white-80 mb-0 text-xs sm:text-sm md:text-base lg:text-lg" style={{ lineHeight: "1.6" }}>
              Insights, trends, and creative updates from our digital experts.
              Welcome to the Visiomatix Media Blog — your go-to destination for the latest in
              technology, innovation, and digital transformation.
@@ -182,13 +187,12 @@ const Blog: React.FC = () => {
                     className="blog-card-img"
                   />
                   <Card.Body className="d-flex flex-column">
-                    <h6 className="fw-bold text-navy mb-2">{post.title}</h6>
-                    <p className="text-secondary small mb-2">
+                    <h6 className="fw-bold text-navy mb-2 text-sm sm:text-base">{post.title}</h6>
+                    <p className="text-secondary small mb-2 text-xs sm:text-sm">
                       {post.date} • {post.author}
                     </p>
                     <p
-                      className="flex-grow-1 text-muted"
-                      style={{ fontSize: "0.85rem" }}
+                      className="flex-grow-1 text-muted text-xs sm:text-sm"
                     >
                       {post.excerpt}
                     </p>
@@ -211,6 +215,16 @@ const Blog: React.FC = () => {
         {/* ====================== Light Theme Styles ====================== */}
         <style>
           {`
+            @media screen and (max-width: 500px) {
+              p {
+                font-size: 12pt !important;
+              }
+
+              .smalltypography {
+                font-size: 10pt !important;
+              }
+            }
+
             .text-navy {
               color: #0b1e34 !important;
             }

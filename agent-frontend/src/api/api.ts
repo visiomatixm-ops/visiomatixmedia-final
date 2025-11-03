@@ -9,6 +9,11 @@ export const setAuthToken = (token) => {
   else delete api.defaults.headers.common["Authorization"];
 };
 
+// User API functions
+export const userAPI = {
+  changePassword: (passwordData) => api.post("/users/change-password", passwordData),
+};
+
 // Admin API functions
 export const adminAPI = {
   // User management

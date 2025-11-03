@@ -22,6 +22,7 @@ import { motion } from 'framer-motion';
 import ServicesLayout from '../component/ServicesLayout';
 import Banner from '../component/Banner';
 import CarouselComponent from '../component/CarouselComponent';
+import FeaturedServices from '../component/FeaturedServices';
 // Import banner images for background visuals
 import Banner1 from '/about/Social-Media-Infographics-in-Detail-1.jpg';
 import Banner2 from '/about/Digital-Marketing-Services-banner.jpg';
@@ -110,12 +111,15 @@ const Home: React.FC = () => {
         animate={{ opacity: 1 }} // Fade in on mount
         exit={{ opacity: 0 }} // Fade out on route change
         transition={{ duration: 0.6 }} // Smooth transition timing
-        className="p-8"
+        className="p-4 sm:p-6 md:p-8"
       >
         {/* ====================== Page Content Section ====================== */}
         <div>
           {/* Carousel Section */}
           <CarouselComponent />
+
+          {/* Our Featured Services Section */}
+          <FeaturedServices />
 
           {/* Top Banner Section */}
           <Banner
@@ -123,6 +127,7 @@ const Home: React.FC = () => {
             subtitle="Innovating Vision with Technology"
             description="At Visiomatix, we redefine digital transformation by merging creativity with technology. Our expert team delivers end-to-end solutions — from digital marketing and web design to SEO and branding — helping your business stand out and thrive in the modern digital landscape."
             bgImage={Banner1}
+            height= "40vh"            
           />
 
           {/* Services Layout Section */}
@@ -134,10 +139,20 @@ const Home: React.FC = () => {
             subtitle="Building Beautiful, Scalable, and Secure Web Solutions"
             description="We go beyond building websites — we create digital ecosystems that engage users and empower growth. With cutting-edge design, robust engineering, and data-driven strategy, Visiomatix delivers seamless online experiences that elevate your brand."
             bgImage={Banner2}
-            height="60vh"
+            height="40vh"
           />
         </div>
       </motion.div>
+
+      <style>
+        {`
+          @media screen and (max-width: 500px) {
+            p {
+              font-size: 12pt !important;
+            }
+          }
+        `}
+      </style>
     </>
   );
 };

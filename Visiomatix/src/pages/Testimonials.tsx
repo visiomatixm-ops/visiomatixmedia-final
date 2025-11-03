@@ -122,8 +122,8 @@ const Testimonials: React.FC = () => {
           padding:"1em",
           backdropFilter: "blur(5px)",
         }}>
-           <h1 className="display-5 fw-bold">Our Portfolio & Success Stories</h1>
-           <p className="lead">
+           <h1 className="display-5 fw-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">Our Portfolio & Success Stories</h1>
+           <p className="lead text-sm sm:text-base md:text-lg">
              At Visiomatix, every project is a story of transformation — where
              ideas evolve into impactful digital products. Our portfolio showcases a diverse
              range of software, web, and mobile solutions developed for clients across the globe.
@@ -148,11 +148,11 @@ const Testimonials: React.FC = () => {
                   />
                 </div>
                 <Card.Body className="d-flex flex-column text-light">
-                  <h5 className="fw-bold mb-2">{p.project}</h5>
-                  <p className="text-light fst-italic mb-3">
+                  <h5 className="fw-bold mb-2 text-sm sm:text-base md:text-lg">{p.project}</h5>
+                  <p className="text-light fst-italic mb-3 text-sm sm:text-base">
                     {p.client} - {p.role}
                   </p>
-                  <p className="flex-grow-1">{p.description}</p>
+                  <p className="flex-grow-1 text-sm sm:text-base">{p.description}</p>
                   <div className="text-center mt-auto">
                     <Button variant="outline-info">View Case Study</Button>
                   </div>
@@ -165,50 +165,6 @@ const Testimonials: React.FC = () => {
       </Container>
 
       {/* Inline Styles */}
-      <style>
-        {`
-          /* Card Hover */
-          .portfolio-card {
-            background-color: #132a44;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,255,255,0.2);
-          }
-
-          .portfolio-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 20px rgba(0,255,255,0.5);
-          }
-
-          /* Image uniform height */
-          .card-image-wrapper {
-            height: 400px;
-            background:white;
-            overflow: hidden;
-          }
-
-          .card-image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-
-          /* Button uniformity */
-          .btn-outline-info {
-            border-color: aqua;
-            color: aqua;
-          }
-
-          .btn-outline-info:hover {
-            background-color: aqua;
-            color: #0b1e34;
-          }
-
-          /* Text readability */
-          .card-body p {
-            font-size: 0.95rem;
-          }
-        `}
-      </style>
     </>
   );
 };

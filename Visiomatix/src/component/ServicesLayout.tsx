@@ -131,10 +131,7 @@ const ServicesLayout: React.FC = () => {
     { image: VideographyImage, title: "Videography", description: "End-to-end video production for commercials and events." },
     { image: MotionImage, title: "Motion Graphics", description: "Eye-catching motion designs for social media and ads." },
     { image: WebDesignImage, title: "Web Design", description: "Modern and responsive websites for creative industries." },
-    { image: GraphicImage, title: "Graphic Design", description: "Logos, posters, and marketing materials that stand out." },
-    { image: BusinessSoultions, title: "Business Software Solutions", description: "Custom software solutions to streamline your business operations." },
-    { image: Eccommerce, title: "ECommerce Solutions", description: "Comprehensive eCommerce platforms to grow your online sales." },
-    { image: SEO, title: "SEO Services", description: "Optimize your online presence to rank higher in search results." },
+    { image: GraphicImage, title: "Graphic Design", description: "Logos, posters, and marketing materials that stand out." }
   ];
 
   const cardVariants = {

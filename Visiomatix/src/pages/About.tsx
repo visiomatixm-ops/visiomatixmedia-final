@@ -35,6 +35,7 @@ const About: React.FC = () => {
           height: '60vh',
           position: 'relative',
           marginBottom: '3rem',
+          marginTop: '5rem',
         }}
       >
         {/* Overlay for contrast */}
@@ -51,14 +52,14 @@ const About: React.FC = () => {
 
         {/* Banner Text */}
         <div style={{ position: 'relative', zIndex: 2,
-                     backgroundColor: "rgba(0, 40, 80, 0.45)",
+                     backgroundColor: "rgba(0, 40, 80, 0.6)",
                      borderRadius: "12px",
                      width:"90%",
                      padding:"1em",
                      backdropFilter: "blur(5px)",
          }}>
-          <h1 className="display-4 fw-bold">About Visiomatix Media</h1>
-          <p className="lead">
+          <h1 className="display-4 fw-bold text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">About Visiomatix Media</h1>
+          <p className="lead text-sm sm:text-base md:text-lg">
             Empowering brands through creative storytelling, digital innovation, and technology-driven solutions that inspire growth.
           </p>
         </div>
@@ -79,7 +80,7 @@ const About: React.FC = () => {
           </div>
 
           <div className="col-md-6">
-            <h2 className="fw-bold mb-3">Our Story</h2>
+            <h2 className="fw-bold mb-3 text-sm sm:text-base md:text-lg lg:text-xl">Our Story</h2>
             <p>
                   Every big brand starts with a bold idea — and so did we.
                   Visiomatix Media was founded with a simple yet powerful mission: to bring creative vision and digital innovation together under one roof.            </p>
@@ -102,7 +103,7 @@ const About: React.FC = () => {
       {/* ============================================= */}
 <section className="py-5">
   <div className="container text-center">
-    <h2 className="fw-bold mb-4 text-aqua">Our Vision & Mission</h2>
+    <h2 className="fw-bold mb-4 text-aqua text-sm sm:text-base md:text-lg lg:text-xl">Our Vision & Mission</h2>
     <div className="row">
       
       <div className="col-md-6 mb-4">
@@ -149,31 +150,17 @@ const About: React.FC = () => {
       {/* ============================================= */}
       {/* What We Offer Section */}
       {/* ============================================= */}
-      <section
-        className="text-light py-5"
-        style={{
-          backgroundImage: `url(/about/Whadoweoffer.webp)`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          position: 'relative',
-          height: '40vh',
-        }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
-          }}
-        ></div>
-
-        <div className="container position-relative" style={{ zIndex: 2 }}>
-          <h2 className="text-center fw-bold mb-4 text-aqua">What We Offer</h2>
-          <p className="text-center w-75 mx-auto">
-            At Visiomatix, we specialize in crafting comprehensive digital solutions tailored to each client’s unique vision. Our expertise includes branding, social media strategy, SEO optimization, photography, videography, animation, and web design.  
+      <section className="what-we-offer-section text-light py-4 py-md-5">
+        <div className="background-overlay"></div>
+        <div className="container position-relative content-wrapper"
+          style={{background:"#0b1e3494",
+            borderRadius:"12px",
+          }}>
+          <h2 className="text-center fw-bold mb-3 mb-md-4 text-aqua responsive-heading">
+            What We Offer
+            </h2>
+          <p className="text-center responsive-text mx-auto">
+            At Visiomatix, we specialize in crafting comprehensive digital solutions tailored to each client's unique vision. Our expertise includes branding, social media strategy, SEO optimization, photography, videography, animation, and web design.
             Every project we take on is guided by a single purpose — to create immersive experiences that engage audiences and drive business growth.
           </p>
         </div>
@@ -183,7 +170,7 @@ const About: React.FC = () => {
       {/* Team Profiles Section */}
       {/* ============================================= */}
       <section className="container text-center my-5">
-        <h2 className="fw-bold mb-5">Meet Our Team</h2>
+        <h2 className="fw-bold mb-5 text-sm sm:text-base md:text-lg lg:text-xl">Meet Our Team</h2>
 
         <div className="row justify-content-center">
           {/* Team Member 1 */}
@@ -294,7 +281,7 @@ const About: React.FC = () => {
 
             {/* Founder Content */}
             <div className="col-md-7 text-light">
-              <h2 className="fw-bold text-aqua mb-3">The Founder’s Story</h2>
+              <h2 className="fw-bold text-aqua mb-3 text-sm sm:text-base md:text-lg lg:text-xl">The Founder's Story</h2>
               <p>
                 <strong>Visiomatix Media</strong> was founded by <strong>Rohit Shinde</strong>, 
                 a passionate graphic designer and entrepreneur from Nashik. With years of hands-on 
@@ -321,7 +308,7 @@ const About: React.FC = () => {
                   {/* Meet the Rest of the Team Section */}
                   {/* ============================================= */}
                   <section className="container text-center my-5">
-                    <h2 className="fw-bold mb-4 text-aqua">Meet the Rest of the Team</h2>
+                    <h2 className="fw-bold mb-4 text-aqua text-sm sm:text-base md:text-lg lg:text-xl">Meet the Rest of the Team</h2>
                     <p className="text-light mb-5 w-75 mx-auto">
                       At <strong>Visiomatix Media</strong>, our team is our biggest strength.
                       We are a diverse group of designers, developers, marketers, and strategists
@@ -490,7 +477,74 @@ const About: React.FC = () => {
                     </div>
                   </section>
 
-                  
+     <style>
+       {`
+         @media screen and (max-width: 500px) {
+           p {
+             font-size: 12pt !important;
+           }
+         }
+
+         .what-we-offer-section {
+           background-image: url(/about/Whadoweoffer.webp);
+           background-size: cover;
+           background-position: center;
+           position: relative;
+           min-height: 40vh;
+           display: flex;
+           align-items: center;
+         }
+
+         .background-overlay {
+           position: absolute;
+           top: 0;
+           left: 0;
+           right: 0;
+           bottom: 0;
+           background-color: rgba(0, 0, 0, 0.6);
+         }
+
+         .content-wrapper {
+           z-index: 2;
+           padding: 2rem 1rem;
+         }
+
+         .responsive-heading {
+           font-size: clamp(1.5rem, 4vw, 2.5rem);
+           line-height: 1.2;
+         }
+
+         .responsive-text {
+           font-size: clamp(0.875rem, 3vw, 1.125rem);
+           line-height: 1.6;
+           max-width: 90%;
+           width: 100%;
+         }
+
+         @media screen and (max-width: 500px) {
+           .what-we-offer-section {
+             min-height: 50vh;
+             padding: 3rem 0;
+           }
+
+           .content-wrapper {
+             padding: 1.5rem 1rem;
+           }
+
+           .responsive-heading {
+             font-size: 1.25rem;
+             margin-bottom: 1rem !important;
+           }
+
+           .responsive-text {
+             font-size: 12pt !important;
+             line-height: 1.5;
+             max-width: 95%;
+           }
+         }
+       `}
+     </style>
+
     </>
   );
 };

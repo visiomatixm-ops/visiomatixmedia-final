@@ -140,31 +140,42 @@ const Services: React.FC = () => {
       {/* =================================================== */} 
       {/* Hero Section with Parallax Background */} 
       {/* =================================================== */} 
-      <section ref={heroRef} className="jumbotron text-center text-light d-flex align-items-center justify-content-center position-relative" style={{ height: "70vh", overflow: "hidden", marginBottom: "3rem", }} > 
-        {/* Background motion layer */} <motion.div style={{ 
+      <section 
+      ref={heroRef} 
+      className="jumbotron text-center text-light d-flex align-items-center justify-content-center position-relative py-4 py-sm-3 py-md-2" 
+      style={{ 
+        height: "clamp(50vh, 65vh, 75vh)", 
+        overflow: "hidden", 
+        marginBottom: "2rem",
+        marginTop:"5rem" }} 
+        >
+        {/* Background motion layer */} <motion.div style={{
           backgroundImage: "url('/about/Blog.jpeg')",
-           backgroundSize: "cover", 
-           backgroundPosition: "center", y: yParallax, }} 
+           backgroundSize: "cover",
+           backgroundPosition: "center", y: yParallax, }}
            className="position-absolute w-100 h-100" />
          {/* Dark overlay for text contrast */}
-          <div className="position-absolute w-100 h-100" style={{ backgroundColor: "rgba(0,0,0,0.6)" }} ></div> {/* Staggered reveal text block */} 
-          <div className="position-relative z-3" style={{ position: "relative", zIndex: 2, backgroundColor: "rgba(0, 40, 80, 0.45)", borderRadius: "12px", width:"90%", padding:"1em", backdropFilter: "blur(5px)", }} > 
-            <motion.h1 className="display-5 fw-bold" variants={textVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} > 
-              Our Services </motion.h1> 
-            <motion.hr className="border-primary opacity-75 w-25 mx-auto" 
-            variants={textVariants} initial="hidden" 
-            whileInView="visible" viewport={{ once: true }} 
+          <div className="position-absolute w-100 h-100" style={{ backgroundColor: "rgba(0,0,0,0.6)" }} ></div> {/* Staggered reveal text block */}
+          <div className="position-relative z-3 container px-2 px-sm-3 px-md-4 px-lg-5 py-2 py-sm-3 py-md-4 mx-1 mx-sm-2 mx-md-3 mx-lg-4" style={{ position: "relative", zIndex: 2, backgroundColor: "rgba(0, 40, 80, 0.45)", borderRadius: "12px", backdropFilter: "blur(5px)", maxWidth: "90%", marginTop: "5em", wordWrap: "break-word", overflowWrap: "break-word" }} >
+            <motion.h1 className="display-6 display-sm-5 display-md-4 display-lg-3 fw-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl" variants={textVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} >
+              Our Services </motion.h1>
+            <motion.hr className="border-primary opacity-75 w-25 mx-auto"
+            variants={textVariants} initial="hidden"
+            whileInView="visible" viewport={{ once: true }}
             custom={1} />
-             <motion.p className="lead" 
-             variants={textVariants} initial="hidden" 
-             whileInView="visible" viewport={{ once: true }} 
-             custom={2} > 
-             Explore our comprehensive range of creative and digital services, thoughtfully designed to elevate your brand presence across multiple platforms. From innovative graphic design and visually striking branding solutions to data-driven digital marketing strategies, we help you connect with your target audience and boost engagement at every touchpoint. 
-             </motion.p> <motion.p className="lead" variants={textVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} > Our services are crafted to deliver measurable results, whether online or offline. Leverage our expertise in website design and development, social media marketing, search engine optimization (SEO), content creation, and multimedia campaigns to ensure your brand not only stands out but also drives conversions and business growth. 
-              </motion.p> <motion.p className="lead" variants={textVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} > Partner with us to transform your ideas into impactful campaigns, increase visibility, and maximize ROI through tailored strategies that resonate with your audience and strengthen your market presence. 
-                </motion.p> 
+             <motion.p className="small fs-7 fs-sm-6 fs-md-5 text-xs sm:text-sm md:text-base"
+             variants={textVariants} initial="hidden"
+             whileInView="visible" viewport={{ once: true }}
+             custom={2} >
+             Explore our comprehensive range of creative and digital services, thoughtfully designed to elevate your brand presence across multiple platforms. From innovative graphic design and visually striking branding solutions to data-driven digital marketing strategies, we help you connect with your target audience and boost engagement at every touchpoint.
+             </motion.p> 
+             {/* <motion.p className="small fs-7 fs-sm-6 fs-md-5" variants={textVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} > Our services are crafted to deliver measurable results, whether online or offline. Leverage our expertise in website design and development, social media marketing, search engine optimization (SEO), content creation, and multimedia campaigns to ensure your brand not only stands out but also drives conversions and business growth.
+              </motion.p>  */}
+              {/* <motion.p className="small fs-7 fs-sm-6 fs-md-5" variants={textVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} > Partner with us to transform your ideas into impactful campaigns, increase visibility, and maximize ROI through tailored strategies that resonate with your audience and strengthen your market presence.
+
+                </motion.p> */}
                       <motion.button
-                        className="btn btn-light fw-semibold px-4 py-2"
+                        className="btn btn-light fw-semibold px-2 px-sm-3 px-md-4 py-1 py-sm-2 mt-2 mt-sm-3 btn-sm"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => navigate('/contact')}
@@ -208,7 +219,7 @@ const Services: React.FC = () => {
 
               {/* CONTENT */}
               <div className="col-md-7">
-                <h2 className="fw-bold text-primary mb-3">               
+                <h2 className="fw-bold text-primary mb-3 h3 h-md-2 text-sm sm:text-base md:text-lg lg:text-xl">
                <motion.img
                   src={cat.icon}
                   alt={`${cat.title} icon`}
@@ -218,7 +229,7 @@ const Services: React.FC = () => {
                   whileInView={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 />{cat.title}</h2>
-                <p className="text-muted mb-3">{cat.description}</p>
+                <p className="text-muted mb-3 fs-6 fs-md-5 text-sm sm:text-base">{cat.description}</p>
                 <ul className="list-unstyled">
                   {cat.bullets.map((point, i) => (
                     <li
@@ -231,7 +242,7 @@ const Services: React.FC = () => {
                         className="me-2 mt-1"
                         style={{ width: "16px", height: "16px" }}
                       />
-                      <span>{point}</span>
+                      <span className="fs-6 fs-md-5 text-sm sm:text-base">{point}</span>
                     </li>
                   ))}
                 </ul>
