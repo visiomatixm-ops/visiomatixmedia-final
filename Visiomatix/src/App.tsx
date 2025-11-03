@@ -29,6 +29,7 @@ const Ecommerce = lazy(() => import('./pages/services/Ecommerce'));
 const Branding = lazy(() => import('./pages/services/Branding'));
 
 const Blog = lazy(() => import('./pages/Blog'));
+const Article = lazy(() => import('./pages/Article'));
 const Careers = lazy(() => import('./pages/Careers'));
 const Testimonials = lazy(() => import('./pages/Testimonials'));
 const Contact = lazy(() => import('./pages/Contact'));
@@ -66,6 +67,7 @@ const App: React.FC = () => {
           <Route path="/services/Ecommerce" element={<Ecommerce />} />
           <Route path="/services/Branding" element={<Branding />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<Article />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/contact" element={<Contact />} />

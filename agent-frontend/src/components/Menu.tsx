@@ -79,9 +79,7 @@ const Menu: React.FC = () => {
                 textTransform: "uppercase",
                 letterSpacing: "0.15em",
                 fontSize: "clamp(1.2rem, 4vw, 1.2rem)",
-                background: "linear-gradient(90deg, #0055ff, #00aaff)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                color: "#173255ff",
                 display: "inline-block",
               }}
             >

@@ -14,6 +14,7 @@ import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const blogPosts = [
   {
@@ -83,6 +84,13 @@ const blogPosts = [
 ];
 
 const Blog: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleReadMore = (post: any) => {
+    const slug = post.title.toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, '');
+    navigate(`/blog/${slug}`, { state: { post } });
+  };
+
   return (
     <>
       {/* ====================== SEO Metadata Section ====================== */}
@@ -201,6 +209,7 @@ const Blog: React.FC = () => {
                         size="sm"
                         variant="outline-primary"
                         className="fw-semibold"
+                        onClick={() => handleReadMore(post)}
                       >
                         Read More
                       </Button>
