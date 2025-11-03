@@ -101,6 +101,18 @@ const Careers: React.FC = () => {
       employment: "Full-time",
       salary: "₹25,000 – ₹60,000 per month",
     },
+        {
+      title: "Fullstack Developer",
+      experience: "2–4 years preferred",
+      responsibilities: [
+        "Build RESTful APIs using Node.js or Spring Boot.",
+        "Integrate MySQL, PostgreSQL, or MongoDB.",
+        "Focus on security and performance.",
+      ],
+      skills: ["Node.js / Java Spring Boot", "JWT Authentication", "Database Design"],
+      employment: "Full-time",
+      salary: "₹25,000 – ₹60,000 per month",
+    },
   ];
 
   // ===========================================================

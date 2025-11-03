@@ -56,8 +56,7 @@ const Menu: React.FC = () => {
           left: 0,
           right: 0,
           zIndex: 1030,
-          width: '100%',
-          marginBottom: '80px' // Add bottom margin to prevent content overlap
+          width: '100%'
         }}
       >
         <div className="container-fluid px-4">
@@ -66,14 +65,17 @@ const Menu: React.FC = () => {
             to="/"
             className="navbar-brand d-flex align-items-center text-dark"
           >
-            <img
-              src={Logo2PNG}
-              alt="Visiomatix Logo"
-              width="45"
-              height="45"
-              className="m-2"
-              style={{ width: "100%" }}
-            />
+          <img
+            src={Logo2PNG}
+            alt="Visiomatix Logo"
+            className="m-2"
+            style={{
+              width: "45px",
+              height: "45px",
+              objectFit: "contain",
+              display: "block",
+            }}
+          />
             <h1
               className="fs-5 fw-bold mb-0"
               style={{
@@ -81,9 +83,8 @@ const Menu: React.FC = () => {
                 textTransform: "uppercase",
                 letterSpacing: "0.15em",
                 fontSize: "2.2rem",
-                background: "linear-gradient(90deg, #0055ff, #00aaff)",
+                color: "#173255ff",
                 WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
               }}
             >
               VISIOMATIX MEDIA

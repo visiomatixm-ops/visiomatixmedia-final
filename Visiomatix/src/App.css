@@ -27,7 +27,7 @@
   text-transform: uppercase;               /* ensures all caps */
   letter-spacing: 0.15em;                  /* spacing like logo */
   font-size: 2.2rem;                       /* adjust to your design */
-  background: linear-gradient(90deg, #1e3a5f, #4f87c6);
+  background: linear-gradient(90deg, #1e3a5f, #1e3a5f);
   -webkit-background-clip: text;           /* clip gradient into text */
   -webkit-text-fill-color: transparent;    /* show gradient through text */
   display: inline-block;
