@@ -289,7 +289,7 @@ const About: React.FC = () => {
                 building an agency that doesn’t just “design” — but creates experiences that speak volumes.
               </p>
               <p>
-                His journey from working as a graphic designer at <strong>Shaurya Digital Arts</strong> 
+                His journey from working as a graphic designer at <strong>Shaurya Digital Arts</strong> <br/>
                 to becoming the <strong>Founder & CEO of Visiomatix Media</strong> is a true story 
                 of passion, persistence, and innovation. Rohit believes in nurturing talent, adapting 
                 to evolving trends, and building a team that thrives on creativity, collaboration, and trust.

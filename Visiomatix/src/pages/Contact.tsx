@@ -275,7 +275,7 @@ const Contact: React.FC = () => {
         <h4 className="fw-bold mb-4 text-center text-primary text-sm sm:text-base md:text-lg lg:text-xl">Our Location</h4>
         <div className="ratio ratio-16x9 shadow rounded-4">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.123456789!2d72.8300!3d19.2300!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c00000000000%3A0x123456789abcdef!2sRandom%20Location!5e0!3m2!1sen!2sin!4v1696740000000!5m2!1sen!2sin"
+            src="https://maps.google.com/maps?q=Office%20No.%2003%2C%20Om%20Sai%20Apartment%2C%20Near%20Petrol%20Pump%2C%20Ganur%20Road%2C%20Davkhar%20Nagar%2C%20Chandwad%2C%20Nashik%20%E2%80%93%20423101.%20Maharashtra%20%E2%80%93%20India&output=embed"
             title="Visiomatix Location"
             width="100%"
             height="100%"
