@@ -170,9 +170,9 @@ const FeaturedServices: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-5"
         >
-          <h2 className="fw-bold display-4 display-md-3 display-lg-2 display-xl-1 text-dark">
+          <h3 className="fw-bold display-4 display-md-3 display-lg-2 display-xl-1 text-dark">
             Visiomatix Media – Complete Digital, Design & Development Solutions
-          </h2>
+          </h3>
           <h3 className="h4 h-md-3">Our Core Services</h3>
         </motion.div>
 

@@ -336,7 +336,7 @@ const About: React.FC = () => {
                           }
                         >
                           <img
-                            src="/people/Person1.jpeg"
+                            src="/people/Person2.jpeg"
                             alt="Dharshinie Anbazhagan - HR"
                             className="card-img-top"
                             style={{
@@ -375,7 +375,7 @@ const About: React.FC = () => {
                           }
                         >
                           <img
-                            src="/people/Person2.jpeg"
+                            src="/people/Person1.jpeg"
                             alt="Design Team"
                             className="card-img-top"
                             style={{
