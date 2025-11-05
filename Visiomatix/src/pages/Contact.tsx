@@ -271,6 +271,15 @@ const Contact: React.FC = () => {
       {/* =================================================== */}
       {/* Google Maps Section */}
       {/* =================================================== */}
+      {/* Steps to edit the map:
+       * 1. Go to https://www.google.com/maps
+       * 2. Search for the address: Office No. 03, Om Sai Apartment, Near Petrol Pump, Ganur Road, Davkhar Nagar, Chandwad, Nashik – 423101. Maharashtra – India.
+       * 3. Click on the share button (square with an arrow pointing up-right)
+       * 4. Select 'Embed a map' tab
+       * 5. Copy the iframe src URL from the provided code
+       * 6. Replace the src attribute in the iframe below with the new src URL
+       * 7. The default Google Maps embed shows a red marker on the location
+       */}
       <Container className="mb-5">
         <h4 className="fw-bold mb-4 text-center text-primary text-sm sm:text-base md:text-lg lg:text-xl">Our Location</h4>
         <div className="ratio ratio-16x9 shadow rounded-4">
