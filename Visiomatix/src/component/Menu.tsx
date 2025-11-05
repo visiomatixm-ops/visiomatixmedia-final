@@ -137,7 +137,7 @@ const Menu: React.FC = () => {
                           // Auto-collapse mobile menu after selection
                           const navbarCollapse = document.getElementById('navbarNav');
                           if (navbarCollapse && window.innerWidth < 992) {
-                            const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse, {
+                            new (window as any).bootstrap.Collapse(navbarCollapse, {
                               hide: true
                             });
                           }
@@ -211,7 +211,7 @@ const Menu: React.FC = () => {
                                   // Auto-collapse mobile menu after selection
                                   const navbarCollapse = document.getElementById('navbarNav');
                                   if (navbarCollapse && window.innerWidth < 992) {
-                                    const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse, {
+                                    new (window as any).bootstrap.Collapse(navbarCollapse, {
                                       hide: true
                                     });
                                   }

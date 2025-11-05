@@ -66,9 +66,6 @@ import VideographyImage from "/public/services/videography-1.jpg";
 import MotionImage from "/public/services/motion.jpg";
 import WebDesignImage from "/public/services/web-design-1.jpg";
 import GraphicImage from "/public/services/graphic-1.jpg";
-import BusinessSoultions from "/public/services/4_Business Software Solutions.jpg";
-import Eccommerce from "/public/services/5_E-commerce Solutions.jpg";
-import SEO from "/public/services/seo-infographic-concept-background_823925-1180.jpg";
 // ✅ Light Theme Styles
 const cardThemeStyles = `
   .card-theme {

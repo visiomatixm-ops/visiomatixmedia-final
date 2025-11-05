@@ -20,7 +20,7 @@ import {
   Form,
   Accordion,
 } from "react-bootstrap";
-import { PlusCircle, ChevronDown, ChevronUp } from "react-bootstrap-icons";
+import { PlusCircle } from "react-bootstrap-icons";
 
 // ===========================================================
 // Type Definitions

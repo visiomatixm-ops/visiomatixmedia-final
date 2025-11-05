@@ -17,7 +17,6 @@ import { Container, Row, Col } from "react-bootstrap";
 
 const Article: React.FC = () => {
   const location = useLocation();
-  const { slug } = useParams<{ slug: string }>();
   const post = location.state?.post;
 
   if (!post) {
