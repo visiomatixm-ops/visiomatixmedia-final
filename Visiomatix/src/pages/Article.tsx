@@ -10,7 +10,7 @@
  */
 
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Container, Row, Col } from "react-bootstrap";
