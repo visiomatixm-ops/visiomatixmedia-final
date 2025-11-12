@@ -1151,6 +1151,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     @Transactional(readOnly = true)
     public Map<String, Object> getUserChatHandlingStatsMonthly(Long userId, int year, int month) {
+        
         Optional<User> userOpt = Optional.ofNullable(userService.getUserById(userId))
             .or(() -> Optional.ofNullable(userService.getUserByUsername(userId.toString())));
         User user = userOpt.orElseThrow(() -> new RuntimeException("User not found"));

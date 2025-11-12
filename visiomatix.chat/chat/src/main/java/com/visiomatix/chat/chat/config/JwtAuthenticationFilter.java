@@ -107,8 +107,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 // Validate token expiration and subject
                 if (jwtUtil.validateToken(token, username)) {
 
-                    // Step 4: Extract dynamic authorities (roles + permissions)
-                    List<String> authorities = jwtUtil.extractAuthorities(token);
+                    // Step 4: Extract dynamic authorities (ABAC support with fallback)
+                    List<String> authorities = null;
+                    try {
+                        // Try ABAC extraction first (includes privileges from custom roles)
+                        authorities = jwtUtil.extractAuthoritiesFromAbacToken(token);
+                        logger.debug("✅ ABAC authorities extracted: {}", authorities);
+                    } catch (Exception e) {
+                        // Fallback to legacy extraction for backward compatibility
+                        authorities = jwtUtil.extractAuthorities(token);
+                        logger.debug("⚠️ Fallback to legacy authorities: {}", authorities);
+                    }
 
                     // Convert to Spring Security GrantedAuthority list
                     List<GrantedAuthority> grantedAuthorities = authorities.stream()

@@ -41,6 +41,12 @@ import java.util.Date; // Represents issue & expiry time
 import java.util.List; // For roles and permissions
 import java.util.Map; // For claim map
 import java.util.function.Function; // Functional interface for claims extraction
+import java.util.UUID; // For session ID generation
+import java.util.HashMap; // For HashMap creation
+import java.util.stream.Collectors; // For stream operations
+import com.visiomatix.chat.chat.user.model.User; // User entity for ABAC context
+import com.visiomatix.chat.chat.user.service.AbacPolicyEngine; // ABAC policy engine
+import org.springframework.beans.factory.annotation.Autowired; // For dependency injection
 
 @Component
 public class JwtUtil {
@@ -53,6 +59,9 @@ public class JwtUtil {
 
     @Value("${jwt.expiration}")
     private long jwtExpirationMs;
+
+    @Autowired
+    private AbacPolicyEngine abacPolicyEngine;
 
     // ===========================================================
     // Private Helper: Get Signing Key
@@ -68,14 +77,63 @@ public class JwtUtil {
     //   Generates JWT with username, roles, and permissions claims.
     // ===========================================================
     public String generateToken(String username, List<String> roles, List<String> permissions) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", roles);
+        claims.put("permissions", permissions);
+
+        // Add ABAC context if available
+        addAbacContextToClaims(claims, username, roles, permissions);
+
         return Jwts.builder()
                 .setSubject(username) // Username as subject
                 .setIssuedAt(new Date(System.currentTimeMillis())) // Issued time
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs)) // Expiration
-                .addClaims(Map.of( // Dynamic custom claims
-                        "roles", roles,
-                        "permissions", permissions
-                ))
+                .addClaims(claims) // Dynamic custom claims with ABAC
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256) // Secure HS256 key
+                .compact(); // Build and return
+    }
+
+    /**
+     * Add ABAC context to JWT claims
+     */
+    private void addAbacContextToClaims(Map<String, Object> claims, String username, List<String> roles, List<String> permissions) {
+        Map<String, Object> abacContext = new HashMap<>();
+        abacContext.put("user_id", username); // Simplified, would be actual user ID in production
+        abacContext.put("login_time", System.currentTimeMillis());
+        abacContext.put("session_id", UUID.randomUUID().toString());
+
+        // Add roles and permissions to ABAC context
+        if (roles != null && !roles.isEmpty()) {
+            abacContext.put("roles", roles);
+        }
+        if (permissions != null && !permissions.isEmpty()) {
+            abacContext.put("permissions", permissions);
+        }
+
+        claims.put("abac_context", abacContext);
+
+        // Flatten key attributes for easy access
+        Map<String, String> flattenedAttributes = new HashMap<>();
+        flattenedAttributes.put("user_id", username);
+        flattenedAttributes.put("login_time", String.valueOf(System.currentTimeMillis()));
+        claims.put("abac_attributes", flattenedAttributes);
+    }
+
+    // ===========================================================
+    // New Method: Generate Token with Authorities (ABAC Support)
+    // ===========================================================
+    public String generateTokenWithAuthorities(String username, List<String> authorities) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("authorities", authorities);
+
+        // Add ABAC context for comprehensive access control
+        addAbacContextToClaims(claims, username, new java.util.ArrayList<>(), new java.util.ArrayList<>());
+
+        return Jwts.builder()
+                .setSubject(username) // Username as subject
+                .setIssuedAt(new Date(System.currentTimeMillis())) // Issued time
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs)) // Expiration
+                .addClaims(claims) // Authorities claim with ABAC context
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256) // Secure HS256 key
                 .compact(); // Build and return
     }
@@ -117,6 +175,11 @@ public class JwtUtil {
         if (permissions != null) combined.addAll(permissions);
 
         return combined;
+    }
+
+    // New method: Extract authorities from ABAC-enabled tokens
+    public List<String> extractAuthoritiesFromAbacToken(String token) {
+        return extractClaim(token, claims -> claims.get("authorities", List.class));
     }
 
     // ===========================================================

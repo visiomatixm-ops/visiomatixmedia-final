@@ -25,6 +25,9 @@ const UsersTab = ({
   const [customRoleName, setCustomRoleName] = useState("");
   const [selectedPrivileges, setSelectedPrivileges] = useState<string[]>([]);
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
+  const [abacAttributes, setAbacAttributes] = useState<{[key: string]: string}>({});
+  const [newAbacKey, setNewAbacKey] = useState("");
+  const [newAbacValue, setNewAbacValue] = useState("");
 
   const handleCreateUser = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,12 +54,13 @@ const UsersTab = ({
     }
 
     try {
-      // Call API to create the custom role with selected privileges/permissions
+      // Call API to create the custom role with selected privileges/permissions and ABAC attributes
       const customRoleData = {
         name: `ROLE_${customRoleName.toUpperCase().replace(/\s+/g, '_')}`,
-        description: `Custom role created with ${selectedPrivileges.length} privileges and ${selectedPermissions.length} permissions`,
+        description: `Custom role created with ${selectedPrivileges.length} privileges, ${selectedPermissions.length} permissions, and ${Object.keys(abacAttributes).length} ABAC attributes`,
         privileges: selectedPrivileges,
-        permissions: selectedPermissions
+        permissions: selectedPermissions,
+        abacAttributes: abacAttributes
       };
 
       // Call the backend API to create the role
@@ -72,6 +76,9 @@ const UsersTab = ({
       setCustomRoleName("");
       setSelectedPrivileges([]);
       setSelectedPermissions([]);
+      setAbacAttributes({});
+      setNewAbacKey("");
+      setNewAbacValue("");
       setShowCustomRoleForm(false);
     } catch (error) {
       console.error("Failed to create custom role:", error);
@@ -192,6 +199,72 @@ const UsersTab = ({
                           </label>
                         </div>
                       ))}
+                    </div>
+                  </div>
+                  <div className="col-md-12 mt-3">
+                    <h6>ABAC Attributes (Attribute-Based Access Control)</h6>
+                    <div className="border rounded p-2" style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                      <div className="mb-2">
+                        <div className="row g-2">
+                          <div className="col-5">
+                            <input
+                              type="text"
+                              className="form-control form-control-sm"
+                              placeholder="Attribute Key (e.g., department)"
+                              value={newAbacKey}
+                              onChange={(e) => setNewAbacKey(e.target.value)}
+                            />
+                          </div>
+                          <div className="col-5">
+                            <input
+                              type="text"
+                              className="form-control form-control-sm"
+                              placeholder="Attribute Value (e.g., sales)"
+                              value={newAbacValue}
+                              onChange={(e) => setNewAbacValue(e.target.value)}
+                            />
+                          </div>
+                          <div className="col-2">
+                            <button
+                              type="button"
+                              className="btn btn-outline-success btn-sm w-100"
+                              onClick={() => {
+                                if (newAbacKey.trim() && newAbacValue.trim()) {
+                                  setAbacAttributes(prev => ({
+                                    ...prev,
+                                    [newAbacKey.trim()]: newAbacValue.trim()
+                                  }));
+                                  setNewAbacKey("");
+                                  setNewAbacValue("");
+                                }
+                              }}
+                            >
+                              Add
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      {Object.entries(abacAttributes).map(([key, value]) => (
+                        <div key={key} className="d-flex justify-content-between align-items-center mb-1 p-1 bg-light rounded">
+                          <span><strong>{key}:</strong> {value}</span>
+                          <button
+                            type="button"
+                            className="btn btn-outline-danger btn-sm"
+                            onClick={() => {
+                              setAbacAttributes(prev => {
+                                const newAttrs = { ...prev };
+                                delete newAttrs[key];
+                                return newAttrs;
+                              });
+                            }}
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                      {Object.keys(abacAttributes).length === 0 && (
+                        <small className="text-muted">No ABAC attributes added yet. Add attributes for fine-grained access control.</small>
+                      )}
                     </div>
                   </div>
                 </div>

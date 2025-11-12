@@ -91,6 +91,11 @@ public class CustomRoleService {
         role.setPermissions(permissions);
         role.setPrivileges(privileges);
 
+        // Set ABAC attributes if provided
+        if (dto.getAbacAttributes() != null) {
+            role.setAbacAttributes(dto.getAbacAttributes());
+        }
+
         return customRoleRepository.save(role);
     }
 
@@ -143,6 +148,11 @@ public class CustomRoleService {
 
         role.setPermissions(permissions);
         role.setPrivileges(privileges);
+
+        // Set ABAC attributes if provided
+        if (dto.getAbacAttributes() != null) {
+            role.setAbacAttributes(dto.getAbacAttributes());
+        }
 
         return customRoleRepository.save(role);
     }

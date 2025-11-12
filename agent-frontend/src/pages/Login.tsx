@@ -2,7 +2,7 @@ import { useState } from "react";
 import api, { setAuthToken } from "../api/api";
 
 interface LoginProps {
-  onLogin: (data: { token: string; role: string }) => void;
+  onLogin: (data: { token: string; role: string; privileges?: string[] }) => void;
 }
 
 export default function Login({ onLogin }: LoginProps) {
@@ -18,6 +18,7 @@ export default function Login({ onLogin }: LoginProps) {
       console.log("API response received:", res.data);
       const token = res.data.token;
       const role = res.data.role;
+      const privileges = res.data.privileges || [];
 
       // Check if user has ROLE_AGENT or ROLE_ADMIN (not ROLE_USER)
       if (role === "ROLE_USER") {
@@ -26,9 +27,9 @@ export default function Login({ onLogin }: LoginProps) {
         return;
       }
 
-      console.log("Setting auth token and calling onLogin with token and role");
+      console.log("Setting auth token and calling onLogin with token, role, and privileges");
       setAuthToken(token);
-      onLogin({ token, role });
+      onLogin({ token, role, privileges });
     } catch (e) {
       console.error("Login error:", e);
       setError("Invalid credentials or server error");

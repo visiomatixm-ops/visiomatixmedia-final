@@ -10,6 +10,8 @@ package com.visiomatix.chat.chat.user.model;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Map;
+import java.util.HashMap;
 
 
 // ===========================================================
@@ -51,6 +53,15 @@ inverseJoinColumns = @JoinColumn(name = "privilege_id")
 )
 private Set<Privilege> privileges = new HashSet<>();
 
+// ABAC Attributes for fine-grained access control
+@ElementCollection(fetch = FetchType.EAGER)
+@CollectionTable(
+    name = "custom_role_abac_attributes",
+    joinColumns = @JoinColumn(name = "custom_role_id")
+)
+@MapKeyColumn(name = "attribute_key")
+@Column(name = "attribute_value")
+private Map<String, String> abacAttributes = new HashMap<>();
 
 // Audit fields (optional)
 @Column(name = "created_by")
@@ -81,6 +92,8 @@ public void setPermissions(Set<Permission> permissions) { this.permissions = per
 public Set<Privilege> getPrivileges() { return privileges; }
 public void setPrivileges(Set<Privilege> privileges) { this.privileges = privileges; }
 
+public Map<String, String> getAbacAttributes() { return abacAttributes; }
+public void setAbacAttributes(Map<String, String> abacAttributes) { this.abacAttributes = abacAttributes; }
 
 public String getCreatedBy() { return createdBy; }
 public void setCreatedBy(String createdBy) { this.createdBy = createdBy; }

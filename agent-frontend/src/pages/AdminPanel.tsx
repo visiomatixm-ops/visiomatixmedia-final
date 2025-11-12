@@ -586,9 +586,9 @@ const AdminPanel = ({ token }: { token: string }) => {
   // Privilege-based tab access control
   const hasPrivilege = (privilegeName: string) => {
     // Check if current user has the required privilege through their roles
-    // This would need to be implemented by checking the user's roles and their associated privileges
-    // For now, return true for all to maintain existing functionality until proper implementation
-    // TODO: Implement proper privilege checking by fetching user's roles and their privileges
+    // This is a placeholder implementation - in a real system, this would check the JWT token
+    // or make an API call to verify privileges. For now, return true for all to maintain functionality.
+    // TODO: Implement proper privilege checking by decoding JWT token and checking authorities
     return true;
   };
 

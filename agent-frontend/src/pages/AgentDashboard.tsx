@@ -82,13 +82,19 @@ interface SessionHistoryDetails {
   messages: Message[];
 }
 
-const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }) => {
+const AgentDashboard = ({ token, userRole, userPrivileges }: { token: string; userRole: string; userPrivileges?: string[] }) => {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [selected, setSelected] = useState<number | null>(null);
   const [messages, setMessages] = useState<{ [key: number]: Message[] }>({});
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState(userRole === "ROLE_ADMIN" ? "admin" : "chats");
+  const [activeTab, setActiveTab] = useState(() => {
+    // Determine default tab based on privileges
+    if (userPrivileges?.includes('ACCESS_AGENT_DASHBOARD') || userRole === "ROLE_ADMIN") {
+      return "chats";
+    }
+    return "chats"; // Default fallback
+  });
   const clientRef = useRef<Client | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -155,7 +161,13 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
     setSelected(null);
     setMessages({});
     setInput("");
-    setActiveTab(userRole === "ROLE_ADMIN" ? "admin" : "chats");
+    setActiveTab(() => {
+      // Determine default tab based on privileges
+      if (userPrivileges?.includes('ACCESS_AGENT_DASHBOARD') || userRole === "ROLE_ADMIN") {
+        return "chats";
+      }
+      return "chats"; // Default fallback
+    });
 
     // Clear localStorage
     localStorage.removeItem("agentSelectedSession");
@@ -541,7 +553,7 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
             Chat History
           </button>
         </li>
-        {userRole === "ROLE_ADMIN" && (
+        {(userRole === "ROLE_ADMIN" || userPrivileges?.includes('ACCESS_ROLE_MANAGEMENT') || userPrivileges?.includes('ACCESS_PERMISSION_MANAGEMENT') || userPrivileges?.includes('ACCESS_USER_MANAGEMENT')) && (
           <li className="nav-item">
             <button
               className={`nav-link text-sm sm:text-base ${activeTab === "admin" ? "active" : ""}`}
@@ -902,7 +914,7 @@ const AgentDashboard = ({ token, userRole }: { token: string; userRole: string }
         </div>
       )}
 
-      {activeTab === "admin" && userRole === "ROLE_ADMIN" && (
+      {activeTab === "admin" && (userRole === "ROLE_ADMIN" || userPrivileges?.includes('ACCESS_ROLE_MANAGEMENT') || userPrivileges?.includes('ACCESS_PERMISSION_MANAGEMENT') || userPrivileges?.includes('ACCESS_USER_MANAGEMENT')) && (
         <AdminPanel token={token} />
       )}
 

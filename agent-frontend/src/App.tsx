@@ -3,10 +3,14 @@ import Login from "./pages/Login";
 import AgentDashboard from "./pages/AgentDashboard";
 
 export default function App() {
-  const [auth, setAuth] = useState<{token: string; role: string} | null>(null);
+  const [auth, setAuth] = useState<{token: string; role: string; privileges: string[]} | null>(null);
 
-  const handleLogin = (authData: {token: string; role: string}) => {
-    setAuth(authData);
+  const handleLogin = (authData: {token: string; role: string; privileges?: string[]}) => {
+    setAuth({
+      token: authData.token,
+      role: authData.role,
+      privileges: authData.privileges || []
+    });
   };
 
   return auth ? (

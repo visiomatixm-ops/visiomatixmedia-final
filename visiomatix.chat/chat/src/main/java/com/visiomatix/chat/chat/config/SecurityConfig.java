@@ -122,20 +122,40 @@ public class SecurityConfig {
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
 
-            // Configure authorization rules - ORDER MATTERS (most specific first)
+            // Configure authorization rules - ABAC + RBAC Hybrid (most specific first)
             .authorizeHttpRequests(auth -> auth
                 // Public endpoints - must be FIRST
                 .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
                 .requestMatchers("/api/users/register", "/api/users/login").permitAll()
                 .requestMatchers("/ws/**", "/ws-chat/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
-                // Admin endpoints require ROLE_ADMIN, but allow agents to access their own data
-                .requestMatchers("/api/admin/users/*/chat-stats/**").hasAnyRole("ADMIN", "AGENT")
-                .requestMatchers("/api/admin/users/*/sessions").hasAnyRole("ADMIN", "AGENT")
-                .requestMatchers("/api/admin/sessions/*/details").hasAnyRole("ADMIN", "AGENT")
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+                // ABAC-aware admin endpoints - privilege-based access control
+                .requestMatchers("/api/admin/users/*/chat-stats/**").hasAnyAuthority("ACCESS_STATISTICS_TAB", "ROLE_ADMIN")
+                .requestMatchers("/api/admin/users/*/sessions").hasAnyAuthority("ACCESS_CHAT_HISTORY_TAB", "ROLE_ADMIN")
+                .requestMatchers("/api/admin/sessions/*/details").hasAnyAuthority("ACCESS_CHAT_HISTORY_TAB", "ROLE_ADMIN")
+
+                // Core admin functionality - requires specific privileges
+                .requestMatchers("/api/admin/users/**").hasAnyAuthority("ACCESS_USER_MANAGEMENT", "ROLE_ADMIN")
+                .requestMatchers("/api/admin/roles/**").hasAnyAuthority("ACCESS_ROLE_MANAGEMENT", "ROLE_ADMIN")
+                .requestMatchers("/api/admin/permissions/**").hasAnyAuthority("ACCESS_PERMISSION_MANAGEMENT", "ROLE_ADMIN")
+                .requestMatchers("/api/admin/privileges/**").hasAnyAuthority("ACCESS_PRIVILEGE_MANAGEMENT", "ROLE_ADMIN")
+
+                // Statistics and reporting - requires analytics access
+                .requestMatchers("/api/admin/statistics", "/api/admin/reports/**").hasAnyAuthority("ACCESS_STATISTICS_TAB", "ROLE_ADMIN")
+
+                // Chat monitoring and supervision - requires chat history access
+                .requestMatchers("/api/admin/sessions/**").hasAnyAuthority("ACCESS_CHAT_HISTORY_TAB", "ROLE_ADMIN")
+
+                // Custom role management - requires role management privilege
+                .requestMatchers("/api/custom-roles/**").hasAnyAuthority("ACCESS_ROLE_MANAGEMENT", "ROLE_ADMIN")
+
+                // All other admin endpoints require admin role or equivalent privileges
+                .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
+
                 // All other API endpoints require authentication
                 .requestMatchers("/api/**").authenticated()
+
                 // Static resources and other requests
                 .anyRequest().permitAll()
             )

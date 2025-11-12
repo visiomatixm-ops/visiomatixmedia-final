@@ -58,6 +58,7 @@ public class JwtResponseDTO implements Serializable {
     private String username;   // Holds the authenticated user's username
     private String role;       // Holds the user's primary role name (e.g., ROLE_ADMIN)
     private List<String> roles; // Holds all roles assigned to the user for privilege-based access
+    private List<String> privileges; // Holds all privileges for ABAC-based access control
 
     // ============================================================
     // Constructors
@@ -96,6 +97,22 @@ public class JwtResponseDTO implements Serializable {
         this.roles = roles;
     }
 
+    /**
+     * Parameterized constructor with roles and privileges for ABAC-based access
+     * @param token      JWT token string
+     * @param username   Authenticated user's username
+     * @param role       User's primary role
+     * @param roles      All roles assigned to the user
+     * @param privileges All privileges for ABAC access control
+     */
+    public JwtResponseDTO(String token, String username, String role, List<String> roles, List<String> privileges) {
+        this.token = token;
+        this.username = username;
+        this.role = role;
+        this.roles = roles;
+        this.privileges = privileges;
+    }
+
     // ============================================================
     // Getter and Setter Methods
     // ============================================================
@@ -132,6 +149,14 @@ public class JwtResponseDTO implements Serializable {
         this.roles = roles;
     }
 
+    public List<String> getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(List<String> privileges) {
+        this.privileges = privileges;
+    }
+
     // ============================================================
     // toString() Method
     // ============================================================
@@ -142,6 +167,7 @@ public class JwtResponseDTO implements Serializable {
                 ", username='" + username + '\'' +
                 ", role='" + role + '\'' +
                 ", roles=" + roles +
+                ", privileges=" + privileges +
                 '}';
     }
 }

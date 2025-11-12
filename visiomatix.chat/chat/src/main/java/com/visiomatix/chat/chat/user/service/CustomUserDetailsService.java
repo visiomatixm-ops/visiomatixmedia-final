@@ -54,19 +54,50 @@ public class CustomUserDetailsService implements UserDetailsService {
                             .map(Permission::getName)
                             .collect(Collectors.toSet()));
                 }
+                // Add permissions from privileges (granular permission mapping)
+                if (role.getPrivileges() != null) {
+                    authorities.addAll(role.getPrivileges().stream()
+                            .filter(privilege -> privilege.getPermissions() != null)
+                            .flatMap(privilege -> privilege.getPermissions().stream())
+                            .map(Permission::getName)
+                            .collect(Collectors.toSet()));
+                }
             });
         }
 
         // ==============================
-        // Custom Roles → Privileges
+        // Custom Roles → Privileges + Permissions + ABAC Attributes
         // ==============================
         if (user.getCustomRoles() != null) {
             user.getCustomRoles().forEach(customRole -> {
                 authorities.add("ROLE_" + customRole.getName());
+
+                // Add privileges from custom role
                 if (customRole.getPrivileges() != null) {
                     authorities.addAll(customRole.getPrivileges().stream()
                             .map(Privilege::getName)
                             .collect(Collectors.toSet()));
+
+                    // Add permissions from privileges (granular permission mapping)
+                    authorities.addAll(customRole.getPrivileges().stream()
+                            .filter(privilege -> privilege.getPermissions() != null)
+                            .flatMap(privilege -> privilege.getPermissions().stream())
+                            .map(Permission::getName)
+                            .collect(Collectors.toSet()));
+                }
+
+                // Add permissions from custom role
+                if (customRole.getPermissions() != null) {
+                    authorities.addAll(customRole.getPermissions().stream()
+                            .map(Permission::getName)
+                            .collect(Collectors.toSet()));
+                }
+
+                // Add ABAC attributes as authorities (prefixed with ABAC_)
+                if (customRole.getAbacAttributes() != null) {
+                    customRole.getAbacAttributes().forEach((key, value) -> {
+                        authorities.add("ABAC_" + key + ":" + value);
+                    });
                 }
             });
         }

@@ -28,6 +28,8 @@ import com.visiomatix.chat.chat.chat.model.ChatSession;
 import com.visiomatix.chat.chat.chat.model.Message;
 import com.visiomatix.chat.chat.chat.service.ChatService;
 import com.visiomatix.chat.chat.user.dto.RoleDTO;
+import com.visiomatix.chat.chat.user.dto.RoleCreateDTO;
+import java.util.HashSet;
 import com.visiomatix.chat.chat.user.dto.UserDTO;
 import com.visiomatix.chat.chat.user.model.Permission;
 import com.visiomatix.chat.chat.user.model.Privilege;
@@ -37,6 +39,8 @@ import com.visiomatix.chat.chat.user.service.PermissionService;
 import com.visiomatix.chat.chat.user.service.PrivilegeService;
 import com.visiomatix.chat.chat.user.service.RoleService;
 import com.visiomatix.chat.chat.user.service.UserService;
+import com.visiomatix.chat.chat.user.repository.PermissionRepository;
+import com.visiomatix.chat.chat.user.repository.PrivilegeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -73,6 +77,8 @@ public class AdminController {
     private final RoleService roleService;
     private final PermissionService permissionService;
     private final PrivilegeService privilegeService;
+    private final PermissionRepository permissionRepository;
+    private final PrivilegeRepository privilegeRepository;
     private final ChatService chatService;
 
     // ===========================================================
@@ -139,15 +145,42 @@ public class AdminController {
 
     /**
      * Create a new role
-     * @param roleDTO Role data
+     * @param roleCreateDTO Role data with string-based permission/privilege names
      * @param authentication Current admin authentication
      * @return Created role
      */
     @PostMapping("/roles")
-    public ResponseEntity<Role> createRole(@RequestBody RoleDTO roleDTO,
-                                          Authentication authentication) {
-        logger.info("Admin {} creating new role: {}", authentication.getName(), roleDTO.getName());
-        Role createdRole = roleService.createRole(roleDTO, authentication.getName());
+    public ResponseEntity<Role> createRole(@RequestBody RoleCreateDTO roleCreateDTO,
+                                           Authentication authentication) {
+        logger.info("Admin {} creating new role: {}", authentication.getName(), roleCreateDTO.getName());
+
+        // Resolve permission names to Permission entities
+        Set<Permission> permissions = new HashSet<>();
+        if (roleCreateDTO.getPermissionNames() != null) {
+            for (String permName : roleCreateDTO.getPermissionNames()) {
+                permissionRepository.findByName(permName.trim())
+                        .ifPresent(permissions::add);
+            }
+        }
+
+        // Resolve privilege names to Privilege entities
+        Set<Privilege> privileges = new HashSet<>();
+        if (roleCreateDTO.getPrivilegeNames() != null) {
+            for (String privName : roleCreateDTO.getPrivilegeNames()) {
+                Privilege privilege = privilegeRepository.findByName(privName.trim());
+                if (privilege != null) {
+                    privileges.add(privilege);
+                }
+            }
+        }
+
+        // Create Role entity with resolved permissions and privileges
+        Role role = new Role();
+        role.setName(roleCreateDTO.getName());
+        role.setPermissions(permissions);
+        role.setPrivileges(privileges);
+
+        Role createdRole = roleService.createRole(new RoleDTO(role.getName(), role.getPermissions()), authentication.getName());
         return ResponseEntity.ok(createdRole);
     }
 

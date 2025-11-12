@@ -51,6 +51,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -117,18 +118,43 @@ public class UserServiceImpl implements UserService {
         if (!passwordEncoder.matches(password, user.getPassword()))
             throw new RuntimeException("Invalid credentials");
 
-        // Generate JWT token with roles and permissions
+        // Generate comprehensive authorities list for ABAC
+        List<String> allAuthorities = new ArrayList<>();
+
+        // Add role names
         List<String> roles = user.getRoles().stream()
                 .map(Role::getName)
                 .collect(Collectors.toList());
+        allAuthorities.addAll(roles);
 
+        // Add permissions from standard roles
         List<String> permissions = user.getRoles().stream()
                 .flatMap(role -> role.getPermissions().stream())
                 .map(Permission::getName)
                 .distinct()
                 .collect(Collectors.toList());
+        allAuthorities.addAll(permissions);
 
-        String token = jwtUtil.generateToken(user.getUsername(), roles, permissions);
+        // Add privileges from standard roles
+        List<String> rolePrivileges = user.getRoles().stream()
+                .flatMap(role -> role.getPrivileges().stream())
+                .map(privilege -> privilege.getName())
+                .distinct()
+                .collect(Collectors.toList());
+        allAuthorities.addAll(rolePrivileges);
+
+        // Add privileges from custom roles (CRITICAL FIX)
+        if (user.getCustomRoles() != null) {
+            List<String> customRolePrivileges = user.getCustomRoles().stream()
+                    .flatMap(customRole -> customRole.getPrivileges().stream())
+                    .map(privilege -> privilege.getName())
+                    .distinct()
+                    .collect(Collectors.toList());
+            allAuthorities.addAll(customRolePrivileges);
+        }
+
+        // Generate JWT token with ALL authorities (ABAC fix)
+        String token = jwtUtil.generateTokenWithAuthorities(user.getUsername(), allAuthorities);
 
         // Retrieve primary role - prioritize ADMIN over AGENT over USER
         String primaryRole = user.getRoles().stream()
@@ -149,7 +175,23 @@ public class UserServiceImpl implements UserService {
                 .map(Role::getName)
                 .toList();
 
-        return new JwtResponseDTO(token, username, primaryRole, allRoles);
+        // Get all privileges from user's roles and custom roles (for ABAC)
+        List<String> privileges = user.getRoles().stream()
+                .flatMap(role -> role.getPrivileges().stream())
+                .map(privilege -> privilege.getName())
+                .distinct()
+                .collect(Collectors.toList());
+
+        // Add privileges from custom roles
+        if (user.getCustomRoles() != null) {
+            privileges.addAll(user.getCustomRoles().stream()
+                    .flatMap(customRole -> customRole.getPrivileges().stream())
+                    .map(privilege -> privilege.getName())
+                    .distinct()
+                    .collect(Collectors.toList()));
+        }
+
+        return new JwtResponseDTO(token, username, primaryRole, allRoles, privileges);
     }
 
     // ===========================================================
