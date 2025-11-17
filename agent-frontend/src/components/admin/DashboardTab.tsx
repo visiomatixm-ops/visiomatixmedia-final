@@ -1,6 +1,34 @@
 import React from "react";
 
-const DashboardTab = ({ statistics, sessions }) => {
+interface AgentPerformance {
+  username: string;
+  name: string;
+  activeSessions: number;
+  totalSessions: number;
+  messagesSent: number;
+}
+
+interface Statistics {
+  totalActiveSessions?: number;
+  totalUsers?: number;
+  messagesToday?: number;
+  sessionsToday?: number;
+  agentPerformance?: AgentPerformance[];
+}
+
+interface Session {
+  id: number;
+  createdAt: string;
+  sessionName: string;
+  participants?: any[];
+}
+
+interface DashboardTabProps {
+  statistics: Statistics;
+  sessions: Session[];
+}
+
+const DashboardTab: React.FC<DashboardTabProps> = ({ statistics, sessions }) => {
   return (
     <div>
       <h5>Admin Dashboard</h5>
@@ -62,7 +90,7 @@ const DashboardTab = ({ statistics, sessions }) => {
                   </tr>
                 )) || (
                   <tr>
-                    <td colSpan="4" className="text-center text-muted">No agent data available</td>
+                    <td colSpan={4} className="text-center text-muted">No agent data available</td>
                   </tr>
                 )}
               </tbody>

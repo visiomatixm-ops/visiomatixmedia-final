@@ -1,7 +1,50 @@
 import React from "react";
 import UserChatStatsWidget from "./UserChatStatsWidget";
 
-const StatisticsTab = ({
+interface AgentReport {
+  agentId: number;
+  agentName: string;
+  agentUsername: string;
+  totalSessions: number;
+  totalMessages: number;
+  averageMessagesPerSession: number;
+}
+
+interface ReportData {
+  totalSessions: number;
+  totalMessages: number;
+  activeSessions: number;
+  agentReports?: AgentReport[];
+}
+
+interface User {
+  id: number;
+  name: string;
+  username: string;
+  roles?: { id: number }[];
+}
+
+interface UserStats {
+  totalSessionsHandled: number;
+  totalMessagesSent: number;
+}
+
+interface StatisticsTabProps {
+  reportData: ReportData;
+  selectedPeriod: string;
+  selectedYear: number;
+  selectedMonth: number;
+  selectedQuarter: number;
+  users: User[];
+  userChatStats: Record<number, UserStats>;
+  onPeriodChange: (value: string) => void;
+  onYearChange: (value: number) => void;
+  onMonthChange: (value: number) => void;
+  onQuarterChange: (value: number) => void;
+  onFetchUserStats: (userId: number) => void;
+}
+
+const StatisticsTab: React.FC<StatisticsTabProps> = ({
   reportData,
   selectedPeriod,
   selectedYear,
@@ -136,7 +179,7 @@ const StatisticsTab = ({
                   </tr>
                 )) || (
                   <tr>
-                    <td colSpan="5" className="text-center text-muted">No agent data available for selected period</td>
+                    <td colSpan={5} className="text-center text-muted">No agent data available for selected period</td>
                   </tr>
                 )}
               </tbody>

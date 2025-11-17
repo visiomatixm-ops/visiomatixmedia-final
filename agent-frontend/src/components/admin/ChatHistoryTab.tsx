@@ -1,5 +1,18 @@
 import React from "react";
 
+interface ChatHistoryTabProps {
+  allSessions: any[];
+  selectedSession: number | null;
+  sessionDetails: any;
+  searchTerm: string;
+  dateFilter: { startDate: string; endDate: string };
+  onSessionSelect: (id: number) => void;
+  onSearchChange: (term: string) => void;
+  onDateFilterChange: (filter: { startDate: string; endDate: string }) => void;
+  onSearch: () => void;
+  onFilterByDate: () => void;
+}
+
 const ChatHistoryTab = ({
   allSessions,
   selectedSession,
@@ -11,7 +24,7 @@ const ChatHistoryTab = ({
   onDateFilterChange,
   onSearch,
   onFilterByDate
-}) => {
+}: ChatHistoryTabProps) => {
   return (
     <div>
       <h5>Chat History Review</h5>
@@ -113,7 +126,7 @@ const ChatHistoryTab = ({
                   <div className="mt-3">
                     <strong>Participants:</strong>
                     <div className="mt-2">
-                      {sessionDetails.session.participants?.map((participant) => (
+                      {sessionDetails.session.participants?.map((participant: any) => (
                         <span key={participant.id} className="badge bg-info me-1">
                           {participant.name} ({participant.username})
                         </span>
@@ -128,7 +141,7 @@ const ChatHistoryTab = ({
                   <h6 className="mb-0">Message History</h6>
                 </div>
                 <div className="card-body" style={{maxHeight: "400px", overflowY: "auto"}}>
-                  {sessionDetails.messages?.map((message, index) => (
+                  {sessionDetails.messages?.map((message: any, index: number) => (
                     <div
                       key={message.id || index}
                       className={`p-2 my-1 rounded ${

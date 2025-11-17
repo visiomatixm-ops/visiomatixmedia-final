@@ -391,8 +391,14 @@ const ChatWidget: React.FC = () => {
               messageType: data.messageType,
             }]);
 
-            // Play notification sound for new messages
-            playNotificationSound();
+            // Show browser notification for new messages
+            if ("Notification" in window && Notification.permission === "granted") {
+              new Notification("New Chat Message", {
+                body: `New message from ${data.sender?.username || "Unknown"}`,
+                icon: "/favicon.ico",
+                tag: "new-message"
+              });
+            }
           } catch (e) {
             console.error("Invalid message:", e);
           }
@@ -487,20 +493,20 @@ const ChatWidget: React.FC = () => {
     setInput("");
 
     try {
-      // Send message via WebSocket if connection is active
-      if (clientRef.current && clientRef.current.connected) {
-        clientRef.current.publish({
-          destination: "/app/chat.sendMessage",
-          body: JSON.stringify(payload)
-        });
-      } else {
-        // If WebSocket not connected, show error and remove optimistic message
-        setMessages((prevMessages) =>
-          prevMessages.filter(msg => msg.id !== tempMessageId)
-        );
-        alert("Connection lost. Please check your internet connection.");
-        return;
-      }
+      // Send message via REST API for reliable persistence
+      const response = await axios.post(`${API}/chat/sessions/${sessionId}/messages`, {
+        content: messageContent,
+        messageType: "TEXT"
+      }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      // Update the optimistic message with the real message ID
+      setMessages((prevMessages) =>
+        prevMessages.map(msg =>
+          msg.id === tempMessageId ? { ...msg, id: response.data.id } : msg
+        )
+      );
     } catch (e) {
       console.error("Failed to send message:", e);
 
@@ -510,7 +516,7 @@ const ChatWidget: React.FC = () => {
       );
 
       // Handle authentication errors with token refresh/re-login
-      if (e instanceof Error && (e.message?.includes("401") || e.message?.includes("Unauthorized"))) {
+      if (axios.isAxiosError(e) && e.response?.status === 401) {
         alert("Authentication failed. Please login again.");
         setToken(null);
         localStorage.removeItem("chatToken");
@@ -583,7 +589,7 @@ const ChatWidget: React.FC = () => {
           }}
         >
           <div className="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-            <span>Visiomatix Support</span>
+             <span>Visiomatix Support {sessionId && `(Session: ${sessionId})`}</span>
             <div>
               {connected && (
                 <button className="btn btn-sm btn-outline-light me-1" onClick={endChat}>

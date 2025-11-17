@@ -426,7 +426,7 @@ public class ChatController {
                         .body(Map.of("error", "User not found or unauthorized"));
             }
 
-            // Verify user is participant in this session
+            // Verify user is participant in this session or has admin privileges
             Optional<ChatSession> session = chatService.getChatSessionById(sessionId);
             if (session.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -437,7 +437,11 @@ public class ChatController {
                 .stream()
                 .anyMatch(user -> user.getId().equals(currentUser.getId()));
 
-            if (!isParticipant) {
+            // Allow admins to send messages to any session
+            boolean isAdmin = currentUser.getRoles().stream()
+                .anyMatch(role -> "ROLE_ADMIN".equals(role.getName()));
+
+            if (!isParticipant && !isAdmin) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body(Map.of("error", "User is not a participant in this chat session"));
             }
@@ -447,7 +451,6 @@ public class ChatController {
             Message.MessageType messageType = Message.MessageType.valueOf(type);
 
             Message saved = chatService.sendMessage(sessionId, currentUser, content, messageType);
-            messagingTemplate.convertAndSend("/topic/chat/" + sessionId, saved);
 
             // Persist message asynchronously
             messagePersistenceService.saveMessage(saved);

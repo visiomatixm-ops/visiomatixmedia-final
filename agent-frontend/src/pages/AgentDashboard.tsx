@@ -395,8 +395,14 @@ const AgentDashboard = ({ token, userRole, userPrivileges }: { token: string; us
               ],
             }));
 
-            // Play notification sound for new messages
-            playNotificationSound();
+            // Show browser notification for new messages
+            if ("Notification" in window && Notification.permission === "granted") {
+              new Notification("New Chat Message", {
+                body: `New message from ${data.sender?.username || "Unknown"}`,
+                icon: "/favicon.ico",
+                tag: "new-message"
+              });
+            }
           })
         );
       },
@@ -420,27 +426,35 @@ const AgentDashboard = ({ token, userRole, userPrivileges }: { token: string; us
   // Uses unique temporary IDs to prevent double message display
   // Handles WebSocket connection validation and error recovery
   // ---------------------------------------------------------
-  const sendMsg = () => {
-    if (!selected || !input.trim() || !clientRef.current) return;
+  const sendMsg = async () => {
+    console.log("sendMsg called with:", { selected, input, token: !!token });
+    
+    // Enhanced validation
+    if (!selected) {
+      alert("Please select a chat session first.");
+      return;
+    }
+    
+    if (!input.trim()) {
+      alert("Please enter a message.");
+      return;
+    }
+    
+    if (!token) {
+      alert("Authentication required. Please refresh the page and login again.");
+      return;
+    }
 
-    // Validate WebSocket connection before sending
-    if (!clientRef.current.connected) {
-      alert("Connection lost. Please refresh the page.");
+    // Validate session exists
+    const session = sessions.find((s) => s.id === selected);
+    if (!session) {
+      alert("Selected session not found. Please select a valid session.");
       return;
     }
 
     // Find target session and receiver
-    const session = sessions.find((s) => s.id === selected);
     const receiver = session?.participants?.[0]?.username || "defaultuser";
-
-    // Prepare message payload for transmission
-    const payload = {
-      sender: AGENT,
-      receiver,
-      content: input.trim(),
-      messageType: "TEXT",
-      sessionId: selected,
-    };
+    console.log("Sending to session:", selected, "receiver:", receiver);
 
     // Generate unique temporary ID to prevent duplicate display
     // Format: temp-agent-timestamp-random to ensure uniqueness
@@ -468,13 +482,40 @@ const AgentDashboard = ({ token, userRole, userPrivileges }: { token: string; us
     setInput("");
 
     try {
-      // Send message via WebSocket
-      clientRef.current.publish({
-        destination: "/app/chat.sendMessage",
-        body: JSON.stringify(payload),
+      console.log("Sending REST API request to:", `${API}/chat/sessions/${selected}/messages`);
+      
+      // Send message via REST API (more reliable than WebSocket for persistence)
+      const response = await axios.post(`${API}/chat/sessions/${selected}/messages`, {
+        content: messageContent,
+        messageType: "TEXT"
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
       });
-    } catch (e) {
+
+      console.log("Message sent successfully:", response.data);
+
+      // Update the optimistic message with the real message ID
+      setMessages((prev) => ({
+        ...prev,
+        [selected]: (prev[selected] || []).map(msg =>
+          msg.id === tempMessageId ? { ...msg, id: response.data.id } : msg
+        ),
+      }));
+
+      // Show success notification
+      if ("Notification" in window && Notification.permission === "granted") {
+        new Notification("Message Sent", {
+          body: "Your message has been sent successfully",
+          icon: "/favicon.ico",
+          tag: "message-sent"
+        });
+      }
+    } catch (e: any) {
       console.error("Failed to send message:", e);
+      console.error("Error details:", e.response?.data, e.response?.status);
 
       // Remove optimistic message on failure
       setMessages((prev) => ({
@@ -484,7 +525,17 @@ const AgentDashboard = ({ token, userRole, userPrivileges }: { token: string; us
 
       // Restore message to input for retry
       setInput(messageContent);
-      alert("Failed to send message. Please try again.");
+      
+      // More specific error message
+      if (e.response?.status === 401) {
+        alert("Authentication failed. Please refresh the page and login again.");
+      } else if (e.response?.status === 403) {
+        alert("You don't have permission to send messages to this session.");
+      } else if (e.response?.status === 404) {
+        alert("Session not found. Please select a valid session.");
+      } else {
+        alert(`Failed to send message: ${e.response?.data?.message || e.message || 'Unknown error'}. Please try again.`);
+      }
     }
   };
 
@@ -553,12 +604,30 @@ const AgentDashboard = ({ token, userRole, userPrivileges }: { token: string; us
             Chat History
           </button>
         </li>
-        {(userRole === "ROLE_ADMIN" || userPrivileges?.includes('ACCESS_ROLE_MANAGEMENT') || userPrivileges?.includes('ACCESS_PERMISSION_MANAGEMENT') || userPrivileges?.includes('ACCESS_USER_MANAGEMENT')) && (
+        {(() => {
+          const hasAdminAccess = userRole === "ROLE_ADMIN" ||
+                                userPrivileges?.includes('ACCESS_ROLE_MANAGEMENT') ||
+                                userPrivileges?.includes('ACCESS_PERMISSION_MANAGEMENT') ||
+                                userPrivileges?.includes('ACCESS_USER_MANAGEMENT');
+          
+          console.log('🔍 Admin Panel Tab Visibility Check:');
+          console.log('   User Role:', userRole);
+          console.log('   User Privileges:', userPrivileges);
+          console.log('   Has ACCESS_ROLE_MANAGEMENT:', userPrivileges?.includes('ACCESS_ROLE_MANAGEMENT'));
+          console.log('   Has ACCESS_PERMISSION_MANAGEMENT:', userPrivileges?.includes('ACCESS_PERMISSION_MANAGEMENT'));
+          console.log('   Has ACCESS_USER_MANAGEMENT:', userPrivileges?.includes('ACCESS_USER_MANAGEMENT'));
+          console.log('   Final Admin Access:', hasAdminAccess);
+          
+          return hasAdminAccess;
+        })() && (
           <li className="nav-item">
             <button
               className={`nav-link text-sm sm:text-base ${activeTab === "admin" ? "active" : ""}`}
               style={activeTab === "admin" ? { backgroundColor: '#007bff', color: 'white !important', borderColor: '#007bff' } : {}}
-              onClick={() => setActiveTab("admin")}
+              onClick={() => {
+                console.log('🔄 Admin Panel tab clicked');
+                setActiveTab("admin");
+              }}
             >
               Admin Panel
             </button>
@@ -915,7 +984,7 @@ const AgentDashboard = ({ token, userRole, userPrivileges }: { token: string; us
       )}
 
       {activeTab === "admin" && (userRole === "ROLE_ADMIN" || userPrivileges?.includes('ACCESS_ROLE_MANAGEMENT') || userPrivileges?.includes('ACCESS_PERMISSION_MANAGEMENT') || userPrivileges?.includes('ACCESS_USER_MANAGEMENT')) && (
-        <AdminPanel token={token} />
+        <AdminPanel token={token} userPrivileges={userPrivileges} />
       )}
 
       {/* Password Change Modal */}

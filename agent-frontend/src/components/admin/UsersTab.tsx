@@ -1,6 +1,30 @@
 import React, { useState } from "react";
 import { adminAPI } from "../../api/api";
 
+interface Role {
+  id: number;
+  name: string;
+}
+
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  name: string;
+  roles?: Role[];
+}
+
+interface UsersTabProps {
+  users: User[];
+  roles: Role[];
+  loading: boolean;
+  onAssignRole: (userId: number, roleId: number) => void;
+  onRemoveRole: (userId: number, roleId: number) => void;
+  onCreateUser: (user: any) => Promise<void>;
+  onRefreshUsers: () => void;
+  onDeleteUser: (userId: number) => void;
+}
+
 const UsersTab = ({
   users,
   roles,
@@ -10,7 +34,7 @@ const UsersTab = ({
   onCreateUser,
   onRefreshUsers,
   onDeleteUser
-}) => {
+}: UsersTabProps) => {
   const [showUserForm, setShowUserForm] = useState(false);
   const [newUser, setNewUser] = useState({
     username: "",
@@ -345,7 +369,7 @@ const UsersTab = ({
               <div className="mb-3">
                 <label className="form-label">Roles (Select multiple)</label>
                 <div className="border rounded p-3">
-                  {roles.map((role) => (
+                  {roles.map((role: Role) => (
                     <div key={role.id} className="form-check">
                       <input
                         className="form-check-input"
@@ -420,14 +444,14 @@ const UsersTab = ({
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {users.map((user: User) => (
               <tr key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td>{user.name}</td>
                 <td>
-                  {user.roles?.map((role) => (
+                  {user.roles?.map((role: Role) => (
                     <span key={role.id} className="badge bg-secondary me-1">
                       {role.name}
                     </span>
@@ -444,7 +468,7 @@ const UsersTab = ({
                         Manage Roles
                       </button>
                       <ul className="dropdown-menu">
-                        {roles.map((role) => (
+                        {roles.map((role: Role) => (
                           <li key={role.id}>
                             <button
                               className="dropdown-item"

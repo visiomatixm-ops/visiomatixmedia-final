@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Login from "./pages/Login";
-import AgentDashboard from "./pages/AgentDashboard";
+import IntegratedAdminDashboard from "./pages/IntegratedAdminDashboard";
 
 export default function App() {
   const [auth, setAuth] = useState<{token: string; role: string; privileges: string[]} | null>(null);
@@ -14,7 +14,11 @@ export default function App() {
   };
 
   return auth ? (
-    <AgentDashboard token={auth.token} userRole={auth.role} />
+    <IntegratedAdminDashboard
+      token={auth.token}
+      userRole={auth.role}
+      userPrivileges={auth.privileges}
+    />
   ) : (
     <Login onLogin={handleLogin} />
   );

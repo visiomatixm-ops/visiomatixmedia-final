@@ -48,12 +48,30 @@ interface Privilege {
   name: string;
 }
 
-interface Session {
-  id: number;
-  // Add other session properties as needed
+interface AgentReport {
+  agentId: number;
+  agentName: string;
+  agentUsername: string;
+  totalSessions: number;
+  totalMessages: number;
+  averageMessagesPerSession: number;
 }
 
-const AdminPanel = ({ token }: { token: string }) => {
+interface ReportData {
+  totalSessions: number;
+  totalMessages: number;
+  activeSessions: number;
+  agentReports?: AgentReport[];
+}
+
+interface Session {
+  id: number;
+  createdAt: string;
+  sessionName: string;
+  participants?: any[];
+}
+
+const AdminPanel = ({ token, userPrivileges }: { token: string; userPrivileges?: string[] }) => {
   const [activeSubTab, setActiveSubTab] = useState("dashboard");
   const [users, setUsers] = useState<User[]>([]);
   const [roles, setRoles] = useState<Role[]>([]);
@@ -73,7 +91,12 @@ const AdminPanel = ({ token }: { token: string }) => {
   });
 
   // Statistics state
-  const [reportData, setReportData] = useState({});
+  const [reportData, setReportData] = useState<ReportData>({
+    totalSessions: 0,
+    totalMessages: 0,
+    activeSessions: 0,
+    agentReports: []
+  });
   const [selectedPeriod, setSelectedPeriod] = useState("monthly");
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
@@ -583,13 +606,56 @@ const AdminPanel = ({ token }: { token: string }) => {
     }
   };
 
+  // Parse JWT token to extract privileges as fallback
+  const extractPrivilegesFromToken = (token: string): string[] => {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      console.log('JWT payload:', payload); // Debug log
+      
+      // Check for privileges in different possible claim names
+      const privileges = payload.privileges || payload.authorities || [];
+      
+      if (Array.isArray(privileges) && privileges.length > 0) {
+        console.log('Extracted privileges from JWT:', privileges);
+        return privileges;
+      }
+      
+      // Also check abac_context if available
+      if (payload.abac_context && payload.abac_context.privileges) {
+        console.log('Extracted privileges from ABAC context:', payload.abac_context.privileges);
+        return payload.abac_context.privileges;
+      }
+      
+      return [];
+    } catch (error) {
+      console.error('Failed to parse JWT token:', error);
+      return [];
+    }
+  };
+
+  // Get user's privileges (from props or JWT token)
+  const getUserPrivileges = (): string[] => {
+    console.log('Current userPrivileges prop:', userPrivileges); // Debug log
+    
+    if (userPrivileges && userPrivileges.length > 0) {
+      console.log('Using privileges from props');
+      return userPrivileges;
+    }
+    
+    console.log('No privileges in props, extracting from JWT token');
+    return extractPrivilegesFromToken(token);
+  };
+
   // Privilege-based tab access control
-  const hasPrivilege = (privilegeName: string) => {
-    // Check if current user has the required privilege through their roles
-    // This is a placeholder implementation - in a real system, this would check the JWT token
-    // or make an API call to verify privileges. For now, return true for all to maintain functionality.
-    // TODO: Implement proper privilege checking by decoding JWT token and checking authorities
-    return true;
+  const hasPrivilege = (privilegeName: string): boolean => {
+    const userPrivileges = getUserPrivileges();
+    console.log(`Checking privilege "${privilegeName}" for user with privileges:`, userPrivileges); // Debug log
+    
+    // Check if user has the required privilege
+    const hasAccess = userPrivileges.includes(privilegeName);
+    console.log(`Privilege check result for "${privilegeName}": ${hasAccess}`); // Debug log
+    
+    return hasAccess;
   };
 
   return (

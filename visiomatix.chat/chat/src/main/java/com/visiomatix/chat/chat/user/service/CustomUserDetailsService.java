@@ -38,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.visiomatix.chat.chat.user.model.User user = userRepository.findByUsername(username)
+        com.visiomatix.chat.chat.user.model.User user = userRepository.findByUsernameWithAllDetails(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
         Set<String> authorities = new HashSet<>();

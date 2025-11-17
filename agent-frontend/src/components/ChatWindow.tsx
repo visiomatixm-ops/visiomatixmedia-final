@@ -1,7 +1,32 @@
 import { useState, useEffect } from "react";
 import api from "../api/api";
 
-export default function ChatWindow({ session, messages, onSendMessage }) {
+interface Session {
+  id: number;
+  sessionName: string;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface Message {
+  id: string;
+  sender?: {
+    username: string;
+    name?: string;
+  };
+  content: string;
+  sentAt: string;
+  messageType: string;
+}
+
+interface ChatWindowProps {
+  session: Session | null;
+  messages: Message[];
+  onSendMessage?: (text: string) => void;
+}
+
+export default function ChatWindow({ session, messages, onSendMessage }: ChatWindowProps) {
   const [text, setText] = useState("");
 
   if (!session)
