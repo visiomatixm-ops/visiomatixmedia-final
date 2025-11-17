@@ -14,6 +14,9 @@ CREATE INDEX idx_privilege_permissions_privilege_id ON privilege_permissions(pri
 CREATE INDEX idx_privilege_permissions_permission_id ON privilege_permissions(permission_id);
 
 -- Insert privilege-permission mappings based on the database schema
+-- Privilege 1 (CREATE_USER) -> Permission 6 (USER_MANAGEMENT)
+INSERT INTO privilege_permissions (privilege_id, permission_id) VALUES (1, 6);
+
 -- Privilege 2 (DELETE_USER) -> Permission 4 (ADMIN_ACCESS)
 INSERT INTO privilege_permissions (privilege_id, permission_id) VALUES (2, 4);
 
@@ -71,13 +74,15 @@ INSERT INTO role_privileges (role_id, privilege_id) VALUES (2, 3);
 -- ROLE_USER (3) -> Privilege 3 (MANAGE_CHAT)
 INSERT INTO role_privileges (role_id, privilege_id) VALUES (3, 3);
 
--- CUSTOMER_SUCCESS_MANAGER (4) -> All privileges (3,4,8,10, and others as needed)
+-- CUSTOMER_SUCCESS_MANAGER (4) -> All privileges (1,2,3,4,5,6,7,8,9,10,11)
+INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 1);  -- CREATE_USER
+INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 2);  -- DELETE_USER
 INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 3);  -- MANAGE_CHAT
 INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 4);  -- ACCESS_CHAT_HISTORY_TAB
-INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 8);  -- ACCESS_PERMISSION_MANAGEMENT
-INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 10); -- ACCESS_AGENT_DASHBOARD
 INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 5);  -- ACCESS_STATISTICS_TAB
 INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 6);  -- ACCESS_USER_MANAGEMENT
 INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 7);  -- ACCESS_ROLE_MANAGEMENT
+INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 8);  -- ACCESS_PERMISSION_MANAGEMENT
 INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 9);  -- ACCESS_PRIVILEGE_MANAGEMENT
+INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 10); -- ACCESS_AGENT_DASHBOARD
 INSERT INTO role_privileges (role_id, privilege_id) VALUES (4, 11); -- CHAT_WITH_DEFAULT_USER

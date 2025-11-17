@@ -89,6 +89,7 @@ public class AdminController {
      * List all users in the system
      * @return List of all users
      */
+    @PreAuthorize("hasAuthority('ACCESS_USER_MANAGEMENT') or hasRole('ADMIN')")
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         logger.info("Admin requesting list of all users");
@@ -103,6 +104,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Updated user
      */
+    @PreAuthorize("hasAuthority('ACCESS_USER_MANAGEMENT') or hasRole('ADMIN')")
     @PostMapping("/users/{userId}/assign-role/{roleId}")
     public ResponseEntity<User> assignRoleToUser(@PathVariable Long userId,
                                                 @PathVariable Long roleId,
@@ -119,6 +121,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Updated user
      */
+    @PreAuthorize("hasAuthority('ACCESS_USER_MANAGEMENT') or hasRole('ADMIN')")
     @PostMapping("/users/{userId}/remove-role/{roleId}")
     public ResponseEntity<User> removeRoleFromUser(@PathVariable Long userId,
                                                   @PathVariable Long roleId,
@@ -136,6 +139,7 @@ public class AdminController {
      * List all roles in the system
      * @return List of all roles
      */
+    @PreAuthorize("hasAuthority('ACCESS_ROLE_MANAGEMENT') or hasRole('ADMIN')")
     @GetMapping("/roles")
     public ResponseEntity<List<Role>> getAllRoles() {
         logger.info("Admin requesting list of all roles");
@@ -149,6 +153,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Created role
      */
+    @PreAuthorize("hasAuthority('ACCESS_ROLE_MANAGEMENT') or hasRole('ADMIN')")
     @PostMapping("/roles")
     public ResponseEntity<Role> createRole(@RequestBody RoleCreateDTO roleCreateDTO,
                                            Authentication authentication) {
@@ -191,6 +196,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Updated role
      */
+    @PreAuthorize("hasAuthority('ACCESS_ROLE_MANAGEMENT') or hasRole('ADMIN')")
     @PostMapping("/roles/{roleId}/assign-permission/{permissionId}")
     public ResponseEntity<Role> assignPermissionToRole(@PathVariable Long roleId,
                                                       @PathVariable Long permissionId,
@@ -207,6 +213,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Updated role
      */
+    @PreAuthorize("hasAuthority('ACCESS_ROLE_MANAGEMENT') or hasRole('ADMIN')")
     @PostMapping("/roles/{roleId}/remove-permission/{permissionId}")
     public ResponseEntity<Role> removePermissionFromRole(@PathVariable Long roleId,
                                                         @PathVariable Long permissionId,
@@ -223,6 +230,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Updated role
      */
+    @PreAuthorize("hasAuthority('ACCESS_ROLE_MANAGEMENT') or hasRole('ADMIN')")
     @PutMapping("/roles/{roleId}")
     public ResponseEntity<Role> updateRole(@PathVariable Long roleId,
                                           @RequestBody RoleDTO roleDTO,
@@ -238,6 +246,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Success message
      */
+    @PreAuthorize("hasAuthority('ACCESS_ROLE_MANAGEMENT') or hasRole('ADMIN')")
     @DeleteMapping("/roles/{roleId}")
     public ResponseEntity<String> deleteRole(@PathVariable Long roleId,
                                             Authentication authentication) {
@@ -254,6 +263,7 @@ public class AdminController {
      * List all permissions in the system
      * @return List of all permissions
      */
+    @PreAuthorize("hasAuthority('ACCESS_PERMISSION_MANAGEMENT') or hasRole('ADMIN')")
     @GetMapping("/permissions")
     public ResponseEntity<List<Permission>> getAllPermissions() {
         logger.info("Admin requesting list of all permissions");
@@ -267,6 +277,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Created permission
      */
+    @PreAuthorize("hasAuthority('ACCESS_PERMISSION_MANAGEMENT') or hasRole('ADMIN')")
     @PostMapping("/permissions")
     public ResponseEntity<Permission> createPermission(@RequestBody Permission permission,
                                                       Authentication authentication) {
@@ -281,6 +292,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Success message
      */
+    @PreAuthorize("hasAuthority('ACCESS_PERMISSION_MANAGEMENT') or hasRole('ADMIN')")
     @DeleteMapping("/permissions/{permissionId}")
     public ResponseEntity<String> deletePermission(@PathVariable Long permissionId,
                                                   Authentication authentication) {
@@ -298,6 +310,7 @@ public class AdminController {
      * @param roleId Role ID
      * @return Set of privileges for the role
      */
+    @PreAuthorize("hasAuthority('ACCESS_PERMISSION_MANAGEMENT') or hasRole('ADMIN')")
     @GetMapping("/roles/{roleId}/privileges")
     public ResponseEntity<Set<Privilege>> getRolePrivileges(@PathVariable Long roleId) {
         logger.info("Admin requesting privileges for role {}", roleId);
@@ -312,6 +325,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Updated role
      */
+    @PreAuthorize("hasAuthority('ACCESS_PERMISSION_MANAGEMENT') or hasRole('ADMIN')")
     @PostMapping("/roles/{roleId}/assign-privilege/{privilegeId}")
     public ResponseEntity<Role> assignPrivilegeToRole(@PathVariable Long roleId,
                                                      @PathVariable Long privilegeId,
@@ -328,6 +342,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Updated role
      */
+    @PreAuthorize("hasAuthority('ACCESS_PERMISSION_MANAGEMENT') or hasRole('ADMIN')")
     @PostMapping("/roles/{roleId}/remove-privilege/{privilegeId}")
     public ResponseEntity<Role> removePrivilegeFromRole(@PathVariable Long roleId,
                                                        @PathVariable Long privilegeId,
@@ -347,6 +362,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Created user
      */
+    @PreAuthorize("hasAuthority('CREATE_USER') or hasRole('ADMIN')")
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO,
                                            Authentication authentication) {
@@ -361,6 +377,7 @@ public class AdminController {
      * @param authentication Current admin authentication
      * @return Success message
      */
+    @PreAuthorize("hasAuthority('DELETE_USER') or hasRole('ADMIN')")
     @DeleteMapping("/users/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable Long userId,
                                            Authentication authentication) {
@@ -377,6 +394,7 @@ public class AdminController {
      * Get all active chat sessions for monitoring
      * @return List of all active sessions
      */
+    @PreAuthorize("hasAuthority('ACCESS_AGENT_DASHBOARD') or hasRole('ADMIN')")
     @GetMapping("/sessions/active")
     public ResponseEntity<List<ChatSession>> getAllActiveSessions() {
         logger.info("Admin requesting all active chat sessions");
@@ -402,7 +420,7 @@ public class AdminController {
      * @return List of user's sessions
      */
     @GetMapping("/users/{userId}/sessions")
-    @PreAuthorize("hasRole('ADMIN') or @userService.isCurrentUser(#userId)")
+    @PreAuthorize("hasAuthority('ACCESS_STATISTICS_TAB') or hasRole('ADMIN') or @userService.isCurrentUser(#userId)")
     public ResponseEntity<List<ChatSession>> getUserAllSessions(@PathVariable Long userId) {
         logger.info("Requesting all sessions for user {}", userId);
         List<ChatSession> sessions = chatService.getSessionsByUser(userId);
@@ -426,6 +444,7 @@ public class AdminController {
      * Get system-wide chat statistics
      * @return System statistics
      */
+    @PreAuthorize("hasAuthority('ACCESS_STATISTICS_TAB') or hasRole('ADMIN')")
     @GetMapping("/statistics")
     public ResponseEntity<Map<String, Object>> getSystemStatistics() {
         logger.info("Admin requesting system-wide chat statistics");
@@ -438,6 +457,7 @@ public class AdminController {
      * @param sessionId Session ID
      * @return List of messages
      */
+    @PreAuthorize("hasAuthority('ACCESS_CHAT_HISTORY_TAB') or hasRole('ADMIN')")
     @GetMapping("/sessions/{sessionId}/messages")
     public ResponseEntity<List<Message>> getSessionMessages(@PathVariable Long sessionId) {
         logger.info("Admin monitoring messages for session {}", sessionId);
@@ -549,7 +569,7 @@ public class AdminController {
      * @return Chat handling statistics
      */
     @GetMapping("/users/{userId}/chat-stats/{year}/{month}")
-    @PreAuthorize("hasRole('ADMIN') or @userService.isCurrentUser(#userId)")
+    @PreAuthorize("hasAuthority('ACCESS_STATISTICS_TAB') or hasRole('ADMIN') or @userService.isCurrentUser(#userId)")
     public ResponseEntity<Map<String, Object>> getUserMonthlyChatStats(@PathVariable Long userId,
                                                                      @PathVariable int year,
                                                                      @PathVariable int month) {
@@ -566,7 +586,7 @@ public class AdminController {
      * @return Chat handling statistics
      */
     @GetMapping("/users/{userId}/chat-stats/{year}/quarter/{quarter}")
-    @PreAuthorize("hasRole('ADMIN') or @userService.isCurrentUser(#userId)")
+    @PreAuthorize("hasAuthority('ACCESS_STATISTICS_TAB') or hasRole('ADMIN') or @userService.isCurrentUser(#userId)")
     public ResponseEntity<Map<String, Object>> getUserQuarterlyChatStats(@PathVariable Long userId,
                                                                         @PathVariable int year,
                                                                         @PathVariable int quarter) {
@@ -582,7 +602,7 @@ public class AdminController {
      * @return Chat handling statistics
      */
     @GetMapping("/users/{userId}/chat-stats/{year}")
-    @PreAuthorize("hasRole('ADMIN') or @userService.isCurrentUser(#userId)")
+    @PreAuthorize("hasAuthority('ACCESS_STATISTICS_TAB') or hasRole('ADMIN') or @userService.isCurrentUser(#userId)")
     public ResponseEntity<Map<String, Object>> getUserYearlyChatStats(@PathVariable Long userId,
                                                                      @PathVariable int year) {
         logger.info("Getting yearly chat stats for user {} for {}", userId, year);
@@ -655,8 +675,8 @@ public class AdminController {
      * Get all chat sessions for admin review (both active and completed)
      * @return List of all sessions
      */
+    @PreAuthorize("hasAuthority('ACCESS_CHAT_HISTORY_TAB') or hasRole('ADMIN')")
     @GetMapping("/sessions/all")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ChatSession>> getAllSessionsForAdmin() {
         logger.info("Admin requesting all chat sessions for review");
         List<ChatSession> sessions = chatService.getAllSessionsForAdmin();
@@ -711,7 +731,7 @@ public class AdminController {
      * @return Session details with messages
      */
     @GetMapping("/sessions/{sessionId}/details")
-    @PreAuthorize("hasRole('ADMIN') or @chatService.canUserAccessSession(#sessionId, authentication.principal.username)")
+    @PreAuthorize("hasAuthority('ACCESS_CHAT_HISTORY_TAB') or hasRole('ADMIN') or @chatService.canUserAccessSession(#sessionId, authentication.principal.username)")
     public ResponseEntity<Map<String, Object>> getSessionDetails(@PathVariable Long sessionId) {
         logger.info("User requesting detailed information for session {}", sessionId);
         Map<String, Object> details = chatService.getSessionDetailsWithMessages(sessionId);
@@ -746,6 +766,7 @@ public class AdminController {
      * List all privileges in the system
      * @return List of all privileges
      */
+    @PreAuthorize("hasAuthority('ACCESS_PERMISSION_MANAGEMENT') or hasRole('ADMIN')")
     @GetMapping("/privileges")
     public ResponseEntity<List<Privilege>> getAllPrivileges() {
         logger.info("Admin requesting list of all privileges");

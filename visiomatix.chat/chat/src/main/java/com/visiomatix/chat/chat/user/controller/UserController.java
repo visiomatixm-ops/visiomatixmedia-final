@@ -91,7 +91,7 @@ public class UserController {
     // Accessible by ADMIN or the user themselves
     // ===========================================================
     @GetMapping("/{username}")
-    @PreAuthorize("hasRole('ADMIN') or #username == authentication.name")
+    @PreAuthorize("hasAuthority('ACCESS_USER_MANAGEMENT') or hasRole('ADMIN') or #username == authentication.name")
     public ResponseEntity<User> getUser(@PathVariable String username) {
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
@@ -102,7 +102,7 @@ public class UserController {
     // Admin-only access for editing user profile and role
     // ===========================================================
     @PutMapping("/{userId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ACCESS_USER_MANAGEMENT') or hasRole('ADMIN')")
     public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody UserDTO dto) {
         return ResponseEntity.ok(userService.updateUser(userId, dto));
     }
@@ -113,7 +113,7 @@ public class UserController {
     // Admin-only access
     // ===========================================================
     @DeleteMapping("/{userId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('DELETE_USER') or hasRole('ADMIN')")
     public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return ResponseEntity.ok("User deleted successfully");

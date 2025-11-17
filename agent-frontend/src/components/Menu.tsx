@@ -74,7 +74,7 @@ const Menu: React.FC = () => {
             <h1
               className="fw-bold mb-0"
               style={{
-                fontFamily: "'Orbitron', sans-serif",
+                fontFamily: "sans-serif",
                 fontWeight: "700",
                 textTransform: "uppercase",
                 letterSpacing: "0.15em",

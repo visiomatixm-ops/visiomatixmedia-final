@@ -68,17 +68,17 @@ public class SessionCleanupService {
                         s.setActive(false);
                         chatSessionRepository.save(s);
                         System.out.println("[CLEANUP] Closed idle session ID " + s.getId());
+
+                        try {
+                            // mark inactive and notify only for sessions that were just closed
+                            chatService.deactivateChatSession(s.getId());
+                        } catch (Exception ex) {
+                            // Log and continue — don't let one failure stop cleanup
+                            org.slf4j.LoggerFactory.getLogger(SessionCleanupService.class)
+                                    .error("Failed to deactivate expired session id={}", s.getId(), ex);
+                        }
                     }
                 }
-            }
-
-            try {
-                // mark inactive and notify
-                chatService.deactivateChatSession(s.getId());
-            } catch (Exception ex) {
-                // Log and continue — don't let one failure stop cleanup
-                org.slf4j.LoggerFactory.getLogger(SessionCleanupService.class)
-                        .error("Failed to deactivate expired session id={}", s.getId(), ex);
             }
         }
     }

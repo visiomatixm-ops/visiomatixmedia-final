@@ -8,4 +8,11 @@ export default defineConfig({
     global: 'globalThis',
   },
   envPrefix: 'VITE_',
+  server: {
+    host: 'localhost',
+    port: 5173,
+    hmr: {
+      port: 5173,
+    },
+  },
 })

@@ -538,7 +538,7 @@ const EnhancedAdminDashboard: React.FC<{ token: string; userRole: string; userPr
         )}
 
         {/* Debug Information */}
-        <div className="alert alert-info" style={{ fontSize: '12px' }}>
+        <div className="alert alert-info" style={{ fontSize: '12px', marginTop:'5em' }}>
           <strong>🔍 Debug Info:</strong><br />
           <strong>User:</strong> {userRole}<br />
           <strong>Privileges:</strong> {userPrivileges.length > 0 ? userPrivileges.join(', ') : 'None'}

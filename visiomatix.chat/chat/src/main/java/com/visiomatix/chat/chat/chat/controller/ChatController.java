@@ -426,7 +426,7 @@ public class ChatController {
                         .body(Map.of("error", "User not found or unauthorized"));
             }
 
-            // Verify user is participant in this session or has admin privileges
+            // Verify user is participant in this session or has admin privileges or appropriate chat permissions
             Optional<ChatSession> session = chatService.getChatSessionById(sessionId);
             if (session.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -441,9 +441,33 @@ public class ChatController {
             boolean isAdmin = currentUser.getRoles().stream()
                 .anyMatch(role -> "ROLE_ADMIN".equals(role.getName()));
 
-            if (!isParticipant && !isAdmin) {
+            // Check for chat privileges if not admin or participant
+            boolean hasChatPrivileges = false;
+            if (!isAdmin && !isParticipant) {
+                // Check privileges from roles
+                hasChatPrivileges = currentUser.getRoles().stream()
+                    .flatMap(role -> role.getPrivileges().stream())
+                    .anyMatch(privilege ->
+                        "CHAT_WITH_DEFAULT_USER".equals(privilege.getName()) ||
+                        "MANAGE_CHAT".equals(privilege.getName()) ||
+                        "CHAT_ACCESS".equals(privilege.getName())
+                    );
+
+                // Check privileges from custom roles
+                if (!hasChatPrivileges && currentUser.getCustomRoles() != null) {
+                    hasChatPrivileges = currentUser.getCustomRoles().stream()
+                        .flatMap(customRole -> customRole.getPrivileges().stream())
+                        .anyMatch(privilege ->
+                            "CHAT_WITH_DEFAULT_USER".equals(privilege.getName()) ||
+                            "MANAGE_CHAT".equals(privilege.getName()) ||
+                            "CHAT_ACCESS".equals(privilege.getName())
+                        );
+                }
+            }
+
+            if (!isParticipant && !isAdmin && !hasChatPrivileges) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                        .body(Map.of("error", "User is not a participant in this chat session"));
+                        .body(Map.of("error", "User does not have privilege to send messages to this chat session"));
             }
 
             String content = (String) body.get("content");

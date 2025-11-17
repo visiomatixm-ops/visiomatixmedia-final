@@ -9,7 +9,7 @@ export default function App() {
     setAuth({
       token: authData.token,
       role: authData.role,
-      privileges: authData.privileges || []
+      privileges: Array.isArray(authData.privileges) ? authData.privileges : []
     });
   };
 

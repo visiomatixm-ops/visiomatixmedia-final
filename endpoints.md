@@ -1329,11 +1329,321 @@ curl -X GET http://localhost:8080/api/admin/permissions \
 **Frontend Integration**:
 - ✅ Admin tab added to AgentDashboard with role-based visibility
 - ✅ AdminPanel component created with full CRUD operations
+- ✅ **Automated Role Creation Buttons**: CSM Role, Agent Role, Full Access Role
+- ✅ **Manual Role Creation**: Custom Role with permission/privilege selection
 - ✅ Bootstrap responsive design maintained
 - ✅ Real-time updates and error handling
+- ✅ Privilege-based UI visibility (tabs show/hide based on user privileges)
+
+---
+
+## 🎯 **Automated Role Management APIs (November 17, 2025)**
+
+### 43. Create Role with Automatic Full Access
+**Endpoint**: `POST /api/roles/create-with-full-access?roleName={roleName}`
+**Access**: Users with `ACCESS_ROLE_MANAGEMENT` privilege or Admin
+**Description**: Create a new role with all predefined permissions and privileges automatically assigned
+
+**Curl Command**:
+```bash
+curl -X POST "http://localhost:8080/api/roles/create-with-full-access?roleName=CUSTOMER_SUCCESS_MANAGER" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+**Expected Response**:
+```json
+{
+  "success": true,
+  "message": "Role created successfully with full permissions and privileges",
+  "role": {
+    "id": 5,
+    "name": "CUSTOMER_SUCCESS_MANAGER",
+    "permissionsCount": 7,
+    "privilegesCount": 10
+  }
+}
+```
+
+### 44. Create Customer Success Manager Role
+**Endpoint**: `POST /api/roles/create-customer-success-manager`
+**Access**: Users with `ACCESS_ROLE_MANAGEMENT` privilege or Admin
+**Description**: Create a Customer Success Manager role with all predefined permissions and privileges
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/roles/create-customer-success-manager \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+**Expected Response**:
+```json
+{
+  "success": true,
+  "message": "Customer Success Manager role created successfully",
+  "role": {
+    "id": 6,
+    "name": "CUSTOMER_SUCCESS_MANAGER",
+    "permissions": [
+      "SYSTEM_MONITORING",
+      "CHAT_ACCESS",
+      "CHAT_WITH_USER",
+      "CHAT_WITH_DEFAULT",
+      "USER_MANAGEMENT",
+      "CHAT_WITH_AGENT",
+      "ADMIN_ACCESS"
+    ],
+    "privileges": [
+      "ACCESS_USER_MANAGEMENT",
+      "CREATE_USER",
+      "ACCESS_STATISTICS_TAB",
+      "ACCESS_AGENT_DASHBOARD",
+      "DELETE_USER",
+      "ACCESS_ROLE_MANAGEMENT",
+      "ACCESS_PERMISSION_MANAGEMENT",
+      "CHAT_WITH_DEFAULT_USER",
+      "MANAGE_CHAT",
+      "ACCESS_CHAT_HISTORY_TAB"
+    ]
+  }
+}
+```
+
+### 45. Create Agent Role
+**Endpoint**: `POST /api/roles/create-agent`
+**Access**: Users with `ACCESS_ROLE_MANAGEMENT` privilege or Admin
+**Description**: Create an Agent role with limited permissions and privileges
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/roles/create-agent \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+**Expected Response**:
+```json
+{
+  "success": true,
+  "message": "Agent role created successfully",
+  "role": {
+    "id": 7,
+    "name": "AGENT",
+    "permissions": [
+      "CHAT_ACCESS",
+      "CHAT_WITH_USER",
+      "CHAT_WITH_DEFAULT"
+    ],
+    "privileges": [
+      "MANAGE_CHAT",
+      "CHAT_WITH_DEFAULT_USER"
+    ]
+  }
+}
+```
+
+### 46. Get or Create Role
+**Endpoint**: `POST /api/roles/get-or-create?roleName={roleName}`
+**Access**: Users with `ACCESS_ROLE_MANAGEMENT` privilege or Admin
+**Description**: Get existing role or create new one with automatic permission/privilege assignment
+
+**Curl Command**:
+```bash
+curl -X POST "http://localhost:8080/api/roles/get-or-create?roleName=MANAGER" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 47. Update Role to Full Access
+**Endpoint**: `POST /api/roles/{roleId}/update-to-full-access`
+**Access**: Users with `ACCESS_ROLE_MANAGEMENT` privilege or Admin
+**Description**: Update an existing role to have all permissions and privileges
+
+**Curl Command**:
+```bash
+curl -X POST http://localhost:8080/api/roles/3/update-to-full-access \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### 48. Get Available Permissions and Privileges
+**Endpoint**: `GET /api/roles/available-access`
+**Access**: Users with `ACCESS_ROLE_MANAGEMENT` privilege or Admin
+**Description**: Get list of all available permissions and privileges for reference
+
+**Curl Command**:
+```bash
+curl -X GET http://localhost:8080/api/roles/available-access \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+**Expected Response**:
+```json
+{
+  "permissions": [
+    "SYSTEM_MONITORING",
+    "CHAT_ACCESS",
+    "CHAT_WITH_USER",
+    "CHAT_WITH_DEFAULT",
+    "USER_MANAGEMENT",
+    "CHAT_WITH_AGENT",
+    "ADMIN_ACCESS"
+  ],
+  "privileges": [
+    "ACCESS_USER_MANAGEMENT",
+    "CREATE_USER",
+    "ACCESS_STATISTICS_TAB",
+    "ACCESS_AGENT_DASHBOARD",
+    "DELETE_USER",
+    "ACCESS_ROLE_MANAGEMENT",
+    "ACCESS_PERMISSION_MANAGEMENT",
+    "CHAT_WITH_DEFAULT_USER",
+    "MANAGE_CHAT",
+    "ACCESS_CHAT_HISTORY_TAB"
+  ]
+}
+```
+
+---
+
+## 🔄 **Complete Automated Role Management Testing Workflow**
+
+### Step 1: Login with Appropriate Privileges
+```bash
+# Login with admin or user with ACCESS_ROLE_MANAGEMENT privilege
+LOGIN_RESPONSE=$(curl -s -X POST http://localhost:8080/api/users/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "admin",
+    "password": "admin123"
+  }')
+
+TOKEN=$(echo $LOGIN_RESPONSE | jq -r '.token')
+echo "Token obtained: ${TOKEN:0:50}..."
+```
+
+### Step 2: Create Customer Success Manager Role
+```bash
+curl -X POST http://localhost:8080/api/roles/create-customer-success-manager \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### Step 3: Create Custom Role with Full Access
+```bash
+curl -X POST "http://localhost:8080/api/roles/create-with-full-access?roleName=SUPER_USER" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### Step 4: Get Available Permissions/Privileges
+```bash
+curl -X GET http://localhost:8080/api/roles/available-access \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+### Step 5: Assign Role to User (using existing admin endpoints)
+```bash
+# Get role ID from previous response, then assign to user
+curl -X POST http://localhost:8080/api/admin/users/2/assign-role/5 \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+---
+
+## ✅ **Automated Role Management Validation & Testing Status**
+
+**New Components Added**:
+- ✅ `AutoRoleService.java` - Service for automatic permission/privilege assignment
+- ✅ `RoleManagementController.java` - REST endpoints for automated role creation
+- ✅ Frontend API integration in `api.ts`
+
+**Automatic Assignment Features**:
+- ✅ **Permissions**: SYSTEM_MONITORING, CHAT_ACCESS, CHAT_WITH_USER, CHAT_WITH_DEFAULT, USER_MANAGEMENT, CHAT_WITH_AGENT, ADMIN_ACCESS
+- ✅ **Privileges**: ACCESS_USER_MANAGEMENT, CREATE_USER, ACCESS_STATISTICS_TAB, ACCESS_AGENT_DASHBOARD, DELETE_USER, ACCESS_ROLE_MANAGEMENT, ACCESS_PERMISSION_MANAGEMENT, CHAT_WITH_DEFAULT_USER, MANAGE_CHAT, ACCESS_CHAT_HISTORY_TAB
+
+**Testing Results**:
+```bash
+# ✅ WORKING: Create Customer Success Manager role
+curl -X POST http://localhost:8080/api/roles/create-customer-success-manager \
+  -H "Authorization: Bearer JWT_TOKEN"
+
+# ✅ WORKING: Create custom role with full access
+curl -X POST "http://localhost:8080/api/roles/create-with-full-access?roleName=TEST_ROLE" \
+  -H "Authorization: Bearer JWT_TOKEN"
+
+# ✅ WORKING: Get available permissions/privileges
+curl -X GET http://localhost:8080/api/roles/available-access \
+  -H "Authorization: Bearer JWT_TOKEN"
+```
+
+**Security Implementation**:
+- ✅ Privilege-based access control using `@PreAuthorize("hasAuthority('PRIVILEGE_NAME')")`
+- ✅ Fallback to role-based access for admin users
+- ✅ Automatic assignment eliminates manual permission management
+- ✅ Audit trail maintained for all role operations
+
+---
+
+## 🔒 **Privilege-Based Access Control Summary**
+
+### **Backend Security Updates**:
+- ✅ All admin endpoints updated to use privilege-based `@PreAuthorize` annotations
+- ✅ Controllers now check for specific privileges rather than just roles
+- ✅ Automatic role creation with predefined access levels
+- ✅ JWT tokens include privileges as authorities
+
+### **Frontend Integration**:
+- ✅ API endpoints added for automated role management
+- ✅ Privilege checking aligned with backend security
+- ✅ Dashboard access controlled by user privileges
+- ✅ Real-time privilege validation
+
+### **Key Benefits**:
+1. **Automated Setup**: New roles get full access without manual permission assignment
+2. **Fine-Grained Control**: Privilege-based access allows precise permission management
+3. **Scalability**: Easy to add new roles with consistent permission sets
+4. **Security**: Backend enforcement prevents unauthorized access
+5. **Audit Trail**: All role operations are tracked
+
+## 🎯 **Frontend-Backend Integration Mapping**
+
+### **Role Creation Methods**:
+
+#### **1. Automated Role Creation (NEW - Recommended)**
+- **Frontend**: `handleCreateAutomatedRole()` function in `IntegratedAdminDashboard.tsx`
+- **Backend**: `RoleManagementController` endpoints (`/api/roles/*`)
+- **API Calls**:
+  - `roleAPI.createCustomerSuccessManagerRole()` → `/api/roles/create-customer-success-manager`
+  - `roleAPI.createAgentRole()` → `/api/roles/create-agent`
+  - `roleAPI.createRoleWithFullAccess(roleName)` → `/api/roles/create-with-full-access?roleName=X`
+- **Result**: Roles created with all predefined permissions/privileges automatically
+
+#### **2. Manual Role Creation (Legacy)**
+- **Frontend**: `handleCreateRole()` function with form in `IntegratedAdminDashboard.tsx`
+- **Backend**: `AdminController.createRole()` endpoint
+- **API Call**: `adminAPI.createRole(roleData)` → `/admin/roles`
+- **Result**: Roles created with manually selected permissions/privileges
+
+### **UI Components**:
+- **CSM Role Button**: Creates `CUSTOMER_SUCCESS_MANAGER` with full access
+- **Agent Role Button**: Creates `AGENT` with limited access
+- **Full Access Role Button**: Prompts for role name, creates with full access
+- **Custom Role Button**: Opens form for manual permission/privilege selection
+
+### **Privilege-Based UI Visibility**:
+- **Navigation**: Tabs show/hide based on `canManageUsers()`, `canManageRoles()`, `canAccessStatistics()`
+- **Buttons**: Create buttons only show for users with `ACCESS_ROLE_MANAGEMENT` privilege
+- **Forms**: User/role management forms only accessible to privileged users
 
 ---
 
 *Document Status: All API endpoints documented and tested*
 *Admin APIs Added: October 20, 2025*
-*Last Validation: October 20, 2025*
+*Automated Role Management APIs Added: November 17, 2025*
+*Privilege-Based Access Control: November 17, 2025*
+*Last Validation: November 17, 2025*

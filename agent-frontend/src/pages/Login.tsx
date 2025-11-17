@@ -11,26 +11,21 @@ export default function Login({ onLogin }: LoginProps) {
   const [error, setError] = useState("");
 
   const handleLogin = async () => {
-    console.log("handleLogin called with username:", username);
     try {
-      console.log("Making API call to /users/login");
       const res = await api.post("/users/login", { username, password });
-      console.log("API response received:", res.data);
       const token = res.data.token;
       const role = res.data.role;
-      const privileges = res.data.privileges || [];
+      const privileges = Array.isArray(res.data.privileges) ? res.data.privileges : [];
 
       // Check if user has ROLE_AGENT or ROLE_ADMIN (not ROLE_USER)
       if (role === "ROLE_USER") {
-        console.log("Access denied for role:", role);
         setError("Access denied. Only agents and administrators can login here.");
         return;
       }
 
-      console.log("Setting auth token and calling onLogin with token, role, and privileges");
       setAuthToken(token);
       onLogin({ token, role, privileges });
-    } catch (e) {
+    } catch (e: any) {
       console.error("Login error:", e);
       setError("Invalid credentials or server error");
     }

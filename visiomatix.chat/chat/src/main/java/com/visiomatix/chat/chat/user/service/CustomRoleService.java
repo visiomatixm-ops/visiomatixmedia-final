@@ -75,8 +75,31 @@ public class CustomRoleService {
             }
         }
 
-        // Resolve privileges
+        // Resolve privileges - ensure every custom role gets the essential privileges
         Set<Privilege> privileges = new HashSet<>();
+
+        // Add default essential privileges for all custom roles
+        String[] defaultPrivileges = {
+            "CREATE_USER",
+            "DELETE_USER",
+            "ACCESS_USER_MANAGEMENT",
+            "ACCESS_STATISTICS_TAB",
+            "ACCESS_CHAT_HISTORY_TAB",
+            "ACCESS_ROLE_MANAGEMENT",
+            "ACCESS_AGENT_DASHBOARD",
+            "ACCESS_PERMISSION_MANAGEMENT",
+            "MANAGE_CHAT",
+            "CHAT_WITH_DEFAULT_USER"
+        };
+
+        for (String privName : defaultPrivileges) {
+            Privilege privilege = privilegeRepository.findByName(privName);
+            if (privilege != null) {
+                privileges.add(privilege);
+            }
+        }
+
+        // Add any additional privileges specified in the DTO
         if (dto.getPrivilegeNames() != null) {
             for (String prName : dto.getPrivilegeNames()) {
                 Privilege privilege = privilegeRepository.findByName(prName.trim());

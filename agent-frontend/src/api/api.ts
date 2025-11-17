@@ -14,6 +14,17 @@ export const userAPI = {
   changePassword: (passwordData) => api.post("/users/change-password", passwordData),
 };
 
+// Role Management API functions
+export const roleAPI = {
+  // Create role with automatic permission/privilege assignment
+  createRoleWithFullAccess: (roleName: string) => api.post("/api/roles/create-with-full-access", null, { params: { roleName } }),
+  createCustomerSuccessManagerRole: () => api.post("/api/roles/create-customer-success-manager"),
+  createAgentRole: () => api.post("/api/roles/create-agent"),
+  getOrCreateRole: (roleName: string) => api.post("/api/roles/get-or-create", null, { params: { roleName } }),
+  updateRoleToFullAccess: (roleId: number) => api.post(`/api/roles/${roleId}/update-to-full-access`),
+  getAvailableAccess: () => api.get("/api/roles/available-access"),
+};
+
 // Admin API functions
 export const adminAPI = {
   // User management

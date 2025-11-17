@@ -11,10 +11,11 @@ import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { adminAPI, setAuthToken } from "../api/api";
+import { adminAPI, roleAPI, setAuthToken } from "../api/api";
 import Menu from "../components/Menu";
 import PasswordChange from "../components/PasswordChange";
 import UserChatStatsWidget from "../components/admin/UserChatStatsWidget";
+import LeftNavigationPane from "../components/LeftNavigationPane";
 
 interface Session {
   id: number;
@@ -84,7 +85,6 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
   userRole,
   userPrivileges = []
 }) => {
-  console.log('🚀 IntegratedAdminDashboard rendered with:', { token, userRole, userPrivileges });
 
   // Decode JWT token to get username
   const decodeToken = (token: string) => {
@@ -107,6 +107,7 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
   const [activeTab, setActiveTab] = useState("chats");
   const clientRef = useRef<Client | null>(null);
   const [showPasswordChange, setShowPasswordChange] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   // Admin data state
   const [users, setUsers] = useState<User[]>([]);
@@ -245,6 +246,12 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
   };
 
   const fetchAllSessions = async () => {
+    // Only admins and privileged roles can see all sessions
+    if (userRole !== "ADMIN" && userRole !== "ROLE_ADMIN" && userRole !== "CUSTOMER_SUCCESS_MANAGER") {
+      console.log("Only admin and privileged users can view all chat sessions");
+      return;
+    }
+
     try {
       const response = await adminAPI.getAllSessionsForAdmin();
       setSessionsAdmin(response.data);
@@ -256,39 +263,67 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
   // Permission checking functions
   const hasPermission = (permissionName: string) => {
     // Check if user has the permission through their roles
-    // We need to check the user's assigned roles, not all roles in the system
-    // For now, check if user is admin or has the specific permission
-    return userRole === "ADMIN" || userRole === "ROLE_ADMIN" ||
-           // Check if any of the user's roles have this permission
-           roles.some(role =>
-             role.permissions?.some(perm => perm.name === permissionName)
-           );
+    // First check if user is admin
+    if (userRole === "ADMIN" || userRole === "ROLE_ADMIN") {
+      return true;
+    }
+
+    // If data is not loaded yet, check userPrivileges from login
+    if (users.length === 0 || roles.length === 0) {
+      // For chat permissions, check if user has chat-related privileges
+      if (permissionName === "CHAT_ACCESS" || permissionName === "CHAT_WITH_USER" || permissionName === "CHAT_WITH_DEFAULT") {
+        return userPrivileges.some(priv => priv.includes("CHAT"));
+      }
+      return false;
+    }
+
+    // Find the current user in the users array
+    const currentUser = users.find(user => user.username === username);
+    if (!currentUser || !currentUser.roles) {
+      return false;
+    }
+
+    // Check if any of the user's assigned roles have the required permission
+    return currentUser.roles.some(userRole =>
+      roles.some(systemRole =>
+        systemRole.id === userRole.id &&
+        systemRole.permissions?.some(perm => perm.name === permissionName)
+      )
+    );
   };
 
   const hasPrivilege = (privilegeName: string) => {
     // Check if user has the privilege through their roles
-    return userRole === "ADMIN" || userRole === "ROLE_ADMIN" ||
-           // Check if any of the user's roles have this privilege
-           roles.some(role =>
-             role.privileges?.some(priv => priv.name === privilegeName)
-           );
+    if (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") {
+      return true;
+    }
+
+    // Check if the user's assigned role has this privilege
+    const userRoleObj = roles.find(role => role.name === userRole);
+    if (userRoleObj && userRoleObj.privileges) {
+      const hasPriv = userRoleObj.privileges.some(priv => priv.name === privilegeName);
+      if (hasPriv) return true;
+    }
+
+    // Fallback: check userPrivileges array from login
+    return userPrivileges.some(priv => priv === privilegeName);
   };
 
   const canManageUsers = () => {
-    return userRole === "ADMIN" || userRole === "ROLE_ADMIN" ||
-           hasPermission("USER_MANAGEMENT") || hasPrivilege("ACCESS_USER_MANAGEMENT");
+    return userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" ||
+            hasPermission("USER_MANAGEMENT") || hasPrivilege("ACCESS_USER_MANAGEMENT");
   };
 
   const canManageRoles = () => {
-    return userRole === "ADMIN" || userRole === "ROLE_ADMIN" ||
-           hasPrivilege("ACCESS_ROLE_MANAGEMENT");
+    return userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" ||
+            hasPrivilege("ACCESS_ROLE_MANAGEMENT");
   };
 
   const canAccessStatistics = () => {
     return hasPrivilege("ACCESS_STATISTICS_TAB") || userRole === "ADMIN";
   };
 
-  // Create Role functionality
+  // Create Role functionality (Manual)
   const handleCreateRole = async () => {
     try {
       const roleData = {
@@ -318,6 +353,41 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
     } catch (e) {
       console.error("Failed to create role:", e);
       showMessage("Failed to create role", "error");
+    }
+  };
+
+  // Create Automated Role functionality (using RoleManagementController)
+  const handleCreateAutomatedRole = async (roleType: string, customRoleName?: string) => {
+    try {
+      let response;
+      let successMessage = '';
+
+      switch (roleType) {
+        case 'CUSTOMER_SUCCESS_MANAGER':
+          response = await roleAPI.createCustomerSuccessManagerRole();
+          successMessage = 'Customer Success Manager role created with full access!';
+          break;
+        case 'AGENT':
+          response = await roleAPI.createAgentRole();
+          successMessage = 'Agent role created with limited access!';
+          break;
+        case 'CUSTOM':
+          if (!customRoleName) {
+            throw new Error('Role name is required for custom role creation');
+          }
+          response = await roleAPI.createRoleWithFullAccess(customRoleName);
+          successMessage = `${customRoleName} role created with full access!`;
+          break;
+        default:
+          throw new Error('Unknown role type');
+      }
+
+      showMessage(successMessage);
+      fetchRoles(); // Refresh the roles list
+    } catch (e: any) {
+      console.error("Failed to create automated role:", e);
+      const errorMsg = e.response?.data?.message || e.message || 'Failed to create role';
+      showMessage(`Failed to create ${roleType} role: ${errorMsg}`, "error");
     }
   };
 
@@ -407,6 +477,15 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
 
   // Fetch user chat statistics
   const fetchUserChatStats = async (userId: number) => {
+    // Only allow fetching stats for current user if not admin or privileged role
+    if (userRole !== "ADMIN" && userRole !== "ROLE_ADMIN" && userRole !== "CUSTOMER_SUCCESS_MANAGER" && userRole !== "CUSTOMER_SUCCESS_LEAD") {
+      const currentUser = users.find(user => user.username === username);
+      if (!currentUser || currentUser.id !== userId) {
+        console.log("Agent users can only view their own statistics");
+        return;
+      }
+    }
+
     try {
       // Get current date for monthly stats
       const now = new Date();
@@ -426,14 +505,46 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
 
   // Load data based on active tab
   useEffect(() => {
-    if (activeTab === "dashboard") fetchDashboardData();
-    else if (activeTab === "users") fetchUsers();
-    else if (activeTab === "roles") fetchRoles();
-    else if (activeTab === "permissions") fetchPermissions();
-    else if (activeTab === "privileges") fetchPrivileges();
-    else if (activeTab === "admin-history") fetchAllSessions();
-    else if (activeTab === "statistics") fetchDashboardData(); // Load system stats for statistics tab
-  }, [activeTab]);
+    if (activeTab === "dashboard") {
+      if (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") {
+        fetchDashboardData();
+      }
+    }
+    else if (activeTab === "users") {
+      if (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") {
+        fetchUsers();
+      }
+    }
+    else if (activeTab === "roles") {
+      if (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") {
+        fetchRoles();
+      }
+    }
+    else if (activeTab === "permissions") {
+      if (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") {
+        fetchPermissions();
+      }
+    }
+    else if (activeTab === "privileges") {
+      if (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") {
+        fetchPrivileges();
+      }
+    }
+    else if (activeTab === "admin-history") {
+      if (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") {
+        fetchAllSessions();
+      }
+    }
+    else if (activeTab === "statistics") {
+      if (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") {
+        fetchDashboardData(); // Load system stats for statistics tab
+        if (users.length === 0) fetchUsers(); // Also load users if not already loaded
+      } else {
+        // For agents, load their own data
+        if (users.length === 0) fetchUsers();
+      }
+    }
+  }, [activeTab, userRole]);
 
   // Chat functionality
   useEffect(() => {
@@ -463,14 +574,19 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
     fetchMessages();
   }, [selected, token]);
 
-  // Fetch sessions - for admin users, fetch all sessions, for regular users, fetch their own
+  // Fetch sessions - for admin users fetch all sessions, for agents fetch sessions they can access, for regular users fetch their own
   useEffect(() => {
     if (!token) return;
     const fetchSessions = async () => {
       try {
         let res;
-        if (userRole === "ADMIN" || userRole === "ROLE_ADMIN") {
-          // Admin users can see all active sessions
+        if (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") {
+          // Admin users and privileged roles can see all active sessions
+          res = await axios.get(`${API}/admin/sessions/active`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+        } else if (hasPermission("CHAT_ACCESS") || hasPermission("CHAT_WITH_USER") || hasPermission("CHAT_WITH_DEFAULT")) {
+          // Agents with chat permissions can see all active sessions (they have permission to join)
           res = await axios.get(`${API}/admin/sessions/active`, {
             headers: { Authorization: `Bearer ${token}` },
           });
@@ -483,12 +599,23 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
         setSessions(res.data.slice(0, 4));
       } catch (e) {
         console.error("Fetch sessions failed:", e);
+        // If admin endpoint fails for agents, try their own sessions
+        if (userRole !== "ADMIN" && userRole !== "ROLE_ADMIN" && userRole !== "CUSTOMER_SUCCESS_MANAGER" && userRole !== "CUSTOMER_SUCCESS_LEAD") {
+          try {
+            const fallbackRes = await axios.get(`${API}/chat/sessions`, {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+            setSessions(fallbackRes.data.slice(0, 4));
+          } catch (fallbackError) {
+            console.error("Fallback fetch also failed:", fallbackError);
+          }
+        }
       }
     };
     fetchSessions();
     const timer = setInterval(fetchSessions, 10000);
     return () => clearInterval(timer);
-  }, [token, userRole]);
+  }, [token, userRole, users, roles]);
 
   // Connect WS & subscribe per session
   useEffect(() => {
@@ -503,8 +630,8 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
         sessions.forEach((s) =>
           c.subscribe(`/topic/chat/${s.id}`, (msg) => {
             const data = JSON.parse(msg.body);
-            // For admin users, show all messages. For regular users, filter out their own messages
-            if (userRole !== "ADMIN" && userRole !== "ROLE_ADMIN" && data.sender?.username === username) return;
+            // For admin users, privileged roles, or users with chat permissions, show all messages. For regular users, filter out their own messages
+            if ((userRole !== "ADMIN" && userRole !== "ROLE_ADMIN" && userRole !== "CUSTOMER_SUCCESS_MANAGER" && userRole !== "CUSTOMER_SUCCESS_LEAD" && !hasPermission("CHAT_ACCESS") && !hasPermission("CHAT_WITH_USER") && !hasPermission("CHAT_WITH_DEFAULT")) && data.sender?.username === username) return;
 
             setMessages((p) => ({
               ...p,
@@ -519,6 +646,12 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
                 }
               ],
             }));
+
+            // Play notification sound for incoming messages
+            if (data.sender?.username !== username) {
+              const audio = new Audio('/notification.mp3');
+              audio.play().catch(e => console.log('Audio play failed:', e));
+            }
           })
         );
       },
@@ -535,11 +668,18 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
         clientRef.current.deactivate();
       }
     };
-  }, [sessions, token, userRole, username]);
+  }, [sessions, token, userRole, username, users, roles]);
 
   // Send message with database persistence and real-time updates
   const sendMsg = async () => {
     console.log("sendMsg called with:", { selected, input, token: !!token });
+    console.log("User permissions check:", {
+      userRole,
+      hasChatAccess: hasPermission("CHAT_ACCESS"),
+      hasChatWithUser: hasPermission("CHAT_WITH_USER"),
+      hasChatWithDefault: hasPermission("CHAT_WITH_DEFAULT"),
+      userPrivileges
+    });
 
     // Enhanced validation
     if (!selected) {
@@ -656,7 +796,7 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "12vh",
+        minHeight: "100vh",
       }}
     >
       <style>
@@ -681,25 +821,48 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
             background-color: #000080;
             color: white;
           }
+
+          .main-content {
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
+            flex: 1;
+            padding: 20px;
+          }
+
+          .main-content.collapsed {
+            margin-left: 60px;
+          }
+
+          @media (max-width: 768px) {
+            .main-content {
+              margin-left: 0;
+            }
+            .main-content.collapsed {
+              margin-left: 0;
+            }
+          }
+
         `}
       </style>
-      
+
       <div className="logo-container"><Menu /></div>
 
-      <div className="margin-top container-fluid py-4 px-4">
+      <LeftNavigationPane
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        sidebarCollapsed={sidebarCollapsed}
+        setSidebarCollapsed={setSidebarCollapsed}
+        canAccessStatistics={canAccessStatistics}
+        canManageUsers={canManageUsers}
+        canManageRoles={canManageRoles}
+        onLogout={handleLogout}
+        onShowPasswordChange={() => setShowPasswordChange(true)}
+        userRole={userRole}
+      />
+
+      <div className={`main-content ${sidebarCollapsed ? 'collapsed' : ''}`}>
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h4 className="mb-0 text-lg sm:text-xl md:text-2xl lg:text-3xl">Agent Dashboard</h4>
-          <div>
-            <button
-              className="btn btn-outline-primary btn-sm me-2 text-xs sm:text-sm"
-              onClick={() => setShowPasswordChange(true)}
-            >
-              Change Password
-            </button>
-            <button className="btn btn-outline-danger btn-sm text-xs sm:text-sm" onClick={handleLogout}>
-              Logout
-            </button>
-          </div>
         </div>
 
         {/* Message Display */}
@@ -710,96 +873,12 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
         )}
 
         {/* Debug Information */}
-        <div className="alert alert-info" style={{ fontSize: '12px' }}>
+        <div className="alert alert-info" style={{ fontSize: '12px', marginTop:'5em' }}>
           <strong>🔍 Debug Info:</strong><br />
           <strong>User:</strong> {userRole}<br />
           <strong>Privileges:</strong> {userPrivileges.length > 0 ? userPrivileges.join(', ') : 'None'}
         </div>
 
-        {/* ALL TABS IN MAIN INTERFACE - NO SEPARATE ADMIN PANEL */}
-        <ul className="nav nav-pills mb-3 sm:mb-4">
-          <li className="nav-item">
-            <button
-              className={`nav-link text-sm sm:text-base ${activeTab === "chats" ? "active" : ""}`}
-              style={activeTab === "chats" ? { backgroundColor: '#003366' } : {}}
-              onClick={() => setActiveTab("chats")}
-            >
-              💬 Chats
-            </button>
-          </li>
-
-          <li className="nav-item">
-            <button
-              className={`nav-link text-sm sm:text-base ${activeTab === "dashboard" ? "active" : ""}`}
-              style={activeTab === "dashboard" ? { backgroundColor: '#003366' } : {}}
-              onClick={() => setActiveTab("dashboard")}
-            >
-              📊 Dashboard
-            </button>
-          </li>
-
-          <li className="nav-item">
-            <button
-              className={`nav-link text-sm sm:text-base ${activeTab === "users" ? "active" : ""}`}
-              style={activeTab === "users" ? { backgroundColor: '#003366' } : {}}
-              onClick={() => setActiveTab("users")}
-            >
-              👥 Users
-            </button>
-          </li>
-
-          <li className="nav-item">
-            <button
-              className={`nav-link text-sm sm:text-base ${activeTab === "roles" ? "active" : ""}`}
-              style={activeTab === "roles" ? { backgroundColor: '#003366' } : {}}
-              onClick={() => setActiveTab("roles")}
-            >
-              🔑 Roles
-            </button>
-          </li>
-
-          <li className="nav-item">
-            <button
-              className={`nav-link text-sm sm:text-base ${activeTab === "permissions" ? "active" : ""}`}
-              style={activeTab === "permissions" ? { backgroundColor: '#003366' } : {}}
-              onClick={() => setActiveTab("permissions")}
-            >
-              🛡️ Permissions
-            </button>
-          </li>
-
-          <li className="nav-item">
-            <button
-              className={`nav-link text-sm sm:text-base ${activeTab === "privileges" ? "active" : ""}`}
-              style={activeTab === "privileges" ? { backgroundColor: '#003366' } : {}}
-              onClick={() => setActiveTab("privileges")}
-            >
-              ⚡ Privileges
-            </button>
-          </li>
-
-          <li className="nav-item">
-            <button
-              className={`nav-link text-sm sm:text-base ${activeTab === "admin-history" ? "active" : ""}`}
-              style={activeTab === "admin-history" ? { backgroundColor: '#003366' } : {}}
-              onClick={() => setActiveTab("admin-history")}
-            >
-              📚 Chat History
-            </button>
-          </li>
-
-          {canAccessStatistics() && (
-            <li className="nav-item">
-              <button
-                className={`nav-link text-sm sm:text-base ${activeTab === "statistics" ? "active" : ""}`}
-                style={activeTab === "statistics" ? { backgroundColor: '#003366' } : {}}
-                onClick={() => setActiveTab("statistics")}
-              >
-                📈 Statistics
-              </button>
-            </li>
-          )}
-        </ul>
 
         {/* Tab Content - ALL INTEGRATED INTO MAIN INTERFACE */}
         <div className="tab-content">
@@ -871,7 +950,7 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
           )}
 
           {/* DASHBOARD TAB */}
-          {activeTab === "dashboard" && (
+          {activeTab === "dashboard" && (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") && (
             <div>
               <h5>📊 System Dashboard</h5>
               <div className="row">
@@ -912,7 +991,7 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
           )}
 
           {/* USERS TAB WITH CREATE FUNCTIONALITY */}
-          {activeTab === "users" && (
+          {activeTab === "users" && (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") && (
             <div>
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <h5>👥 User Management</h5>
@@ -1079,17 +1158,46 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
           )}
 
           {/* ROLES TAB WITH CREATE FUNCTIONALITY */}
-          {activeTab === "roles" && (
+          {activeTab === "roles" && (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") && (
             <div>
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <h5>🔑 Role Management</h5>
                 {canManageRoles() && (
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => setShowRoleForm(!showRoleForm)}
-                  >
-                    + Create Role
-                  </button>
+                  <div className="d-flex gap-2 flex-wrap">
+                    <button
+                      className="btn btn-success"
+                      onClick={() => handleCreateAutomatedRole('CUSTOMER_SUCCESS_MANAGER')}
+                      title="Create Customer Success Manager role with full access"
+                    >
+                      + CSM Role
+                    </button>
+                    <button
+                      className="btn btn-info"
+                      onClick={() => handleCreateAutomatedRole('AGENT')}
+                      title="Create Agent role with limited access"
+                    >
+                      + Agent Role
+                    </button>
+                    <button
+                      className="btn btn-warning"
+                      onClick={() => {
+                        const roleName = prompt('Enter role name:');
+                        if (roleName && roleName.trim()) {
+                          handleCreateAutomatedRole('CUSTOM', roleName.trim());
+                        }
+                      }}
+                      title="Create any role with full access"
+                    >
+                      + Full Access Role
+                    </button>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => setShowRoleForm(!showRoleForm)}
+                      title="Create custom role with manual permission assignment"
+                    >
+                      + Custom Role
+                    </button>
+                  </div>
                 )}
               </div>
 
@@ -1257,7 +1365,7 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
           )}
 
           {/* PERMISSIONS TAB */}
-          {activeTab === "permissions" && (
+          {activeTab === "permissions" && (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") && (
             <div>
               <h5>🛡️ Permission Management</h5>
               <div className="table-responsive">
@@ -1288,7 +1396,7 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
           )}
 
           {/* PRIVILEGES TAB */}
-          {activeTab === "privileges" && (
+          {activeTab === "privileges" && (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") && (
             <div>
               <h5>⚡ Privilege Management</h5>
               <div className="table-responsive">
@@ -1313,7 +1421,7 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
           )}
 
           {/* ADMIN HISTORY TAB - CHAT SELECTION AND VIEWING */}
-          {activeTab === "admin-history" && (
+          {activeTab === "admin-history" && (userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD") && (
             <div>
               <h5>📚 Chat History Management</h5>
               <div className="row">
@@ -1405,54 +1513,113 @@ const IntegratedAdminDashboard: React.FC<{ token: string; userRole: string; user
                 </select>
               </div>
 
-              {/* User Chat Statistics Widget */}
-              <UserChatStatsWidget
-                users={users}
-                userChatStats={userChatStats}
-                selectedPeriod={selectedPeriod}
-                onFetchUserStats={fetchUserChatStats}
-              />
+              {/* For agents, only show their own stats */}
+              {userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" || userRole === "CUSTOMER_SUCCESS_LEAD" ? (
+                <>
+                  {/* User Chat Statistics Widget - Admin view */}
+                  <UserChatStatsWidget
+                    users={users}
+                    userChatStats={userChatStats}
+                    selectedPeriod={selectedPeriod}
+                    onFetchUserStats={fetchUserChatStats}
+                    roles={roles}
+                  />
 
-              {/* System Statistics */}
-              <div className="row mt-4">
-                <div className="col-md-6">
-                  <div className="card">
-                    <div className="card-header">
-                      <h6 className="mb-0">System Overview</h6>
-                    </div>
-                    <div className="card-body">
-                      <div className="row">
-                        <div className="col-6">
-                          <div className="text-center">
-                            <h4 className="text-primary">{statistics.totalSessions || 0}</h4>
-                            <small className="text-muted">Total Sessions</small>
+                  {/* System Statistics */}
+                  <div className="row mt-4">
+                    <div className="col-md-6">
+                      <div className="card">
+                        <div className="card-header">
+                          <h6 className="mb-0">System Overview</h6>
+                        </div>
+                        <div className="card-body">
+                          <div className="row">
+                            <div className="col-6">
+                              <div className="text-center">
+                                <h4 className="text-primary">{statistics.totalSessions || 0}</h4>
+                                <small className="text-muted">Total Sessions</small>
+                              </div>
+                            </div>
+                            <div className="col-6">
+                              <div className="text-center">
+                                <h4 className="text-success">{statistics.totalMessages || 0}</h4>
+                                <small className="text-muted">Total Messages</small>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div className="col-6">
+                      </div>
+                    </div>
+
+                    <div className="col-md-6">
+                      <div className="card">
+                        <div className="card-header">
+                          <h6 className="mb-0">Active Sessions</h6>
+                        </div>
+                        <div className="card-body">
                           <div className="text-center">
-                            <h4 className="text-success">{statistics.totalMessages || 0}</h4>
-                            <small className="text-muted">Total Messages</small>
+                            <h4 className="text-info">{statistics.activeSessions || 0}</h4>
+                            <small className="text-muted">Currently Active</small>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </>
+              ) : (
+                /* Agent view - only their own stats */
+                <div>
+                  <h6>Your Chat Statistics</h6>
+                  {(() => {
+                    const currentUser = users.find(user => user.username === username);
+                    if (currentUser && userChatStats[currentUser.id]) {
+                      const stats = userChatStats[currentUser.id];
+                      return (
+                        <div className="row">
+                          <div className="col-md-4">
+                            <div className="card bg-primary text-white">
+                              <div className="card-body text-center">
+                                <h4>{stats.totalSessions || 0}</h4>
+                                <small>Total Sessions</small>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="card bg-success text-white">
+                              <div className="card-body text-center">
+                                <h4>{stats.totalMessages || 0}</h4>
+                                <small>Total Messages</small>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="card bg-info text-white">
+                              <div className="card-body text-center">
+                                <h4>{stats.averageResponseTime || 0}</h4>
+                                <small>Avg Response Time (ms)</small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div className="text-center">
+                          <p>Loading your statistics...</p>
+                          {currentUser && (
+                            <button
+                              className="btn btn-primary"
+                              onClick={() => fetchUserChatStats(currentUser.id)}
+                            >
+                              Load Statistics
+                            </button>
+                          )}
+                        </div>
+                      );
+                    }
+                  })()}
                 </div>
-
-                <div className="col-md-6">
-                  <div className="card">
-                    <div className="card-header">
-                      <h6 className="mb-0">Active Sessions</h6>
-                    </div>
-                    <div className="card-body">
-                      <div className="text-center">
-                        <h4 className="text-info">{statistics.activeSessions || 0}</h4>
-                        <small className="text-muted">Currently Active</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
           )}
         </div>
