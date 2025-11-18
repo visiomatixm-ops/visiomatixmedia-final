@@ -5,157 +5,168 @@
 // Description:
 //   This component renders a responsive footer section containing
 //   navigation links, contact info, and dynamic breadcrumbs showing
-//   the user’s navigation path.
+//   the user's navigation path.
 //
 // Dependencies:
 //   - React
 //   - react-router-dom (for Breadcrumb navigation)
 // ============================================================
 
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom'; 
-// useLocation gives access to the current URL path to build breadcrumbs.
-
+import React from "react";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Mail, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
+import "../App.css";
+// import { Facebook, Instagram, Linkedin, Twitter } from "react-bootstrap-icons";
+// Bootstrap Icons CSS will be loaded globally
 const Footer: React.FC = () => {
-  // Access the current route
-  const location = useLocation();
-
-  // Split the pathname into an array, e.g. "/about/team" → ['about', 'team']
-  const pathParts = location.pathname.split('/').filter((part) => part);
-
-  // Helper function to capitalize breadcrumb titles
-  const capitalize = (text: string) =>
-    text.charAt(0).toUpperCase() + text.slice(1);
-
   return (
     <>
-    <footer className="bg-dark text-light pt-4 pb-2 mt-5">
-      {/* Breadcrumb Section */}
-      <div className="container mb-3">
-        <nav aria-label="breadcrumb">
-          <ol className="breadcrumb bg-transparent p-0 mb-0">
-            <li className="breadcrumb-item">
-              <Link to="/" className="text-decoration-none text-warning">
-                Home
-              </Link>
-            </li>
-
-            {pathParts.map((part, index) => {
-              const routeTo = `/${pathParts.slice(0, index + 1).join('/')}`;
-              const isLast = index === pathParts.length - 1;
-
-              return (
-                <li
-                  key={routeTo}
-                  className={`breadcrumb-item ${isLast ? 'active' : ''}`}
-                  aria-current={isLast ? 'page' : undefined}
-                >
-                  {isLast ? (
-                    capitalize(part)
-                  ) : (
-                    <Link
-                      to={routeTo}
-                      className="text-decoration-none text-warning"
-                    >
-                      {capitalize(part)}
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ol>
-        </nav>
-      </div>
-
-      {/* Footer Navigation Links */}
-      <div className="container">
-        <div className="row justify-content-center align-items-start footer-links-row">
-          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
-            <Link to="/" className="text-light text-decoration-none">
-              Home
-            </Link>
-          </div>
-          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
-            <Link to="/about" className="text-light text-decoration-none">
-              About Us
-            </Link>
-          </div>
-          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
-            <Link to="/services" className="text-light text-decoration-none">
-              Services
-            </Link>
-          </div>
-          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
-            <Link to="/services/DigitalMarketing" className="text-light text-decoration-none">
-              Digital Marketing
-            </Link>
-          </div>
-          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
-            <Link to="/services/Design" className="text-light text-decoration-none">
-              Design and Creative Services
-            </Link>
-          </div>
-          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
-            <Link to="/services/Webapp" className="text-light text-decoration-none">
-              Web App Development
-            </Link>
-          </div>
-          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
-            <Link to="/services/Software" className="text-light text-decoration-none">
-              Business Software Solutions
-            </Link>
-          </div>
-          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
-            <Link to="/services/Ecommerce" className="text-light text-decoration-none">
-              ECommerce Solutions
-            </Link>
-          </div>
-          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
-            <Link to="/services/Branding" className="text-light text-decoration-none">
-              Branding and Strategy
-            </Link>
-          </div>
-          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
-            <Link to="/blog" className="text-light text-decoration-none">
-              Blog
-            </Link>
-          </div>
-          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
-            <Link to="/careers" className="text-light text-decoration-none">
-              Careers
-            </Link>
-          </div>
-          <div className="col-3 col-md-3 mb-3 d-flex justify-content-start">
-            <Link to="/contact" className="text-light text-decoration-none">
-              Contact Us
-            </Link>
-          </div>
-        </div>
-
-        {/* Footer Bottom Info */}
-        <span className="d-block small text-secondary">
-          © {new Date().getFullYear()} Visiomatix | Phone: +91-89991 01916
-        </span>
-      </div>
-    </footer>
-    <style>
-         {`li.breadcrumb-item.active {
-          color: #006aff !important;
+      <style>
+        {`
+          .footer-section {
+            background-color: #1C3458;
+            width: 100%;
           }
-
-          @media screen and (max-width: 500px) {
-            .footer-links-row {
-              display: grid !important;
-              grid-template-columns: 1fr 1fr !important;
-              gap: 1rem !important;
-            }
-            .footer-links-row > div {
-              margin-bottom: 0.5rem !important;
-            }
-          }`}
-    </style>
+          /* Logo */
+          .footer-logo {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+          }
+          /* Footer Links */
+          .footer-links li a {
+            color: #DFE6F3;
+            text-decoration: none;
+            display: inline-block;
+            padding: 3px 0;
+            transition: 0.3s;
+          }
+          .footer-links li a:hover {
+            color: #00AAFF;
+            padding-left: 3px;
+          }
+          /* Subscribe Button */
+          .subscribe-btn {
+            background-color: #006AFF;
+            border: none;
+          }
+          .subscribe-btn:hover {
+            background-color: #004FBE;
+          }
+          /* Uniform social icons */
+          .lucide-icon-wrapper {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: #FFFFFF;
+            opacity: 0.85;
+          }
+          .lucide-icon-wrapper:hover {
+            opacity: 1;
+            transform: scale(1.12);
+            color: #00AAFF;
+          }
+        `}
+      </style>
+      <footer className="footer-section text-light pt-5 pb-4">
+      <Container>
+        {/* Top Section */}
+        <Row className="gy-4 text-center text-md-start">
+          {/* Brand + Social */}
+          <Col xs={12} md={4} lg={3}>
+            <div className="d-flex align-items-center gap-2 mb-2">
+              <img
+                src="/icons-white/CompanyLogo.png"
+                alt="Logo"
+                className="footer-logo"
+              />
+              <h4 className="fw-bold mb-0">Visiomatix</h4>
+            </div>
+            <p className="small">
+              Delivering digital transformation and creative innovation to help
+              brands scale in today's digital world.
+            </p>
+            {/* <div className="d-flex justify-content-start gap-3 mt-3">
+              {["Facebook", "Twitter", "Linkedin", "Instagram"].map((icon) => (
+                <a key={icon} href="#" className="footer-icon">
+                  <img src={/icons-white/${icon}.svg} alt={icon} />
+                </a>))}
+            </div> */}
+            <div className="d-flex justify-content-start gap-2 mt-3">
+              {["bi-facebook",
+                "bi-youtube",
+                "bi-linkedin",
+                "bi-twitter-x",
+                "bi-instagram",].map((icon, index) => (
+                  <a key={index} href="#" className="footer-icon lucide-icon-wrapper">
+                    <i className={icon}></i>
+                  </a>
+                ))}
+            </div>
+          </Col>
+          {/* Company Links */}
+          <Col xs={6} md={4} lg={2}>
+            <h6 className="fw-semibold text-uppercase">Company</h6>
+            <ul className="list-unstyled mt-2 footer-links">
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/careers">Careers</Link></li>
+              <li><Link to="/blog">Blog</Link></li>
+              <li><Link to="/services">Services</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
+            </ul>
+          </Col>
+          {/* Services */}
+          <Col xs={6} md={4} lg={3}>
+            <h6 className="fw-semibold text-uppercase">Services</h6>
+            <ul className="list-unstyled mt-2 footer-links">
+              <li><Link to="/services/DigitalMarketing">Digital Marketing</Link></li>
+              <li><Link to="/services/Webapp">Web App Development</Link></li>
+              <li><Link to="/services/Design">Design & Creative</Link></li>
+              <li><Link to="/services/Branding">Branding & Strategy</Link></li>
+              <li><Link to="/services/Software">Business Software</Link></li>
+              <li><Link to="/services/Ecommerce">E-Commerce</Link></li>
+            </ul>
+          </Col>
+          {/* Subscribe */}
+          <Col xs={12} lg={4}>
+            <h6 className="fw-semibold text-uppercase">Stay Updated</h6>
+            <p className="small mt-2">Subscribe for updates, trends, and insights.</p>
+            <Form className="d-flex flex-column flex-sm-row gap-2 mt-3">
+              <Form.Control
+                type="email"
+                placeholder="Enter your email"
+                className="rounded"
+              />
+              <Button className="subscribe-btn fw-semibold px-4 rounded">
+                Subscribe
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+        {/* Bottom Section */}
+        <hr className="border-secondary mt-5 mb-3" />
+        <Row>
+          <Col className="text-center small">
+            <p className="mb-1">
+              © {new Date().getFullYear()} <strong>Visiomatix</strong> — All Rights Reserved
+            </p>
+            <div className="d-flex justify-content-center gap-3">
+              <span><Phone size={15} /> +91-9270271916</span>
+              <span><Mail size={15} /> visiomatixmedia@gmail.com</span>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </footer>
     </>
   );
 };
-
 export default Footer;
