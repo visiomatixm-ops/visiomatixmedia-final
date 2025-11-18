@@ -1,27 +1,161 @@
+/**
+ * ===========================================================
+ * Users Tab Component - Comprehensive User Management System
+ * ===========================================================
+ *
+ * This component provides complete user management functionality within the
+ * Role-Based Access Control (RBAC) and Attribute-Based Access Control (ABAC) system.
+ * It allows administrators to create users, assign roles, manage permissions, and
+ * create custom roles with specific privilege and permission combinations.
+ *
+ * Key Features:
+ * - Create new users with role assignment
+ * - Assign and remove roles from existing users
+ * - Delete users with confirmation dialogs
+ * - Create custom roles with specific privileges and permissions
+ * - ABAC (Attribute-Based Access Control) attribute management
+ * - Role-based user filtering and management
+ * - Real-time role assignment and removal
+ * - Comprehensive user information display
+ *
+ * User Creation Process:
+ * - Basic user information (username, email, name, password)
+ * - Multiple role assignment during creation
+ * - Automatic permission inheritance from assigned roles
+ * - Support for both standard and custom roles
+ *
+ * Custom Role Creation:
+ * - Create roles with specific privilege subsets from admin role
+ * - Select individual permissions for fine-grained access control
+ * - Add ABAC attributes for advanced access policies
+ * - Modal-based role creation with validation
+ *
+ * Role Management:
+ * - Assign multiple roles to users (cumulative permissions)
+ * - Remove roles while maintaining other role assignments
+ * - Visual indicators for role assignments
+ * - Dropdown-based role management interface
+ *
+ * ABAC Integration:
+ * - Attribute-based access control attributes
+ * - Key-value pair attribute management
+ * - Dynamic attribute addition and removal
+ * - Integration with role creation process
+ *
+ * Security Considerations:
+ * - Requires administrative privileges to access
+ * - User deletion requires explicit confirmation
+ * - Password handling with secure input fields
+ * - Audit trail for user and role changes
+ * - Role-based access control for all operations
+ *
+ * User Experience:
+ * - Intuitive user creation forms with validation
+ * - Modal dialogs for complex operations (custom role creation)
+ * - Responsive design for various screen sizes
+ * - Loading states and error handling
+ * - Clear visual feedback for all operations
+ * - Comprehensive help text and guidance
+ *
+ * Technical Implementation:
+ * - Complex state management for forms and selections
+ * - API integration for user and role CRUD operations
+ * - Modal-based UI components for advanced features
+ * - Form validation and user input sanitization
+ * - Bootstrap-based responsive UI components
+ * - TypeScript interfaces for type safety
+ *
+ * Business Logic:
+ * - Automatic permission inheritance from role assignments
+ * - Support for multiple concurrent role assignments
+ * - Custom role creation with admin role subsets
+ * - ABAC attribute integration for advanced policies
+ * - User lifecycle management (create, modify, delete)
+ *
+ * Integration Points:
+ * - Backend user service for CRUD operations
+ * - Role management system for assignment operations
+ * - Authentication system for user creation
+ * - Permission and privilege systems for access control
+ * - Audit logging system for change tracking
+ *
+ * Data Flow:
+ * 1. Display current users with their role assignments
+ * 2. Handle user creation with role selection
+ * 3. Manage role assignments through dropdown menus
+ * 4. Support custom role creation with privilege selection
+ * 5. Handle user deletion with confirmation
+ * 6. Update UI in real-time after operations
+ *
+ * @author Visiomatix Development Team
+ * @version 2.0
+ * @since 2025
+ * ===========================================================
+ */
+
 import React, { useState } from "react";
 import { adminAPI } from "../../api/api";
 
+/**
+ * Interface defining the structure of user roles
+ * Contains basic role information for user assignment
+ */
 interface Role {
+  /** Unique identifier for the role */
   id: number;
+
+  /** Role name for identification and display */
   name: string;
 }
 
+/**
+ * Interface defining the structure of user accounts
+ * Contains user information and role assignments
+ */
 interface User {
+  /** Unique identifier for the user */
   id: number;
+
+  /** User's unique username */
   username: string;
+
+  /** User's email address */
   email: string;
+
+  /** User's display name */
   name: string;
+
+  /** Array of roles assigned to this user */
   roles?: Role[];
 }
 
+/**
+ * Props interface for the UsersTab component
+ * Defines all required properties and callback functions
+ */
 interface UsersTabProps {
+  /** Array of all users in the system */
   users: User[];
+
+  /** Array of all available roles for assignment */
   roles: Role[];
+
+  /** Loading state indicator for async operations */
   loading: boolean;
+
+  /** Callback function to assign a role to a user */
   onAssignRole: (userId: number, roleId: number) => void;
+
+  /** Callback function to remove a role from a user */
   onRemoveRole: (userId: number, roleId: number) => void;
+
+  /** Callback function to create a new user */
   onCreateUser: (user: any) => Promise<void>;
+
+  /** Callback function to refresh the users list */
   onRefreshUsers: () => void;
+
+  /** Callback function to delete a user by ID */
   onDeleteUser: (userId: number) => void;
 }
 

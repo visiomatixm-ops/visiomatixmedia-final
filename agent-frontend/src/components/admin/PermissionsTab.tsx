@@ -1,22 +1,110 @@
+/**
+ * ===========================================================
+ * Permissions Tab Component
+ * ===========================================================
+ *
+ * This component provides comprehensive permission management functionality for the
+ * Role-Based Access Control (RBAC) system. It allows administrators to create, view,
+ * and delete system permissions that control access to various features and resources.
+ *
+ * Key Features:
+ * - Create new permissions with detailed configuration
+ * - View all existing permissions in a structured table
+ * - Delete permissions with confirmation dialogs
+ * - Permission type categorization and mapping
+ * - Resource pattern specification for fine-grained access control
+ * - Real-time form validation and user feedback
+ *
+ * Permission Types Supported:
+ * - CHAT_ACCESS: General access to chat functionality
+ * - CHAT_WITH_AGENT: Permission to chat with agents
+ * - CHAT_WITH_USER: Permission to chat with regular users
+ * - CHAT_WITH_DEFAULT: Default chat access permissions
+ * - ADMIN_ACCESS: Administrative system access
+ * - USER_MANAGEMENT: User CRUD operation permissions
+ * - ROLE_MANAGEMENT: Role management permissions
+ * - SYSTEM_MONITORING: System monitoring and analytics access
+ *
+ * Permission Structure:
+ * - Name: Unique identifier (e.g., "ACCESS_CHAT_HISTORY")
+ * - Type: Categorization for logical grouping
+ * - Description: Human-readable explanation of the permission
+ * - Resource Pattern: Specific resource access patterns (e.g., "admin:history:*")
+ *
+ * Use Cases:
+ * - Defining granular access controls for different user roles
+ * - Managing feature access based on organizational requirements
+ * - Implementing security policies and compliance requirements
+ * - Supporting complex permission hierarchies
+ *
+ * Security Considerations:
+ * - Requires administrative privileges to access
+ * - Changes affect system-wide access control
+ * - Deletion operations require explicit confirmation
+ * - Audit trail should be maintained for permission changes
+ *
+ * User Experience:
+ * - Intuitive form-based permission creation
+ * - Clear categorization of permission types
+ * - Visual indicators for different permission categories
+ * - Responsive design for various screen sizes
+ * - Loading states and error handling
+ *
+ * Integration Points:
+ * - Backend permission service for CRUD operations
+ * - Role management system for permission assignment
+ * - User authentication system for access validation
+ * - Audit logging system for change tracking
+ *
+ * @author Visiomatix Development Team
+ * @version 1.0
+ * @since 2025
+ * ===========================================================
+ */
+
 import React, { useState } from "react";
 
+/**
+ * Interface defining the structure of a system permission
+ * Contains all necessary fields for permission configuration and management
+ */
 interface Permission {
+  /** Unique identifier for the permission */
   id: number;
+
+  /** Permission name, typically in UPPER_CASE format (e.g., "ACCESS_CHAT_HISTORY") */
   name: string;
+
+  /** Type of permission for categorization (e.g., "CHAT_ACCESS", "ADMIN_ACCESS") */
   permissionType: string;
+
+  /** Human-readable description explaining what the permission allows */
   description: string;
+
+  /** Resource pattern for fine-grained access control (e.g., "admin:history:*") */
   resourcePattern: string;
 }
 
+/**
+ * Props interface for the PermissionsTab component
+ * Defines all required properties and callback functions
+ */
 interface PermissionsTabProps {
+  /** Array of all permissions in the system */
   permissions: Permission[];
+
+  /** Loading state indicator for async operations */
   loading: boolean;
+
+  /** Callback function to create a new permission */
   onCreatePermission: (permissionData: {
     name: string;
     permissionType: string;
     description: string;
     resourcePattern: string;
   }) => void;
+
+  /** Callback function to delete a permission by ID */
   onDeletePermission: (permissionId: number) => void;
 }
 

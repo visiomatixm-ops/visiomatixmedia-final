@@ -1,30 +1,136 @@
+/**
+ * ===========================================================
+ * Admin Dashboard Tab Component
+ * ===========================================================
+ *
+ * This component serves as the main administrative dashboard, providing a comprehensive
+ * overview of system performance, agent productivity, and active chat sessions. It displays
+ * key metrics and real-time data to help administrators monitor and manage the chat system.
+ *
+ * Key Features:
+ * - System-wide statistics cards (active sessions, users, daily metrics)
+ * - Agent performance table with productivity metrics
+ * - Active chat sessions overview with participant counts
+ * - Real-time data visualization with color-coded status indicators
+ * - Responsive layout for different screen sizes
+ *
+ * Dashboard Metrics:
+ * - Total Active Sessions: Current live chat conversations
+ * - Total Users: Registered users in the system
+ * - Messages Today: Total messages sent in the current day
+ * - Sessions Today: Total chat sessions initiated today
+ *
+ * Agent Performance Tracking:
+ * - Individual agent productivity metrics
+ * - Active vs total session counts
+ * - Message volume per agent
+ * - Real-time performance monitoring
+ *
+ * Session Monitoring:
+ * - Live view of active chat sessions
+ * - Session creation timestamps
+ * - Participant counts per session
+ * - Session names and identifiers
+ *
+ * Use Cases:
+ * - Daily system health monitoring
+ * - Agent workload distribution analysis
+ * - Performance trend identification
+ * - Capacity planning and resource allocation
+ * - Real-time operational oversight
+ *
+ * Data Sources:
+ * - Real-time statistics from backend APIs
+ * - Live session data via WebSocket connections
+ * - Agent performance metrics from chat service
+ *
+ * Security & Access:
+ * - Restricted to administrators and supervisors
+ * - Displays sensitive operational data
+ * - Requires appropriate role-based permissions
+ *
+ * Performance Considerations:
+ * - Efficient data rendering with minimal re-renders
+ * - Optimized table layouts for large datasets
+ * - Responsive design for mobile and desktop access
+ *
+ * @author Visiomatix Development Team
+ * @version 1.0
+ * @since 2025
+ * ===========================================================
+ */
+
 import React from "react";
 
+/**
+ * Interface defining the structure of agent performance data
+ * Contains metrics for individual agent productivity and activity
+ */
 interface AgentPerformance {
+  /** Agent's unique username identifier */
   username: string;
+
+  /** Agent's display name */
   name: string;
+
+  /** Number of currently active chat sessions for this agent */
   activeSessions: number;
+
+  /** Total number of sessions handled by this agent */
   totalSessions: number;
+
+  /** Total number of messages sent by this agent */
   messagesSent: number;
 }
 
+/**
+ * Interface defining the structure of system-wide statistics
+ * Contains various metrics about system usage and performance
+ */
 interface Statistics {
+  /** Total number of currently active chat sessions across the system */
   totalActiveSessions?: number;
+
+  /** Total number of registered users in the system */
   totalUsers?: number;
+
+  /** Total number of messages sent today */
   messagesToday?: number;
+
+  /** Total number of chat sessions created today */
   sessionsToday?: number;
+
+  /** Array of performance data for each agent */
   agentPerformance?: AgentPerformance[];
 }
 
+/**
+ * Interface defining the structure of chat session data
+ * Contains basic information about individual chat sessions
+ */
 interface Session {
+  /** Unique identifier for the chat session */
   id: number;
+
+  /** ISO timestamp when the session was created */
   createdAt: string;
+
+  /** Human-readable name or description of the session */
   sessionName: string;
+
+  /** Array of participants in the chat session */
   participants?: any[];
 }
 
+/**
+ * Props interface for the DashboardTab component
+ * Defines the data required to render the dashboard
+ */
 interface DashboardTabProps {
+  /** System-wide statistics data for dashboard cards */
   statistics: Statistics;
+
+  /** Array of active chat sessions for the session list */
   sessions: Session[];
 }
 

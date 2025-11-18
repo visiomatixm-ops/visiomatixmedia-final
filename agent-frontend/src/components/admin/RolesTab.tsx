@@ -1,36 +1,185 @@
+/**
+ * ===========================================================
+ * Roles Tab Component - Comprehensive Role-Based Access Control
+ * ===========================================================
+ *
+ * This component provides complete role management functionality within the
+ * Role-Based Access Control (RBAC) system. It allows administrators to create,
+ * modify, and manage user roles with associated permissions and privileges.
+ *
+ * Key Features:
+ * - Create new roles with automatic permission assignment
+ * - Create/override roles with custom permission and privilege selection
+ * - Edit existing role names inline
+ * - Delete roles with confirmation dialogs
+ * - Assign/unassign permissions directly to roles
+ * - Assign/unassign privileges to roles (with inherited permissions)
+ * - Visual distinction between direct and inherited permissions
+ * - Interactive dropdown menus for bulk permission/privilege management
+ * - Real-time role-permission-privilege relationship management
+ *
+ * Role Types and Auto-Assignment:
+ * - ADMIN roles: Automatic assignment of all permissions and privileges
+ * - CUSTOMER_SUCCESS roles: Comprehensive access including management privileges
+ * - AGENT roles: Chat handling and basic user management permissions
+ * - USER roles: Basic chat access permissions
+ * - Dynamic patterns: Custom assignments based on role naming conventions
+ *
+ * Permission vs Privilege Relationship:
+ * - Direct Permissions: Low-level access controls assigned directly to roles
+ * - Inherited Permissions: Permissions that come from assigned privileges (marked with *)
+ * - Privileges: High-level feature access that grant multiple related permissions
+ *
+ * Visual Indicators:
+ * - Blue badges: Direct permission assignments
+ * - Gray badges with *: Inherited permissions from privileges
+ * - Yellow badges: Assigned privileges with tooltip showing granted permissions
+ *
+ * Use Cases:
+ * - Defining organizational roles and responsibilities
+ * - Managing user access levels across the system
+ * - Implementing security policies and access hierarchies
+ * - Supporting complex business rule-based access control
+ * - Auditing and compliance with access management requirements
+ *
+ * Security Considerations:
+ * - Requires administrative privileges to access and modify
+ * - Changes affect system-wide user access and permissions
+ * - Role deletion requires explicit confirmation to prevent accidents
+ * - Audit trail should track all role and permission changes
+ * - Override functionality allows careful management of existing roles
+ *
+ * User Experience:
+ * - Intuitive role creation with guided permission selection
+ * - Inline editing for quick role name changes
+ * - Visual feedback for permission inheritance and relationships
+ * - Responsive design supporting various screen sizes
+ * - Loading states and error handling for all operations
+ * - Comprehensive help text explaining permission concepts
+ *
+ * Technical Implementation:
+ * - Complex state management for form controls and selections
+ * - Interactive checkbox-based permission assignment
+ * - Dropdown menus with scrollable content for large permission lists
+ * - Real-time updates to role-permission-privilege relationships
+ * - Form validation and user input sanitization
+ * - Bootstrap-based responsive UI components
+ *
+ * Integration Points:
+ * - Backend role service for CRUD operations and auto-assignment
+ * - Permission and privilege management systems
+ * - User role assignment functionality
+ * - Authentication and authorization systems
+ * - Audit logging and compliance tracking
+ *
+ * Business Logic:
+ * - Auto-assignment based on role naming patterns for consistency
+ * - Support for both simple and advanced role creation methods
+ * - Flexible permission model supporting direct and inherited access
+ * - Override capability for careful management of existing roles
+ * - Comprehensive validation and error handling
+ *
+ * @author Visiomatix Development Team
+ * @version 2.0
+ * @since 2025
+ * ===========================================================
+ */
+
 import React, { useState } from "react";
 
+/**
+ * Interface defining the structure of a user role
+ * Roles contain both direct permissions and assigned privileges
+ */
 interface Role {
+  /** Unique identifier for the role */
   id: number;
+
+  /** Role name, typically in descriptive format (e.g., "CUSTOMER_SUCCESS_MANAGER") */
   name: string;
+
+  /** Array of permissions directly assigned to this role */
   permissions?: { id: number; name: string }[];
+
+  /** Array of privileges assigned to this role, each with their mapped permissions */
   privileges?: { id: number; name: string; mappedPermissions?: { id: number; name: string }[] }[];
 }
 
+/**
+ * Interface defining the structure of a system permission
+ * Used for direct assignment to roles
+ */
 interface Permission {
+  /** Unique identifier for the permission */
   id: number;
+
+  /** Permission name for identification */
   name: string;
+
+  /** Optional description explaining the permission's purpose */
   description?: string;
 }
 
+/**
+ * Interface defining the structure of a system privilege
+ * Privileges are higher-level access controls that grant multiple permissions
+ */
 interface Privilege {
+  /** Unique identifier for the privilege */
   id: number;
+
+  /** Privilege name for identification */
   name: string;
+
+  /** Array of permissions that this privilege grants */
   mappedPermissions?: { id: number; name: string }[];
 }
 
+/**
+ * Props interface for the RolesTab component
+ * Defines all required properties and callback functions for role management
+ */
 interface RolesTabProps {
+  /** Array of all roles in the system */
   roles: Role[];
+
+  /** Array of all permissions available for assignment */
   permissions: Permission[];
+
+  /** Array of all privileges available for assignment */
   privileges: Privilege[];
+
+  /** Loading state indicator for async operations */
   loading: boolean;
+
+  /** Callback function to assign a permission directly to a role */
   onAssignPermission: (roleId: number, permissionId: number) => void;
+
+  /** Callback function to remove a permission from a role */
   onRemovePermission: (roleId: number, permissionId: number) => void;
+
+  /** Callback function to assign a privilege to a role */
   onAssignPrivilege: (roleId: number, privilegeId: number) => void;
+
+  /** Callback function to remove a privilege from a role */
   onRemovePrivilege: (roleId: number, privilegeId: number) => void;
+
+  /** Callback function to create a new role (legacy method) */
   onCreateRole: (roleData: { name: string }) => void;
-  onCreateOrOverrideRole: (roleData: { name: string; permissionNames: string[]; privilegeNames: string[]; override: boolean; createdBy: string }) => void;
+
+  /** Callback function to create or override a role with full configuration */
+  onCreateOrOverrideRole: (roleData: {
+    name: string;
+    permissionNames: string[];
+    privilegeNames: string[];
+    override: boolean;
+    createdBy: string
+  }) => void;
+
+  /** Callback function to update a role's name */
   onUpdateRole: (roleId: number, roleData: { name: string }) => void;
+
+  /** Callback function to delete a role by ID */
   onDeleteRole: (roleId: number) => void;
 }
 

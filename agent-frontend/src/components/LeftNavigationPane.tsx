@@ -1,15 +1,43 @@
+/**
+ * Left Navigation Pane Component
+ *
+ * Provides the main navigation sidebar for the Visiomatix Chat dashboard.
+ * Displays different navigation options based on user roles and privileges.
+ * Supports collapsible/expandable sidebar functionality for better UX.
+ *
+ * Features:
+ * - Role-based navigation visibility
+ * - Privilege-based access control
+ * - Collapsible sidebar design
+ * - Responsive layout for mobile devices
+ * - User action buttons (password change, logout)
+ */
+
 import React from "react";
 
+/**
+ * Props interface for the LeftNavigationPane component
+ */
 interface LeftNavigationPaneProps {
+  /** Currently active navigation tab */
   activeTab: string;
+  /** Function to set the active navigation tab */
   setActiveTab: (tab: string) => void;
+  /** Whether the sidebar is collapsed */
   sidebarCollapsed: boolean;
+  /** Function to toggle sidebar collapse state */
   setSidebarCollapsed: (collapsed: boolean) => void;
+  /** Function to check if user can access statistics */
   canAccessStatistics: () => boolean;
+  /** Function to check if user can manage users */
   canManageUsers: () => boolean;
+  /** Function to check if user can manage roles */
   canManageRoles: () => boolean;
+  /** Function to handle user logout */
   onLogout: () => void;
+  /** Function to show password change modal */
   onShowPasswordChange: () => void;
+  /** Current user's role */
   userRole: string;
 }
 
@@ -49,6 +77,7 @@ const LeftNavigationPane: React.FC<LeftNavigationPaneProps> = ({
             </a>
           </li>
           {/* Show admin tabs for admin users and privileged roles */}
+          {/* Includes hardcoded admin roles and roles with specific privileges */}
           {(userRole === "ADMIN" || userRole === "ROLE_ADMIN" || userRole === "CUSTOMER_SUCCESS_MANAGER" ||
             userRole === "CUSTOMER_SUCCESS_LEAD" || canManageUsers() || canManageRoles() || canAccessStatistics()) && (
             <>

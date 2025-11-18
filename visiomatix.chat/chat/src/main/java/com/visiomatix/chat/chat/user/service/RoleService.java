@@ -1,5 +1,42 @@
+/**
+ * ===========================================================
+ * Role Service - Comprehensive Role and Permission Management
+ * ===========================================================
+ *
+ * This service provides complete role-based access control (RBAC) functionality
+ * for the Visiomatix Chat application. It manages roles, permissions, and privileges
+ * with automatic assignment based on role naming patterns.
+ *
+ * Key Features:
+ * - Automatic permission and privilege assignment based on role names
+ * - Support for dynamic role patterns (ADMIN, CUSTOMER_SUCCESS, AGENT, USER)
+ * - CRUD operations for roles, permissions, and privileges
+ * - Transactional operations for data consistency
+ * - Extensible design for adding new role patterns
+ *
+ * Role Assignment Logic:
+ * - ADMIN roles: Get all permissions and privileges
+ * - CUSTOMER_SUCCESS roles: Comprehensive access for customer management
+ * - AGENT roles: Chat handling and user management permissions
+ * - USER roles: Basic chat access permissions
+ * - Dynamic patterns: Custom assignments for specific role names
+ *
+ * Usage:
+ * - Create roles with automatic permission assignment
+ * - Manage role-permission and role-privilege relationships
+ * - Support for audit trails and transactional operations
+ *
+ * @author Visiomatix Development Team
+ * @version 2.0
+ * @since 2025
+ * ===========================================================
+ */
+
 package com.visiomatix.chat.chat.user.service;
 
+// ============================
+// Import Statements
+// ============================
 import com.visiomatix.chat.chat.user.dto.RoleDTO;
 import com.visiomatix.chat.chat.user.model.Permission;
 import com.visiomatix.chat.chat.user.model.Privilege;
@@ -16,6 +53,13 @@ import java.util.Optional;
 import java.util.Set;
 import java.time.LocalDateTime;
 
+/**
+ * Role Service Implementation
+ *
+ * Spring service component that handles all role-related business logic
+ * including automatic permission assignment, CRUD operations, and
+ * role-permission privilege management.
+ */
 @Service
 @RequiredArgsConstructor
 public class RoleService {
