@@ -16,6 +16,7 @@ import React from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Mail, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
+import Logo2PNG from "/logo/Logo2PNG.png";
 import "../App.css";
 // import { Facebook, Instagram, Linkedin, Twitter } from "react-bootstrap-icons";
 // Bootstrap Icons CSS will be loaded globally
@@ -83,8 +84,9 @@ const Footer: React.FC = () => {
           <Col xs={12} md={4} lg={3}>
             <div className="d-flex align-items-center gap-2 mb-2">
               <img
-                src="/icons-white/CompanyLogo.png"
+                src={Logo2PNG}
                 alt="Logo"
+                style={{filter: 'brightness(0) invert(1)'}}
                 className="footer-logo"
               />
               <h4 className="fw-bold mb-0">Visiomatix</h4>
