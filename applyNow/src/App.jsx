@@ -7,11 +7,11 @@ import JobOpenings from "./component/JobOpenings"
 const App = () => {
   return (
     <>
-      <ApplyNow />
+      {/* <ApplyNow /> */}
       <JobOpenings/>
-      <JobOpeningForm/>
+      {/* <JobOpeningForm/> */}
       <Internship/>
-      <Applysuccessfully/>
+      {/* <Applysuccessfully/> */}
     </>
   )
 }

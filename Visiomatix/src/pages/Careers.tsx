@@ -18,6 +18,7 @@ import {
   Accordion,
 } from "react-bootstrap";
 import JobOpenings from "./CareersJob/JobOpenings";
+import Internship from "./CareersJob/Internship";
 
 /* ---- Types ---- */
 interface School {
@@ -52,13 +53,23 @@ interface FormFields {
   eligibility?: string;
 }
 
+interface InternshipFormFields {
+  position: string;
+  duration: string;
+  location: string;
+  eligibility: string;
+  email: string;
+}
+
 /* ---- Component ---- */
 const Careers: React.FC = () => {
   // modal
   const [showModal, setShowModal] = useState(false);
+  const [showInternshipModal, setShowInternshipModal] = useState(false);
 
   // selected position for applying
   const [selectedPosition, setSelectedPosition] = useState<string>("");
+  const [selectedInternship, setSelectedInternship] = useState<any>(null);
 
   // main form state (strings only; resume moved to separate state)
   const [formData, setFormData] = useState<FormFields>({
@@ -71,6 +82,18 @@ const Careers: React.FC = () => {
 
   // resume kept separately to avoid passing File to text inputs
   const [resume, setResume] = useState<File | null>(null);
+
+  // internship form state
+  const [internshipFormData, setInternshipFormData] = useState<InternshipFormFields>({
+    position: "",
+    duration: "",
+    location: "",
+    eligibility: "",
+    email: "",
+  });
+
+  // internship resume
+  const [internshipResume, setInternshipResume] = useState<File | null>(null);
 
   // dynamic arrays
   const [schools, setSchools] = useState<School[]>([
@@ -254,9 +277,21 @@ const handleAddField = (
 
 
   // open modal for specific position
-  const openApplyModal = (positionTitle: string) => {
-    setSelectedPosition(positionTitle);
-    setShowModal(true);
+  const openApplyModal = (positionTitle: string, isInternship: boolean = false, internshipData?: any) => {
+    if (isInternship) {
+      setSelectedInternship(internshipData);
+      setInternshipFormData({
+        position: internshipData?.title || "",
+        duration: internshipData?.employment || "",
+        location: "Pune / Remote", // Default location
+        eligibility: "",
+        email: "",
+      });
+      setShowInternshipModal(true);
+    } else {
+      setSelectedPosition(positionTitle);
+      setShowModal(true);
+    }
   };
 
   const resetForm = () => {
@@ -295,7 +330,7 @@ const handleAddField = (
     if (resume) fd.append("resume", resume);
 
     try {
-      const resp = await fetch("http://localhost:8086/api/apply", {
+      const resp = await fetch("http://localhost:5000/api/apply", {
         method: "POST",
         body: fd,
       });
@@ -315,6 +350,54 @@ const handleAddField = (
     } catch (err) {
       console.error("Submit error:", err);
       alert("Failed to submit application!");
+    }
+  };
+
+  const handleInternshipSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // basic validation
+    if (!internshipFormData.position || !internshipFormData.email) {
+      alert("Please fill position and email.");
+      return;
+    }
+
+    const fd = new FormData();
+    fd.append("position", internshipFormData.position);
+    fd.append("duration", internshipFormData.duration);
+    fd.append("location", internshipFormData.location);
+    fd.append("eligibility", internshipFormData.eligibility);
+    fd.append("email", internshipFormData.email);
+    if (internshipResume) fd.append("resume", internshipResume);
+
+    try {
+      const resp = await fetch("http://localhost:5000/api/apply-internship", {
+        method: "POST",
+        body: fd,
+      });
+
+      const resJson = await resp.json();
+      if (resp.ok && resJson.success) {
+        // mark submitted, close modal, show popup
+        setFormSubmitted(true);
+        setShowInternshipModal(false);
+        setShowPopup(true);
+        // reset form fields
+        setInternshipFormData({
+          position: "",
+          duration: "",
+          location: "",
+          eligibility: "",
+          email: "",
+        });
+        setInternshipResume(null);
+      } else {
+        console.error("Submission failed:", resJson);
+        alert(resJson.message || "Failed to submit internship application.");
+      }
+    } catch (err) {
+      console.error("Submit error:", err);
+      alert("Failed to submit internship application!");
     }
   };
 
@@ -451,7 +534,7 @@ const handleAddField = (
                         <Button
                           variant="success"
                           className="fw-semibold px-4"
-                          onClick={() => openApplyModal(internship.title)}
+                          onClick={() => openApplyModal(internship.title, true, internship)}
                           disabled={formSubmitted}
                         >
                           {formSubmitted ? "Application Submitted" : "Apply Now"}
@@ -860,6 +943,205 @@ const handleAddField = (
     </Form>
   </Modal.Body>
 </Modal>
+
+      {/* Internship Modal */}
+      <Modal show={showInternshipModal} onHide={() => setShowInternshipModal(false)} centered size="lg">
+        <Modal.Header
+          closeButton
+          style={{
+            background: "#28a745",
+            borderBottom: "1px solid rgba(255,255,255,0.1)",
+          }}
+          className="text-white"
+        >
+          <Modal.Title style={{ fontWeight: "700", fontSize: "1.4rem" }}>
+            Apply for Internship: {selectedInternship?.title || "Position"}
+          </Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body
+          style={{
+            background: "#1e3a5f",
+            color: "white",
+            borderRadius: "0 0 20px 20px",
+            padding: "30px",
+          }}
+        >
+          <div className="min-vh-50 d-flex align-items-center justify-content-center p-3">
+            <div className="w-100 border border-primary rounded shadow p-4" style={{maxWidth: '32rem'}}>
+              <form onSubmit={handleInternshipSubmit}>
+                {/* Header */}
+                <h1 className="display-3 fw-bold text-center text-primary">
+                  Internship Application
+                </h1>
+                <p className="text-center text-muted mb-4">
+                  Enter the internship details below 🚀
+                </p>
+
+                {/* Job Title */}
+                <div className="mb-3">
+                  <label
+                    htmlFor="position"
+                    className="form-label fw-semibold"
+                  >
+                    Position
+                  </label>
+                  <input
+                    type="text"
+                    id="position"
+                    value={internshipFormData.position}
+                    onChange={(e) => setInternshipFormData(prev => ({ ...prev, position: e.target.value }))}
+                    placeholder="e.g. Full Stack Developer"
+                    className="form-control"
+                    required
+                    style={{
+                      backgroundColor: "#1e3a5f",
+                      color: "white",
+                      border: "1px solid #ffffff",
+                    }}
+                  />
+                </div>
+
+                {/* Experience */}
+                <div className="mb-3">
+                  <label
+                    htmlFor="duration"
+                    className="form-label fw-semibold"
+                  >
+                    Duration
+                  </label>
+                  <input
+                    type="text"
+                    id="duration"
+                    value={internshipFormData.duration}
+                    onChange={(e) => setInternshipFormData(prev => ({ ...prev, duration: e.target.value }))}
+                    placeholder="e.g. 3-6 months"
+                    className="form-control"
+                    required
+                    style={{
+                      backgroundColor: "#1e3a5f",
+                      color: "white",
+                      border: "1px solid #ffffff",
+                    }}
+                  />
+                </div>
+
+                {/* Location */}
+                <div className="mb-3">
+                  <label
+                    htmlFor="location"
+                    className="form-label fw-semibold"
+                  >
+                    Location
+                  </label>
+                  <input
+                    type="text"
+                    id="location"
+                    value={internshipFormData.location}
+                    onChange={(e) => setInternshipFormData(prev => ({ ...prev, location: e.target.value }))}
+                    placeholder="e.g. Pune / Remote"
+                    className="form-control"
+                    required
+                    style={{
+                      backgroundColor: "#1e3a5f",
+                      color: "white",
+                      border: "1px solid #ffffff",
+                    }}
+                  />
+                </div>
+
+                {/* Eligibility */}
+                <div className="mb-3">
+                  <label
+                    htmlFor="eligibility"
+                    className="form-label fw-semibold">
+                    Eligibility
+                  </label>
+                  <select
+                    className="form-select"
+                    value={internshipFormData.eligibility}
+                    onChange={(e) => setInternshipFormData(prev => ({ ...prev, eligibility: e.target.value }))}
+                    required
+                    style={{
+                      backgroundColor: "#1e3a5f",
+                      color: "white",
+                      border: "1px solid #ffffff",
+                    }}
+                  >
+                    <option value="">-Select-</option>
+                    <option value="BE">BE</option>
+                    <option value="ME">ME</option>
+                    <option value="Btech">Btech</option>
+                    <option value="Mtech">Mtech</option>
+                    <option value="MCA">MCA</option>
+                    <option value="BCA">BCA</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                {/* Email */}
+                <div className="mb-3">
+                  <label
+                    htmlFor="email"
+                    className="form-label fw-semibold"
+                  >
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={internshipFormData.email}
+                    onChange={(e) => setInternshipFormData(prev => ({ ...prev, email: e.target.value }))}
+                    placeholder="yourname@example.com"
+                    className="form-control"
+                    required
+                    style={{
+                      backgroundColor: "#1e3a5f",
+                      color: "white",
+                      border: "1px solid #ffffff",
+                    }}
+                  />
+                </div>
+
+                {/* Resume Upload */}
+                <div className="mb-3">
+                  <label
+                    htmlFor="resume"
+                    className="form-label fw-semibold"
+                  >
+                    Upload Resume
+                  </label>
+                  <input
+                    type="file"
+                    id="resume"
+                    className="form-control"
+                    accept=".pdf,.doc,.docx"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0] || null;
+                      setInternshipResume(file);
+                    }}
+                    style={{
+                      backgroundColor: "#1e3a5f",
+                      color: "white",
+                      border: "1px solid #ffffff",
+                    }}
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    className="btn btn-success w-100 py-2 fs-5 fw-semibold"
+                  >
+                    Submit Application
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
 
       {/* Centered success popup (Option B style: soft shadow card) */}
       {showPopup && (
