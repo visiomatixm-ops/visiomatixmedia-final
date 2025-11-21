@@ -128,7 +128,7 @@ const App: React.FC = () => {
 
           {/* Content and engagement routes */}
           <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<Article />} />
+          <Route path="/article/:id" element={<Article />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/contact" element={<Contact />} />

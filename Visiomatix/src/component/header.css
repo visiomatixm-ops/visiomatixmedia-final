@@ -1,0 +1,152 @@
+/* ===========================
+   FONT IMPORT (Decalotype)
+   (TTF/OTF files used)
+=========================== */
+@font-face {
+  font-family: "Decalotype";
+  src: url("/fonts/decalotype/Decalotype-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Decalotype";
+  src: url("/fonts/decalotype/Decalotype-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Decalotype";
+  src: url("/fonts/decalotype/Decalotype-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Decalotype";
+  src: url("/fonts/decalotype/Decalotype-Black.ttf") format("truetype");
+  font-weight: 900;
+}
+
+/* ===========================
+   MAIN NAVBAR
+=========================== */
+.main-navbar {
+  background: #ffffff;
+  height: 90px;
+  padding: 6px 0;
+  transition: all 0.3s ease;
+  z-index: 999;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* ===========================
+   LOGO
+=========================== */
+.brand-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  margin-right: 10px;
+  transition: 0.2s ease-in-out;
+}
+
+.brand-logo:hover {
+  transform: scale(1.05);
+}
+
+/* ===========================
+   COMPANY NAME (Decalotype)
+=========================== */
+.brand-title {
+  font-family: "Decalotype", sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+  color: #35527A;           /* Light navy shade – better visibility */
+  margin: 0;
+  padding: 0;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+/* ===========================
+   MENU LINKS
+=========================== */
+.menu-link {
+  font-family: "Decalotype", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #0b1e34 !important;
+  padding: 8px 10px;
+  transition: 0.25s ease;
+}
+
+.menu-link:hover {
+  color: #0b5ed7 !important;
+  transform: translateY(-2px);
+}
+
+.active-link {
+  color: #0b5ed7 !important;
+}
+
+/* ===========================
+   DROPDOWN MENU
+=========================== */
+.custom-dropdown {
+  border-radius: 8px;
+  padding: 8px 0;
+  border: none;
+  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+.custom-dropdown .dropdown-item {
+  font-family: "Decalotype", sans-serif;
+  font-weight: 500;
+  padding: 10px 18px;
+  transition: 0.25s;
+}
+
+.custom-dropdown .dropdown-item:hover {
+  background: #0b5ed7;
+  color: #fff !important;
+}
+
+/* ===========================
+   MOBILE RESPONSIVE
+=========================== */
+@media (max-width: 768px) {
+  .main-navbar {
+    height: 80px;
+  }
+
+  .brand-logo {
+    height: 42px;
+  }
+
+  .brand-title {
+    font-size: 1.35rem;
+  }
+
+  .menu-link {
+    padding: 12px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-navbar {
+    height: 72px;
+  }
+
+  .brand-logo {
+    height: 38px;
+  }
+
+  .brand-title {
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+  }
+}
+
+.navbar-toggler-icon {
+  filter: invert(20%);
+}

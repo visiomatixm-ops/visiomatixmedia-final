@@ -1,21 +1,17 @@
 /**
  * ===========================================================
- * Filename: blog.tsx
- * Author: Viral Prajapati
- * Date: 13-Oct-2025
+ * Filename: Blog.tsx
+ * Author: Amol Nichit
  * Description:
- *   Visiomatix Blog Page (Light Theme)
- *   Elegant light layout with navy-blue typography,
- *   smooth hover animations, and Framer Motion transitions.
+ *   Visiomatix Blog Page — Clean, Unified Button Style & Compact Layout
  * ===========================================================
  */
-
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import React from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import blogData from "./data/blogData";
 const blogPosts = [
   {
     image: "/about/Social-Media-Infographics-in-Detail-1.jpg",
@@ -23,7 +19,6 @@ const blogPosts = [
     excerpt:
       "The digital landscape is evolving faster than ever. Explore emerging trends like AI-driven marketing, influencer authenticity, and video-first content that define 2025’s marketing playbook.",
     author: "Visiomatix Media Team",
-    date: "October 2, 2025",
   },
   {
     image: "services/branding.jpg",
@@ -31,7 +26,6 @@ const blogPosts = [
     excerpt:
       "Consistency, storytelling, and purpose drive brand identity. Learn how our creative team crafts visual experiences that connect emotionally with audiences.",
     author: "Creative Division",
-    date: "September 25, 2025",
   },
   {
     image: "services/webdesign.jpg",
@@ -39,7 +33,6 @@ const blogPosts = [
     excerpt:
       "A seamless user experience across all devices boosts engagement and conversions. Discover our design philosophy behind intuitive, mobile-first websites.",
     author: "Web Development Team",
-    date: "September 10, 2025",
   },
   {
     image: "services/photography.jpg",
@@ -47,7 +40,6 @@ const blogPosts = [
     excerpt:
       "Photography goes beyond visuals — it's brand storytelling. See how high-quality imagery builds trust and enhances your digital presence.",
     author: "Photography Studio",
-    date: "August 30, 2025",
   },
   {
     image: "services/social-media-networks.jpg",
@@ -55,7 +47,6 @@ const blogPosts = [
     excerpt:
       "In an era where attention is the new currency, crafting scroll-stopping content is an art. Explore tips to dominate Instagram, LinkedIn, and YouTube with intent.",
     author: "Social Media Division",
-    date: "August 12, 2025",
   },
   {
     image: "services/seo-infographic-concept-background_823925-1180.jpg",
@@ -63,7 +54,6 @@ const blogPosts = [
     excerpt:
       "Google's algorithms now reward authenticity and relevance. Learn how our SEO experts blend human psychology and data-driven strategy to improve rankings.",
     author: "SEO & Analytics Team",
-    date: "July 28, 2025",
   },
   {
     image: "services/videography.png",
@@ -71,7 +61,6 @@ const blogPosts = [
     excerpt:
       "Short-form videos and cinematic brand films are reshaping online engagement. Discover how we bring stories to life through strategic visual narratives.",
     author: "Production House",
-    date: "July 10, 2025",
   },
   {
     image: "services/editing.webp",
@@ -79,109 +68,76 @@ const blogPosts = [
     excerpt:
       "At Visiomatix, design isn't just visual — it's emotional. We share how user empathy and design thinking drive every digital interface we create.",
     author: "UI/UX Design Lab",
-    date: "June 30, 2025",
   },
 ];
-
 const Blog: React.FC = () => {
   const navigate = useNavigate();
-
   const handleReadMore = (post: any) => {
-    const slug = post.title.toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, '');
-    navigate(`/blog/${slug}`, { state: { post } });
+    const match = blogData.find(
+      (b) => b.title.trim().toLowerCase() === post.title.trim().toLowerCase()
+    );
+    if (match) {
+      navigate(`/article/${match.id}`, { state: { blog: match } });
+    } else {
+      navigate(`/article/1`, { state: { blog: post } });
+    }
   };
-
   return (
     <>
-      {/* ====================== SEO Metadata Section ====================== */}
       <Helmet>
-        {/* Basic Meta Tags */}
-        <title>Visiomatix Media Blog | Digital Marketing, Tech Trends & Insights</title>
+        <title>Visiomatix Media Blog | Digital Insights & Marketing Trends</title>
         <meta
           name="description"
-          content="Stay updated with the latest trends in digital marketing, web development, and technology innovation from the experts at Visiomatix Media."
+          content="Stay updated with the latest trends in digital marketing, web design, and technology innovation from the experts at Visiomatix Media."
         />
-        <meta name="keywords" content="Visiomatix blog, digital marketing blog, tech trends, web development insights, SEO tips, branding strategies" />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://www.visiomatix.com/blog" />
-
-        {/* Open Graph (Facebook/LinkedIn) */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Visiomatix Media Blog | Digital Marketing, Tech Trends & Insights" />
-        <meta property="og:description" content="Stay updated with the latest trends in digital marketing, web development, and technology innovation from the experts at Visiomatix Media." />
-        <meta property="og:url" content="https://www.visiomatix.com/blog" />
-        <meta property="og:image" content="https://www.visiomatix.com/about/Social-Media-Infographics-in-Detail-1.jpg" />
-        <meta property="og:site_name" content="Visiomatix Media" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Visiomatix Media Blog | Digital Marketing, Tech Trends & Insights" />
-        <meta name="twitter:description" content="Stay updated with the latest trends in digital marketing, web development, and technology innovation from the experts at Visiomatix Media." />
-        <meta name="twitter:image" content="https://www.visiomatix.com/about/Social-Media-Infographics-in-Detail-1.jpg" />
       </Helmet>
-      {/* ====================== Page Fade Animation ====================== */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.6 }}
-      />
-
-      {/* ====================== Hero Banner ====================== */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }} />
+      {/* ===== Hero Banner (Compact Spacing) ===== */}
       <section
         className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
         style={{
-          backgroundImage:
-            "url('/about/blog image.jpg')",
+          backgroundImage: "url('/about/blog image.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          height: "clamp(40vh, 60vh, 70vh)",
+          height: "45vh",
           position: "relative",
-          marginBottom: "2rem",
-          marginTop: "5rem",
+          marginTop: "2rem",
+          marginBottom: "1rem",
         }}
       >
         <div
           style={{
             position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
+            inset: 0,
             backgroundColor: "rgba(0, 40, 80, 0.45)",
           }}
         />
-        <div style={{
-          position: "relative",
-          zIndex: 2,
-          backgroundColor: "rgba(0, 40, 80, 0.45)",
-          borderRadius: "12px",
-          width: "clamp(85%, 90%, 95%)",
-          maxWidth: "100%",
-          padding: "clamp(1rem, 3vw, 2rem)",
-          backdropFilter: "blur(5px)",
-          wordWrap: "break-word",
-          overflowWrap: "break-word",
-          marginTop: "7em",
-        }}>
-           <h1 className="display-5 display-sm-6 fw-bold text-white mb-3 mb-sm-4 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">
-             Visiomatix Media Blog
-           </h1>
-           <p className="lead text-white-80 mb-0 text-xs sm:text-sm md:text-base lg:text-lg" style={{ lineHeight: "1.6" }}>
-             Insights, trends, and creative updates from our digital experts.
-             Welcome to the Visiomatix Media Blog — your go-to destination for the latest in
-             technology, innovation, and digital transformation.
-             Here, we share expert insights, industry trends, and success stories that inspire
-              businesses to stay ahead in an ever-evolving digital world.
-              At Visiomatix, we believe that knowledge grows when it's shared.
-              Whether you're a startup exploring new tech solutions or an enterprise
-              scaling your digital infrastructure, our blog delivers valuable perspectives to
-              help you make informed decisions.
-           </p>
-         </div>
+        <div
+          style={{
+            position: "relative",
+            zIndex: 2,
+            backgroundColor: "rgba(0, 40, 80, 0.35)",
+            borderRadius: "8px",
+            width: "85%",
+            maxWidth: "850px",
+            padding: "1rem 1.2rem",
+            backdropFilter: "blur(3px)",
+          }}
+        >
+          <h1 className="fw-bold text-white mb-2" style={{ fontSize: "1.8rem" }}>
+            Visiomatix Media Blog
+          </h1>
+          <p
+            className="text-white-80 mb-0"
+            style={{ lineHeight: "1.5", fontSize: "0.95rem", opacity: 0.95 }}
+          >
+            Insights, trends, and creative updates from our digital experts.
+            Explore marketing innovations, design ideas, and expert thoughts
+            that help brands grow in today’s fast-changing digital world.
+          </p>
+        </div>
       </section>
-
-      {/* ====================== Blog Grid Section ====================== */}
+      {/* ===== Blog Cards ===== */}
       <div className="blog">
         <Container className="mb-5">
           <Row className="g-4 card-row">
@@ -195,24 +151,18 @@ const Blog: React.FC = () => {
                     className="blog-card-img"
                   />
                   <Card.Body className="d-flex flex-column">
-                    <h6 className="fw-bold text-navy mb-2 text-sm sm:text-base">{post.title}</h6>
-                    <p className="text-secondary small mb-2 text-xs sm:text-sm">
-                      {post.date} • {post.author}
+                    <h6 className="fw-bold text-navy mb-2">{post.title}</h6>
+                    <p className="text-secondary small mb-2">
+                      By {post.author}
                     </p>
-                    <p
-                      className="flex-grow-1 text-muted text-xs sm:text-sm"
-                    >
-                      {post.excerpt}
-                    </p>
+                    <p className="flex-grow-1 text-muted">{post.excerpt}</p>
                     <div className="text-center mt-2">
-                      <Button
-                        size="sm"
-                        variant="outline-primary"
-                        className="fw-semibold"
+                      <button
+                        className="main-btn"
                         onClick={() => handleReadMore(post)}
                       >
-                        Read More
-                      </Button>
+                        Read More →
+                      </button>
                     </div>
                   </Card.Body>
                 </Card>
@@ -220,73 +170,56 @@ const Blog: React.FC = () => {
             ))}
           </Row>
         </Container>
-
-        {/* ====================== Light Theme Styles ====================== */}
-        <style>
-          {`
-            @media screen and (max-width: 500px) {
-              p {
-                font-size: 12pt !important;
-              }
-
-              .smalltypography {
-                font-size: 10pt !important;
-              }
-            }
-
-            .text-navy {
-              color: #0b1e34 !important;
-            }
-
-            .blog-card {
-              background-color: #ffffff;
-              color: #0b1e34 !important;
-              transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-              border: 1px solid rgba(10, 45, 80, 0.08);
-            }
-
-            .blog-card:hover {
-              transform: translateY(-6px);
-              background-color: #f0f6fc;
-              box-shadow: 0 10px 25px rgba(0, 0, 50, 0.1);
-            }
-
+        {/* ===== Styles ===== */}
+        <style>{`
+          .text-navy {
+            color: #0B1E34 !important;
+          }
+          .blog-card {
+            background-color: #fff;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(10, 45, 80, 0.08);
+          }
+          .blog-card:hover {
+            transform: translateY(-6px);
+            background-color: #F4F8FC;
+            box-shadow: 0 10px 25px rgba(0, 0, 50, 0.1);
+          }
+          .blog-card-img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            border-top-left-radius: 0.75rem;
+            border-top-right-radius: 0.75rem;
+          }
+          /* :dart: Unified Button Style (Same as Article) */
+          .main-btn {
+            background-color: #0B1E34;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0.7rem 1.6rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+          }
+          .main-btn:hover {
+            background-color: #163D6C;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+          }
+          @media (max-width: 768px) {
             .blog-card-img {
-              width: 100%;
-              height: 250px;
-              object-fit: cover;
-              border-top-left-radius: 0.75rem;
-              border-top-right-radius: 0.75rem;
+              height: 200px;
             }
-
-            .hover-lift {
-              transition: transform 0.3s ease, box-shadow 0.3s ease;
+            .main-btn {
+              padding: 0.6rem 1.3rem;
+              font-size: 0.95rem;
             }
-
-            .hover-lift:hover {
-              transform: translateY(-5px);
-              box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            }
-
-            .btn-outline-primary {
-              color: #0b1e34;
-              border-color: #0b1e34;
-            }
-
-            .btn-outline-primary:hover {
-              background-color: #0b1e34;
-              color: #ffffff;
-              border-color: #0b1e34;
-            }
-
-            .card-row {
-              justify-content: center;
-            }
-          `}
-        </style>
+          }
+        `}</style>
       </div>
     </>
   );
 };
-
 export default Blog;

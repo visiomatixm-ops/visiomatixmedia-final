@@ -11,10 +11,11 @@ interface PageProps {
   serviceTitle: string
   serviceDescription: string
   hasAnimation?: boolean
+  backgroundColor?: string
 }
 
 interface ServicePageProps {
-  classPrefix: string
+  classPrefix: string  
 }
 
 const ServicePage: React.FC<PageProps> = ({
@@ -24,18 +25,19 @@ const ServicePage: React.FC<PageProps> = ({
   imageAlt,
   serviceTitle,
   serviceDescription,
-  hasAnimation = false
+  hasAnimation = false,
+  backgroundColor = '#1D3458'  
 }) => (
   <div className={`${classPrefix}-container1`}>
     <Helmet>
       <title>{title}</title>
     </Helmet>
-    <div className={`${classPrefix}${classPrefix}`}>
-      <img
+    <div className={`${classPrefix}${classPrefix}`} style={{backgroundColor: backgroundColor}}>
+      {/* <img
         src={imageSrc}
         alt={imageAlt}
         className={`${classPrefix}-img`}
-      />
+      /> */}
       {hasAnimation ? (
         <motion.div
           className={`${classPrefix}text`}
@@ -94,7 +96,11 @@ const Page1: React.FC<ServicePageProps> = ({ classPrefix }) => (
     imageSrc="/carousel/img2826-55ip-1600w.png"
     imageAlt="img2826"
     serviceTitle="UI UX Design"
-    serviceDescription="Our design specialists create intuitive, user-centered interfaces that elevate every digital interaction. Leveraging industry-leading tools like Figma and Adobe XD, we craft seamless user journeys, modern layouts, and visually balanced experiences. Whether it’s a website, mobile app, or product dashboard, we ensure every design not only looks stunning but feels effortless to use."
+    serviceDescription="Our design specialists create intuitive, user-centered 
+    interfaces that elevate every digital interaction. Leveraging industry-leading tools
+     like Figma and Adobe XD, we craft seamless user journeys, modern layouts, and visually
+      balanced experiences. Whether it's a website, mobile app, or product dashboard, we ensure
+       every design not only looks stunning but feels effortless to use."
     hasAnimation={true}
   />
 )

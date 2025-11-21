@@ -817,9 +817,9 @@
   width: 85%;
   max-width: 550px;
   display: flex;
-  background: rgba(0, 40, 80, 0.45);
-  backdrop-filter: blur(5px);
-  border-radius: 2em;
+  /* background: rgba(0, 40, 80, 0.45);
+  backdrop-filter: blur(5px); */
+  /* border-radius: 2em; */
   padding: clamp(1.5em, 4vw, 3em);
   z-index: 1;
   align-items: center;

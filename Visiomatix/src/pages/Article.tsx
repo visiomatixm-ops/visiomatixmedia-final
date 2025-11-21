@@ -17,7 +17,7 @@ import { Container, Row, Col } from "react-bootstrap";
 
 const Article: React.FC = () => {
   const location = useLocation();
-  const post = location.state?.post;
+  const post = location.state?.blog;
 
   if (!post) {
     return (
@@ -33,9 +33,9 @@ const Article: React.FC = () => {
       {/* SEO Metadata */}
       <Helmet>
         <title>{post.title} | Visiomatix Media Blog</title>
-        <meta name="description" content={post.excerpt} />
+        <meta name="description" content={post.shortDesc} />
         <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:description" content={post.shortDesc} />
         <meta property="og:image" content={post.image} />
         <meta property="og:url" content={`https://www.visiomatix.com/blog/${post.title.toLowerCase().replace(/ /g, '-')}`} />
       </Helmet>
@@ -100,12 +100,10 @@ const Article: React.FC = () => {
         <Row className="justify-content-center">
           <Col md={8}>
             <div className="article-content">
-              <p className="text-muted mb-4">{post.excerpt}</p>
+              <p className="text-muted mb-4">{post.shortDesc}</p>
               <div className="article-body">
                 {/* Placeholder for full content - in real implementation, this would be post.content */}
-                <p>
-                  {post.content || "This is the full content of the article. In a real application, this would contain the complete blog post text, including paragraphs, images, and formatting."}
-                </p>
+                <div dangerouslySetInnerHTML={{ __html: post.fullDesc }} />
                 {/* Add more content structure as needed */}
               </div>
             </div>

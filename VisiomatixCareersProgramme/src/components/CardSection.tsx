@@ -52,7 +52,12 @@ const CardSection: React.FC<CardSectionProps> = ({
         <div className="row g-4 justify-content-center">
           {cards.map((card, index) => (
             <div key={index} className="col-lg-4 col-md-6">
-              <div className="card h-100 border-0 shadow-sm" style={{ transition: 'box-shadow 0.3s' }}>
+              <div
+                className="card h-100 border-0 shadow-sm"
+                style={{ transition: 'box-shadow 0.3s, border 0.3s' }}
+                onMouseEnter={(e) => { e.currentTarget.style.border = '3px solid #1D3458'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.border = '0px solid #1D3458'; }}
+              >
                 <div className="card-body">
                   <div className="mb-3" style={{ color: '#1D3458' }}>
                     {React.isValidElement(card.icon) ? (

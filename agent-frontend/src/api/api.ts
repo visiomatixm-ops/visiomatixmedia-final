@@ -15,6 +15,7 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
+
 /**
  * Sets the authorization token for all API requests
  * @param token - JWT token string, or null to remove authorization

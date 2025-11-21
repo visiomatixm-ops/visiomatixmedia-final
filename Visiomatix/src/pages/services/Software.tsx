@@ -17,6 +17,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Diagram3, People, PersonWorkspace, Robot, LightningCharge } from "react-bootstrap-icons";
 
 import AIVoiceAssistant from "/services/businesssolutions/AI Voice Sales Assistant Integration-1.jpg";
 import BusinessAutomation from "/services/businesssolutions/Business Automation Tools-1.jpg";
@@ -170,7 +171,8 @@ const Software: React.FC = () => {
                 backgroundBlendMode: 'overlay',
                 minHeight: '70vh',
                 display: 'flex',
-                alignItems: 'center'
+                alignItems: 'center',
+                justifyContent:"center",
               }}
             >
               {/* Grey transparent overlay for better text visibility */}
@@ -181,33 +183,39 @@ const Software: React.FC = () => {
                   zIndex: 1
                 }}
               />
-              <div className="container position-relative" style={{
+              {/* centered content*/}
+              <div 
+                className="container text-center d-flex flex-column justify-content-center align-items-center" 
+                style={{
                 zIndex: 2,
                 backgroundColor: "rgba(0, 40, 80, 0.45)",
                 borderRadius: "12px",
                 width:"90%",
-                padding:"1em",
+                padding:"2em",
                 backdropFilter: "blur(5px)",
-                marginTop: '7rem',
-              }}>
-                 <div className="row align-items-center">
-                   <div className="col-md-6">
+                minHeight:"60vh",
+              }}
+              >
+
                      <motion.h1
-                       className="display-5 fw-bold"
+                       className="display-5 fw-bold text-white"
                        initial={{ opacity: 0, y: 30 }}
                        animate={{ opacity: 1, y: 0 }}
                        transition={{ duration: 0.8 }}
                      >
                        Business Software Solutions
                      </motion.h1>
+
                      <motion.p
-                       className="lead mt-3"
+                       className="lead mt-3 text-white"
                        initial={{ opacity: 0, y: 30 }}
                        animate={{ opacity: 1, y: 0 }}
                        transition={{ duration: 0.8, delay: 0.2 }}
+                       style={{maxWidth:"750px"}}
                      >
                        Empower your enterprise with intelligent, automated, and data-driven software systems that redefine efficiency.
                      </motion.p>
+
                      <motion.a
                        href="#solutions"
                        className="btn btn-light btn-lg mt-3"
@@ -220,6 +228,16 @@ const Software: React.FC = () => {
                        Explore Solutions
                      </motion.a>
                    </div>
+                   </section>
+                  
+                   {/* Expanded Content Section */}
+            <motion.section
+              className="py-5 bg-light"
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+                ></motion.section>
                    <div className="col-md-6 text-center mt-4 mt-md-0">
                      {/* <motion.img
                        src="https://www.yourdomain.com/images/software-solutions-hero.svg"
@@ -230,15 +248,14 @@ const Software: React.FC = () => {
                        transition={{ duration: 0.8, delay: 0.6 }}
                      /> */}
                    </div>
-                 </div>
-               </div>
-            </section>
-
+                
+              
+        
             {/* Content Section */}
             <section className="py-5 bg-light">
               <div className="container">
                 <p className="lead text-muted text-center mx-auto" style={{ maxWidth: "850px" }}>
-                  At <strong>Visiomatix</strong>, we design and develop intelligent business software that integrates data, workflows, and decision-making into one seamless platform.
+                  At <strong>Visiomatix</strong>,we design and develop intelligent business software that integrates data, workflows, and decision-making into one seamless platform.
                   From <strong>ERP systems</strong> that unify operations to <strong>CRM platforms</strong> that enhance customer relationships,
                   we create technology that transforms productivity.
                   Our <strong>HRMS tools</strong> streamline workforce management, while our <strong>AI Voice Sales Assistants</strong> and <strong>Automation Tools</strong> empower teams with real-time insights and task automation.
@@ -263,36 +280,36 @@ const Software: React.FC = () => {
                 {[
                   {
                     title: "ERP Development",
-                    text: "We build robust Enterprise Resource Planning (ERP) systems that centralize your business processes — from inventory and finance to HR and supply chain — into one unified platform.",
-                    icon: "bi bi-diagram-3 text-primary",
+                    text: "We build robust Enterprise Resource Planning (ERP) systems that centralize your business processes — from inventory and finance to HR and supply chain — into one unified platform.With a focus on scalability and customization, our ERP systems adapt to your business needs, whether you’re a startup or an enterprise. We integrate advanced features like automated reporting, analytics dashboards, and workflow management to help your teams work smarter and more efficiently Our expert developers ensure seamless integration with your existing software ecosystem, providing a smooth transition with minimal disruption.",
+                    icon: Diagram3,
                     img: ERPDevelopment,
                     reverse: false,
                   },
                   {
                     title: "CRM Development",
-                    text: "Our CRM solutions help manage customer data, automate sales, and optimize marketing funnels to enhance retention and drive long-term growth.",
-                    icon: "bi bi-people text-success",
+                    text: "Our Customer Relationship Management (CRM) solutions help manage customer data, automate sales processes, and optimize marketing funnels to enhance retention and drive long-term growth. We design intelligent systems that enable your team to track leads, nurture relationships, and gain actionable insights into customer behavior With seamless integration across email, social media, and communication platforms, our CRM solutions ensure a unified view of every customer interaction. From automated follow-ups and lead scoring to real-time analytics and performance tracking, we empower your business to make data-driven decisions that strengthen customer engagement Whether you’re a small business looking to boost sales efficiency or a large enterprise aiming to personalize customer experiences, our custom-built CRM platforms are scalable, secure, and designed to grow with your business.",
+                    icon: People,
                     img: CRMDevelopment,
                     reverse: true,
                   },
                   {
                     title: "HRMS Development",
-                    text: "Simplify recruitment, attendance tracking, payroll, and performance evaluation with a secure, cloud-based HRMS system tailored to your organization.",
-                    icon: "bi bi-person-workspace text-warning",
+                    text: "Simplify recruitment, attendance tracking, payroll, and performance evaluation with a secure, cloud-based HRMS system tailored to your organization Our HRMS solutions streamline recruitment, attendance, payroll, and performance management.Built on a secure, cloud-based platform for seamless accessibility and scalability Automate repetitive HR tasks to boost efficiency and accuracy across departments Empower your HR team with real-time insights and customizable dashboards Simplify workforce management while enhancing employee engagement and productivity Simplify workforce management while enhancing employee engagement and productivity.",
+                    icon: PersonWorkspace,
                     img: HRMSDevelopment,
                     reverse: false,
                   },
                   {
                     title: "AI Voice Sales Assistant Integration",
-                    text: "Integrate AI-powered voice assistants into your sales ecosystem for real-time conversation analysis, lead qualification, and smarter customer engagement.",
-                    icon: "bi bi-robot text-info",
+                    text: "Integrate AI-powered voice assistants into your sales ecosystem for real-time conversation analysis, lead qualification, and smarter customer engagement. Our AI voice solutions help sales teams automate routine calls, capture insights from every interaction, and respond instantly to customer queries with human-like accuracy By leveraging natural language processing (NLP) and machine learning, these assistants can identify customer intent, recommend next steps, and provide instant access to product or service information. This not only improves response times but also enhances personalization and builds stronger client relationships Our systems seamlessly connect with your existing CRM and ERP platforms, ensuring a unified sales workflow.",
+                    icon: Robot,
                     img: AIVoiceAssistant,
                     reverse: true,
                   },
                   {
                     title: "Business Automation Tools",
-                    text: "Automate repetitive workflows using custom-built tools that connect departments, reduce manual errors, and boost operational productivity.",
-                    icon: "bi bi-lightning-charge text-danger",
+                    text: "Automate repetitive workflows using custom-built tools that connect departments, reduce manual errors, and boost operational productivity. Our automation solutions are designed to streamline complex processes, eliminate bottlenecks, and ensure seamless collaboration across your organization By integrating AI, analytics, and intelligent workflows, we help businesses save time, cut costs, and focus on strategic growth instead of manual tasks. From automated data entry and approvals to advanced reporting and notifications, our tools provide real-time visibility and control over daily operations Whether you need to optimize internal communication, manage resources efficiently, or ensure compliance through consistent processes, our end-to-end automation systems deliver accuracy, efficiency, and measurable results across every business function.",
+                    icon: LightningCharge,
                     img: BusinessAutomation,
                     reverse: false,
                   },
@@ -326,7 +343,7 @@ const Software: React.FC = () => {
                       viewport={{ once: true, amount: 0.3 }}
                     >
                       <h4 className="fw-bold">
-                        <i className={`${service.icon} me-2`}></i>
+                        <service.icon className="me-2 text-primary" />
                         {service.title}
                       </h4>
                       <p className="text-muted mt-2">{service.text}</p>

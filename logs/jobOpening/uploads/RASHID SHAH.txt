@@ -1,0 +1,41 @@
+RASHID SHAH YAQUB SHAH
+📞 +91-9325442321 | 📧 rashid322001@gmail.com | 📍 Akola, MH
+🌐LinkedIn: www.linkedin.com/in/rashidyshah
+CAREER OBJECTIVE
+A motivated and detail-oriented BCA graduate with a strong foundation in Core Java, SQL, and Web Technologies. Seeking an entry-level software development role to leverage my skills in building real-world applications while continuously learning in a growth-oriented environment.
+
+
+
+EDUCATION
+Bachelor of Computer Applications (BCA)             				 2019 – 2023  
+Sant Gadge Baba Amravati University, Maharashtra  
+Percentage: 71.9%
+12th – HSC (Science)                                      					2018 – 2019  
+MH State Board, Pune  
+Percentage: 51.08%
+10th – SSC                                                   					2016 – 2017  
+MH State Board, Pune  
+Percentage: 64.60%
+
+TECHNICAL SKILLS
+Programming Languages: Core Java  
+Web Technologies: HTML, CSS, Bootstrap, JavaScript  
+Database: SQL (Joins, Subqueries, DDL, DML, TCL, DQL)  
+Concepts: OOPs, Exception Handling, Collections, File Handling, Threads  
+Tools: Eclipse, MySQL, Git (basic knowledge)
+
+ACADEMIC PROJECTS
+1. Student Management System (Java + MySQL) 
+- Developed a CRUD-based desktop application using Core Java and MySQL.
+- Implemented features like student record insertion, update, and deletion.
+- Focused on exception handling and file operations.
+
+PERSONAL DETAILS 
+Languages: English, Hindi, Marathi  
+Location Preference: Hyderabad, Pune, Mumbai, Bangalore
+
+DECLARATION
+I hereby declare that the information provided is true to the best of my knowledge.
+
+Date:
+Place: Hyderabad  							Signature: Rashid Shah
