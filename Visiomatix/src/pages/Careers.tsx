@@ -355,6 +355,7 @@ const handleAddField = (
 
   const handleInternshipSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Submitting internship application...");
 
     // basic validation
     if (!internshipFormData.position || !internshipFormData.email) {
@@ -378,6 +379,7 @@ const handleAddField = (
 
       const resJson = await resp.json();
       if (resp.ok && resJson.success) {
+        console.log("Successfully applied for internship!");
         // mark submitted, close modal, show popup
         setFormSubmitted(true);
         setShowInternshipModal(false);
