@@ -1,0 +1,53 @@
+.client-section {
+  background: #F7F7F7;
+  padding: 50px 20px; /* bigger padding */
+  text-align: center;
+}
+.client-heading {
+  font-size: 3rem; /* bigger heading */
+  padding-bottom:1em;
+  font-weight: 600;
+  color: #003866;
+  margin-bottom: 30px;
+}
+.carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 20vh; /* taller container to fit bigger logos */
+}
+.carousel-track {
+  display: flex;
+  gap:2em;
+  flex-wrap: nowrap;
+  align-items: center;
+  animation: scroll 40s linear infinite;
+}
+.logo-box {
+  flex: 0 0 auto;
+  width: 20vw; /* bigger logo box */
+  height: 20vh; /* taller box */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px; /* slightly bigger gap */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.logo-box:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+.logo-img {
+  max-width: 23vw; /* bigger image */
+  max-height: 23vh;
+  object-fit: contain;
+}
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import { motion, AnimatePresence } from 'framer-motion'
 
 import './views/slides.css'
 import Slide from './views/Slide.tsx'
@@ -36,21 +35,7 @@ const CarouselComponent: React.FC = () => {
         <title>Visiomatix</title>
       </Helmet>
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentSlide}
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -100 }}
-          transition={{
-            duration: 0.5,
-            ease: [0.25, 0.46, 0.45, 0.94] // ease-in-out cubic-bezier
-          }}
-          style={{ width:"100%"}}
-        >
-          <Slide pageIndex={currentSlide} />
-        </motion.div>
-      </AnimatePresence>
+      <Slide pageIndex={currentSlide} />
 
       <div className="carousel-controls">
         <button onClick={prevSlide} className="carousel-prev">←</button>
@@ -65,6 +50,7 @@ const CarouselComponent: React.FC = () => {
           />
         ))}
       </div>
+
 
     </div>
   )

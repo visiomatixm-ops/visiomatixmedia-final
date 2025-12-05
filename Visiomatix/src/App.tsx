@@ -47,12 +47,11 @@ import Footer from './component/Footer';
 import PageLoader from './component/PageLoader';
 import ChatWidget from './component/ChatWidget';
 
-// ✅ Lazy-load all pages
+//  Lazy-load all pages
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
-
-// ✅ Correct SMM import
+//  Correct SMM import
 const DigitalMarketing = lazy(() => import('./pages/services/DigitalMarketing'));
 const SMM = lazy(() => import('./pages/services/DigitalMarketing'));
 const Design = lazy(() => import('./pages/services/Design'));
@@ -125,6 +124,7 @@ const App: React.FC = () => {
           <Route path="/services/Software" element={<Software />} />
           <Route path="/services/Ecommerce" element={<Ecommerce />} />
           <Route path="/services/Branding" element={<Branding />} />
+           <Route path="/testimonials" element={<Testimonials />} />
 
           {/* Content and engagement routes */}
           <Route path="/blog" element={<Blog />} />

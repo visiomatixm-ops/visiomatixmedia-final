@@ -19,9 +19,9 @@ import { motion } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
 import WebApp from "/services/icons/3-LIST/3-1 Web App Development.svg";
 import WebsiteDesign from "/services/icons/3-LIST/3-2 Website Design & Development.svg";
-import MobileApp from "/services/icons/3-LIST/3-3 Mobile App Development.svg";
+import MobileApp from "/services/icons/3-LIST/3-3 mobile app development icon.svg";
 import LandingPage from "/services/icons/3-LIST/3-4 Landing Page Optimization.svg";
-import CustomWebSolutions from "/services/icons/3-LIST/3-5 Custom Web Solutions.svg";
+import CustomWebSolutions from "/services/icons/3-LIST/3-5 custom web solutions icon.svg";
 import Banner from "/services/Banner/Web App Development-4.jpg";
 
 
@@ -255,105 +255,192 @@ const Webapp: React.FC = () => {
             </motion.section>
 
             {/* Services Section */}
-            <section id="services" className="py-5">
-              <motion.div
-                className="container"
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
+           {/* Services Section */}
+{/* Services Section */}
+<section id="services" className="py-5">
+  <motion.div
+    className="container"
+    variants={staggerContainer}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.3 }}
+  >
+    <h2 className="text-center mb-4 fw-semibold">
+      Our Web & App Development Services
+    </h2>
+
+    {/* ---------- ROW 1: 3 CARDS ---------- */}
+    <div className="row g-4 justify-content-center">
+
+      {[
+        {
+          icon: WebApp,
+          title: "Web App Development",
+          text: "We develop scalable, high-performance web applications using modern frameworks and RESTful APIs for seamless user experiences.",
+        },
+        {
+          icon: WebsiteDesign,
+          title: "Website Design & Development",
+          text: "From static to dynamic and e-commerce sites, our team delivers custom-built websites optimized for speed and SEO.",
+        },
+        {
+          icon: MobileApp,
+          title: "Mobile App Development",
+          text: "Design and develop intuitive Android and iOS apps using React Native, Flutter, or native SDKs with responsive UI.",
+        },
+      ].map((card, idx) => (
+        <motion.div
+          key={idx}
+          className="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+          variants={cardVariant}
+        >
+          <motion.div
+            className="card h-100 border-0"
+            style={{
+              boxShadow: '0 4px 15px rgba(0, 25, 51, 0.3)',
+              background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+              width: '100%',
+              maxWidth: '350px',
+              minHeight: '300px'
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: idx * 0.1 }}
+            whileHover={{
+              y: -5,
+              boxShadow: '0 8px 25px rgba(7, 18, 31, 0.76)',
+              transition: { duration: 0.3 }
+            }}
+          >
+            <div className="card-body text-center d-flex flex-column justify-content-center align-items-center"
+              style={{ height: '100%', padding: '2rem 1rem' }}>
+
+              {/* FIXED ICON SIZE + ALIGNMENT */}
+              <div
+                style={{
+                  width: "75px",
+                  height: "75px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginBottom: "1rem",
+                }}
               >
-                <h2 className="text-center mb-4 fw-semibold">
-                  Our Web & App Development Services
-                </h2>
-                <div className="row g-4">
-                  {[
-                    {
-                      icon: WebApp,
-                      title: "Web App Development",
-                      text: "We develop scalable, high-performance web applications using modern frameworks and RESTful APIs for seamless user experiences.",
-                    },
-                    {
-                      icon: WebsiteDesign,
-                      title: "Website Design & Development",
-                      text: "From static to dynamic and e-commerce sites, our team delivers custom-built websites optimized for speed and SEO.",
-                    },
-                    {
-                      icon: MobileApp,
-                      title: "Mobile App Development",
-                      text: "Design and develop intuitive Android and iOS apps using React Native, Flutter, or native SDKs with responsive UI.",
-                    },
-                    {
-                      icon: LandingPage,
-                      title: "Landing Page Optimization",
-                      text: "Boost conversion rates with optimized layouts, engaging visuals, and performance-driven landing pages.",
-                    },
-                    {
-                      icon: CustomWebSolutions,
-                      title: "Custom Web Solutions",
-                      text: "Get tailor-made web solutions, dashboards, and integrations built around your workflow and business goals.",
-                    },
-                  ].map((card, idx) => (
-                    <motion.div
-                      key={idx}
-                      className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center"
-                      variants={cardVariant}
-                    >
-                      <motion.div
-                        className="card h-100 border-0"
-                        style={{
-                          boxShadow: '0 4px 15px rgba(0, 25, 51, 0.3)',
-                          background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
-                          width: '100%',
-                          maxWidth: '350px',
-                          minHeight: '300px'
-                        }}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: idx * 0.1 }}
-                        whileHover={{
-                          y: -5,
-                          boxShadow: '0 8px 25px rgba(7, 18, 31, 0.76)',
-                          transition: { duration: 0.3 }
-                        }}
-                      >
-                        <div className="card-body text-center d-flex flex-column justify-content-center align-items-center"
-                        style={{
-                          height: '100%',
-                          minHeight: '250px',
-                          padding: '2rem 1rem'
-                        }}>
-                          <motion.img
-                            src={card.icon}
-                            alt={card.title}
-                            className="mb-3"
-                            style={{
-                              width: '4em',
-                              height: 'auto',
-                              maxWidth: '80px'
-                            }}
-                            whileHover={{ scale: 1.1, rotate: [0, -10, 10, -10, 0] }}
-                            transition={{ duration: 0.6, ease: "easeInOut" }}
-                          />
-                          <div >
-                          <h5 className="card-title" style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>{card.title}</h5>
-                          <p className="card-text text-muted" style={{ fontSize: '0.9rem', lineHeight: '1.4' }}>{card.text}</p>
-                          <motion.a
-                            href="#"
-                            className="btn btn-primary mt-auto"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            Learn More
-                          </motion.a>
-                          </div>
-                        </div>
-                      </motion.div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </section>
+                <motion.img
+                  src={card.icon}
+                  alt={card.title}
+                  style={{
+                    width: "55px",
+                    height: "55px",
+                    objectFit: "contain"
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+
+              <h5 className="card-title" style={{ fontSize: '1.1rem' }}>{card.title}</h5>
+              <p className="card-text text-muted" style={{ fontSize: '0.9rem' }}>{card.text}</p>
+
+              <motion.a
+                href="#"
+                className="btn btn-primary mt-auto"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Learn More
+              </motion.a>
+
+            </div>
+          </motion.div>
+        </motion.div>
+      ))}
+    </div>
+
+    {/* ---------- ROW 2: 2 CARDS ---------- */}
+    <div className="row g-4 justify-content-center mt-4">
+
+      {[
+        {
+          icon: LandingPage,
+          title: "Landing Page Optimization",
+          text: "Boost conversion rates with optimized layouts, engaging visuals, and performance-driven landing pages.",
+        },
+        {
+          icon: CustomWebSolutions,
+          title: "Custom Web Solutions",
+          text: "Get tailor-made web solutions, dashboards, and integrations built around your workflow and business goals.",
+        },
+      ].map((card, idx) => (
+        <motion.div
+          key={idx}
+          className="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+          variants={cardVariant}
+        >
+          <motion.div
+            className="card h-100 border-0"
+            style={{
+              boxShadow: '0 4px 15px rgba(0, 25, 51, 0.3)',
+              background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+              width: '100%',
+              maxWidth: '350px',
+              minHeight: '300px'
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: idx * 0.15 }}
+            whileHover={{
+              y: -5,
+              boxShadow: '0 8px 25px rgba(7, 18, 31, 0.76)',
+              transition: { duration: 0.3 }
+            }}
+          >
+            <div className="card-body text-center d-flex flex-column justify-content-center align-items-center"
+              style={{ height: '100%', padding: '2rem 1rem' }}>
+
+              {/* FIXED ICON SIZE */}
+              <div
+                style={{
+                  width: "75px",
+                  height: "75px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginBottom: "1rem",
+                }}
+              >
+                <motion.img
+                  src={card.icon}
+                  alt={card.title}
+                  style={{
+                    width: "55px",
+                    height: "55px",
+                    objectFit: "contain"
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+
+              <h5 className="card-title" style={{ fontSize: '1.1rem' }}>{card.title}</h5>
+              <p className="card-text text-muted" style={{ fontSize: '0.9rem' }}>{card.text}</p>
+
+              <motion.a
+                href="#"
+                className="btn btn-primary mt-auto"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Learn More
+              </motion.a>
+
+            </div>
+          </motion.div>
+        </motion.div>
+      ))}
+    </div>
+
+  </motion.div>
+</section>
+
 
             {/* CTA Section */}
             <motion.section

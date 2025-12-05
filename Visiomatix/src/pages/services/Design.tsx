@@ -19,12 +19,12 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
-import UIUX from "/services/icons/2-LIST/2-1 UI-UX Design.svg";
+import UIUX from "/services/icons/2-LIST/2-1 UI UX design.svg";
 import GraphicDesign from "/services/icons/2-LIST/2-2 Graphic Design.svg";
-import MotionGraphics from "/services/icons/2-LIST/2-3 Motion Graphics & Animation.svg";
-import YouTubeThumbnails from "/services/icons/2-LIST/2-4 YouTube Thumbnails & Video Assets.svg";
+import MotionGraphics from "/services/icons/2-LIST/2-3 motion graphics.svg";
+import YouTubeThumbnails from "/services/icons/2-LIST/2-4 Youtube thumbnail.svg";
 import ThreeDVisualization from "/services/icons/2-LIST/2-5 3D Product Visualization.svg";
-import VFXPostProduction from "/services/icons/2-LIST/2-6 Visual Effects (VFX) & Post-Production.svg";
+import VFXPostProduction from "/services/icons/2-LIST/2-6 VFX, Post-Production & Photography.svg";
 import ProductPhotography from "/services/icons/2-LIST/2-7 Product Photography & Videography.svg";
 import Banner from "/services/Banner/Design & Creative Services-2.jpg";
 
@@ -134,7 +134,7 @@ const Design: React.FC = () => {
         <meta
           name="keywords"
           content="Web Design, UI UX Design, Graphic Design, Motion Graphics, Animation, YouTube Thumbnails, 3D Product Visualization, VFX, Post-Production, Product Photography, Videography, Branding, Logo Design"
-        />
+        /> 
         <link rel="canonical" href="https://www.yourdomain.com/web-design" />
 
         {/* Structured JSON-LD Schema */}
@@ -246,143 +246,187 @@ const Design: React.FC = () => {
             </motion.section>
 
             {/* Services Section */}
-            <section id="services" className="py-5">
-              <motion.div
-                className="container"
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-              >
-                <h2 className="text-center mb-4 fw-semibold">
-                  Our Core Design & Creative Services
-                </h2>
-                <div className="row g-4">
-                  {[
-                    {
-                      icon: UIUX,
-                      title: "UI/UX Design",
-                      text: "Craft intuitive, user-centered digital interfaces that blend aesthetic design with seamless functionality.",
-                    },
-                    {
-                      icon: GraphicDesign,
-                      title: "Graphic Design & Branding",
-                      text: "Create striking brand visuals including logos, brochures, and identity materials that leave a lasting impression.",
-                    },
-                    {
-                      icon: MotionGraphics,
-                      title: "Motion Graphics & Animation",
-                      text: "Engage audiences through dynamic animations, video intros, and storytelling motion assets.",
-                    },
-                    {
-                      icon: YouTubeThumbnails,
-                      title: "YouTube Thumbnails & Video Assets",
-                      text: "Design eye-catching video thumbnails, banners, and overlays that maximize click-through rates and viewer retention.",
-                    },
-                    {
-                      icon: ThreeDVisualization,
-                      title: "3D Product Visualization",
-                      text: "Showcase your products with photorealistic 3D renders and interactive visual mockups.",
-                    },
-                    {
-                      icon: VFXPostProduction,
-                      title: "VFX, Post-Production & Photography",
-                      text: "Add cinematic flair to visuals through advanced VFX, editing, photography, and videography expertise.",
-                    },
-                    {
-                      icon: ProductPhotography,
-                      title: "Product Photography & Videography",
-                      text: "Capture stunning product images and videos that highlight features and drive conversions.",
-                    },
-                  ].map((card, idx) => (
-                    <motion.div
-                      key={idx}
-                      className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center"
-                      variants={cardVariant}
-                    >
-                      <motion.div
-                        className="card h-100 border-0"
-                        style={{
-                          boxShadow: '0 4px 15px rgba(0, 25, 51, 0.3)',
-                          background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
-                          width: '100%',
-                          maxWidth: '350px',
-                          minHeight: '300px'
-                        }}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: idx * 0.1 }}
-                        whileHover={{
-                          y: -5,
-                          boxShadow: '0 8px 25px rgba(0, 25, 51, 0.4)',
-                          transition: { duration: 0.3 }
-                        }}
-                      >
-                        <div className="card-body text-center d-flex flex-column justify-content-center align-items-center"
-                        style={{
-                          height: '100%',
-                          minHeight: '250px',
-                          padding: '2rem 1rem'
-                        }}>
-                          <motion.img
-                            src={card.icon}
-                            alt={card.title}
-                            className="mb-3"
-                            style={{
-                              width: '4em',
-                              height: 'auto',
-                              maxWidth: '80px'
-                            }}
-                            whileHover={{ scale: 1.1, rotate: [0, -10, 10, -10, 0] }}
-                            transition={{ duration: 0.6, ease: "easeInOut" }}
-                          />
-                          <h5 className="card-title" style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>{card.title}</h5>
-                          <p className="card-text text-muted" style={{ fontSize: '0.9rem', lineHeight: '1.4' }}>{card.text}</p>
-                          {/* <motion.a
-                            href="#"
-                            className="btn btn-primary mt-auto"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            Learn More
-                          </motion.a> */}
-                        </div>
-                      </motion.div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </section>
+            {/* Services Section */}
+<section id="services" className="py-5">
+  <motion.div
+    className="container"
+    variants={staggerContainer}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.3 }}
+  >
+    <h2 className="text-center mb-4 fw-semibold">
+      Our Core Design & Creative Services
+    </h2>
 
-            {/* CTA Section */}
-            <motion.section
-              className="bg-dark text-light text-center py-5"
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
+    <div className="row g-4">
+
+      {/* ---------- FIRST ROW (4 CARDS) ---------- */}
+      {[
+        {
+          icon: UIUX,
+          title: "UI/UX Design",
+          text: "Craft intuitive, user-centered digital interfaces that blend aesthetic design with seamless functionality.",
+        },
+        {
+          icon: GraphicDesign,
+          title: "Graphic Design & Branding",
+          text: "Create striking brand visuals including logos, brochures, and identity materials that leave a lasting impression.",
+        },
+        {
+          icon: MotionGraphics,
+          title: "Motion Graphics & Animation",
+          text: "Engage audiences through dynamic animations, video intros, and storytelling motion assets.",
+        },
+        {
+          icon: YouTubeThumbnails,
+          title: "YouTube Thumbnails & Video Assets",
+          text: "Design eye-catching video thumbnails, banners, and overlays that maximize viewer retention.",
+        },
+      ].map((card, idx) => (
+        <motion.div
+          key={idx}
+          className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center"
+          variants={cardVariant}
+        >
+          <motion.div
+            className="card h-100 border-0"
+            style={{
+              boxShadow: "0 4px 15px rgba(0, 25, 51, 0.3)",
+              background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
+              width: "100%",
+              maxWidth: "350px",
+              minHeight: "300px",
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: idx * 0.1 }}
+            whileHover={{
+              y: -5,
+              boxShadow: "0 8px 25px rgba(0, 25, 51, 0.4)",
+              transition: { duration: 0.3 },
+            }}
+          >
+            <div
+              className="card-body text-center d-flex flex-column justify-content-center align-items-center"
+              style={{ height: "100%", padding: "2rem 1rem" }}
             >
-              <div className="container">
-                <h3 className="fw-bold mb-3">
-                  Ready to Design a Stunning Digital Experience?
-                </h3>
-                <p className="lead">
-                  Let’s bring your vision to life through design that inspires, performs, and engages.
-                </p>
-                <motion.a
-                  href="/contact"
-                  className="btn btn-primary btn-lg mt-3"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Get in Touch
-                </motion.a>
+              {/* --- SMALL FIXED ICON --- */}
+              <div
+                className="icon-box mb-3 d-flex justify-content-center align-items-center"
+                style={{
+                  width: "70px",
+                  height: "70px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <motion.img
+                  src={card.icon}
+                  alt={card.title}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    objectFit: "contain",
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                />
               </div>
-            </motion.section>
+
+              <h5 className="card-title">{card.title}</h5>
+              <p className="card-text text-muted">{card.text}</p>
+            </div>
           </motion.div>
-    </>
+        </motion.div>
+      ))}
+
+      {/* ---------- SECOND ROW (3 CARDS) ---------- */}
+      {[
+        {
+          icon: ThreeDVisualization,
+          title: "3D Product Visualization",
+          text: "Showcase your products with photorealistic 3D renders and interactive visual mockups.",
+        },
+        {
+          icon: VFXPostProduction,
+          title: "VFX, Post-Production & Photography",
+          text: "Add cinematic flair with VFX, editing, photography, and advanced post-production.",
+        },
+        {
+          icon: ProductPhotography,
+          title: "Product Photography & Videography",
+          text: "Capture stunning product images and videos that highlight features and drive conversions.",
+        },
+      ].map((card, idx) => (
+        <motion.div
+          key={idx}
+          className="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+          variants={cardVariant}
+        >
+          <motion.div
+            className="card h-100 border-0"
+            style={{
+              boxShadow: "0 4px 15px rgba(0, 25, 51, 0.3)",
+              background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
+              width: "100%",
+              maxWidth: "350px",
+              minHeight: "300px",
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 + idx * 0.15 }}
+            whileHover={{
+              y: -5,
+              boxShadow: "0 8px 25px rgba(0, 25, 51, 0.4)",
+              transition: { duration: 0.3 },
+            }}
+          >
+            <div
+              className="card-body text-center d-flex flex-column justify-content-center align-items-center"
+              style={{ height: "100%", padding: "2rem 1rem" }}
+            >
+              {/* --- SMALL FIXED ICON --- */}
+              <div
+                className="icon-box mb-3 d-flex justify-content-center align-items-center"
+                style={{
+                  width: "70px",
+                  height: "70px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <motion.img
+                  src={card.icon}
+                  alt={card.title}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    objectFit: "contain",
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+
+              <h5 className="card-title">{card.title}</h5>
+              <p className="card-text text-muted">{card.text}</p>
+            </div>
+          </motion.div>
+        </motion.div>
+      ))}
+
+    </div>
+  </motion.div>
+</section>
+
+
+
+</motion.div>
+</>
   );
 };
 
 export default Design;
-

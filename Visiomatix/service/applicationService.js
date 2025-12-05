@@ -10,10 +10,7 @@ import nodemailer from "nodemailer";
 
 import db from "./db.js";
 
-
-
 dotenv.config();
-
 
 
 const app = express();

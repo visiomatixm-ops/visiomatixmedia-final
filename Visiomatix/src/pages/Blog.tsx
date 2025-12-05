@@ -96,9 +96,9 @@ const Blog: React.FC = () => {
       <section
         className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
         style={{
-          backgroundImage: "url('/about/blog image.jpg')",
+          backgroundImage: "url('/about/blog-image-V1.png')",
           backgroundSize: "cover",
-          backgroundPosition: "center",
+         backgroundPosition: "center",
           height: "45vh",
           position: "relative",
           marginTop: "2rem",
@@ -109,14 +109,14 @@ const Blog: React.FC = () => {
           style={{
             position: "absolute",
             inset: 0,
-            backgroundColor: "rgba(0, 40, 80, 0.45)",
+           // backgroundColor: "rgba(18, 34, 51, 0.45)",
           }}
         />
         <div
           style={{
             position: "relative",
             zIndex: 2,
-            backgroundColor: "rgba(0, 40, 80, 0.35)",
+           // backgroundColor: "rgba(0, 40, 80, 0.35)",
             borderRadius: "8px",
             width: "85%",
             maxWidth: "850px",

@@ -44,7 +44,7 @@ public class ContactUSController {
 
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-			mimeMessageHelper.setTo("rs5337473@gmail.com");
+			mimeMessageHelper.setTo("ganvirtine@gmail.com");
 			mimeMessageHelper.setSubject(subject);
 			mimeMessageHelper.setText("You have received a new contact form submission:\n\n" 
 					+ "Name: " + fullName + "\n" +

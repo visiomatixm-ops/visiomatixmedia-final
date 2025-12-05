@@ -58,14 +58,14 @@ const ServiceCardWrapper: React.FC<ServiceCardWrapperProps> = ({ service, cardVa
 };
 
 // Example service images
-import DigitalMarketing from "/public/services/1_DIGITAL MARKETING SERVICES.jpg";
-import AnimationImage from "/public/services/2d_3d animation-1.jpg";
-import BrandingImage from "/public/services/6_BRAND&STRATEGY.jpg";
-import PhotographyImage from "/public/services/photography-1.jpg";
-import VideographyImage from "/public/services/videography-1.jpg";
-import MotionImage from "/public/services/motion.jpg";
-import WebDesignImage from "/public/services/web-design-1.jpg";
-import GraphicImage from "/public/services/graphic-1.jpg";
+import DigitalMarketing from "/public/services/1_DIGITAL MARKETING SERVICES.png";
+import AnimationImage from "/public/services/2d_3d animation-1.png";
+import BrandingImage from "/public/services/6_BRAND&STRATEGY.png";
+import PhotographyImage from "/public/services/photography-1.png";
+import VideographyImage from "/public/services/videography-1.png";
+import MotionImage from "/public/services/motion.png";
+import WebDesignImage from "/public/services/web-design-1.png";
+import GraphicImage from "/public/services/graphic-1.png";
 // ✅ Light Theme Styles
 const cardThemeStyles = `
   .card-theme {
@@ -121,7 +121,7 @@ const cardThemeStyles = `
 
 const ServicesLayout: React.FC = () => {
   const services = [
-    { image: DigitalMarketing, title: "Digital Marketing", description: "Digital marketing is the strategic use of online channels to promote brands, engage audiences, and drive measurable business growth." },
+    { image: DigitalMarketing, title: "Digital Marketing", description: "Digital marketing is the strategic use of online channels to promote brands, engage audiences." },
     { image: AnimationImage, title: "2D/3D Animation", description: "Creative animation services for advertisements and films." },
     { image: BrandingImage, title: "Brand Design", description: "Crafting unique brand identities for your business." },
     { image: PhotographyImage, title: "Photography", description: "High-quality photoshoots for events, products, and portfolios." },

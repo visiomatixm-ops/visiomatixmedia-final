@@ -2,46 +2,53 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { motion } from 'framer-motion'
 import './slides.css'
+import CTAButton from '../CTAButton.tsx'
 
 interface PageProps {
   classPrefix: string
   title: string
-  imageSrc: string
-  imageAlt: string
   serviceTitle: string
   serviceDescription: string
   hasAnimation?: boolean
   backgroundColor?: string
+  imageSrc?: string
 }
 
 interface ServicePageProps {
-  classPrefix: string  
+  classPrefix: string
 }
 
 const ServicePage: React.FC<PageProps> = ({
   classPrefix,
   title,
-  imageSrc,
-  imageAlt,
   serviceTitle,
   serviceDescription,
   hasAnimation = false,
-  backgroundColor = '#1D3458'  
+  backgroundColor = 'transparent',
+  imageSrc
 }) => (
   <div className={`${classPrefix}-container1`}>
     <Helmet>
       <title>{title}</title>
     </Helmet>
     <div className={`${classPrefix}${classPrefix}`} style={{backgroundColor: backgroundColor}}>
-      {/* <img
-        src={imageSrc}
-        alt={imageAlt}
-        className={`${classPrefix}-img`}
-      /> */}
+      {imageSrc && (
+        <motion.img
+          src={imageSrc}
+          alt={serviceTitle}
+          className={`${classPrefix}-img`}
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.25, 0.46, 0.45, 0.94],
+            delay: 0.1
+          }}
+        />
+      )}
       {hasAnimation ? (
         <motion.div
           className={`${classPrefix}text`}
-          style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", width:"100%"}}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -74,6 +81,7 @@ const ServicePage: React.FC<PageProps> = ({
           >
             <span className={`${classPrefix}-text2`}>{serviceDescription}</span>
           </motion.div>
+          <CTAButton />
         </motion.div>
       ) : (
         <div className={`${classPrefix}text`}>
@@ -83,6 +91,7 @@ const ServicePage: React.FC<PageProps> = ({
           <div className={`${classPrefix}tittletext`}>
             <span className={`${classPrefix}-text2`}>{serviceDescription}</span>
           </div>
+          <CTAButton />
         </div>
       )}
     </div>
@@ -93,15 +102,14 @@ const Page1: React.FC<ServicePageProps> = ({ classPrefix }) => (
   <ServicePage
     classPrefix={classPrefix}
     title="UI UX Design"
-    imageSrc="/carousel/img2826-55ip-1600w.png"
-    imageAlt="img2826"
     serviceTitle="UI UX Design"
-    serviceDescription="Our design specialists create intuitive, user-centered 
+    serviceDescription={`Our design specialists create intuitive, user-centered
     interfaces that elevate every digital interaction. Leveraging industry-leading tools
      like Figma and Adobe XD, we craft seamless user journeys, modern layouts, and visually
       balanced experiences. Whether it's a website, mobile app, or product dashboard, we ensure
-       every design not only looks stunning but feels effortless to use."
+       every design not only looks stunning but feels effortless to use.`}
     hasAnimation={true}
+   // imageSrc="/services/web-design-1.jpg"
   />
 )
 
@@ -109,10 +117,10 @@ const Page2: React.FC<ServicePageProps> = ({ classPrefix }) => (
   <ServicePage
     classPrefix={classPrefix}
     title="2D/3D Animation"
-    imageSrc="/carousel/img3026-5ogn-1600w.png"
-    imageAlt="img3026"
     serviceTitle="2D/3D Animation"
-    serviceDescription="Bring your ideas to life with dynamic 2D and 3D animations. Our creative team blends art and motion to produce visually appealing advertisements, explainer videos, and character-based storytelling that leaves a lasting impression on viewers."
+    serviceDescription={`Bring your ideas to life with dynamic 2D and 3D animations. Our creative team blends art and motion to produce visually appealing advertisements, explainer videos, and character-based storytelling that leaves a lasting impression on viewers.`}
+    hasAnimation={true}
+    //imageSrc="/services/2d_3d animation-1.jpg"
   />
 )
 
@@ -120,10 +128,10 @@ const Page3: React.FC<ServicePageProps> = ({ classPrefix }) => (
   <ServicePage
     classPrefix={classPrefix}
     title="Brand Design"
-    imageSrc="/carousel/img3027-vkk-1600w.png"
-    imageAlt="img3027"
     serviceTitle="Brand Design"
-    serviceDescription="Your brand is your story — we make sure it's unforgettable. From logos and brand palettes to typography and tone, we create unique brand identities that resonate with your audience and reflect your business values perfectly."
+    serviceDescription={`Your brand is your story — we make sure it's unforgettable. From logos and brand palettes to typography and tone, we create unique brand identities that resonate with your audience and reflect your business values perfectly.`}
+    hasAnimation={true}
+   // imageSrc="/services/brand-design-2.jpg"
   />
 )
 
@@ -131,10 +139,10 @@ const Page4: React.FC<ServicePageProps> = ({ classPrefix }) => (
   <ServicePage
     classPrefix={classPrefix}
     title="Photography"
-    imageSrc="/carousel/img3027-04cq-1600w.png"
-    imageAlt="img3027"
     serviceTitle="Photography"
-    serviceDescription="Capture life's moments with cinematic quality. Our videography services include event coverage, commercials, and promotional videos using state-of-the-art cameras and lighting to create compelling visual narratives that engage your audience."
+    serviceDescription={`Capture every detail with precision. We specialize in product, event, and portrait photography using professional-grade equipment and creative direction to deliver high-quality imagery that tells your story beautifully.`}
+    hasAnimation={true}
+    //imageSrc="/services/photography-1.jpg"
   />
 )
 
@@ -142,10 +150,10 @@ const Page5: React.FC<ServicePageProps> = ({ classPrefix }) => (
   <ServicePage
     classPrefix={classPrefix}
     title="Videography"
-    imageSrc="/carousel/img3028-h88-1600w.png"
-    imageAlt="img3028"
     serviceTitle="Videography"
-    serviceDescription="Transform your online presence with stunning web designs. Our responsive websites combine modern aesthetics with user-friendly interfaces, ensuring seamless experiences across all devices and driving conversions for your business."
+    serviceDescription={`Capture life's moments with cinematic quality. Our videography services include event coverage, commercials, and promotional videos using state-of-the-art cameras and lighting to create compelling visual narratives that engage your audience.`}
+    hasAnimation={true}
+   // imageSrc="/services/videography-1.jpg"
   />
 )
 
@@ -153,10 +161,10 @@ const Page6: React.FC<ServicePageProps> = ({ classPrefix }) => (
   <ServicePage
     classPrefix={classPrefix}
     title="WebDesign"
-    imageSrc="/carousel/img3028-f47-1600w.png"
-    imageAlt="img3028"
     serviceTitle="WebDesign"
-    serviceDescription="Bring static designs to life with dynamic motion graphics. Our team creates animated logos, explainer videos, and visual effects that enhance your brand messaging and captivate viewers with smooth, professional animations."
+    serviceDescription={`Transform your online presence with stunning web designs. Our responsive websites combine modern aesthetics with user-friendly interfaces, ensuring seamless experiences across all devices and driving conversions for your business.`}
+    hasAnimation={true}
+  //  imageSrc="/services/webdesign.jpg"
   />
 )
 
@@ -164,10 +172,10 @@ const Page7: React.FC<ServicePageProps> = ({ classPrefix }) => (
   <ServicePage
     classPrefix={classPrefix}
     title="Motion Graphics"
-    imageSrc="/carousel/img3028-orh-1600w.png"
-    imageAlt="img3028"
     serviceTitle="Motion Graphics"
-    serviceDescription="Capture every detail with precision. We specialize in product, event, and portrait photography using professional-grade equipment and creative direction to deliver high-quality imagery that tells your story beautifully."
+    serviceDescription={`Bring static designs to life with dynamic motion graphics. Our team creates animated logos, explainer videos, and visual effects that enhance your brand messaging and captivate viewers with smooth, professional animations.`}
+    hasAnimation={true}
+   // imageSrc="/services/motion.jpg"
   />
 )
 

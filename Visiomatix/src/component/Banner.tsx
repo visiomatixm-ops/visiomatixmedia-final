@@ -16,9 +16,10 @@ interface BannerProps {
   description?:string;
   bgImage: string;
   height?: string;
+  marginTop?: string;
 }
 
-const Banner: React.FC<BannerProps> = ({ title, subtitle, description, bgImage, height = "clamp(50vh, 70vh, 90vh)" }) => {
+const Banner: React.FC<BannerProps> = ({ title, subtitle, description, bgImage, height = "clamp(50vh, 70vh, 90vh)", marginTop = "clamp(8rem, 15rem, 20rem)" }) => {
   return (
     <div
       className="d-flex align-items-center justify-content-center text-center text-white py-4 py-sm-3"
@@ -28,7 +29,7 @@ const Banner: React.FC<BannerProps> = ({ title, subtitle, description, bgImage, 
         backgroundPosition: "center",
         height: height,
         position: "relative",
-        marginTop: "clamp(8rem, 15rem, 20rem)"
+        marginTop: marginTop
       }}
     >
       {/* Transparent Overlay */}

@@ -17,110 +17,136 @@ import React from "react";
 // ===========================================================
 // Sub-Component: BannerContent (Hero Header Text)
 // ===========================================================
-const About: React.FC = () => {
-  const bgImage = "/about/Digital-Marketing-Services-banner.jpg";
+        const About: React.FC = () => {
+          const bgImage = "/about/welcome-visiomatix.png";
 
-  // Reusable hover effect for Vision/Mission cards
-  const handleHover = (e: React.MouseEvent<HTMLDivElement>, isOver: boolean) => {
-    const element = e.currentTarget;
-    if (isOver) {
-      element.style.transform = "translateY(-6px)";
-      element.style.boxShadow = "0 0 18px rgba(0,191,255,0.6)";
-    } else {
-      element.style.transform = "translateY(0)";
-      element.style.boxShadow = "0 0 12px rgba(0,191,255,0.4)";
-    }
-  };
+          // Reusable hover effect for Vision/Mission cards
 
-  const cardStyle: React.CSSProperties = {
-    backgroundColor: "#0b1e34",
-    color: "#ffffff",
-    borderRadius: "16px",
-    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-    boxShadow: "0 0 12px rgba(0,191,255,0.4)",
-    textAlign: "left",
-    padding: "2rem",
-    width: "100%",
-    height: "100%",
-  };
+        const handleHover = (
+          e: React.MouseEvent<HTMLDivElement>,
+          isOver: boolean
+        ) => {
+          const el = e.currentTarget;
 
-  const listStyle: React.CSSProperties = {
-    listStyleType: "disc",
-    textAlign: "left",
-    paddingLeft: "1.5rem",
-    margin: "0",
-    lineHeight: "1.8",
-  };
+          if (isOver) {
+            el.style.transform = "translateY(-6px)";
+            el.style.boxShadow = "0 6px 18px rgba(0,0,0,0.2)";
+          } else {
+            el.style.transform = "translateY(0)";
+            el.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+          }
+        };
+         const cardStyle: React.CSSProperties = {
+          backgroundColor: "#0b1e34",
+          color: "#ffffff",
+          borderRadius: "16px",
+          transition: "transform 0.3s ease, box-shadow 0.3s ease",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+          textAlign: "left",
+          padding: "2rem",
+          width: "100%",
+          height: "100%"
+        };
+
+
+          const listStyle: React.CSSProperties = {
+            listStyleType: "disc",
+            textAlign: "left",
+            paddingLeft: "1.5rem",
+            margin: "0",
+            lineHeight: "1.8",
+          };
 
   return (
     <>
       {/* ============================================= */}
       {/* Hero Banner Section */}
       {/* ============================================= */}
-      <section
-        className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
-        style={{
-          backgroundImage: `url(${bgImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "60vh",
-          position: "relative",
-          marginBottom: "3rem",
-          marginTop: "5rem",
-        }}
-      >
-        {/* Overlay */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(14, 5, 5, 0.6)",
-          }}
-        />
-        {/* Hero Content */}
-        <div style={{ zIndex: 2, position: "relative" }}>
-          <h1 className="display-4 fw-bold">Welcome to Visiomatix Media</h1>
-          <p className="lead">Creative Growth Partner in the Digital World</p>
-        </div>
-      </section>
+      {/* ============================================= */}
+    {/* Hero Banner Section — Final Blurred Version */}
+    {/* ============================================= */}
+              <section
+                className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
+                style={{
+                  backgroundImage: `url(${bgImage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  height: "60vh",
+                  position: "relative",
+                  marginBottom: "3rem",
+                  marginTop: "5rem",
+                  filter: "blur(0px)",
+                }}
+              >
+
+                {/* Soft Blur Overlay (Very Light, Natural Look) */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backdropFilter: "blur(4px)",   // <-- Smooth & pleasant blur
+                  //  background: "rgba(255,255,255,0.15)", // <-- Soft white glow instead of dark
+                  }}
+                />
+
+                {/* Hero Content */}
+                <div style={{ zIndex: 2, position: "relative", color: "#ffffff" }}>
+                  <h1 className="display-4 fw-bold">Welcome to Visiomatix Media</h1>
+                  <p className="lead">Creative Growth Partner in the Digital World</p>
+                </div>
+              </section>
 
       {/* ============================================= */}
       {/* Company Story Section */}
       {/* ============================================= */}
       <section className="container mb-5">
-    <div className="row align-items-center">
-      <div className="col-md-6 mb-4 mb-md-0">
-        <img
-          src="/about/about us image.jpg"
-          alt="Visiomatix Company Story"
-          className="img-fluid rounded shadow"
-          style={{ width: "110%", height: "auto" }}
-        />
-      </div>
-      {/* *** CODE CHANGED HERE *** */}
-      {/* Changed 'col-md-6 text-light' to 'col-md-6 text-dark' or just 'col-md-6' */}
-      <div className="col-md-6 text-dark"> 
-        <h2 className="fw-bold mb-3">Our Story</h2>
-        <p>
-          Every big brand starts with a bold idea and so did we. Visiomatix Media was founded with a simple yet powerful mission: to bring creative vision and digital innovation together under one roof.
-    
-          What began as a small team of passionate designers, developers, and marketers has evolved into a growing agency focused on helping businesses build their identity, expand their reach, and achieve real results online.
-       
-      
-          We may be new, but our ideas are bold, our energy is unstoppable, and our commitment to our clients is unmatched.
-        
-          At Visiomatix Media, we believe that great design, smart marketing, and strong strategy can transform any business no matter its size into a brand that stands out.
-        
-          From branding and design to digital marketing and web development, every project we take on is an opportunity to create impact, tell stories that matter, and grow alongside our clients.
-      
-          We’re not just another agency we’re your creative growth partner in the digital world.
-        </p>
-      </div>
+  <div className="row align-items-center">
+
+    {/* Left Side – Image */}
+    <div className="col-md-6 mb-4 mb-md-0 d-flex justify-content-center">
+      <img
+        src="/about/about us image.jpg"
+        alt="Visiomatix Company Story"
+        className="img-fluid rounded shadow"
+        style={{ width: "100%", height: "auto", objectFit: "cover" }}
+      />
     </div>
+
+    {/* Right Side – Text */}
+   <div className="col-md-6">
+        <div className="p-4 rounded shadow" 
+        style={{ backgroundColor: "#f5f8fcff", 
+        color: "#0f0e0eff", lineHeight: "1.6", 
+        textAlign: "justify" }}>
+          <h2 className="fw-bold mb-4 text-center" 
+          style={{ color: "#0b0e0eff" }}>Our Story</h2>
+
+    <p>
+      Every big brand starts with a bold idea—and so did we. Visiomatix Media was founded with a simple yet powerful mission: to bring creative vision and digital innovation together under one roof.
+
+      <br /><br />
+
+      What began as a small team of passionate designers, developers, and marketers has evolved into a growing agency focused on helping businesses build their identity, expand their reach, and achieve real results online.
+
+      <br /><br />
+
+      We may be new, but our ideas are bold, our energy is unstoppable, and our commitment to our clients is unmatched.
+
+      <br /><br />
+
+      At Visiomatix Media, we believe that great design, smart marketing, and strong strategy can transform any business—no matter its size—into a brand that stands out. From branding and design to digital marketing and web development, every project we take on is an opportunity to create impact, tell stories that matter, and grow alongside our clients.
+    </p>
+  </div>
+</div>
+
+
+  </div>
 </section>
+
+
 
       {/* ============================================= */}
       {/* Vision & Mission Section */}
@@ -278,8 +304,6 @@ const About: React.FC = () => {
 </section>
 
 
-
-
       {/* ============================================= */}
       {/* What We Offer Section */}
       {/* ============================================= */}
@@ -288,7 +312,7 @@ const About: React.FC = () => {
         <div
           className="container position-relative content-wrapper"
           style={{
-            background: "#0b1e3494",
+            //background: "#0b1e3494",
             borderRadius: "12px",
           }}
         >
@@ -384,49 +408,65 @@ const About: React.FC = () => {
       {/* ============================================= */}
       {/* The Founder's Story Section */}
       {/* ============================================= */}
-      <section className="py-5" style={{ backgroundColor: '#08172b' }}>
-        <div className="container">
-          <div className="row align-items-center">
-            
-            {/* Founder Image */}
-            <div className="col-md-5 mb-4 mb-md-0">
-              <img
-                src="/team/rohitshinde.jpg"
-                alt="Rohit Shinde - Founder of Visiomatix Media"
-                className="img-fluid rounded shadow-lg"
-                style={{
-                  border: '3px solid #e4ededff',
-                  borderRadius: '12px',
-                  objectFit: 'cover',
-                }}
-              />
-            </div>
+      <section className="py-5" style={{ backgroundColor: "#08172b" }}>
+            <div className="container">
+              <div className="row align-items-center">
 
-            {/* Founder Content */}
-            <div className="col-md-7 text-light">
-              <h2 className="fw-bold mb-3"  style={{ color: "#fff" }}>The Founder's Story</h2>
-              <p>
-                <strong>Visiomatix Media</strong> was founded by <strong>Rohit Shinde</strong>, 
-                a passionate graphic designer and entrepreneur from Nashik. With years of hands-on 
-                experience in digital arts, branding, and creative storytelling, Rohit envisioned 
-                building an agency that doesn’t just “design” — but creates experiences that speak volumes.
-              </p>
-              <p>
-                His journey from working as a graphic designer at <strong>Shaurya Digital Arts</strong> <br/>
-                to becoming the <strong>Founder & CEO of Visiomatix Media</strong> is a true story 
-                of passion, persistence, and innovation. Rohit believes in nurturing talent, adapting 
-                to evolving trends, and building a team that thrives on creativity, collaboration, and trust.
-              </p>
-              <ul className="text-start text-light" style={{ maxWidth: '90%' }}>
-                <li>Encourages innovation through creative freedom.</li>
-                <li>Focuses on empowering young designers and creators.</li>
-                <li>Leads with transparency, teamwork, and vision.</li>
-                <li>Believes in turning bold ideas into impactful digital experiences.</li>
-              </ul>
+                {/* Founder Image */}
+                <div className="col-md-5 mb-4 mb-md-0">
+                  <img
+                    src="/team/rohitshinde.jpg"
+                    alt="Rohit Shinde - Founder of Visiomatix Media"
+                    className="img-fluid rounded shadow-lg"
+                    style={{
+                      border: "3px solid #e4ededff",
+                      borderRadius: "12px",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+
+                {/* Founder Content */}
+                <div className="col-md-7 text-light">
+                  <h2 className="fw-bold mb-1" style={{ color: "#fff" }}>
+                    Rohit Shinde
+                  </h2>
+                  <h3 className="mb-4" style={{ color: "#fff", fontSize: "1.25rem" }}>
+                    FOUNDER & CEO VISIOMATIX MEDIA
+                  </h3>
+                  
+                    
+                  <p className="text-start">
+                    Visiomatix Media was founded by
+                    Rohit Shinde, a passionate graphic designer
+                    and entrepreneur from Nashik. With years of hands-on
+                    experience in digital arts, branding, and creative
+                    storytelling, Rohit envisioned building an agency that
+                    doesn’t just design but creates meaningful visual
+                    experiences.
+                  </p>
+
+                  <p className="text-start">
+                    His journey from working at
+                    Shaurya Digital Arts to becoming the
+                    Founder & CEO of Visiomatix Media is a true
+                    story of passion and innovation. He leads with a belief in
+                    empowering young creators and building a team that thrives
+                    on creativity and collaboration.
+                  </p>
+
+                  <ul className="text-start text-light" 
+                    style={{ maxWidth: "90%" }}>
+                    <li>Encourages innovation through creative freedom.</li>
+                    <li>Empowers young designers and creators.</li>
+                    <li>Leads with vision, teamwork, and integrity.</li>
+                    <li>Turns bold ideas into impactful digital experiences.</li>
+                  </ul>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+              
       
       {/* ============================================= */}
       {/* Meet the Rest of the Team Section */}
@@ -434,14 +474,14 @@ const About: React.FC = () => {
                     <section className="container text-center my-5">
                       <h2 className="fw-bold mb-4" style={{ color: "#000" }}>
                           Meet the Rest of the Team
-                    </h2>
-                <p className="mb-5 w-75 mx-auto" style={{ color: "#000" }}>
-                  At <strong>Visiomatix Media</strong>, our team is our biggest strength.
-                  We are a diverse group of designers, developers, marketers, and strategists
-                  united by one goal — to create meaningful, result-driven digital experiences
-                  that help brands grow and connect.
-                </p>
-                    <div className="row justify-content-center">
+                        </h2>
+                            <p className="mb-5 w-75 mx-auto" style={{ color: "#000" }}>
+                              At <strong>Visiomatix Media</strong>, our team is our biggest strength.
+                              We are a diverse group of designers, developers, marketers, and strategists
+                              united by one goal — to create meaningful, result-driven digital experiences
+                              that help brands grow and connect.
+                            </p>
+                         <div className="row justify-content-center">
 
                         {/* HR Team */}
                         <div className="col-md-3 mb-4">
@@ -472,8 +512,8 @@ const About: React.FC = () => {
                     }}
                   />
                   <div className="card-body">
-                    <h5 className="fw-bold" style={{ color: "#fff" }}>Dharshinie Anbazhagan</h5>
-                    <p className="text-light mb-1">Human Resources (HR)</p>
+                    <h5 className="fw-bold" style={{ color: "#fff" }}>Pooja</h5>
+                    <p className="text-light mb-1">Operations Manager.</p>
                     <p className="small text-secondary text-light">
                       Leads with a people-first approach — fostering collaboration, creativity,
                       and a strong workplace culture at Visiomatix Media.
@@ -621,8 +661,8 @@ const About: React.FC = () => {
           }
 
           .what-we-offer-section {
-            background-image: url(/about/Whadoweoffer.webp);
-            background-size: cover;
+            background-image: url(/about/what-we-offer.png);
+           // background-size: cover;
             background-position: center;
             position: relative;
             min-height: 40vh;
@@ -636,7 +676,7 @@ const About: React.FC = () => {
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.6);
+            //background-color: rgba(0, 0, 0, 0.6);
           }
 
           .content-wrapper {

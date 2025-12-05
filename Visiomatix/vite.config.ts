@@ -5,6 +5,16 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   plugins: [react()],
   define: {
-    global: 'globalThis',
+    global: 'globalThis', // required for some libraries
+  },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:8080', // forward API requests to backend
+    },
+  },
+  resolve: {
+    alias: {
+      '@': '/src', // optional, for easier imports
+    },
   },
 })

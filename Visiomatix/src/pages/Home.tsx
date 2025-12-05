@@ -5,39 +5,40 @@
  * Date: 12-Oct-2025
  * Description:
  *  This is the Home page of the Visiomatix website.
- *  It includes a carousel slider, multiple banner sections, and the services layout.
- *  Animation effects are implemented using Framer Motion for smooth page transitions.
- *  SEO content and meta tags are optimized for search ranking and social media previews.
+ *  It includes a carousel slider, multiple banner sections, 
+ *  the Founder Story, Team section, and services layout.
  * ===========================================================
  */
 
-// ========================== Import Statements ==========================
-// Import core React library for JSX rendering
-import React from 'react';
-// Import Helmet for managing document head (SEO metadata)
-import { Helmet } from 'react-helmet-async';
-// Import motion component for animation effects
-import { motion } from 'framer-motion';
-// Import custom UI components used on this page
-import ServicesLayout from '../component/ServicesLayout';
-import Banner from '../component/Banner';
-import CarouselComponent from '../component/CarouselComponent';
-import FeaturedServices from '../component/FeaturedServices';
-// Import banner images for background visuals
-import Banner1 from '/about/Social-Media-Infographics-in-Detail-1.jpg';
-import Banner2 from '/about/Digital-Marketing-Services-banner.jpg';
+import React from "react";
+import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
+import ServicesLayout from "../component/ServicesLayout";
+import Banner from "../component/Banner";
+import CarouselComponent from "../component/CarouselComponent";
+import FeaturedServices from "../component/FeaturedServices";
+import ContactFormSection from "../component/ContactFormSection"; // <-- CORRECTED PATH
+import "../styles/ContactForm.css";
+import PartnersandCertifications from "../component/PartnersandCertifications";
+//import TestimonialsSection from "../pages/Testimonials";
+import ClientLogos from "../component/ClientLogos";
 
-// ========================== Component Declaration ==========================
-/**
- * Home Component
- * Displays the main landing page including:
- *  - Hero carousel section
- *  - Company introduction banners
- *  - Services overview section
- *  Designed for high user engagement, SEO optimization, and smooth user experience.
- */
+
+{/*---icon */}
+import emailIcon from "../assets/icons/email.svg";
+import clockIcon from "../assets/icons/clock.svg";
+import phoneIcon from "../assets/icons/phone.svg";
+import ourOfficeIcon from "../assets/icons/map.svg";
+
+import { useState } from "react";
+//FAQ
+import FAQ from "../component/FAQ";
+
+// Banner Images
+import Banner1 from "/about/Social-Media-Infographics-in-Detail-1.jpg";
+//import Banner2 from "/about/Digital-Marketing-Services-banner.jpg";
+
 const Home: React.FC = () => {
-  // Structured data for SEO (JSON-LD)
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -47,103 +48,222 @@ const Home: React.FC = () => {
     "sameAs": [
       "https://www.facebook.com/visiomatix",
       "https://www.twitter.com/visiomatix",
-      "https://www.linkedin.com/company/visiomatix"
+      "https://www.linkedin.com/company/visiomatix",
     ],
-    "description":
-      "Visiomatix is a technology-driven digital marketing and web development company that helps brands grow through innovation, strategy, and design.",
+    description:
+      "Visiomatix is a technology-driven digital marketing and web development company.",
   };
+  const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  countryCode: "+91",
+  contactNumber: "",
+  service: "",
+  subject: "",
+  message: "",
+});
+interface ContactSectionProps {
+  ourOfficeIcon: string;
+  phoneIcon: string;
+  emailIcon: string;
+  clockIcon: string;
+  phoneNumber: string;
+  emailAddress: string;
+  countryCodes: { country: string; code: string }[];   // <-- ADD THIS
+  formData: any;
+  handleChange: (e: any) => void;
+  handleSubmit: (e: any) => void;
+  handleCaptchaChange: (value: any) => void;
+}
+
+
+const countryCodes = [
+  { country: "India", code: "+91" },
+  { country: "USA", code: "+1" },
+  { country: "UK", code: "+44" },
+];
+
+const phoneNumber = "+91 70206 70894";
+const emailAddress = "visiomatixmedia@gmail.com";
+
+const handleChange = (e: any) => {
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+};
+
+const handleSubmit = (e: any) => {
+  e.preventDefault();
+  console.log("Form Submitted", formData);
+};
+
+const handleCaptchaChange = (value: any) => {
+  console.log("Captcha:", value);
+};
+
 
   return (
     <>
-      {/* ====================== SEO Metadata Section ====================== */}
+      {/* --------------------- SEO Section --------------------- */}
       <Helmet>
-        {/* Basic Meta Tags */}
         <title>Visiomatix | Digital Marketing & Web Development Company</title>
         <meta
           name="description"
-          content="Visiomatix empowers businesses with innovative digital marketing, web development, SEO, and creative technology solutions designed to boost brand visibility, engagement, and growth."
-        />
-        <meta
-          name="keywords"
-          content="Visiomatix, digital marketing agency, web development company, SEO services, creative design, branding agency, social media strategy, technology consulting, app development, web design India"
+          content="Visiomatix empowers businesses with digital marketing, web development, SEO, and branding solutions."
         />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://www.visiomatix.com/" />
 
-        {/* Open Graph Tags for Social Media (Facebook, LinkedIn) */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Visiomatix | Digital Marketing & Web Development Company" />
-        <meta
-          property="og:description"
-          content="Crafting impactful digital experiences with innovative design, scalable technology, and data-driven marketing strategies for businesses worldwide."
-        />
-        <meta property="og:url" content="https://www.visiomatix.com/" />
-        <meta
-          property="og:image"
-          content="https://www.visiomatix.com/about/Digital-Marketing-Services-banner.jpg"
-        />
-        <meta property="og:site_name" content="Visiomatix" />
-
-        {/* Twitter Card Metadata */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Visiomatix | Transforming Ideas into Digital Success"
-        />
-        <meta
-          name="twitter:description"
-          content="Experience the power of design, strategy, and technology with Visiomatix — your partner in digital transformation."
-        />
-        <meta
-          name="twitter:image"
-          content="https://www.visiomatix.com/about/Digital-Marketing-Services-banner.jpg"
-        />
-
-        {/* Structured Data (JSON-LD) */}
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
       </Helmet>
 
-      {/* ====================== Page Fade-In Animation ====================== */}
+      {/* --------------------- Page Animation Wrapper --------------------- */}
       <motion.div
-        initial={{ opacity: 0 }} // Start hidden
-        animate={{ opacity: 1 }} // Fade in on mount
-        exit={{ opacity: 0 }} // Fade out on route change
-        transition={{ duration: 0.6 }} // Smooth transition timing
-        className="p-4 sm:p-6 md:p-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.6 }}
+       // className="p-4 sm:p-6 md:p-8"
       >
-        {/* ====================== Page Content Section ====================== */}
         <div>
-          {/* Carousel Section */}
+          {/* --------------------- Carousel --------------------- */}
           <CarouselComponent />
 
-          {/* Our Featured Services Section */}
+          {/* --------------------- Featured Services --------------------- */}
           <FeaturedServices />
 
-          {/* Top Banner Section */}
-          <Banner
+          {/* --------------------- Top Banner --------------------- */}
+          {/*<Banner
             title="Welcome to Visiomatix"
             subtitle="Innovating Vision with Technology"
-            description="At Visiomatix, we redefine digital transformation by merging creativity with technology. Our expert team delivers end-to-end solutions — from digital marketing and web design to SEO and branding — helping your business stand out and thrive in the modern digital landscape."
+            description="We redefine digital transformation through design & technology."
             bgImage={Banner1}
-            height= "40vh"            
-          />
+            height="40vh"
+          />*/}
 
-          {/* Services Layout Section */}
+          {/* --------------------- Services Section --------------------- */}
           <ServicesLayout />
+          
 
-          {/* Bottom Banner Section */}
-          <Banner
+
+          {/* --------------------- CLIENT LOGOS SECTION --------------------- */}
+        <ClientLogos />
+        
+          {/* ----------------------------------------------------
+               NEW SECTION: FOUNDER STORY
+          ---------------------------------------------------- */}
+          <section className="py-5" style={{ backgroundColor: "#08172b" }}>
+            <div className="container">
+              <div className="row align-items-center">
+
+                {/* Founder Image */}
+                <div className="col-md-5 mb-4 mb-md-0">
+                  <img
+                    src="/team/rohitshinde.jpg"
+                    alt="Rohit Shinde - Founder of Visiomatix Media"
+                    className="img-fluid rounded shadow-lg"
+                    style={{
+                      border: "3px solid #e4ededff",
+                      borderRadius: "12px",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+
+                {/* Founder Content */}
+                <div className="col-md-7 text-light">
+                  <h2 className="fw-bold mb-1" style={{ color: "#fff" }}>
+                    Rohit Shinde
+                  </h2>
+                  <h3 className="mb-4" style={{ color: "#fff", fontSize: "1.25rem" }}>
+                    FOUNDER & CEO DIGITIZE MATIX
+                  </h3>
+                  
+                    
+                  <p className="text-start">
+                    Visiomatix Media was founded by
+                    Rohit Shinde, a passionate graphic designer
+                    and entrepreneur from Nashik. With years of hands-on
+                    experience in digital arts, branding, and creative
+                    storytelling, Rohit envisioned building an agency that
+                    doesn’t just design but creates meaningful visual
+                    experiences.
+                  </p>
+
+                  <p className="text-start">
+                    His journey from working at
+                    Shaurya Digital Arts to becoming the
+                    Founder & CEO of Visiomatix Media is a true
+                    story of passion and innovation. He leads with a belief in
+                    empowering young creators and building a team that thrives
+                    on creativity and collaboration.
+                  </p>
+
+                  <ul className="text-start text-light" 
+                    style={{ maxWidth: "90%" }}>
+                    <li>Encourages innovation through creative freedom.</li>
+                    <li>Empowers young designers and creators.</li>
+                    <li>Leads with vision, teamwork, and integrity.</li>
+                    <li>Turns bold ideas into impactful digital experiences.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+              
+    
+          {/*-------------FAQ section*/}
+
+          {/* <section className="py-5" style={{ backgroundColor: "#eaeef3ff" }}>
+            <div className="container">
+              <FAQ />
+            </div>
+          </section>*/}
+          
+          {/*-----------Global map-------*/}
+          
+              {/*<img src="/map/wolrdmap.jpeg" alt="World Map" />*/}
+
+      {/* ----------- TESTIMONIALS SECTION (Home Page only) ----------- */}
+       {/* <TestimonialsSection />*/}
+
+
+    {/*-------------CONTACT SECTION---------------*/}
+               <section id="contact">
+                <ContactFormSection
+                  ourOfficeIcon={ourOfficeIcon}
+                  phoneIcon={phoneIcon}
+                  emailIcon={emailIcon}
+                  clockIcon={clockIcon}
+                  phoneNumber={phoneNumber}
+                  emailAddress={emailAddress}
+                  formData={formData}
+                  handleChange={handleChange}
+                  handleSubmit={handleSubmit}
+                  handleCaptchaChange={handleCaptchaChange}
+                />
+              </section>
+                {/*-----------partners------- */}
+                 <PartnersandCertifications/>
+
+          {/* ----------------------------------------------------
+               TEAM SECTION
+          ---------------------------------------------------- */}
+        
+          {/* --------------------- Bottom Banner --------------------- */}
+          {/*<Banner
             title="Crafting Digital Experiences"
-            subtitle="Building Beautiful, Scalable, and Secure Web Solutions"
-            description="We go beyond building websites — we create digital ecosystems that engage users and empower growth. With cutting-edge design, robust engineering, and data-driven strategy, Visiomatix delivers seamless online experiences that elevate your brand."
+            subtitle="Beautiful, Scalable, and Secure Solutions"
+            description="We build digital ecosystems that elevate brands."
             bgImage={Banner2}
             height="40vh"
-          />
+          />*/}
+          
         </div>
       </motion.div>
 
+
+
+      {/* --------------------- Mobile Font Fix --------------------- */}
       <style>
         {`
           @media screen and (max-width: 500px) {
@@ -157,5 +277,4 @@ const Home: React.FC = () => {
   );
 };
 
-// ========================== Export Statement ==========================
 export default Home;

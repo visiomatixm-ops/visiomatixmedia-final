@@ -18,10 +18,10 @@ import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import BrandingIdentity from "/services/icons/6-LIST/6-1 Brand Identity & Positioning.svg";
-import MarketingStrategy from "/services/icons/6-LIST/6-2 Marketing Strategy & Funnel Planning.svg";
-import CampaignIdeation from "/services/icons/6-LIST/6-3 Campaign Ideation & Execution.svg";
-import CompetitorResearch from "/services/icons/6-LIST/6-4 Competitor & Market Research.svg";
+import BrandingIdentity from "/services/icons/6-LIST/BRANDING - Marketing Strategy & Funnel Planning.svg";
+import MarketingStrategy from "/services/icons/6-LIST/BRANDING - Brand Identity & Positioning.svg";
+import CampaignIdeation from "/services/icons/6-LIST/BRANDING - Campaign Ideation & Execution.svg";
+import CompetitorResearch from "/services/icons/6-LIST/BRANDING - Competitor & Market Research.svg";
 import Banner from "/services/Banner/Branding & Strategy Services-2.jpg";
 
 // ----------------------------------------------------
@@ -219,72 +219,95 @@ const Branding: React.FC = () => {
             </section>
 
             {/* Services Section */}
-            <section id="services" className="py-5">
-              <motion.div
-                className="container"
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                <h2 className="text-center fw-semibold mb-5 text-sm sm:text-base md:text-lg lg:text-xl">Our Branding & Strategy Services</h2>
-                <div className="row g-4">
-                  {[
-                    {
-                      icon: BrandingIdentity,
-                      title: "Brand Identity & Positioning",
-                      text: "Define how your audience perceives you — with visual identity, tone, and positioning that reflect your business values and vision.",
+    {/* Services Section */}
+<section id="services" className="py-5">
+  <motion.div
+    className="container"
+    variants={staggerContainer}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true }}
+  >
+    <h2 className="text-center fw-semibold mb-5 text-sm sm:text-base md:text-lg lg:text-xl">
+      Our Branding & Strategy Services
+    </h2>
+
+    <div className="row g-4">
+      {[
+        {
+          icon: BrandingIdentity,
+          title: "Brand Identity & Positioning",
+          text: "Define how your audience perceives you — with visual identity, tone, and positioning that reflect your business values and vision.",
+        },
+        {
+          icon: MarketingStrategy,
+          title: "Marketing Strategy & Funnel Planning",
+          text: "Develop data-backed strategies that optimize every stage of your customer journey — from awareness to conversion.",
+        },
+        {
+          icon: CampaignIdeation,
+          title: "Campaign Ideation & Execution",
+          text: "Plan, create, and launch creative campaigns that boost brand visibility, engagement, and long-term customer loyalty.",
+        },
+        {
+          icon: CompetitorResearch,
+          title: "Competitor & Market Research",
+          text: "Analyze market trends, study competitors, and identify opportunities to ensure your brand stays ahead of the curve.",
+        },
+      ].map((item, idx) => (
+        <motion.div
+          key={idx}
+          className="col-md-6 col-lg-6"
+          variants={cardVariant}
+        >
+          <div className="card h-100 border-0 shadow-sm p-4 text-center">
+
+            {/* ✅ ICON CENTER FIX ADDED HERE */}
+            <div className="d-flex justify-content-center mb-3">
+              <motion.img
+                src={item.icon}
+                alt={item.title}
+                style={{
+                  width: "48px",
+                  height: "48px",
+                  objectFit: "contain",
+                }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                  delay: idx * 0.1,
+                }}
+                whileHover={{
+                  scale: 1.08,
+                  rotate: [0, -8, 8, -8, 0],
+                  transition: {
+                    rotate: {
+                      duration: 0.5,
+                      ease: "easeInOut",
                     },
-                    {
-                      icon: MarketingStrategy,
-                      title: "Marketing Strategy & Funnel Planning",
-                      text: "Develop data-backed strategies that optimize every stage of your customer journey — from awareness to conversion.",
-                    },
-                    {
-                      icon: CampaignIdeation,
-                      title: "Campaign Ideation & Execution",
-                      text: "Plan, create, and launch creative campaigns that boost brand visibility, engagement, and long-term customer loyalty.",
-                    },
-                    {
-                      icon: CompetitorResearch,
-                      title: "Competitor & Market Research",
-                      text: "Analyze market trends, study competitors, and identify opportunities to ensure your brand stays ahead of the curve.",
-                    },
-                  ].map((item, idx) => (
-                    <motion.div key={idx} className="col-md-6 col-lg-6" variants={cardVariant}>
-                      <div className="card h-100 border-0 shadow-sm p-4 text-center">
-                        <motion.img
-                          src={item.icon}
-                          alt={item.title}
-                          style={{ width: '64px', height: '64px' }}
-                          className="mb-3"
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 260,
-                            damping: 20,
-                            delay: idx * 0.1
-                          }}
-                          whileHover={{
-                            scale: 1.1,
-                            rotate: [0, -10, 10, -10, 0],
-                            transition: {
-                              rotate: {
-                                duration: 0.6,
-                                ease: "easeInOut"
-                              }
-                            }
-                          }}
-                        />
-                        <h5 className="fw-bold text-sm sm:text-base md:text-lg">{item.title}</h5>
-                        <p className="text-muted text-sm sm:text-base">{item.text}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </section>
+                  },
+                }}
+              />
+            </div>
+            {/* ✅ END ICON BLOCK */}
+
+            <h5 className="fw-bold text-sm sm:text-base md:text-lg">
+              {item.title}
+            </h5>
+            <p className="text-muted text-sm sm:text-base">
+              {item.text}
+            </p>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  </motion.div>
+</section>
+
+
 
             {/* CTA Section */}
             <motion.section

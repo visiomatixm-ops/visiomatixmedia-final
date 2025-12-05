@@ -150,13 +150,27 @@ const Services: React.FC = () => {
         marginTop:"5rem" }} 
         >
         {/* Background motion layer */} <motion.div style={{
-          backgroundImage: "url('/about/Blog.jpeg')",
+          backgroundImage: "url('/about/our services.png')",
            backgroundSize: "cover",
            backgroundPosition: "center", y: yParallax, }}
            className="position-absolute w-100 h-100" />
          {/* Dark overlay for text contrast */}
-          <div className="position-absolute w-100 h-100" style={{ backgroundColor: "rgba(0,0,0,0.6)" }} ></div> {/* Staggered reveal text block */}
-          <div className="position-relative z-3 container px-2 px-sm-3 px-md-4 px-lg-5 py-2 py-sm-3 py-md-4 mx-1 mx-sm-2 mx-md-3 mx-lg-4" style={{ position: "relative", zIndex: 2, backgroundColor: "rgba(0, 40, 80, 0.45)", borderRadius: "12px", backdropFilter: "blur(5px)", maxWidth: "90%", marginTop: "5em", wordWrap: "break-word", overflowWrap: "break-word" }} >
+          <div className="position-absolute w-100 h-100" 
+          style={{ 
+           // backgroundColor: "rgba(0,0,0,0.6)" 
+            }} 
+            >
+              </div> {/* Staggered reveal text block */}
+          <div className="position-relative z-3 container px-2 px-sm-3 px-md-4 px-lg-5 py-2 py-sm-3 py-md-4 mx-1 mx-sm-2 mx-md-3 mx-lg-4" 
+          style={{ position: "relative", 
+          zIndex: 2, 
+          //backgroundColor: "rgba(0, 40, 80, 0.45)", 
+          borderRadius: "12px", 
+          backdropFilter: "blur(5px)", 
+          maxWidth: "90%", 
+          marginTop: "5em", 
+          wordWrap: "break-word",
+           overflowWrap: "break-word" }} >
             <motion.h1 className="display-6 display-sm-5 display-md-4 display-lg-3 fw-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl" variants={textVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} >
               Our Services </motion.h1>
             <motion.hr className="border-primary opacity-75 w-25 mx-auto"

@@ -1,0 +1,72 @@
+.global-section {
+  background: #0D0D0D;
+  color: #fff;
+  padding: 60px 0;
+  position: relative;
+}
+
+.global-map img {
+  width: 100%;
+  max-width: 1500px;
+  display: block;
+  margin: 0 auto;
+}
+
+.global-text {
+  position: absolute;
+  top: 12%;
+  left: 10%;
+  z-index: 20;
+}
+
+.global-subtitle {
+  color: #1D3458;
+  font-size: 16px;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.global-title {
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 54px;
+  max-width: 300px;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .global-title {
+    font-size: 38px;
+    line-height: 46px;
+  }
+  .global-text {
+    top: 10%;
+    left: 6%;
+  }
+}
+
+@media (max-width: 768px) {
+  .global-text {
+    position: static;
+    text-align: center;
+    padding: 20px;
+  }
+  .global-title {
+    font-size: 32px;
+    line-height: 40px;
+    max-width: 100%;
+  }
+  .global-subtitle {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .global-title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+  .global-subtitle {
+    font-size: 12px;
+  }
+}
