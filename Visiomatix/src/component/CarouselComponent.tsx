@@ -41,7 +41,9 @@ const CarouselComponent: React.FC = () => {
         <button onClick={prevSlide} className="carousel-prev">←</button>
         <button onClick={nextSlide} className="carousel-next">→</button>
       </div>
-      <div className="carousel-indicators">
+
+      {/* ❌ Removed INDICATORS */}
+      {/* <div className="carousel-indicators">
         {pages.map((_, index) => (
           <button
             key={index}
@@ -49,9 +51,7 @@ const CarouselComponent: React.FC = () => {
             className={`carousel-indicator ${index === currentSlide ? 'active' : ''}`}
           />
         ))}
-      </div>
-
-
+      </div> */}
     </div>
   )
 }

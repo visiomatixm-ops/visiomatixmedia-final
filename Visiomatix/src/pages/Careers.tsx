@@ -27,13 +27,52 @@ const Careers: React.FC = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [selectedJob, setSelectedJob] = useState<JobOpening | null>(null);
 
+const [firstName, setFirstName] = useState("");
+const [lastName, setLastName] = useState("");
+const [email, setEmail] = useState("");
+const [contact, setContact] = useState("");
+const [dob, setDob] = useState("");
+const [role, setRole] = useState("");
+const [qualification, setQualification] = useState<any>({});
+const [experience, setExperience] = useState<any>({});
+const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+const handleSubmit = async () => {
+  if (!selectedFile) {
+    alert("Please upload your resume.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("firstName", firstName);
+  formData.append("lastName", lastName);
+  formData.append("email", email);
+  formData.append("contact", contact);
+  formData.append("dob", dob);
+  formData.append("role", role);
+  formData.append("qualificationJson", JSON.stringify(qualification));
+  formData.append("experienceJson", JSON.stringify(experience));
+  formData.append("resume", selectedFile);
+
+  const res = await fetch("http://localhost:8080/api/careers", {
+    method: "POST",
+    body: formData,
+  });
+
+  if (res.ok) {
+    alert("Application submitted successfully!");
+  } else {
+    alert("Error submitting application.");
+  }
+};
+
   // --------------------------------------
   // Job listing data
   // --------------------------------------
   const jobOpenings: JobOpening[] = [
     {
       title: "Frontend Developer",
-      experience: "1–3 years (Interns & Freshers welcome)",
+      experience: "1–3 years (Experience)",
       responsibilities: [
         "Develop responsive interfaces using React.js.",
         "Collaborate with designers to build pixel-perfect UIs.",
@@ -45,7 +84,7 @@ const Careers: React.FC = () => {
         "Basic REST API knowledge",
       ],
       employment: "Full-time",
-      salary: "₹15,000 – ₹35,000 per month",
+      salary: "",
       type: "job",
     },
     {
@@ -58,7 +97,7 @@ const Careers: React.FC = () => {
       ],
       skills: ["Node.js / Java Spring Boot", "JWT Authentication", "Database Design"],
       employment: "Full-time",
-      salary: "₹25,000 – ₹60,000 per month",
+      salary: "",
       type: "job",
     },
     {
@@ -71,7 +110,7 @@ const Careers: React.FC = () => {
       ],
       skills: ["React.js, Node.js", "Database Integration", "Full-stack Development"],
       employment: "Full-time",
-      salary: "₹30,000 – ₹70,000 per month",
+      salary: "",
       type: "job",
     },
   ];
@@ -91,7 +130,7 @@ const Careers: React.FC = () => {
         "Eagerness to learn",
       ],
       employment: "Internship (3-6 months)",
-      salary: "₹8,000 – ₹15,000 per month",
+      salary: "",
       type: "internship",
     },
     {
@@ -108,7 +147,7 @@ const Careers: React.FC = () => {
         "Problem-solving skills",
       ],
       employment: "Internship (3-6 months)",
-      salary: "₹10,000 – ₹18,000 per month",
+      salary: "",
       type: "internship",
     },
   ];
@@ -238,7 +277,7 @@ const Careers: React.FC = () => {
         </Container>
       </section>
     
-      {/* {=========Avaible job========} */}
+      {/* {=========Available job========} */}
       <Container>
         <Accordion defaultActiveKey="0" className="mb-5">
           {/* Jobs Section */}

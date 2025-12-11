@@ -3,11 +3,8 @@ package com.visiomatixmedia.contactus.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
@@ -22,45 +19,58 @@ import jakarta.mail.internet.MimeMessage;
 @CrossOrigin(origins = "http://localhost:5173")
 public class ContactUSController {
 
-	@Autowired
-	private ContactUSService service;
+    @Autowired
+    private ContactUSService service;
 
-	@Autowired
-	private JavaMailSender mailSender;
+    @Autowired
+    private JavaMailSender mailSender;
 
-	@PostMapping("/contactus")
-	public ResponseEntity<?> createContactUS(@RequestBody ContactUSEntity contact) {
-		try {
-			
-			String fullName = contact.getFullName();
-	        String email = contact.getEmail();
-	        String subject = contact.getSubject();
-	        String message = contact.getMessage();
-			
-			// Save to Database
-			ContactUSEntity saveContact = service.saveContactUSEntity(contact);
+    @PostMapping(value = "/contactus", consumes = "multipart/form-data")
+    public ResponseEntity<?> createContactUS(
+            @RequestPart("fullName") String fullName,
+            @RequestPart("email") String email,
+            @RequestPart("subject") String subject,
+            @RequestPart("message") String message,
+            @RequestPart(value = "resume", required = false) MultipartFile resume
+    ) {
+        try {
 
-			// Email Sender
+            ContactUSEntity contact = new ContactUSEntity();
+            contact.setFullName(fullName);
+            contact.setEmail(email);
+            contact.setSubject(subject);
+            contact.setMessage(message);
 
-			MimeMessage mimeMessage = mailSender.createMimeMessage();
-			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-			mimeMessageHelper.setTo("ganvirtine@gmail.com");
-			mimeMessageHelper.setSubject(subject);
-			mimeMessageHelper.setText("You have received a new contact form submission:\n\n" 
-					+ "Name: " + fullName + "\n" +
-					 "Email: " + email + "\n" +
-					 "Message: " + message);
+            ContactUSEntity savedContact = service.saveContactUSEntity(contact);
 
-			mailSender.send(mimeMessage);
+            // Email sending
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
-			return ResponseEntity.ok(
-					new ContactUSResponse("Email Send Successfully", saveContact)
-				);
+            helper.setTo("ganvirtine@gmail.com");
+            helper.setSubject(subject);
+            helper.setText(
+                "Name: " + fullName + "\n" +
+                "Email: " + email + "\n" +
+                "Message: " + message
+            );
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body(new ContactUSResponse("Failed to send email: " + e.getMessage(), null));
-		}
-	}
+            if (resume != null) {
+                helper.addAttachment(resume.getOriginalFilename(), resume);
+            }
+
+            mailSender.send(mimeMessage);
+
+            return ResponseEntity.ok(
+                new ContactUSResponse("Email sent successfully", savedContact)
+            );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ContactUSResponse(
+                        "Failed to send email: " + e.getMessage(), null
+                    ));
+        }
+    }
 }

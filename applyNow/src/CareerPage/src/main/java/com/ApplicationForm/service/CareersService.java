@@ -26,7 +26,7 @@ public class CareersService {
             String qualificationJson,
             String experienceJson,
             MultipartFile resumeFile
-    ) throws Exception {
+    ) {
 
         CareersApplication app = new CareersApplication();
 
@@ -44,9 +44,15 @@ public class CareersService {
 
         // Store File in DATABASE
         if (resumeFile != null && !resumeFile.isEmpty()) {
-            app.setResumeFile(resumeFile.getBytes());
-            app.setResumeFileName(resumeFile.getOriginalFilename());
-            app.setResumeFileType(resumeFile.getContentType());
+            try {
+                app.setResumeFile(resumeFile.getBytes());
+                app.setResumeFileName(resumeFile.getOriginalFilename());
+                app.setResumeFileType(resumeFile.getContentType());
+            } catch (Exception e) {
+                // Handle file processing error
+                System.err.println("Failed to process resume file: " + e.getMessage());
+                throw new RuntimeException("Failed to process resume file", e);
+            }
         }
 
         // Save to DB
@@ -54,14 +60,19 @@ public class CareersService {
 
         // Send Email with Attachment
         if (resumeFile != null && !resumeFile.isEmpty()) {
-            emailService.sendEmailWithResume(
-                    "ganvirtine@gmail.com", // CHANGE THIS TO HR EMAIL
-                    firstName,
-                    resumeFile.getBytes(),
-                    resumeFile.getOriginalFilename(),
-                    resumeFile.getContentType()
-                    
-            );
+            try {
+                emailService.sendEmailWithResume(
+                        "ganvirtine@gmail.com", // CHANGE THIS TO HR EMAIL
+                        firstName,
+                        resumeFile.getBytes(),
+                        resumeFile.getOriginalFilename(),
+                        resumeFile.getContentType()
+
+                );
+            } catch (Exception e) {
+                // Log the error but don't fail the application save
+                System.err.println("Failed to send email: " + e.getMessage());
+            }
         }
 
         return saved;

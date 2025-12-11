@@ -37,7 +37,7 @@ const Services: React.FC = () => {
   const categories = [
     {
       title: "Digital Marketing Services",
-      image: "/services/1_DIGITAL MARKETING SERVICES.jpg",
+      image: "about/services-section/01-Digital Marketing Services.png",
       icon: DigitalIcon,
       description:
         "Comprehensive digital marketing strategies designed to grow your business online and reach your audience effectively across all channels.",
@@ -54,7 +54,7 @@ const Services: React.FC = () => {
     },
     {
       title: "Design & Creative Services",
-      image: "/services/2_DESIGN&CREATIVE_SERVICES.jpg",
+      image: "about/services-section/02-Design Services.png",
       icon: DesignIcon,
       description:
         "From visual identity to immersive digital experiences — our creative team crafts stunning visuals that communicate your brand’s essence.",
@@ -70,7 +70,7 @@ const Services: React.FC = () => {
     },
     {
       title: "Web & App Development",
-      image: "/services/3.WEB&APP_DEVELOPMENT.jpg",
+      image: "about/services-section/03-Web & App Development.png",
       icon: DevIcon,
       description:
         "We build secure, scalable, and high-performing websites and apps optimized for performance, conversion, and cross-device experiences.",
@@ -84,7 +84,7 @@ const Services: React.FC = () => {
     },
     {
       title: "Business Software Solutions",
-      image: "/services/4_Business Software Solutions.jpg",
+      image: "about/services-section/04-Branding Strategy.png",
       icon: SoftwareIcon,
       description:
         "Streamline operations and automate workflows with tailored business software built to enhance productivity and customer relationships.",
@@ -98,7 +98,7 @@ const Services: React.FC = () => {
     },
     {
       title: "E-commerce Solutions",
-      image: "/services/5_E-commerce Solutions.jpg",
+      image: "about/services-section/05-E-commerce Solutions.png",
       icon: EcommerceIcon,
       description:
         "Build and grow your online store with our end-to-end e-commerce solutions, optimized for conversions, payments, and marketplace growth.",
@@ -111,7 +111,7 @@ const Services: React.FC = () => {
     },
     {
       title: "Branding & Strategy",
-      image: "/services/6_BRAND&STRATEGY.jpg",
+      image: "about/services-section/06-Business Software Solutions.png",
       icon: BrandingIcon,
       description:
         "Define, position, and promote your brand with strategic insights and powerful creative campaigns that drive recognition and loyalty.",
@@ -149,6 +149,7 @@ const Services: React.FC = () => {
         marginBottom: "2rem",
         marginTop:"5rem" }} 
         >
+
         {/* Background motion layer */} <motion.div style={{
           backgroundImage: "url('/about/our services.png')",
            backgroundSize: "cover",
@@ -231,20 +232,22 @@ const Services: React.FC = () => {
 
               </div>
 
-              {/* CONTENT */}
-              <div className="col-md-7">
-                <h2 className="fw-bold text-primary mb-3 h3 h-md-2 text-sm sm:text-base md:text-lg lg:text-xl">
-               <motion.img
-                  src={cat.icon}
-                  alt={`${cat.title} icon`}
-                  className="img-fluid p-2 bg-white shadow-sm"
-                  style={{ width: "60px", height: "60px" }}
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                />{cat.title}</h2>
-                <p className="text-muted mb-3 fs-6 fs-md-5 text-sm sm:text-base">{cat.description}</p>
-                <ul className="list-unstyled">
+              {/*b text on left CONTENT */}
+             <div className="col-md-6 order-md- text-start">
+                {/* Title centered */}
+              <h2 className="fw-bold text-dark mb-3 h3 d-flex align-items-center">                  <motion.img
+                    src={cat.icon}
+                    alt={`${cat.title} icon`}
+                    className="img-fluid p-2 bg-white shadow-sm me-2"
+                    style={{ width: "50px", height: "50px" }}
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                />
+                {cat.title}
+                </h2>
+                <p className="text-dark mb-3 fs-6">{cat.description}</p>
+                <ul className="list-unstyled text-dark mt-3">
                   {cat.bullets.map((point, i) => (
                     <li
                       key={i}
@@ -256,7 +259,7 @@ const Services: React.FC = () => {
                         className="me-2 mt-1"
                         style={{ width: "16px", height: "16px" }}
                       />
-                      <span className="fs-6 fs-md-5 text-sm sm:text-base">{point}</span>
+                      <span className="fs-6 text-dark">{point}</span>
                     </li>
                   ))}
                 </ul>

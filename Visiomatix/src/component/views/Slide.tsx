@@ -2,11 +2,17 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { pages } from './pages.tsx'
 import './slides.css'
+
+
+
 interface SlideProps {
   pageIndex: number
 }
 
 const Slide: React.FC<SlideProps> = ({ pageIndex }) => {
+  if (pageIndex < 0 || pageIndex >= pages.length) {
+    return <div>Invalid page index</div>;
+  }
   const page = pages[pageIndex]
   const PageComponent = page.component
 

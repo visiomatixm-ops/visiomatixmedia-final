@@ -174,7 +174,7 @@ const FeaturedServices: React.FC = () => {
 
                   <ul className="list-unstyled mt-3">
                     {category.services.map((service, idx) => (
-                      <li key={idx} className="text-secondary mb-2 small">
+                      <li key={idx} className="text-dark mb-2 small">
                         • {service}
                       </li>
                     ))}

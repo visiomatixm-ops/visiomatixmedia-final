@@ -14,56 +14,54 @@ import { useNavigate } from "react-router-dom";
 import blogData from "./data/blogData";
 const blogPosts = [
   {
-    image: "/about/Social-Media-Infographics-in-Detail-1.jpg",
+    image: "/about/blog/1-Top 5 Digital Marketing.png",
     title: "Top 5 Digital Marketing Trends to Watch in 2025",
     excerpt:
       "The digital landscape is evolving faster than ever. Explore emerging trends like AI-driven marketing, influencer authenticity, and video-first content that define 2025’s marketing playbook.",
     author: "Visiomatix Media Team",
   },
   {
-    image: "services/branding.jpg",
+    image: "/about/blog/2-Building a Powerful.png",
     title: "Building a Powerful Brand Identity That Stands Out",
-    excerpt:
-      "Consistency, storytelling, and purpose drive brand identity. Learn how our creative team crafts visual experiences that connect emotionally with audiences.",
+    excerpt:"Consistency, storytelling, and purpose drive brand identity. Learn how our creative team crafts visual experiences that connect emotionally with audiences.",
     author: "Creative Division",
   },
   {
-    image: "services/webdesign.jpg",
+    image: "/about/blog/3-Why Responsive Web Design.png",
     title: "Why Responsive Web Design Is Crucial for Modern Businesses",
-    excerpt:
-      "A seamless user experience across all devices boosts engagement and conversions. Discover our design philosophy behind intuitive, mobile-first websites.",
+    excerpt:"A seamless user experience across all devices boosts engagement and conversions. Discover our design philosophy behind intuitive, mobile-first websites.",
     author: "Web Development Team",
   },
   {
-    image: "services/photography.jpg",
+    image: "/about/blog/4-How Professional Photography.png",
     title: "How Professional Photography Can Transform Your Brand Image",
     excerpt:
       "Photography goes beyond visuals — it's brand storytelling. See how high-quality imagery builds trust and enhances your digital presence.",
     author: "Photography Studio",
   },
   {
-    image: "services/social-media-networks.jpg",
+    image: "/about/blog/5-Mastering Social Media Strategy.png",
     title: "Mastering Social Media Strategy in the Attention Economy",
     excerpt:
       "In an era where attention is the new currency, crafting scroll-stopping content is an art. Explore tips to dominate Instagram, LinkedIn, and YouTube with intent.",
     author: "Social Media Division",
   },
   {
-    image: "services/seo-infographic-concept-background_823925-1180.jpg",
+    image: "/about/blog/6-SEO in 2025 Beyond Keywords.png",
     title: "SEO in 2025: Beyond Keywords — It's About Intent",
     excerpt:
       "Google's algorithms now reward authenticity and relevance. Learn how our SEO experts blend human psychology and data-driven strategy to improve rankings.",
     author: "SEO & Analytics Team",
   },
   {
-    image: "services/videography.png",
+    image: "/about/blog/7-The Rise of Video Storytelling.png",
     title: "The Rise of Video Storytelling in Brand Campaigns",
     excerpt:
       "Short-form videos and cinematic brand films are reshaping online engagement. Discover how we bring stories to life through strategic visual narratives.",
     author: "Production House",
   },
   {
-    image: "services/editing.webp",
+    image: "/about/blog/8-Design Thinking The Secret.png",
     title: "Design Thinking: The Secret to Better UI/UX Experiences",
     excerpt:
       "At Visiomatix, design isn't just visual — it's emotional. We share how user empathy and design thinking drive every digital interface we create.",
@@ -152,10 +150,10 @@ const Blog: React.FC = () => {
                   />
                   <Card.Body className="d-flex flex-column">
                     <h6 className="fw-bold text-navy mb-2">{post.title}</h6>
-                    <p className="text-secondary small mb-2">
+                    <p className="text-dark small mb-2">
                       By {post.author}
                     </p>
-                    <p className="flex-grow-1 text-muted">{post.excerpt}</p>
+                    <p className="flex-grow-1 text-dark">{post.excerpt}</p>
                     <div className="text-center mt-2">
                       <button
                         className="main-btn"
@@ -180,43 +178,78 @@ const Blog: React.FC = () => {
             transition: all 0.3s ease;
             border: 1px solid rgba(10, 45, 80, 0.08);
           }
-          .blog-card:hover {
-            transform: translateY(-6px);
-            background-color: #F4F8FC;
-            box-shadow: 0 10px 25px rgba(0, 0, 50, 0.1);
-          }
-          .blog-card-img {
-            width: 100%;
-            height: 230px;
-            object-fit: cover;
-            border-top-left-radius: 0.75rem;
-            border-top-right-radius: 0.75rem;
-          }
-          /* :dart: Unified Button Style (Same as Article) */
-          .main-btn {
-            background-color: #0B1E34;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            padding: 0.7rem 1.6rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-          }
-          .main-btn:hover {
-            background-color: #163D6C;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
-          }
-          @media (max-width: 768px) {
-            .blog-card-img {
-              height: 200px;
-            }
-            .main-btn {
-              padding: 0.6rem 1.3rem;
-              font-size: 0.95rem;
-            }
-          }
+           /* -------------------------------
+   BLOG CARD – UNIFORM IMAGE SIZE
+-------------------------------- */
+.blog-card {
+  background: #fff;
+  border: 1px solid rgba(10, 45, 80, 0.08);
+  border-radius: 12px;
+  transition: 0.3s ease;
+  overflow: hidden;
+}
+
+/* Wrapper with FIXED HEIGHT for ALL IMAGES */
+.blog-img-wrapper {
+  width: 100%;
+  height: 240px;                   /* SAME HEIGHT FOR ALL IMAGES */
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f2f2f2;
+}
+
+/* Image inside wrapper */
+.blog-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;               /* CROPS nicely & keeps size equal */
+  border-radius: 12px 12px 0 0;
+}
+
+/* Card Hover */
+.blog-card:hover {
+  transform: translateY(-6px);
+  background-color: #F4F8FC;
+  box-shadow: 0 10px 25px rgba(0, 0, 50, 0.1);
+}
+
+/* Navy Text */
+.text-navy {
+  color: #0B1E34 !important;
+}
+
+/* Button Style */
+.main-btn {
+  background-color: #0B1E34;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.main-btn:hover {
+  background-color: #163D6C;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .blog-img-wrapper {
+    height: 190px;                 /* Adjust for mobile */
+  }
+  .main-btn {
+    padding: 0.6rem 1.3rem;
+    font-size: 0.95rem;
+  }
+}
+
         `}</style>
       </div>
     </>

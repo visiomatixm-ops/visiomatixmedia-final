@@ -42,12 +42,17 @@
 
 import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom'; 
+
 import Menu from './component/Menu';
 import Footer from './component/Footer';
 import PageLoader from './component/PageLoader';
 import ChatWidget from './component/ChatWidget';
 
-//  Lazy-load all pages
+/* Slide System */
+import Slide from './component/views/Slide';
+import { pages } from './pages';
+
+// Lazy-loaded pages
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
@@ -69,8 +74,7 @@ const Contact = lazy(() => import('./pages/Contact'));
 
 // ✅ Global PageLoader handler for route changes
 /**
- * Main App component that orchestrates the entire Visiomatix website
- * Handles routing, loading states, and persistent layout components
+ * Main App Component
  */
 const App: React.FC = () => {
   // Get current location for route change detection
@@ -79,30 +83,33 @@ const App: React.FC = () => {
   // Loading state for smooth page transitions
   const [loading, setLoading] = useState(true);
 
-  /**
-   * Effect hook to manage loading state during route changes
-   * Provides visual feedback during navigation for better user experience
-   * Shows loader for 600ms to ensure smooth transitions between pages
-   */
+  // Show loader on route change
   useEffect(() => {
     // Start loading when route changes
     setLoading(true);
+    const t = setTimeout(() => setLoading(false), 600);
+    return () => clearTimeout(t);
+  }, [location.pathname]);
 
-    // Set timeout to hide loader after smooth transition duration
-    const timeout = setTimeout(() => setLoading(false), 600); // smooth transition
+  /* ---- Slide Navigation for "/slides" route ONLY ---- */
+  const [pageIndex, setPageIndex] = useState(0);
 
-    // Cleanup function to clear timeout if component unmounts or route changes again
-    return () => clearTimeout(timeout);
-  }, [location.pathname]); // Trigger on pathname changes only
+  useEffect(() => {
+    if (location.pathname !== '/slides') return;
 
-  /**
-   * Main render function defining the application layout and routing structure
-   * Uses persistent layout components with dynamic content based on current route
-   */
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown') setPageIndex((p) => Math.min(p + 1, pages.length - 1));
+      if (e.key === 'ArrowUp') setPageIndex((p) => Math.max(p - 1, 0));
+    };
+
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [location.pathname]);
+
   return (
     <>
-      {/* Persistent navigation menu - appears on all pages */}
-      <Menu />
+      {/* Show Menu + Footer only for the website, NOT for slides */}
+      {location.pathname !== '/slides' && <Menu />}
 
       {/* Global page loader - shows during route transitions for smooth UX */}
       {loading && <PageLoader />}
@@ -111,12 +118,27 @@ const App: React.FC = () => {
       {/* Fallback shows PageLoader while components are being loaded */}
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          {/* Main navigation routes */}
+
+          {/* ============================== */}
+          {/*      Slide Presentation        */}
+          {/* ============================== */}
+          <Route
+            path="/slides"
+            element={
+              <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
+                <Slide pageIndex={pageIndex} />
+              </div>
+            }
+          />
+
+          {/* ============================== */}
+          {/*         Normal Website         */}
+          {/* ============================== */}
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
 
-          {/* Individual service detail pages */}
+          {/* Individual Services */}
           <Route path="/services/DigitalMarketing" element={<DigitalMarketing />} />
           <Route path="/services/SMM" element={<SMM />} />
           <Route path="/services/Design" element={<Design />} />
@@ -124,22 +146,20 @@ const App: React.FC = () => {
           <Route path="/services/Software" element={<Software />} />
           <Route path="/services/Ecommerce" element={<Ecommerce />} />
           <Route path="/services/Branding" element={<Branding />} />
-           <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/testimonials" element={<Testimonials />} />
 
-          {/* Content and engagement routes */}
+          {/* Content Pages */}
           <Route path="/blog" element={<Blog />} />
           <Route path="/article/:id" element={<Article />} />
           <Route path="/careers" element={<Careers />} />
-          <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/contact" element={<Contact />} />
+
         </Routes>
       </Suspense>
 
-      {/* Persistent chat widget - available on all pages for customer engagement */}
-      <ChatWidget />
-
-      {/* Persistent footer - appears on all pages */}
-      <Footer />
+      {/* Chat + Footer only for website */}
+      {location.pathname !== '/slides' && <ChatWidget />}
+      {location.pathname !== '/slides' && <Footer />}
     </>
   );
 };

@@ -206,7 +206,7 @@ const DigitalMarketing: React.FC = () => {
         >
           <div className="container">
             <p
-              className="lead text-muted text-center mx-auto"
+              className="lead text-dark text-center mx-auto"
               style={{ maxWidth: "850px" }}
             >
               Our Digital Marketing solutions empower businesses to thrive in a competitive landscape. 

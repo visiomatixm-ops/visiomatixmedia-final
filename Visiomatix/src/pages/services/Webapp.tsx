@@ -239,15 +239,15 @@ const Webapp: React.FC = () => {
             >
               <div className="container">
                 <p
-                  className="lead text-muted text-center mx-auto"
+                  className="lead text-dark text-center mx-auto"
                   style={{ maxWidth: "850px" }}
                 >
-                  At <strong>Visiomatix</strong>, we craft high-performance digital products that scale seamlessly
-                  across devices and platforms. Our expertise covers full-stack <strong>Web App Development</strong>,
-                  <strong> responsive Website Design</strong>, and <strong> Mobile App Development</strong> built with
+                  At Visiomatix, we craft high-performance digital products that scale seamlessly
+                  across devices and platforms. Our expertise covers full-stack Web App Development,
+                  responsive Website Design, and Mobile App Development built with
                   modern frameworks for optimal performance.  
-                  We create <strong>Landing Pages</strong> that convert and integrate custom backend systems for
-                  <strong> E-commerce</strong> and enterprise solutions.  
+                  We create Landing Pages that convert and integrate custom backend systems for
+                   E-commerce and enterprise solutions.  
                   Each project combines intuitive UI/UX design, secure architecture, and data-driven insights to ensure
                   your digital presence delivers measurable business impact.
                 </p>

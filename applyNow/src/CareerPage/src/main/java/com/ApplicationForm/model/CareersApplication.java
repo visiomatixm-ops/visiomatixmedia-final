@@ -2,6 +2,7 @@ package com.ApplicationForm.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -18,10 +19,10 @@ public class CareersApplication {
     private String dob;
     private String role;
 
-    @Column(columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = "LONGTEXT")
     private String qualificationJson;
 
-    @Column(columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = "LONGTEXT")
     private String experienceJson;
 
     @Lob

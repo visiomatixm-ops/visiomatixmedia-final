@@ -254,11 +254,11 @@ const Software: React.FC = () => {
             {/* Content Section */}
             <section className="py-5 bg-light">
               <div className="container">
-                <p className="lead text-muted text-center mx-auto" style={{ maxWidth: "850px" }}>
-                  At <strong>Visiomatix</strong>,we design and develop intelligent business software that integrates data, workflows, and decision-making into one seamless platform.
-                  From <strong>ERP systems</strong> that unify operations to <strong>CRM platforms</strong> that enhance customer relationships,
+                <p className="lead text-dark text-center mx-auto" style={{ maxWidth: "850px" }}>
+                  At,we Visiomatix,we design and develop intelligent business software that integrates data, workflows, and decision-making into one seamless platform.
+                  From ERP systems that unify operations to CRM platforms that enhance customer relationships,
                   we create technology that transforms productivity.
-                  Our <strong>HRMS tools</strong> streamline workforce management, while our <strong>AI Voice Sales Assistants</strong> and <strong>Automation Tools</strong> empower teams with real-time insights and task automation.
+                  Our HRMS tools streamline workforce management, while our AI Voice Sales Assistants and Automation Tools empower teams with real-time insights and task automation.
                   Every solution we build is custom-engineered to improve performance, security, and scalability across industries.
                 </p>
               </div>
@@ -322,8 +322,8 @@ const Software: React.FC = () => {
                     variants={cardVariant}
                   >
                     <motion.div
-                      className="col-md-6 mb-4 mb-md-0"
-                      initial={{ opacity: 0, x: -50 }}
+                      className="col-md-6 test-start"
+                      initial={{ opacity: 0, x: 50 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6, ease: "easeOut" }}
                       viewport={{ once: true, amount: 0.3 }}
@@ -346,7 +346,7 @@ const Software: React.FC = () => {
                         <service.icon className="me-2 text-primary" />
                         {service.title}
                       </h4>
-                      <p className="text-muted mt-2">{service.text}</p>
+                      <p className="text-dark mt-2">{service.text}</p>
                     </motion.div>
                   </motion.div>
                 ))}

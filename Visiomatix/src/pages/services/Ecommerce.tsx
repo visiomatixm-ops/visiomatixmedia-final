@@ -132,15 +132,15 @@ const Ecommerce: React.FC = () => {
         <section className="py-5 bg-light">
           <div className="container">
             <p
-              className="lead text-muted text-center mx-auto"
+              className="lead text-dark text-center mx-auto"
               style={{ maxWidth: "850px" }}
             >
-              With <strong>Visiomatix’s E-commerce Solutions</strong>, your online
+              With Visiomatix’s E-commerce Solutions, your online
               business gains modern design, smooth user experience, and deep
-              marketplace integration. Whether it’s a <strong>Shopify</strong>,
-              <strong> WooCommerce,</strong> or <strong>custom-built</strong> store, we
+              marketplace integration. Whether it’s a Shopify,
+               WooCommerce, or custom-built store, we
               deliver performance-driven results. Boost visibility with
-              <strong> Amazon & Flipkart ads,</strong> optimized listings, and secure
+              Amazon & Flipkart ads, optimized listings, and secure
               payment gateways.
             </p>
           </div>

@@ -66,47 +66,69 @@ import VideographyImage from "/public/services/videography-1.png";
 import MotionImage from "/public/services/motion.png";
 import WebDesignImage from "/public/services/web-design-1.png";
 import GraphicImage from "/public/services/graphic-1.png";
-// ✅ Light Theme Styles
+
+
+// ✅ Elegant Light Theme Styles
 const cardThemeStyles = `
   .card-theme {
-    background-color: #ffffff !important; /* White background */
-    border: 1px solid rgba(0, 0, 0, 0.08); /* Subtle light border */
-    border-radius: 1rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Soft gray shadow */
-    transition: all 0.3s ease-in-out;
+    background: #ffffff !important; /* Solid white background */
+    margin-bottom: 2rem; /* Increased gap between cards */
+    border-radius: 1.5rem;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card-theme::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #007bff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   .card-theme:hover {
-    background-color: #f8fbff !important; /* Soft blue-white hover */
-    border-color: rgba(0, 120, 255, 0.3);
-    box-shadow: 0 4px 15px rgba(0, 120, 255, 0.25);
-    transform: translateY(-6px);
+    background: #f8fbff !important; /* Light blue-white hover */
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(0, 123, 255, 0.2);
+  }
+
+  .card-theme:hover::before {
+    opacity: 1;
   }
 
   .card-theme h5 {
     color: #0b1e34 !important; /* Dark navy title */
+    font-size: 1.1rem; /* Uniform text size */
+    font-weight: 600;
+    margin-bottom: 0.5rem;
   }
 
   .card-theme p {
-    color: #555555 !important; /* Muted text */
+    font-size: 0.9rem; /* Uniform text size */
+    color: #6c757d;
+    line-height: 1.5;
   }
 
   .card-theme img {
     border-radius: 50%; /* Circular image */
-    border: 2px solid rgba(0, 120, 255, 0.2);
     background: #ffffff;
     transition: all 0.4s ease;
+    border: 3px solid #ffffff;
+    margin: 1em;
   }
 
   .card-theme:hover img {
-    border-color: rgba(0, 120, 255, 0.5);
-    transform: scale(1.05);
+    transform: scale(1.1) rotate(5deg);
   }
 
   h2.section-heading {
     color: #0b1e34;
     letter-spacing: 0.05em;
-    font-family: 'Orbitron', sans-serif;
     text-transform: uppercase;
     font-weight: 700;
     margin-bottom: 2rem;
@@ -114,14 +136,19 @@ const cardThemeStyles = `
 
   @media (max-width: 768px) {
     .card-theme {
-      border-radius: 0.8rem;
+      border-radius: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-theme:hover {
+      transform: translateY(-5px) scale(1.01);
     }
   }
 `;
 
 const ServicesLayout: React.FC = () => {
   const services = [
-    { image: DigitalMarketing, title: "Digital Marketing", description: "Digital marketing is the strategic use of online channels to promote brands, engage audiences." },
+    { image: DigitalMarketing, title: "Digital Marketing", description: "Digital marketing is the strategic use of online channels to promote brands, engage audiences, and drive measurable business growth." },
     { image: AnimationImage, title: "2D/3D Animation", description: "Creative animation services for advertisements and films." },
     { image: BrandingImage, title: "Brand Design", description: "Crafting unique brand identities for your business." },
     { image: PhotographyImage, title: "Photography", description: "High-quality photoshoots for events, products, and portfolios." },

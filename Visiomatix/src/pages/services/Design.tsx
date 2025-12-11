@@ -226,20 +226,20 @@ const Design: React.FC = () => {
             >
               <div className="container">
                 <p
-                  className="lead text-muted text-center mx-auto"
+                  className="lead text-dark text-center mx-auto"
                   style={{ maxWidth: "850px" }}
                 >
                   Our Web Design and Creative Services combine strategy, aesthetics, and technology
                   to craft visually striking experiences that engage users and enhance brand value.
-                  From <strong>UI/UX Design</strong> that focuses on usability and customer flow,
-                  to <strong>Graphic Design</strong> for branding, logos, and marketing collateral,
+                  From UI/UX Design that focuses on usability and customer flow,
+                  to Graphic Design for branding, logos, and marketing collateral,
                   our work ensures every pixel communicates purpose.  
-                  We create <strong>Motion Graphics</strong> and <strong>Animations</strong> that breathe
-                  life into static visuals, produce <strong>YouTube Thumbnails & Video Assets</strong> that
-                  boost viewer engagement, and develop <strong>3D Product Visualizations</strong> that
+                  We create Motion Graphics and Animations that breathe
+                  life into static visuals, produce YouTube Thumbnails & Video Assets that
+                  boost viewer engagement, and develop 3D Product Visualizations that
                   make your offerings tangible and dynamic.  
-                  With expertise in <strong>Visual Effects (VFX)</strong>, post-production,
-                  <strong> Photography</strong>, and <strong>Videography</strong>, we deliver end-to-end
+                  With expertise in Visual Effects (VFX), post-production,
+                   Photography, and Videography, we deliver end-to-end
                   visual solutions that elevate your brand presence across digital channels.
                 </p>
               </div>

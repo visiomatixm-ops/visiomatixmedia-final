@@ -21,9 +21,9 @@ public class EmailService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setTo("ganvirtine@gmail.com");
-        helper.setSubject("New Job Application " );
-        helper.setText("A new candidate has applied.Resume is attached: ");
+        helper.setTo(to);
+        helper.setSubject("New Job Application");
+        helper.setText("A new candidate " + name + " has applied. Resume is attached.");
 
         helper.addAttachment(fileName,
                 () -> new java.io.ByteArrayInputStream(attachmentBytes), fileType);

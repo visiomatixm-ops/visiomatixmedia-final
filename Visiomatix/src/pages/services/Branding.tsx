@@ -207,13 +207,13 @@ const Branding: React.FC = () => {
             {/* Content Section */}
             <section className="py-5 bg-light">
               <div className="container">
-                <p className="lead text-muted text-center mx-auto text-sm sm:text-base md:text-lg" style={{ maxWidth: "850px" }}>
-                  At <strong>Visiomatix</strong>, we craft powerful brand strategies that align creativity with data-driven insights.
+                <p className="lead text-dark text-center mx-auto text-sm sm:text-base md:text-lg" style={{ maxWidth: "850px" }}>
+                  At Visiomatix, we craft powerful brand strategies that align creativity with data-driven insights.
                   Our experts analyze audience psychology, market behavior, and competitor dynamics to position your brand effectively.
-                  We help define your <strong>Brand Identity & Positioning</strong> with clear differentiation, develop holistic
-                  <strong> Marketing Strategies</strong> and conversion-driven <strong>Funnel Planning</strong>, and execute high-impact
-                  <strong> Campaigns</strong> that deliver measurable growth.
-                  Our in-depth <strong>Competitor & Market Research</strong> provides clarity and direction — enabling your brand to lead with confidence and creativity.
+                  We help define your Brand Identity & Positioning with clear differentiation, develop holistic
+                   Marketing Strategies and conversion-driven Funnel Planning, and execute high-impact
+                   Campaigns that deliver measurable growth.
+                  Our in-depth Competitor & Market Research provides clarity and direction — enabling your brand to lead with confidence and creativity.
                 </p>
               </div>
             </section>

@@ -20,6 +20,7 @@ import {
   Form,
 } from "react-bootstrap";
 import { PlusCircle } from "lucide-react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // ---------------- Types ----------------
 export interface JobOpening {
@@ -68,7 +69,7 @@ const JobDetailsPage: FC<JobDetailsPageProps> = ({ job, onBack }) => {
     contactnumber: "",
     email: "",
     dob: "",
-    role: "",
+    role: job.title,
   });
 
   const [qualifications, setQualifications] = useState<Qualification[]>([
@@ -98,6 +99,8 @@ const JobDetailsPage: FC<JobDetailsPageProps> = ({ job, onBack }) => {
     why: "",
   });
   const [internResume, setInternResume] = useState<File | null>(null);
+  const [internCaptchaValue, setInternCaptchaValue] = useState<string | null>(null);
+  const [jobCaptchaValue, setJobCaptchaValue] = useState<string | null>(null);
 
   // ======================================================
   // Common handlers
@@ -176,6 +179,11 @@ const JobDetailsPage: FC<JobDetailsPageProps> = ({ job, onBack }) => {
   const handleJobSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!jobCaptchaValue) {
+      alert("Please verify the reCAPTCHA before submitting!");
+      return;
+    }
+
     // 🔧 Plug your API call here (e.g., submitCareerForm)
     console.log("JOB Application data:", jobFormData);
     console.log("Qualifications:", qualifications);
@@ -201,6 +209,11 @@ const JobDetailsPage: FC<JobDetailsPageProps> = ({ job, onBack }) => {
 
   const handleInternSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!internCaptchaValue) {
+      alert("Please verify the reCAPTCHA before submitting!");
+      return;
+    }
 
     // 🔧 Plug your API call here (e.g., submitCareerForm)
     console.log("INTERNSHIP Application data:", internFormData);
@@ -511,6 +524,11 @@ const JobDetailsPage: FC<JobDetailsPageProps> = ({ job, onBack }) => {
                   required
                 />
               </Form.Group>
+
+              <ReCAPTCHA
+                sitekey="6LcJUwwsAAAAAM_k2WUuXkIpG1wZfG4bIpDLIcRP"
+                onChange={setInternCaptchaValue}
+              />
 
               <div className="text-center mt-4">
                 {/* ✅ FIXED: this actually SUBMITS the form now */}
@@ -918,6 +936,11 @@ const JobDetailsPage: FC<JobDetailsPageProps> = ({ job, onBack }) => {
                   </Button>
                 </Col>
               </Row>
+
+              <ReCAPTCHA
+                sitekey="6LcJUwwsAAAAAM_k2WUuXkIpG1wZfG4bIpDLIcRP"
+                onChange={setJobCaptchaValue}
+              />
             </Form>
           </Modal.Body>
         </Modal>

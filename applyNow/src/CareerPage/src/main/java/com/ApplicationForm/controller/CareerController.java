@@ -12,29 +12,28 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/api/careers")
+@RequestMapping("/api")
 @CrossOrigin(origins = {"http://localhost:5173","http://localhost:3000"})
 public class CareerController {
 
     @Autowired
-    private CareersService service;
+    private CareersService careersService;
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> submit(
+    @PostMapping("/careers")
+    public ResponseEntity<?> submitCareerForm(
             @RequestParam String firstName,
-            @RequestParam(required = false) String lastName,
-            @RequestParam String contact,
+            @RequestParam String lastName,
             @RequestParam String email,
-            @RequestParam(required = false) 
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dob,
-            @RequestParam(required = false) String role,
-            @RequestParam(required = false) String qualificationJson,
-            @RequestParam(required = false) String experienceJson,
-            @RequestPart(required = false) MultipartFile resume
+            @RequestParam String contact,
+            @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate dob,
+            @RequestParam String role,
+            @RequestParam String qualificationJson,
+            @RequestParam String experienceJson,
+            @RequestParam MultipartFile resume
     ) throws Exception {
 
-        CareersApplication saved=
-         service.saveApplication(
+        CareersApplication saved =
+         careersService.saveApplication(
                 firstName,
                 lastName,
                 email,
