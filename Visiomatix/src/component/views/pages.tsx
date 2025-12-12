@@ -5,17 +5,17 @@ import './slides.css'
 import CTAButton from '../CTAButton.tsx'
 
 interface PageProps {
-  classPrefix: string
-  title: string
-  serviceTitle: string
-  serviceDescription: string
-  hasAnimation?: boolean
-  backgroundColor?: string
-  imageSrc?: string
+  classPrefix: string;
+  title: string;
+  serviceTitle: string;
+  serviceDescription: string;
+  hasAnimation?: boolean;
+  backgroundColor?: string;
+  imageSrc?: string;
 }
 
 interface ServicePageProps {
-  classPrefix: string
+  classPrefix: string;
 }
 
 const ServicePage: React.FC<PageProps> = ({
@@ -45,7 +45,7 @@ const ServicePage: React.FC<PageProps> = ({
             delay: 0.1
           }}
         />
-      )}
+      )} 
       {hasAnimation ? (
         <motion.div
           className={`${classPrefix}text`}

@@ -10,7 +10,7 @@ const Slide1: React.FC = () => {
         <div className="absolute left-[62%] top-[75%] w-[400px] h-14 rounded-full bg-black/40 blur-lg" />
 
         <img
-          className="absolute left-[35%] top-[5%] w-[70%] max-w-[1329px] h-auto shadow-lg"
+          className="absolute left[-[35%] top-[5%] w-[70%] max-w-[1329px] h-auto shadow-lg"
           src="https://placehold.co/1329x918"
           alt="showcase"
         />
