@@ -17,6 +17,7 @@ import ServicesLayout from "../component/ServicesLayout";
 import CarouselComponent from "../component/CarouselComponent";
 import FeaturedServices from "../component/FeaturedServices";
 import ContactFormSection from "../component/ContactFormSection"; // <-- CORRECTED PATH
+import GlobalSection from "../component/GlobalSection";
 import "../styles/ContactForm.css";
 import PartnersandCertifications from "../component/PartnersandCertifications";
 //import TestimonialsSection from "../pages/Testimonials";
@@ -30,6 +31,10 @@ import phoneIcon from "../assets/icons/phone.svg";
 import ourOfficeIcon from "../assets/icons/map.svg";
 
 import { useState } from "react";
+//FAQ
+
+// Banner Images
+//import Banner2 from "/about/Digital-Marketing-Services-banner.jpg";
 
 const Home: React.FC = () => {
   const structuredData = {
@@ -148,7 +153,7 @@ const handleCaptchaChange = (value: any) => {
                     Rohit Shinde
                   </h2>
                   <h3 className="mb-4" style={{ color: "#fff", fontSize: "1.25rem" }}>
-                    FOUNDER & CEO DIGITIZE MATIX
+                    FOUNDER & CEO of VISOMATIX MEDIA
                   </h3>
                   
                     
@@ -193,8 +198,8 @@ const handleCaptchaChange = (value: any) => {
           </section>*/}
           
           {/*-----------Global map-------*/}
-          
-              {/*<img src="/map/wolrdmap.jpeg" alt="World Map" />*/}
+
+              <GlobalSection />
 
       {/* ----------- TESTIMONIALS SECTION (Home Page only) ----------- */}
        {/* <TestimonialsSection />*/}

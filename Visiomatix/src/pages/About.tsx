@@ -20,7 +20,6 @@ import React from "react";
         const About: React.FC = () => {
           const bgImage = "/about/welcome-visiomatix.png";
 
-
   return (
     <>
       {/* ============================================= */}
@@ -626,7 +625,7 @@ import React from "react";
 
           .what-we-offer-section {
             background-image: url(/about/what-we-offer.png);
-           // background-size: cover;
+           /* background-size: cover; */
             background-position: center;
             position: relative;
             min-height: 40vh;
@@ -640,7 +639,7 @@ import React from "react";
             left: 0;
             right: 0;
             bottom: 0;
-            //background-color: rgba(0, 0, 0, 0.6);
+            /* background-color: rgba(0, 0, 0, 0.6); */
           }
 
           .content-wrapper {

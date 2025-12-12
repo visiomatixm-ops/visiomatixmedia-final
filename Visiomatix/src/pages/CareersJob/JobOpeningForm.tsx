@@ -21,7 +21,9 @@ const JobOpeningForm = () => {
         formData.append('experience', experience);
         formData.append('location', location);
         formData.append('skills', skills);
-        if (resume) formData.append('resume', resume);
+        if (resume) {
+            formData.append('resume', resume);
+        }
 
         try {
             const response = await axios.post('http://localhost:8080/api/jobapplications', formData, {
@@ -38,7 +40,7 @@ const JobOpeningForm = () => {
                 setSkills("");
                 setResume(null);
 
-                (e.target as HTMLFormElement).reset();
+                e.currentTarget.reset();
         } catch (error) {
             console.error('Error:', error);
             alert('Failed to submit job application.');

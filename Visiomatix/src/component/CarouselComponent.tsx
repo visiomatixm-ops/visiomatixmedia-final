@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 
 import './views/slides.css'
@@ -24,6 +24,7 @@ const CarouselComponent: React.FC = () => {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + pages.length) % pages.length)
   }
+
 
   return (
     <div className="carousel-container">

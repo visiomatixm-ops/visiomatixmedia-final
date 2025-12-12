@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-// careerService.ts
+ // careerService.ts
 export async function submitCareerForm(formData: FormData) {
   const resp = await fetch('http://localhost:8080/api/careers', {
     method: 'POST',

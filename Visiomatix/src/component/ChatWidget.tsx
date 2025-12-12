@@ -146,8 +146,8 @@ const ChatWidget: React.FC = () => {
           if (newToken) {
             setToken(newToken);
             localStorage.setItem("chatToken", newToken);
-            // Set expiry time (assuming 2 hours from now)
-            const expiryTime = Date.now() + (2 * 60 * 60 * 1000); // 2 hours
+            // Set expiry time (assuming 1 hour from now)
+            const expiryTime = Date.now() + (1 * 60 * 60 * 1000); // 1 hour
             localStorage.setItem("chatTokenExpiry", expiryTime.toString());
             console.log("Token refreshed automatically for default user");
           }
@@ -249,8 +249,8 @@ const ChatWidget: React.FC = () => {
 
       setToken(jwt);
 
-      // Set token expiry time (assuming 2 hours from now)
-      const expiryTime = Date.now() + (2 * 60 * 60 * 1000); // 2 hours
+      // Set token expiry time (assuming 1 hour from now)
+      const expiryTime = Date.now() + (1 * 60 * 60 * 1000); // 1 hour
       localStorage.setItem("chatTokenExpiry", expiryTime.toString());
 
       await startSession(jwt);
@@ -290,7 +290,7 @@ const ChatWidget: React.FC = () => {
             if (newToken) {
               setToken(newToken);
               localStorage.setItem("chatToken", newToken);
-              const expiryTime = Date.now() + (2 * 60 * 60 * 1000);
+              const expiryTime = Date.now() + (1 * 60 * 60 * 1000);
               localStorage.setItem("chatTokenExpiry", expiryTime.toString());
               // Retry with new token
               await startSession(newToken);
@@ -343,7 +343,7 @@ const ChatWidget: React.FC = () => {
             if (newToken) {
               setToken(newToken);
               localStorage.setItem("chatToken", newToken);
-              const expiryTime = Date.now() + (2 * 60 * 60 * 1000);
+              const expiryTime = Date.now() + (1 * 60 * 60 * 1000);
               localStorage.setItem("chatTokenExpiry", expiryTime.toString());
               // Retry with new token
               await loadExistingMessages(sid, newToken);
@@ -390,6 +390,9 @@ const ChatWidget: React.FC = () => {
               sentAt: data.sentAt,
               messageType: data.messageType,
             }]);
+
+            // Play notification sound for new messages
+            playNotificationSound();
 
             // Show browser notification for new messages
             if ("Notification" in window && Notification.permission === "granted") {
@@ -459,7 +462,6 @@ const ChatWidget: React.FC = () => {
         return;
       }
     }
-
 
     // Generate unique temporary ID to prevent duplicate display
     // Format: temp-timestamp-random to ensure uniqueness

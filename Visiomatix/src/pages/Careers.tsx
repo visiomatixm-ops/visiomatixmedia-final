@@ -27,7 +27,6 @@ const Careers: React.FC = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [selectedJob, setSelectedJob] = useState<JobOpening | null>(null);
 
-
   // --------------------------------------
   // Job listing data
   // --------------------------------------

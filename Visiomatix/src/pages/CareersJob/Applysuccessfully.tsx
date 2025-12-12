@@ -1,7 +1,7 @@
 import { FaRegCheckCircle, } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 
-const Applysuccessfully = ({onClose}: {onClose: () => void}) => {
+const Applysuccessfully = ({ onClose }: { onClose: () => void }) => {
     return (
         <div className="d-flex align-items-center justify-content-center border rounded shadow bg-light">
             <div className="p-4 w-100 text-center" style={{maxWidth: '28rem'}}>
