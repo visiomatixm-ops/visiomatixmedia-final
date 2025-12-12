@@ -5,7 +5,7 @@
  * Date: 12-Oct-2025
  * Description:
  *  This is the Home page of the Visiomatix website.
- *  It includes a carousel slider, multiple banner sections, 
+ *  It includes a carousel slider, multiple banner sections,
  *  the Founder Story, Team section, and services layout.
  * ===========================================================
  */
@@ -14,7 +14,6 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import ServicesLayout from "../component/ServicesLayout";
-import Banner from "../component/Banner";
 import CarouselComponent from "../component/CarouselComponent";
 import FeaturedServices from "../component/FeaturedServices";
 import ContactFormSection from "../component/ContactFormSection"; // <-- CORRECTED PATH
@@ -29,14 +28,6 @@ import emailIcon from "../assets/icons/email.svg";
 import clockIcon from "../assets/icons/clock.svg";
 import phoneIcon from "../assets/icons/phone.svg";
 import ourOfficeIcon from "../assets/icons/map.svg";
-
-import { useState } from "react";
-//FAQ
-import FAQ from "../component/FAQ";
-
-// Banner Images
-import Banner1 from "/about/Social-Media-Infographics-in-Detail-1.jpg";
-//import Banner2 from "/about/Digital-Marketing-Services-banner.jpg";
 
 const Home: React.FC = () => {
   const structuredData = {
@@ -53,52 +44,6 @@ const Home: React.FC = () => {
     description:
       "Visiomatix is a technology-driven digital marketing and web development company.",
   };
-  const [formData, setFormData] = useState({
-  name: "",
-  email: "",
-  countryCode: "+91",
-  contactNumber: "",
-  service: "",
-  subject: "",
-  message: "",
-});
-interface ContactSectionProps {
-  ourOfficeIcon: string;
-  phoneIcon: string;
-  emailIcon: string;
-  clockIcon: string;
-  phoneNumber: string;
-  emailAddress: string;
-  countryCodes: { country: string; code: string }[];   // <-- ADD THIS
-  formData: any;
-  handleChange: (e: any) => void;
-  handleSubmit: (e: any) => void;
-  handleCaptchaChange: (value: any) => void;
-}
-
-
-const countryCodes = [
-  { country: "India", code: "+91" },
-  { country: "USA", code: "+1" },
-  { country: "UK", code: "+44" },
-];
-
-const phoneNumber = "+91 70206 70894";
-const emailAddress = "visiomatixmedia@gmail.com";
-
-const handleChange = (e: any) => {
-  setFormData({ ...formData, [e.target.name]: e.target.value });
-};
-
-const handleSubmit = (e: any) => {
-  e.preventDefault();
-  console.log("Form Submitted", formData);
-};
-
-const handleCaptchaChange = (value: any) => {
-  console.log("Captcha:", value);
-};
-
 
   return (
     <>
@@ -142,12 +87,11 @@ const handleCaptchaChange = (value: any) => {
 
           {/* --------------------- Services Section --------------------- */}
           <ServicesLayout />
-          
 
 
           {/* --------------------- CLIENT LOGOS SECTION --------------------- */}
         <ClientLogos />
-        
+
           {/* ----------------------------------------------------
                NEW SECTION: FOUNDER STORY
           ---------------------------------------------------- */}
@@ -177,8 +121,8 @@ const handleCaptchaChange = (value: any) => {
                   <h3 className="mb-4" style={{ color: "#fff", fontSize: "1.25rem" }}>
                     FOUNDER & CEO DIGITIZE MATIX
                   </h3>
-                  
-                    
+
+
                   <p className="text-start">
                     Visiomatix Media was founded by
                     Rohit Shinde, a passionate graphic designer
@@ -198,7 +142,7 @@ const handleCaptchaChange = (value: any) => {
                     on creativity and collaboration.
                   </p>
 
-                  <ul className="text-start text-light" 
+                  <ul className="text-start text-light"
                     style={{ maxWidth: "90%" }}>
                     <li>Encourages innovation through creative freedom.</li>
                     <li>Empowers young designers and creators.</li>
@@ -209,8 +153,8 @@ const handleCaptchaChange = (value: any) => {
               </div>
             </div>
           </section>
-              
-    
+
+
           {/*-------------FAQ section*/}
 
           {/* <section className="py-5" style={{ backgroundColor: "#eaeef3ff" }}>
@@ -218,9 +162,9 @@ const handleCaptchaChange = (value: any) => {
               <FAQ />
             </div>
           </section>*/}
-          
+
           {/*-----------Global map-------*/}
-          
+
               {/*<img src="/map/wolrdmap.jpeg" alt="World Map" />*/}
 
       {/* ----------- TESTIMONIALS SECTION (Home Page only) ----------- */}
@@ -234,12 +178,12 @@ const handleCaptchaChange = (value: any) => {
                   phoneIcon={phoneIcon}
                   emailIcon={emailIcon}
                   clockIcon={clockIcon}
-                  phoneNumber={phoneNumber}
-                  emailAddress={emailAddress}
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleSubmit={handleSubmit}
-                  handleCaptchaChange={handleCaptchaChange}
+                  phoneNumber="+91 70206 70894"
+                  emailAddress="visiomatixmedia@gmail.com"
+                  formData={{}}
+                  handleChange={() => {}}
+                  handleSubmit={() => {}}
+                  handleCaptchaChange={() => {}}
                 />
               </section>
                 {/*-----------partners------- */}
@@ -248,7 +192,7 @@ const handleCaptchaChange = (value: any) => {
           {/* ----------------------------------------------------
                TEAM SECTION
           ---------------------------------------------------- */}
-        
+
           {/* --------------------- Bottom Banner --------------------- */}
           {/*<Banner
             title="Crafting Digital Experiences"
@@ -257,7 +201,7 @@ const handleCaptchaChange = (value: any) => {
             bgImage={Banner2}
             height="40vh"
           />*/}
-          
+
         </div>
       </motion.div>
 

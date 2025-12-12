@@ -71,17 +71,6 @@ const ChatWidget: React.FC = () => {
   const API = "http://localhost:8080/api";
   const AGENT = "agent";
 
-  // Notification sound function
-  const playNotificationSound = () => {
-    try {
-      const audio = new Audio('/notification.mp3');
-      audio.volume = 0.5; // Set volume to 50%
-      audio.play().catch(e => console.log('Audio play failed:', e));
-    } catch (e) {
-      console.log('Audio creation failed:', e);
-    }
-  };
-
   // Auto-scroll to latest message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -459,15 +448,6 @@ const ChatWidget: React.FC = () => {
         return;
       }
     }
-
-    // Prepare message payload for WebSocket transmission
-    const payload = {
-      sender: username,
-      receiver: AGENT,
-      content: input.trim(),
-      messageType: "TEXT",
-      sessionId,
-    };
 
     // Generate unique temporary ID to prevent duplicate display
     // Format: temp-timestamp-random to ensure uniqueness
