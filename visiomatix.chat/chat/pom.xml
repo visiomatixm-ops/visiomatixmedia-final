@@ -90,6 +90,12 @@
             <artifactId>spring-messaging</artifactId>
         </dependency>
 
+        <!-- Spring Mail for email functionality -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
         <!-- ✅ Updated MySQL Connector (New Artifact + Explicit Version) -->
         <dependency>
             <groupId>com.mysql</groupId>
@@ -97,6 +103,7 @@
             <version>8.4.0</version>
             <scope>runtime</scope>
         </dependency>
+
 
         <!-- Testing dependencies -->
         <dependency>

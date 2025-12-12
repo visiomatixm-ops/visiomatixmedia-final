@@ -375,10 +375,14 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 @Transactional
 public class ChatServiceImpl implements ChatService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ChatServiceImpl.class);
 
     @Value("${chat.session.timeout.duration:14400000}")
     private long sessionTimeoutMillis;
@@ -387,15 +391,18 @@ public class ChatServiceImpl implements ChatService {
     private final MessageRepository messageRepository;
     private final SimpMessagingTemplate messagingTemplate;
     private final UserService userService;
+    private final EmailService emailService;
 
     public ChatServiceImpl(ChatSessionRepository chatSessionRepository,
                            MessageRepository messageRepository,
                            SimpMessagingTemplate messagingTemplate,
-                           UserService userService) {
+                           UserService userService,
+                           EmailService emailService) {
         this.chatSessionRepository = chatSessionRepository;
         this.messageRepository = messageRepository;
         this.messagingTemplate = messagingTemplate;
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     // ===========================================================
@@ -475,14 +482,35 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public void deactivateChatSession(Long sessionId) {
+        logger.info("Deactivating chat session: {}", sessionId);
+
         ChatSession chatSession = chatSessionRepository.findById(sessionId)
             .orElseThrow(() -> new RuntimeException("Chat session not found"));
 
         chatSession.setActive(false);
         chatSessionRepository.save(chatSession);
+        logger.info("Chat session {} deactivated successfully", sessionId);
+
+        // Get all messages for the session
+        List<Message> messages = messageRepository.findByChatSessionOrderBySentAtAsc(chatSession);
+        logger.info("Retrieved {} messages for session {}", messages.size(), sessionId);
+
+        // Send email transcripts to all participants
+        for (User participant : chatSession.getParticipants()) {
+            logger.info("Sending transcript email to participant: {} ({}) for session {}",
+                       participant.getUsername(), participant.getEmail(), sessionId);
+            try {
+                emailService.sendChatTranscript(chatSession, messages, participant);
+            } catch (Exception e) {
+                // Log error but continue with other participants
+                logger.error("Failed to send transcript to user: {} ({}) for session {}. Error: {}",
+                           participant.getUsername(), participant.getEmail(), sessionId, e.getMessage(), e);
+            }
+        }
 
         // Notify participants about session end
         broadcastToSession(sessionId, "/topic/session/closed", "Session has been closed");
+        logger.info("Chat session {} deactivation completed", sessionId);
     }
 
     // ===========================================================
