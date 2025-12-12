@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Applysuccessfully from './Applysuccessfully';
 
@@ -8,11 +8,11 @@ const JobOpeningForm = () => {
     const [experience, setExperience] = useState('');
     const [location, setLocation] = useState('');
     const [skills, setSkills] = useState('');
-    const [resume, setResume] = useState(null);
+    const [resume, setResume] = useState<File | null>(null);
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
 
@@ -21,7 +21,7 @@ const JobOpeningForm = () => {
         formData.append('experience', experience);
         formData.append('location', location);
         formData.append('skills', skills);
-        formData.append('resume', resume);
+        if (resume) formData.append('resume', resume);
 
         try {
             const response = await axios.post('http://localhost:8080/api/jobapplications', formData, {
@@ -38,7 +38,7 @@ const JobOpeningForm = () => {
                 setSkills("");
                 setResume(null);
 
-                e.target.reset;
+                (e.target as HTMLFormElement).reset();
         } catch (error) {
             console.error('Error:', error);
             alert('Failed to submit job application.');
@@ -138,7 +138,7 @@ const JobOpeningForm = () => {
                             id="resume"
                             name="resume"
                             className="form-control"
-                            onChange={(e) => setResume(e.target.files[0])}
+                            onChange={(e) => setResume(e.target.files?.[0] || null)}
                         />
                     </div>
 

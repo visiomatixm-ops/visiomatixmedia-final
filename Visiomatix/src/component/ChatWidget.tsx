@@ -460,14 +460,6 @@ const ChatWidget: React.FC = () => {
       }
     }
 
-    // Prepare message payload for WebSocket transmission
-    const payload = {
-      sender: username,
-      receiver: AGENT,
-      content: input.trim(),
-      messageType: "TEXT",
-      sessionId,
-    };
 
     // Generate unique temporary ID to prevent duplicate display
     // Format: temp-timestamp-random to ensure uniqueness

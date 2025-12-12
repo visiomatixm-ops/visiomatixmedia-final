@@ -58,12 +58,6 @@ const faqs = [
 ];
 
 const ContactFormSection: React.FC<Props> = ({
-  ourOfficeIcon,
-  phoneIcon,
-  emailIcon,
-  clockIcon,
-  phoneNumber,
-  emailAddress,
   formData,
   handleChange,
   handleSubmit,

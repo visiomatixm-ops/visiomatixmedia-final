@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import ApplyForm from "../component/ApplyForm";
-import JobOpeningForm from "./JobOpeningForm";
+import ApplyForm from "./ApplyForm";
 
 const ApplyNow: React.FC = () => {
   const [show, setShow] = useState(false);

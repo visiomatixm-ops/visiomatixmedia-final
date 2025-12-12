@@ -20,42 +20,6 @@ import React from "react";
         const About: React.FC = () => {
           const bgImage = "/about/welcome-visiomatix.png";
 
-          // Reusable hover effect for Vision/Mission cards
-
-        const handleHover = (
-          e: React.MouseEvent<HTMLDivElement>,
-          isOver: boolean
-        ) => {
-          const el = e.currentTarget;
-
-          if (isOver) {
-            el.style.transform = "translateY(-6px)";
-            el.style.boxShadow = "0 6px 18px rgba(0,0,0,0.2)";
-          } else {
-            el.style.transform = "translateY(0)";
-            el.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
-          }
-        };
-         const cardStyle: React.CSSProperties = {
-          backgroundColor: "#0b1e34",
-          color: "#ffffff",
-          borderRadius: "16px",
-          transition: "transform 0.3s ease, box-shadow 0.3s ease",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-          textAlign: "left",
-          padding: "2rem",
-          width: "100%",
-          height: "100%"
-        };
-
-
-          const listStyle: React.CSSProperties = {
-            listStyleType: "disc",
-            textAlign: "left",
-            paddingLeft: "1.5rem",
-            margin: "0",
-            lineHeight: "1.8",
-          };
 
   return (
     <>

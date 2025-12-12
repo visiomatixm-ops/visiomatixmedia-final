@@ -23,15 +23,15 @@ const VisuallyHiddenInput = (props: React.ComponentProps<'input'>) => (
 );
 
 const ApplyForm = () => {
-    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [experiences, setExperiences] = useState([{ company: "", role: "", years: "" }]);
     const [qualifications, setQualifications] = useState([
         { college: "", degree: "", year: "", percentage: "" },
     ]);
 
     // 📁 Handle File Upload
-    const handleFileChange = (event) => {
-        const files = Array.from(event.target.files);
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(event.target.files || []);
         setSelectedFiles(files);
     };
 
@@ -41,12 +41,12 @@ const ApplyForm = () => {
     };
 
     // ❌ Remove Experience
-    const removeExperience = (index) => {
+    const removeExperience = (index: number) => {
         setExperiences(experiences.filter((_, i) => i !== index));
     };
 
     // ✏️ Handle Experience Change
-    const handleExperienceChange = (index, field, value) => {
+    const handleExperienceChange = (index: number, field: string, value: string) => {
         const updated = experiences.map((exp, i) =>
             i === index ? { ...exp, [field]: value } : exp
         );
@@ -62,12 +62,12 @@ const ApplyForm = () => {
     };
 
     // ❌ Remove Qualification
-    const removeQualification = (index) => {
+    const removeQualification = (index: number) => {
         setQualifications(qualifications.filter((_, i) => i !== index));
     };
 
     // ✏️ Handle Qualification Change
-    const handleQualificationChange = (index, field, value) => {
+    const handleQualificationChange = (index: number, field: string, value: string) => {
         const updated = qualifications.map((q, i) =>
             i === index ? { ...q, [field]: value } : q
         );

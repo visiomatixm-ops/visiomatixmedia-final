@@ -14,7 +14,6 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import ServicesLayout from "../component/ServicesLayout";
-import Banner from "../component/Banner";
 import CarouselComponent from "../component/CarouselComponent";
 import FeaturedServices from "../component/FeaturedServices";
 import ContactFormSection from "../component/ContactFormSection"; // <-- CORRECTED PATH
@@ -31,12 +30,6 @@ import phoneIcon from "../assets/icons/phone.svg";
 import ourOfficeIcon from "../assets/icons/map.svg";
 
 import { useState } from "react";
-//FAQ
-import FAQ from "../component/FAQ";
-
-// Banner Images
-import Banner1 from "/about/Social-Media-Infographics-in-Detail-1.jpg";
-//import Banner2 from "/about/Digital-Marketing-Services-banner.jpg";
 
 const Home: React.FC = () => {
   const structuredData = {
@@ -62,26 +55,6 @@ const Home: React.FC = () => {
   subject: "",
   message: "",
 });
-interface ContactSectionProps {
-  ourOfficeIcon: string;
-  phoneIcon: string;
-  emailIcon: string;
-  clockIcon: string;
-  phoneNumber: string;
-  emailAddress: string;
-  countryCodes: { country: string; code: string }[];   // <-- ADD THIS
-  formData: any;
-  handleChange: (e: any) => void;
-  handleSubmit: (e: any) => void;
-  handleCaptchaChange: (value: any) => void;
-}
-
-
-const countryCodes = [
-  { country: "India", code: "+91" },
-  { country: "USA", code: "+1" },
-  { country: "UK", code: "+44" },
-];
 
 const phoneNumber = "+91 70206 70894";
 const emailAddress = "visiomatixmedia@gmail.com";

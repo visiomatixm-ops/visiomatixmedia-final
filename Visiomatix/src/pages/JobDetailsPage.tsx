@@ -5,7 +5,7 @@
 //   modal-based application forms.
 // ===========================================================
 
-import React, {
+import {
   useState,
   type ChangeEvent,
   type FormEvent,

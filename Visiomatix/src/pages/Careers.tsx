@@ -27,44 +27,6 @@ const Careers: React.FC = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [selectedJob, setSelectedJob] = useState<JobOpening | null>(null);
 
-const [firstName, setFirstName] = useState("");
-const [lastName, setLastName] = useState("");
-const [email, setEmail] = useState("");
-const [contact, setContact] = useState("");
-const [dob, setDob] = useState("");
-const [role, setRole] = useState("");
-const [qualification, setQualification] = useState<any>({});
-const [experience, setExperience] = useState<any>({});
-const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-const handleSubmit = async () => {
-  if (!selectedFile) {
-    alert("Please upload your resume.");
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("firstName", firstName);
-  formData.append("lastName", lastName);
-  formData.append("email", email);
-  formData.append("contact", contact);
-  formData.append("dob", dob);
-  formData.append("role", role);
-  formData.append("qualificationJson", JSON.stringify(qualification));
-  formData.append("experienceJson", JSON.stringify(experience));
-  formData.append("resume", selectedFile);
-
-  const res = await fetch("http://localhost:8080/api/careers", {
-    method: "POST",
-    body: formData,
-  });
-
-  if (res.ok) {
-    alert("Application submitted successfully!");
-  } else {
-    alert("Error submitting application.");
-  }
-};
 
   // --------------------------------------
   // Job listing data

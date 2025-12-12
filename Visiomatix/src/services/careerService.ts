@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const API_URL = '/api/careers/apply'; // Vite proxy handles this
-
 // careerService.ts
 export async function submitCareerForm(formData: FormData) {
   const resp = await fetch('http://localhost:8080/api/careers', {
