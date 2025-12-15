@@ -195,8 +195,8 @@ const Ecommerce: React.FC = () => {
                         src={service.icon}
                         alt={service.title}
                         style={{
-                          width: "48px",
-                          height: "48px",
+                          width: "65px",
+                          height: "65px",
                           objectFit: "contain",
                         }}
                         className="mb-3"
