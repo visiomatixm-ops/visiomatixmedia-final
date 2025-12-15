@@ -51,11 +51,10 @@ const Menu: React.FC = () => {
         </button>
 
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav"
-        style={{background:'white', width:'100%',
-    justifyContent: 'end'}}
+        style={{background:'white', width:'100%'}}
         >
           <ul className="navbar-nav align-items-center"
-          style={{background:'white', width:'100%', justifyContent: 'end'}}
+          style={{background:'white', width:'100%'}}
           >
             {navItems.map((item, idx) => {
               const isServiceActive =

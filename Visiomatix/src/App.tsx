@@ -51,7 +51,6 @@ import ChatWidget from './component/ChatWidget';
 /* Slide System */
 import Slide from './component/views/Slide';
 import { pages } from './pages';
-import WhatsappFloatingButton from './component/WhatsappFloatingButton';
 
 // Lazy-loaded pages
 const Home = lazy(() => import('./pages/Home'));
@@ -160,8 +159,6 @@ const App: React.FC = () => {
 
       {/* Chat + Footer only for website */}
       {location.pathname !== '/slides' && <ChatWidget />}
-      <WhatsappFloatingButton />
-
       {location.pathname !== '/slides' && <Footer />}
     </>
   );

@@ -57,16 +57,17 @@ const faqs = [
     { question: "How do you ensure quality and consistency across deliverables?", answer: "All deliverables go through a defined quality-control process, including internal reviews and brand guideline checks" },
     { question: "How is project progress communicated to clients?", answer: "Clients receive structured reports, milestone updates, and performance insights through regular communication" },
     { question: "How is project progress communicated to clients?", answer: "Businesses can get started by submitting a service request through our website or scheduling aconsultation with our team." },
- 
+
 ];
 
+
 const ContactFormSection: React.FC<Props> = ({
-  // ourOfficeIcon,
-  // phoneIcon,
-  // emailIcon,
-  // clockIcon,
-  // phoneNumber,
-  // emailAddress,
+  ourOfficeIcon,
+  phoneIcon,
+  emailIcon,
+  clockIcon,
+  phoneNumber,
+  emailAddress,
   formData,
   handleChange,
   handleSubmit,
@@ -76,6 +77,7 @@ const ContactFormSection: React.FC<Props> = ({
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
+    console.log('Toggling FAQ', index, 'current openIndex', openIndex);
     setOpenIndex(openIndex === index ? null : index);
   };
 
@@ -83,10 +85,10 @@ const ContactFormSection: React.FC<Props> = ({
     <Container className="my-5">
       <Row className="g-4">
         {/* LEFT – FAQ SECTION */}
-        <Col md={5}>
+        <Col md={6}>
           <Card
             className="shadow-lg border-0 rounded-4 p-4 h-100"
-            style={{ background: "#0e355cff", color: "#ffffffff" }}
+            style={{ background: "#ffffffff", color: "#0e355cff" }}
           >
             <div className="faq-container">
               <div className="faq-left mb-4">
@@ -106,25 +108,27 @@ const ContactFormSection: React.FC<Props> = ({
                     onClick={() => toggleFAQ(index)}
                     style={{
                       cursor: "pointer",
-                      background: "#0e355cff",
+                      background: "rgb(11, 31, 58)",
+                      color: "#ffffff",
                       borderRadius: "12px",
                       padding: "15px",
                       marginBottom: "10px",
                     }}
                   >
                     <div className="faq-question d-flex justify-content-between align-items-center">
-                      <span>{item.question}</span>
+                      <span style={{ color: 'white' }}>{item.question}</span>
                       <span
                         className={`icon ${openIndex === index ? "rotate" : ""}`}
-                        style={{ fontSize: "22px" }}
+                        style={{ fontSize: "22px", color: 'white' }}
                       >
                         +
                       </span>
                     </div>
 
                     {openIndex === index && (
-                      <div className="faq-answer mt-2">
-                        <p>{item.answer}</p>
+                      <div className="faq-answer mt-2" style={{ background: "rgb(20, 50, 80)", color: 'white', padding: '10px' }} onClick={(e) => e.stopPropagation()}>
+                        <p style={{ color: 'white', lineHeight: '1.5' }}>
+                            {item.answer}</p>
                       </div>
                     )}
                   </div>
@@ -135,7 +139,7 @@ const ContactFormSection: React.FC<Props> = ({
         </Col>
 
         {/* RIGHT – SEND A MESSAGE */}
-        <Col md={7}>
+        <Col md={6}>
           <Card className="shadow-lg border-0 rounded-4 p-4 h-100">
             <h2 className="text-center mb-4 fw-bold text-uppercase">
               Send a Message
@@ -251,6 +255,68 @@ const ContactFormSection: React.FC<Props> = ({
               </div>
             </Form>
           </Card>
+        </Col>
+      </Row>
+
+      {/* ---------- LEFT COLUMN ---------- */}
+      <Row className="g-4 mt-4">
+        <Col
+          md={12}
+          className="text-light rounded-4 p-4 d-flex flex-column justify-content-center shadow-lg"
+          style={{ backgroundColor: "#0B1F3A", width: '80%', margin: '0 auto' }}
+        >
+          <div className="mt-3">
+            <h3 className="fw-bold mb-4 text-center text-uppercase">Get in Touch</h3>
+
+            {/* Address */}
+            <div className="d-flex align-items-start mb-4 text-start">
+              <img src={ourOfficeIcon} width="36"
+              className="me-3 contact-icon"
+              alt="Our Office Icon" />
+
+              <div className="d-flex flex-column align-items-start justify-content-start">
+                <h6 className="fw-bold mb-1">Our Office</h6>
+                <p className="mb-0">
+                  Office No. 03, Om Sai Apartment, Near Petrol Pump, <br />
+                  Ganur Road, Chandwad, Nashik – 423101, Maharashtra – India.
+                </p>
+              </div>
+            </div>
+
+            {/* Phone */}
+            <div className="d-flex align-items-start mb-4 text-start">
+              <img src={phoneIcon} width="36" className="me-3 contact-icon" alt="Phone Icon" />
+
+              <div className="d-flex flex-column align-items-start justify-content-start">
+                <h6 className="fw-bold mb-1">Phone</h6>
+                <a href={`tel:${phoneNumber}`} className="text-light text-decoration-none">
+                  {phoneNumber}
+                </a>
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="d-flex align-items-start mb-4 text-start">
+              <img src={emailIcon} width="36" className="me-3 contact-icon" alt="Email Icon" />
+
+              <div className="d-flex flex-column align-items-start justify-content-start">
+                <h6 className="fw-bold mb-1">Email</h6>
+                <a href={`mailto:${emailAddress}`} className="text-light text-decoration-none">
+                  {emailAddress}
+                </a>
+              </div>
+            </div>
+
+            {/* Working Hours */}
+            <div className="d-flex align-items-start mb-4 text-start">
+              <img src={clockIcon} width="36" className="me-3 contact-icon" alt="Clock Icon" />
+
+              <div className="d-flex flex-column align-items-start justify-content-start">
+                <h6 className="fw-bold mb-1">Working Hours</h6>
+                <p className="mb-0">Mon - Sat: 10:00 AM – 7:00 PM</p>
+              </div>
+            </div>
+          </div>
         </Col>
       </Row>
     </Container>
