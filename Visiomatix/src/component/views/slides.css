@@ -845,6 +845,7 @@
   height: 70vh;
   display: flex;
   position: relative;
+  margin-top: 4em;
   padding: clamp(50px, 5vw, 100px) clamp(20px, 8vw, 160px);
   overflow: hidden;
   align-items: center;
@@ -863,8 +864,8 @@
 .page7-img {
   width: 38vw;
   height: auto;
-  max-width: 420px;
-  max-height: 420px;
+  max-width: 620px;
+  max-height: 620px;
   min-width: 300px;
   min-height: 220px;
   object-fit: contain;
