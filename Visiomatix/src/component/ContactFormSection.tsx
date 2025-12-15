@@ -77,7 +77,6 @@ const ContactFormSection: React.FC<Props> = ({
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
-    console.log('Toggling FAQ', index, 'current openIndex', openIndex);
     setOpenIndex(openIndex === index ? null : index);
   };
 
@@ -88,7 +87,7 @@ const ContactFormSection: React.FC<Props> = ({
         <Col md={6}>
           <Card
             className="shadow-lg border-0 rounded-4 p-4 h-100"
-            style={{ background: "#ffffffff", color: "#0e355cff" }}
+            style={{ background: "rgb(14, 53, 92)", color: "white" }}
           >
             <div className="faq-container">
               <div className="faq-left mb-4">
@@ -116,7 +115,7 @@ const ContactFormSection: React.FC<Props> = ({
                     }}
                   >
                     <div className="faq-question d-flex justify-content-between align-items-center">
-                      <span style={{ color: 'white' }}>{item.question}</span>
+                      <span style={{ color: 'white',paddingLeft:'8px' }}>{item.question}</span>
                       <span
                         className={`icon ${openIndex === index ? "rotate" : ""}`}
                         style={{ fontSize: "22px", color: 'white' }}
@@ -127,7 +126,7 @@ const ContactFormSection: React.FC<Props> = ({
 
                     {openIndex === index && (
                       <div className="faq-answer mt-2" style={{ background: "rgb(20, 50, 80)", color: 'white', padding: '10px' }} onClick={(e) => e.stopPropagation()}>
-                        <p style={{ color: 'white', lineHeight: '1.5' }}>
+                        <p style={{ color: 'white', lineHeight: '1.5', textAlign: 'left' }}>
                             {item.answer}</p>
                       </div>
                     )}
