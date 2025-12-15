@@ -341,14 +341,14 @@ const Webapp: React.FC = () => {
               <h5 className="card-title" style={{ fontSize: '1.1rem' }}>{card.title}</h5>
               <p className="card-text text-muted" style={{ fontSize: '0.9rem' }}>{card.text}</p>
 
-              <motion.a
+              {/* <motion.a
                 href="#"
                 className="btn btn-primary mt-auto"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Learn More
-              </motion.a>
+              </motion.a> */}
 
             </div>
           </motion.div>
@@ -423,14 +423,14 @@ const Webapp: React.FC = () => {
               <h5 className="card-title" style={{ fontSize: '1.1rem' }}>{card.title}</h5>
               <p className="card-text text-muted" style={{ fontSize: '0.9rem' }}>{card.text}</p>
 
-              <motion.a
+              {/* <motion.a
                 href="#"
                 className="btn btn-primary mt-auto"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Learn More
-              </motion.a>
+              </motion.a> */}
 
             </div>
           </motion.div>
