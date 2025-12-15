@@ -86,7 +86,7 @@ const ContactFormSection: React.FC<Props> = ({
         <Col md={5}>
           <Card
             className="shadow-lg border-0 rounded-4 p-4 h-100"
-            style={{ background: "#e7edf3ff", color: "#060606ff" }}
+            style={{ background: "#0e355cff", color: "#ffffffff" }}
           >
             <div className="faq-container">
               <div className="faq-left mb-4">
@@ -106,7 +106,7 @@ const ContactFormSection: React.FC<Props> = ({
                     onClick={() => toggleFAQ(index)}
                     style={{
                       cursor: "pointer",
-                      background: "#dfe1e3ff",
+                      background: "#0e355cff",
                       borderRadius: "12px",
                       padding: "15px",
                       marginBottom: "10px",
