@@ -50,8 +50,13 @@ const Menu: React.FC = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <ul className="navbar-nav align-items-center">
+        <div className="collapse navbar-collapse justify-content-end" id="navbarNav"
+        style={{background:'white', width:'100%',
+    justifyContent: 'end'}}
+        >
+          <ul className="navbar-nav align-items-center"
+          style={{background:'white', width:'100%', justifyContent: 'end'}}
+          >
             {navItems.map((item, idx) => {
               const isServiceActive =
                 item.basePath && location.pathname.startsWith(item.basePath);
