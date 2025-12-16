@@ -1,6 +1,0 @@
-=== Default User Chat Session Started ===
-[INFO] Logging in as defaultuser ...
-[SUCCESS] Logged in successfully! Token acquired.
-[INFO] Creating chat session with agent: agent ...
-[ERROR] Failed to create chat session!
-{"path":"/api/chat/start","error":"Internal Server Error","message":"No static resource api/chat/start.","timestamp":"2025-10-15T14:17:07.853139136","status":500}

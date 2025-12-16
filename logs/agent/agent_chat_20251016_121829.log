@@ -1,6 +1,0 @@
-2025-10-16 12:18:29 [1;34m[INFO][0m === Starting Agent Chat CLI ===
-2025-10-16 12:18:29 [1;34m[INFO][0m Logging in as agent...
-2025-10-16 12:18:29 [1;32m[SUCCESS][0m Login successful. Token acquired.
-2025-10-16 12:18:29 [1;34m[INFO][0m Waiting for chat session from defaultuser...
-2025-10-16 13:18:32 [1;32m[SUCCESS][0m Chat session detected!
-2025-10-16 13:18:32 [1;34m[INFO][0m Entering chat loop. Type your reply and press Enter.

@@ -53,7 +53,7 @@ const Menu: React.FC = () => {
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav"
         style={{background:'white', width:'100%'}}
         >
-          <ul className="navbar-nav align-items-center"
+          <ul className="navbar-nav d-flex  align-items-center justify-content-end"
           style={{background:'white', width:'100%'}}
           >
             {navItems.map((item, idx) => {
