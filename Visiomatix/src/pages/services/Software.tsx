@@ -320,6 +320,7 @@ const Software: React.FC = () => {
                       service.reverse ? "flex-row-reverse" : ""
                     }`}
                     variants={cardVariant}
+                    style={{display:"flex", gap:"25px"}}
                   >
                     <motion.div
                       className="col-md-6 test-start"
@@ -332,7 +333,7 @@ const Software: React.FC = () => {
                       <img
                         src={service.img}
                         alt={service.title}
-                        className="img-fluid rounded-3 shadow-sm"
+                        className="img-fluid rounded-3 shadow-xl"
                         style={{ maxWidth: '500px', height: '500px' }}
                       />
                     </motion.div>

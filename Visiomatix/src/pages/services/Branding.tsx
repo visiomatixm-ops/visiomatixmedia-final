@@ -297,7 +297,7 @@ const Branding: React.FC = () => {
             <h5 className="fw-bold text-sm sm:text-base md:text-lg">
               {item.title}
             </h5>
-            <p className="text-muted text-sm sm:text-base">
+            <p className="text-sm sm:text-base">    {/* text-muted */}
               {item.text}
             </p>
           </div>

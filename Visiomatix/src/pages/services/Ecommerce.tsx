@@ -187,7 +187,7 @@ const Ecommerce: React.FC = () => {
                   className="col-md-6 col-lg-6"
                   variants={cardVariant}
                 >
-                  <div className="card border-0 shadow-sm h-100">
+                  <div className="card border-0 shadow-sm text-center h-100">
                     <div className="card-body text-center">
 
                       {/* ---------------- UPDATED ICON CODE ---------------- */}
@@ -223,7 +223,7 @@ const Ecommerce: React.FC = () => {
 
                       <h5 className="card-title fw-bold">{service.title}</h5>
 
-                      <p className="card-text text-muted mt-2">
+                      <p className="card-text mt-2">      {/* text-muted */}
                         {service.text}
                       </p>
                     </div>
