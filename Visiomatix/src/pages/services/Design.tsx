@@ -336,7 +336,7 @@ const Design: React.FC = () => {
               </div>
 
               <h5 className="card-title">{card.title}</h5>
-              <p className="card-text text-muted">{card.text}</p>
+              <p className="card-text">{card.text}</p>      {/* text-muted */}
             </div>
           </motion.div>
         </motion.div>
@@ -412,7 +412,7 @@ const Design: React.FC = () => {
               </div>
 
               <h5 className="card-title">{card.title}</h5>
-              <p className="card-text text-muted">{card.text}</p>
+              <p className="card-text">{card.text}</p>      {/* text-muted */}
             </div>
           </motion.div>
         </motion.div>

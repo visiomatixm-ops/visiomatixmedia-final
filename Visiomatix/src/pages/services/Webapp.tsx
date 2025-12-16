@@ -339,7 +339,7 @@ const Webapp: React.FC = () => {
               </div>
 
               <h5 className="card-title" style={{ fontSize: '1.1rem' }}>{card.title}</h5>
-              <p className="card-text text-muted" style={{ fontSize: '0.9rem' }}>{card.text}</p>
+              <p className="card-text" style={{ fontSize: '0.9rem' }}>{card.text}</p>     {/* text-muted */}
 
               {/* <motion.a
                 href="#"
@@ -421,7 +421,7 @@ const Webapp: React.FC = () => {
               </div>
 
               <h5 className="card-title" style={{ fontSize: '1.1rem' }}>{card.title}</h5>
-              <p className="card-text text-muted" style={{ fontSize: '0.9rem' }}>{card.text}</p>
+              <p className="card-text" style={{ fontSize: '0.9rem' }}>{card.text}</p>      {/* text-muted */}
 
               {/* <motion.a
                 href="#"

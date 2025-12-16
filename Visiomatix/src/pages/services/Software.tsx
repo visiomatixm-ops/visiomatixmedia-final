@@ -323,6 +323,7 @@ const Software: React.FC = () => {
                   >
                     <motion.div
                       className="col-md-6 test-start"
+                      style={{width:"500px", height:"500px"}}
                       initial={{ opacity: 0, x: 50 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -332,18 +333,19 @@ const Software: React.FC = () => {
                         src={service.img}
                         alt={service.title}
                         className="img-fluid rounded-3 shadow-sm"
-                        style={{ maxWidth: '75%', height: 'auto' }}
+                        style={{ maxWidth: '500px', height: '500px' }}
                       />
                     </motion.div>
                     <motion.div
-                      className="col-md-6"
+                      className="col-md-6 rounded-3 shadow-sm "
+                      style={{width:"500px", height:"500px"}}
                       initial={{ opacity: 0, x: 50 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6, ease: "easeOut" }}
                       viewport={{ once: true, amount: 0.3 }}
                     >
                       <h4 className="fw-bold">
-                        <service.icon className="me-2 text-primary" />
+                        <service.icon className="me-2 text-primary " />
                         {service.title}
                       </h4>
                       <p className="text-dark mt-2">{service.text}</p>
