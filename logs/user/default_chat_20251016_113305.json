@@ -1,0 +1,2 @@
+{"timestamp":"2025-10-16 11:33:05","event":"login","status":"success","details":"token acquired"}
+{"timestamp":"2025-10-16 11:33:06","event":"create_session","status":"failure","details":""}

@@ -1,0 +1,3 @@
+{"timestamp":"2025-10-16 12:23:10","event":"login","status":"success","details":"token acquired"}
+{"timestamp":"2025-10-16 12:23:11","event":"create_session","status":"success","details":"session_id=50"}
+{"timestamp":"2025-10-16 12:23:12","event":"send_message","status":"success","details":"{"id":4,"content":"Hi agent, I need help with my account.","messageType":"TEXT","sentAt":"2025-10-16T12:23:12.452723059","deliveredAt":null,"readAt":null,"edited":false,"editedAt":null,"sender":{"id":25,"username":"defaultuser","email":"default@example.com","name":"Default User","active":true,"roles":[{"id":3,"name":"ROLE_USER","privileges":[{"id":3,"name":"MANAGE_CHAT"}],"permissions":[]}],"createdBy":null,"modifiedBy":null,"lastLoginAt":null},"delivered":false,"read":false}"}

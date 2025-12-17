@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Admin Panel Access Test</h1>
+    
+    <div id="test-results"></div>
+    
+    <script>
+        const API_BASE = 'http://localhost:8080/api';
+        const FRONTEND_URL = 'http://localhost:5174';
+        
+        async function testKaalLogin() {
+            try {
+                const response = await axios.post(`${API_BASE}/users/login`, {
+                    username: 'kaal',
+                    password: 'kaal123'
+                });
+                
+                const token = response.data.token;
+                const privileges = response.data.privileges || [];
+                
+                document.getElementById('test-results').innerHTML += `
+                    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
+                        <h3>✅ Kaal Login Success</h3>
+                        <p><strong>Username:</strong> ${response.data.username}</p>
+                        <p><strong>Role:</strong> ${response.data.role}</p>
+                        <p><strong>Privileges:</strong> ${privileges.join(', ')}</p>
+                        <p><strong>Token:</strong> ${token.substring(0, 50)}...</p>
+                        <p><strong>Expected Admin Tabs:</strong></p>
+                        <ul>
+                            <li>ACCESS_USER_MANAGEMENT: ${privileges.includes('ACCESS_USER_MANAGEMENT') ? '✅' : '❌'}</li>
+                            <li>ACCESS_ROLE_MANAGEMENT: ${privileges.includes('ACCESS_ROLE_MANAGEMENT') ? '✅' : '❌'}</li>
+                            <li>ACCESS_PERMISSION_MANAGEMENT: ${privileges.includes('ACCESS_PERMISSION_MANAGEMENT') ? '✅' : '❌'}</li>
+                            <li>ACCESS_STATISTICS_TAB: ${privileges.includes('ACCESS_STATISTICS_TAB') ? '✅' : '❌'}</li>
+                            <li>ACCESS_CHAT_HISTORY_TAB: ${privileges.includes('ACCESS_CHAT_HISTORY_TAB') ? '✅' : '❌'}</li>
+                        </ul>
+                    </div>
+                `;
+                
+                // Test admin endpoints
+                const endpoints = ['admin/users', 'admin/roles', 'admin/privileges'];
+                for (const endpoint of endpoints) {
+                    try {
+                        const testResponse = await axios.get(`${API_BASE}/${endpoint}`, {
+                            headers: { Authorization: `Bearer ${token}` }
+                        });
+                        document.getElementById('test-results').innerHTML += `
+                            <div style="color: green; margin: 5px 0;">
+                                ✅ ${endpoint} - Access granted (${testResponse.data.length} items)
+                            </div>
+                        `;
+                    } catch (error) {
+                        document.getElementById('test-results').innerHTML += `
+                            <div style="color: red; margin: 5px 0;">
+                                ❌ ${endpoint} - ${error.response?.status}: ${error.response?.data?.message || error.message}
+                            </div>
+                        `;
+                    }
+                }
+                
+                document.getElementById('test-results').innerHTML += `
+                    <div style="border: 2px solid #007bff; padding: 15px; margin: 20px 0;">
+                        <h3>🚀 Test Frontend Access</h3>
+                        <p><a href="${FRONTEND_URL}" target="_blank">Open Frontend</a></p>
+                        <p>Login with: <strong>kaal</strong> / <strong>kaal123</strong></p>
+                        <p>Look for Admin Panel tabs in the interface</p>
+                    </div>
+                `;
+                
+            } catch (error) {
+                document.getElementById('test-results').innerHTML += `
+                    <div style="border: 1px solid red; padding: 10px; margin: 10px;">
+                        <h3>❌ Kaal Login Failed</h3>
+                        <p><strong>Error:</strong> ${error.response?.data?.message || error.message}</p>
+                        <p><strong>Status:</strong> ${error.response?.status || 'Unknown'}</p>
+                        <p>You need to reset Kaal's password in the database first.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Auto-run test
+        testKaalLogin();
+    </script>
+</body>
+</html>

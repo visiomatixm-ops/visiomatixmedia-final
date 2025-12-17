@@ -27,7 +27,7 @@ const DevIcon = "/services/icons/dev.svg";
 const SoftwareIcon = "/services/icons/software.svg";
 const EcommerceIcon = "/services/icons/ecommerce.svg";
 const BrandingIcon = "/services/icons/branding.svg";
-const BulletIcon = "/services/icons/bullet.svg"; // small SVG circle/checkmark
+//const BulletIcon = "/services/icons/bullet.svg"; // small SVG circle/checkmark
 
 // -----------------------------
 // Component: Services
@@ -201,6 +201,7 @@ const Services: React.FC = () => {
       {/* =========================
           HERO SECTION
        ========================= */}
+       
 
       {/* =========================
           SERVICE CATEGORIES
@@ -246,20 +247,50 @@ const Services: React.FC = () => {
                 />
                 {cat.title}
                 </h2>
-                <p className="text-dark mb-3 fs-6">{cat.description}</p>
-                <ul className="list-unstyled text-dark mt-3">
+                <p className="text-dark mb-3 fs-6 text-start">
+                  {cat.description}
+                  </p>
+                <ul className="list-unstyled mt-3 ps-0 text-start">
                   {cat.bullets.map((point, i) => (
                     <li
                       key={i}
-                      className="d-flex align-items-start mb-2 text-dark"
+                      //className="d-flex align-items-start mb-2 "
+                      style={{
+                            display:"flex",
+                            alignItems:"baseline",
+                            gap:"10px",
+                            marginBottom:"10px",
+
+                      }}  
                     >
-                      <img
-                        src={BulletIcon}
-                        alt="bullet"
-                        className="me-2 mt-1"
-                        style={{ width: "16px", height: "16px" }}
-                      />
-                      <span className="fs-6 text-dark">{point}</span>
+                       <span
+                          //className="me-2"
+                          style={{
+                            fontSize: "22px",
+                            lineHeight: "24px",
+                            color: "#102a4a",
+                           // display: "inline-flex",
+                           // alignItems: "center",
+                            //justifyContent: "center",
+                            marginTop: "14px",
+                            textAlign:"center",
+                            //flexShrink: 0,
+                          }}
+                        >
+                          •
+                        </span>
+                      
+                        {/*Bullet text */}
+                        <span
+                            style={{
+                              fontSize: "16px",
+                              lineHeight: "24px",
+                              color: "#212529",
+                            }}
+                          >
+                            {point}
+                          </span>
+                                        
                     </li>
                   ))}
                 </ul>

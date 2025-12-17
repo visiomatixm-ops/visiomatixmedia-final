@@ -1,0 +1,32 @@
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo-container{
+  margin-bottom: 4em;
+}
+
+.parent-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 12vh;
+}
+
+.nav-link.active {
+    color: white !important;
+}
+
+/* Responsive Typography Utilities */
+.text-responsive-xs { font-size: clamp(0.75rem, 2vw, 0.875rem); }
+.text-responsive-sm { font-size: clamp(0.875rem, 2.5vw, 1rem); }
+.text-responsive-base { font-size: clamp(1rem, 3vw, 1.125rem); }
+.text-responsive-lg { font-size: clamp(1.125rem, 3.5vw, 1.25rem); }
+.text-responsive-xl { font-size: clamp(1.25rem, 4vw, 1.5rem); }
+.text-responsive-2xl { font-size: clamp(1.5rem, 5vw, 2rem); }
+.text-responsive-3xl { font-size: clamp(2rem, 6vw, 3rem); }
+.text-responsive-4xl { font-size: clamp(3rem, 8vw, 4rem); }
+.text-responsive-5xl { font-size: clamp(4rem, 10vw, 5rem); }
