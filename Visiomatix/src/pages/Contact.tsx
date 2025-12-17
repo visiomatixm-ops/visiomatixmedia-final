@@ -243,7 +243,7 @@ const Contact: React.FC = () => {
 
           <h2
             className="text-center mb-4 fw-bold text-uppercase"
-            style={{ color: "#0a0808ff" }}
+            style={{ color: "#1D3458" }}
           >
             Send a Message
           </h2>
@@ -282,40 +282,42 @@ const Contact: React.FC = () => {
             </Row>
 
             {/* Row 2: Country Code + Phone */}
-            <Row className="mb-3 text-start">
-              <Col md={4}>
-                <Form.Group controlId="countryCode">
-                  <Form.Label>Country Code</Form.Label>
-                  <Form.Select
-                    name="countryCode"
-                    value={formData.countryCode}
-                    onChange={handleChange}
-                    className="country-code-dropdown"
-                    required
-                  >
-                    {countryCodes.map((item, index) => (
-                      <option key={index} value={item.code}>
-                        {item.country} ({item.code})
-                      </option>
-                    ))}
-                  </Form.Select>
-                </Form.Group>
-              </Col>
-
-              <Col md={8}>
-                <Form.Group controlId="contactNumber">
+                  {/* Single title like Full Name */}
+                <Form.Group className="mb-3 text-start" controlId="contactNumberGroup">
                   <Form.Label>Contact Number</Form.Label>
-                  <Form.Control
-                    type="tel"
-                    name="contactNumber"
-                    value={formData.contactNumber}
-                    onChange={handleChange}
-                    required
-                    placeholder="e.g., 98765 43210"
-                  />
+
+                  <Row className="g-2 align-items-center">
+                    {/* Country Code – fixed small width */}
+                    <Col md="auto">
+                      <Form.Select
+                        name="countryCode"
+                        value={formData.countryCode}
+                        onChange={handleChange}
+                        className="country-code-small"
+                        required
+                      >
+                        {countryCodes.map((item, index) => (
+                          <option key={index} value={item.code}>
+                            {item.code}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Col>
+
+                    {/* Contact Number – takes remaining space */}
+                    <Col>
+                      <Form.Control
+                        type="tel"
+                        name="contactNumber"
+                        value={formData.contactNumber}
+                        onChange={handleChange}
+                        placeholder="e.g., 98765 43210"
+                        required
+                      />
+                    </Col>
+                  </Row>
                 </Form.Group>
-              </Col>
-            </Row>
+
 
             {/* Service Dropdown */}
             <Form.Group className="mb-3 text-start" controlId="service">
@@ -371,9 +373,13 @@ const Contact: React.FC = () => {
 
             {/* Submit */}
             <div className="text-center">
-              <Button type="submit" variant="primary" className="px-5 py-2 fw-bold">
-                Send Message
-              </Button>
+              <Button
+                    type="submit"
+                    className="btn send-message-btn px-5 py-2 fw-bold"
+                  >
+                    Send Message
+                  </Button>
+
             </div>
           </Form>
 
@@ -384,24 +390,59 @@ const Contact: React.FC = () => {
 </Container>
 
 {/* ====================== GOOGLE MAP ====================== */}
-<Container className="mb-5">
+        <Container className="mb-5">
 
-        <section className="global-section">
-          <div className="global-text">
-            <h6 className="global-subtitle">
-              REPRESENTING THE VISIOMATIX MEDIA AT
-            </h6>
-            <h2 className="global-title">Global Stage!</h2>
-          </div>
+           <Container className="mb-5">
+          <section className="global-section">
+            <div className="global-text text-center mb-4">
+              <h6 className="global-subtitle">
+                VISIOMATIX MEDIA OFFICE LOCATION
+              </h6>
+              <h2 className="global-title">Visit Our Office</h2>
+            </div>
 
-          <div className="global-map">
-            <img
-              src="/map/map.jpg"     // ⭐ Correct path for public folder
-              alt="World Map"
-              style={{ width: "100%", height: "auto" }}
-            />
-          </div>
-        </section>
+            {/* MAP FRAME */}
+            <div className="global-map-wrapper">
+              <iframe
+                title="Visiomatix Office Location"
+                src="https://www.google.com/maps?q=20.3212688,74.238969&z=17&output=embed"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+
+            <div className="text-center mt-4">
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=20.3212688,74.238969"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                  style={{
+                      backgroundColor: '#1D3458',
+                      borderColor: '#1D3458',
+                      color: '#ffffff'
+                    }}
+                    onMouseEnter={e => {
+                      const target = e.target as HTMLAnchorElement;
+                      target.style.backgroundColor = '#162a46';
+                      target.style.borderColor = '#162a46';
+                    }}
+                    onMouseLeave={e => {
+                      const target = e.target as HTMLAnchorElement;
+                      target.style.backgroundColor = '#1D3458';
+                      target.style.borderColor = '#1D3458';
+                    }}
+                                >
+                  📍 Get Directions
+                </a>
+              </div>
+          </section>
+        </Container>
+        
+
+
+
 
         <FAQ />
       </Container>

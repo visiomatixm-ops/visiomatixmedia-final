@@ -11,8 +11,8 @@ const Menu: React.FC = () => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
   const navItems = [
-    { path: "/", label: "Home" },
-    { path: "/about", label: "About Us" },
+    //{ path: "/", label: "Home" },
+    { path: "/about", label: "About" },
     {
       label: "Services",
       basePath: "/services",
@@ -33,12 +33,14 @@ const Menu: React.FC = () => {
   return (
     <nav className="navbar navbar-expand-lg main-navbar shadow-sm fixed-top">
       <div className="container-fluid px-3">
+
         <NavLink
           to="/"
           className="navbar-brand d-flex align-items-center gap-2 gap-md-3"
         >
           <img src={Logo} className="brand-logo" alt="Visiomatix Logo" />
-          <h4 className="brand-title">Visiomatix Media Pvt. Ltd</h4>
+          <h4 className="brand-title">
+            Visiomatix Media Pvt. Ltd</h4>
         </NavLink>
 
         <button
@@ -51,10 +53,10 @@ const Menu: React.FC = () => {
         </button>
 
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav"
-        style={{background:'white', width:'100%'}}
+        style={{background:'white'}}
         >
           <ul className="navbar-nav align-items-center"
-          style={{background:'white', width:'100%'}}
+          style={{background:'white'}}
           >
             {navItems.map((item, idx) => {
               const isServiceActive =

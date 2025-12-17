@@ -58,7 +58,7 @@ const ServiceCardWrapper: React.FC<ServiceCardWrapperProps> = ({ service, cardVa
 };
 
 // Example service images
-import DigitalMarketing from "/public/services/1_DIGITAL MARKETING SERVICES.png";
+import DigitalMarketing from "/public/services/01-digital-marketing.png";
 import AnimationImage from "/public/services/2d_3d animation-1.png";
 import BrandingImage from "/public/services/6_BRAND&STRATEGY.png";
 import PhotographyImage from "/public/services/photography-1.png";

@@ -96,4 +96,78 @@
   /* Remove any potential box-shadow that might be creating a "glow" effect */
   box-shadow: none !important;
 }
+/* ================================
+   Compact Contact Form Styling
+   ================================ */
+
+.contact-form .form-control,
+.contact-form .form-select {
+  height: 40px;          /* reduced height */
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+/* Textarea smaller */
+.contact-form textarea.form-control {
+  min-height: 120px;
+  font-size: 14px;
+  padding: 10px 12px;
+}
+
+/* Labels smaller & clean */
+.contact-form .form-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+/* Country code compact */
+.country-code-small {
+  width: 80px;
+  height: 40px;
+  font-size: 14px;
+  padding: 4px 6px;
+}
+
+/* Disabled-looking inputs (Email / Subject style) */
+.contact-form .form-control:disabled {
+  background-color: #e9edf3;
+  opacity: 1;
+}
+/* Override Bootstrap button completely */
+button.send-message-btn {
+  background-color: #1D3458 !important;
+  border: 1px solid #1D3458 !important;
+  color: #ffffff !important;
+  margin-top: 10px;
+}
+
+/* Hover / Focus / Active */
+button.send-message-btn:hover,
+button.send-message-btn:focus,
+button.send-message-btn:active,
+button.send-message-btn:active:focus {
+  background-color: #162a46 !important;
+  border-color: #162a46 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/*-----map color od get direction-----*/
+/* Custom button styles */
+.get-directions-btn {
+  background-color: #1D3458 !important; /* dark navy background */
+  border-color: #1D3458 !important;     /* match border */
+  color: #ffffff !important;            /* white text */
+}
+
+.get-directions-btn:hover,
+.get-directions-btn:focus,
+.get-directions-btn:active {
+  background-color: #162a46 !important; /* slightly darker on hover */
+  border-color: #162a46 !important;
+  color: #ffffff !important;
+}
+
 

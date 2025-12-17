@@ -19,12 +19,13 @@ import { motion } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Diagram3, People, PersonWorkspace, Robot, LightningCharge } from "react-bootstrap-icons";
 
-import AIVoiceAssistant from "/services/businesssolutions/AI Voice Sales Assistant Integration-1.jpg";
-import BusinessAutomation from "/services/businesssolutions/Business Automation Tools-1.jpg";
-import CRMDevelopment from "/services/businesssolutions/CRM Development-1.jpg";
-import ERPDevelopment from "/services/businesssolutions/ERP Development 1.jpg";
-import HRMSDevelopment from "/services/businesssolutions/human resource management-1.jpg";
+//import BusinessAutomation from "/services/icons/4-5 Business Automation Tools.svg";
+import AIVoiceAssistant from "/services/icons/AI Voice Sales Assistant Integration.svg";
+import CRMDevelopment from "/services/icons/CRM Development.svg";
+import ERPDevelopment from "/services/icons/ERP Development.svg";
+import HRMSDevelopment from "/services/icons/HRMS Development.svg";
 import Banner from "/services/Banner/Business Software Expertise-2.jpg";
+
 
 // ----------------------------------------------------
 // Motion Variants
@@ -230,32 +231,11 @@ const Software: React.FC = () => {
                    </div>
                    </section>
                   
-                   {/* Expanded Content Section */}
-            <motion.section
-              className="py-5 bg-light"
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-                ></motion.section>
-                   <div className="col-md-6 text-center mt-4 mt-md-0">
-                     {/* <motion.img
-                       src="https://www.yourdomain.com/images/software-solutions-hero.svg"
-                       alt="Business Software Solutions Illustration"
-                       className="img-fluid rounded-3 shadow-sm"
-                       initial={{ opacity: 0, x: 30 }}
-                       animate={{ opacity: 1, x: 0 }}
-                       transition={{ duration: 0.8, delay: 0.6 }}
-                     /> */}
-                   </div>
-                
-              
-        
-            {/* Content Section */}
+                   {/* Content Section */}
             <section className="py-5 bg-light">
               <div className="container">
                 <p className="lead text-dark text-center mx-auto" style={{ maxWidth: "850px" }}>
-                  At,we Visiomatix,we design and develop intelligent business software that integrates data, workflows, and decision-making into one seamless platform.
+                  At Visiomatix, we design and develop intelligent business software that integrates data, workflows, and decision-making into one seamless platform.
                   From ERP systems that unify operations to CRM platforms that enhance customer relationships,
                   we create technology that transforms productivity.
                   Our HRMS tools streamline workforce management, while our AI Voice Sales Assistants and Automation Tools empower teams with real-time insights and task automation.
@@ -265,93 +245,72 @@ const Software: React.FC = () => {
             </section>
 
             {/* Alternating Service Section */}
-            <section id="solutions" className="py-5">
-              <motion.div
-                className="container"
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                <h2 className="text-center fw-semibold mb-5">
-                  Our Business Software Expertise
-                </h2>
+            <section id="solutions" className="py-5 bg-light">
+  <div className="container">
+    <h2 className="text-center fw-semibold mb-5">
+      Our Business Software Expertise
+    </h2>
 
-                {[
-                  {
-                    title: "ERP Development",
-                    text: "We build robust Enterprise Resource Planning (ERP) systems that centralize your business processes — from inventory and finance to HR and supply chain — into one unified platform.With a focus on scalability and customization, our ERP systems adapt to your business needs, whether you’re a startup or an enterprise. We integrate advanced features like automated reporting, analytics dashboards, and workflow management to help your teams work smarter and more efficiently Our expert developers ensure seamless integration with your existing software ecosystem, providing a smooth transition with minimal disruption.",
-                    icon: Diagram3,
-                    img: ERPDevelopment,
-                    reverse: false,
-                  },
-                  {
-                    title: "CRM Development",
-                    text: "Our Customer Relationship Management (CRM) solutions help manage customer data, automate sales processes, and optimize marketing funnels to enhance retention and drive long-term growth. We design intelligent systems that enable your team to track leads, nurture relationships, and gain actionable insights into customer behavior With seamless integration across email, social media, and communication platforms, our CRM solutions ensure a unified view of every customer interaction. From automated follow-ups and lead scoring to real-time analytics and performance tracking, we empower your business to make data-driven decisions that strengthen customer engagement Whether you’re a small business looking to boost sales efficiency or a large enterprise aiming to personalize customer experiences, our custom-built CRM platforms are scalable, secure, and designed to grow with your business.",
-                    icon: People,
-                    img: CRMDevelopment,
-                    reverse: true,
-                  },
-                  {
-                    title: "HRMS Development",
-                    text: "Simplify recruitment, attendance tracking, payroll, and performance evaluation with a secure, cloud-based HRMS system tailored to your organization Our HRMS solutions streamline recruitment, attendance, payroll, and performance management.Built on a secure, cloud-based platform for seamless accessibility and scalability Automate repetitive HR tasks to boost efficiency and accuracy across departments Empower your HR team with real-time insights and customizable dashboards Simplify workforce management while enhancing employee engagement and productivity Simplify workforce management while enhancing employee engagement and productivity.",
-                    icon: PersonWorkspace,
-                    img: HRMSDevelopment,
-                    reverse: false,
-                  },
-                  {
-                    title: "AI Voice Sales Assistant Integration",
-                    text: "Integrate AI-powered voice assistants into your sales ecosystem for real-time conversation analysis, lead qualification, and smarter customer engagement. Our AI voice solutions help sales teams automate routine calls, capture insights from every interaction, and respond instantly to customer queries with human-like accuracy By leveraging natural language processing (NLP) and machine learning, these assistants can identify customer intent, recommend next steps, and provide instant access to product or service information. This not only improves response times but also enhances personalization and builds stronger client relationships Our systems seamlessly connect with your existing CRM and ERP platforms, ensuring a unified sales workflow.",
-                    icon: Robot,
-                    img: AIVoiceAssistant,
-                    reverse: true,
-                  },
-                  {
-                    title: "Business Automation Tools",
-                    text: "Automate repetitive workflows using custom-built tools that connect departments, reduce manual errors, and boost operational productivity. Our automation solutions are designed to streamline complex processes, eliminate bottlenecks, and ensure seamless collaboration across your organization By integrating AI, analytics, and intelligent workflows, we help businesses save time, cut costs, and focus on strategic growth instead of manual tasks. From automated data entry and approvals to advanced reporting and notifications, our tools provide real-time visibility and control over daily operations Whether you need to optimize internal communication, manage resources efficiently, or ensure compliance through consistent processes, our end-to-end automation systems deliver accuracy, efficiency, and measurable results across every business function.",
-                    icon: LightningCharge,
-                    img: BusinessAutomation,
-                    reverse: false,
-                  },
-                ].map((service, idx) => (
-                  <motion.div
-                    key={idx}
-                    className={`row align-items-center mb-5 ${
-                      service.reverse ? "flex-row-reverse" : ""
-                    }`}
-                    variants={cardVariant}
-                  >
-                    <motion.div
-                      className="col-md-6 test-start"
-                      initial={{ opacity: 0, x: 50 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, ease: "easeOut" }}
-                      viewport={{ once: true, amount: 0.3 }}
-                    >
-                      <img
-                        src={service.img}
-                        alt={service.title}
-                        className="img-fluid rounded-3 shadow-sm"
-                        style={{ maxWidth: '75%', height: 'auto' }}
-                      />
-                    </motion.div>
-                    <motion.div
-                      className="col-md-6"
-                      initial={{ opacity: 0, x: 50 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, ease: "easeOut" }}
-                      viewport={{ once: true, amount: 0.3 }}
-                    >
-                      <h4 className="fw-bold">
-                        <service.icon className="me-2 text-primary" />
-                        {service.title}
-                      </h4>
-                      <p className="text-dark mt-2">{service.text}</p>
-                    </motion.div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </section>
+    <div className="row justify-content-center">
+      {[
+        {
+          title: "ERP Development",
+          text:
+            "We build robust Enterprise Resource Planning (ERP) systems that centralize inventory, finance, HR, and supply chain operations into one unified platform. Our ERP solutions are scalable, customizable, and seamlessly integrate with your existing systems.",
+          icon: Diagram3,
+        },
+        {
+          title: "CRM Development",
+          text:
+            "Our CRM solutions help manage customer data, automate sales processes, and optimize marketing funnels. We deliver intelligent systems that provide actionable insights, improve engagement, and drive long-term growth.",
+          icon: People,
+        },
+        {
+          title: "HRMS Development",
+          text:
+            "Simplify recruitment, payroll, attendance, and performance management with our secure cloud-based HRMS solutions designed to enhance workforce productivity and engagement.",
+          icon: PersonWorkspace,
+        },
+        {
+          title: "AI Voice Sales Assistant Integration",
+          text:
+            "Integrate AI-powered voice assistants to automate sales calls, qualify leads, and gain real-time conversation insights using NLP and machine learning.",
+          icon: Robot,
+        },
+        {
+          title: "Business Automation Tools",
+          text:
+            "Automate repetitive workflows with intelligent tools that connect departments, reduce errors, and boost operational efficiency across your organization.",
+          icon: LightningCharge,
+        },
+      ].map((service, idx) => (
+        <div key={idx} className="col-lg-4 col-md-6 mb-4">
+          <motion.div
+            className="card h-100 border-0 shadow-sm"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            style={{
+              borderRadius: "14px",
+              padding: "28px",
+            }}
+          >
+            <h5 className="fw-bold mb-3 d-flex align-items-center">
+              <service.icon className="me-2 text-primary" size={22} />
+              {service.title}
+            </h5>
+
+                  <p className="text-dark mb-0" style={{ lineHeight: "1.7" }}>
+                    {service.text}
+                  </p>
+                </motion.div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
             {/* CTA Section */}
             <motion.section

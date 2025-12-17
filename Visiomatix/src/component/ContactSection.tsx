@@ -155,7 +155,8 @@ const ContactSection: React.FC<ContactSectionProps> = (props) => {
           <Card className="shadow-lg border-0">
             <Card.Body className="p-4">
 
-              <h2 className="text-center mb-4 fw-bold text-uppercase" style={{ color: "#0a0808" }}>
+              <h2 className="text-center mb-4 fw-bold text-uppercase" 
+              style={{ color: "#1D3458" }}>
                 Send a Message
               </h2>
 
@@ -193,39 +194,41 @@ const ContactSection: React.FC<ContactSectionProps> = (props) => {
                 </Row>
 
                 {/* COUNTRY CODE + PHONE */}
-                <Row className="mb-3 text-start">
-                  <Col md={4}>
-                    <Form.Group controlId="countryCode">
-                      <Form.Label>Country</Form.Label>
-                      <Form.Select
-                        name="countryCode"
-                        value={formData.countryCode}
-                        onChange={handleChange}
-                        className="country-dropdown"
-                      >
-                        {countryCodes.map((item, index) => (
-                          <option key={index} value={item.code}>
-                            {item.country} ({item.code})
-                          </option>
-                        ))}
-                      </Form.Select>
-                    </Form.Group>
+               {/* COUNTRY CODE + PHONE */}
+              <Form.Group className="mb-3 text-start" controlId="contactNumberGroup">
+                <Form.Label>Contact Number</Form.Label>
+
+                <Row className="g-2 align-items-center">
+                  {/* Country Code – fixed small width */}
+                  <Col md="auto">
+                    <Form.Select
+                      name="countryCode"
+                      value={formData.countryCode}
+                      onChange={handleChange}
+                      className="country-code-select"
+                      required
+                    >
+                      {countryCodes.map((item, index) => (
+                        <option key={index} value={item.code}>
+                          {item.code} {/* Only show code */}
+                        </option>
+                      ))}
+                    </Form.Select>
                   </Col>
 
-                  <Col md={8}>
-                    <Form.Group controlId="contactNumber">
-                      <Form.Label>Contact Number</Form.Label>
-                      <Form.Control
-                        type="tel"
-                        name="contactNumber"
-                        value={formData.contactNumber}
-                        onChange={handleChange}
-                        placeholder="e.g., 98765 43210"
-                        required
-                      />
-                    </Form.Group>
+                  {/* Contact Number – remaining space */}
+                  <Col>
+                    <Form.Control
+                      type="tel"
+                      name="contactNumber"
+                      value={formData.contactNumber}
+                      onChange={handleChange}
+                      placeholder="e.g., 98765 43210"
+                      required
+                    />
                   </Col>
                 </Row>
+              </Form.Group>
 
                 {/* SERVICE */}
                 <Form.Group className="mb-3 text-start" 

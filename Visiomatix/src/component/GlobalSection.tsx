@@ -1,4 +1,4 @@
-import React from 'react';
+{/*import React from 'react';
 
 const GlobalSection: React.FC = () => {
   return (
@@ -15,4 +15,4 @@ const GlobalSection: React.FC = () => {
   );
 };
 
-export default GlobalSection;
+export default GlobalSection;*/}

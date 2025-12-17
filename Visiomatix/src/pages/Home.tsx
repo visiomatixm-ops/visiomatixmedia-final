@@ -17,7 +17,7 @@ import ServicesLayout from "../component/ServicesLayout";
 import CarouselComponent from "../component/CarouselComponent";
 import FeaturedServices from "../component/FeaturedServices";
 import ContactFormSection from "../component/ContactFormSection"; // <-- CORRECTED PATH
-import GlobalSection from "../component/GlobalSection";
+//import GlobalSection from "../component/GlobalSection";
 import "../styles/ContactForm.css";
 import PartnersandCertifications from "../component/PartnersandCertifications";
 //import TestimonialsSection from "../pages/Testimonials";
@@ -129,10 +129,9 @@ const handleCaptchaChange = (value: any) => {
           {/* ----------------------------------------------------
                NEW SECTION: FOUNDER STORY
           ---------------------------------------------------- */}
-          <section className="py-5" style={{ backgroundColor: "#08172b" }}>
+           <section className="py-5" style={{ backgroundColor: "#08172B" }}>
             <div className="container">
               <div className="row align-items-center">
-
                 {/* Founder Image */}
                 <div className="col-md-5 mb-4 mb-md-0">
                   <img
@@ -145,43 +144,39 @@ const handleCaptchaChange = (value: any) => {
                       objectFit: "cover",
                     }}
                   />
-                </div>
-
-                {/* Founder Content */}
+                </div>                {/* Founder Content */}
                 <div className="col-md-7 text-light">
                   <h2 className="fw-bold mb-1" style={{ color: "#fff" }}>
                     Rohit Shinde
                   </h2>
-                  <h3 className="mb-4" style={{ color: "#fff", fontSize: "1.25rem" }}>
-                    FOUNDER & CEO of VISOMATIX MEDIA
-                  </h3>
-                  
-                    
-                  <p className="text-start">
-                    Visiomatix Media was founded by
-                    Rohit Shinde, a passionate graphic designer
-                    and entrepreneur from Nashik. With years of hands-on
-                    experience in digital arts, branding, and creative
+                  <h3
+                    className="mb-4"
+                    style={{ color: "#fff", fontSize: "1.25rem" }}
+                  >
+                    FOUNDER & CEO DIGITIZE MATRIX
+                  </h3>                  <p className="text-start">
+                    Visiomatix Media was founded by Rohit Shinde, a passionate
+                    graphic designer and entrepreneur from Nashik. With years of
+                    hands-on experience in digital arts, branding, and creative
                     storytelling, Rohit envisioned building an agency that
                     doesn’t just design but creates meaningful visual
                     experiences.
-                  </p>
-
-                  <p className="text-start">
-                    His journey from working at
-                    Shaurya Digital Arts to becoming the
-                    Founder & CEO of Visiomatix Media is a true
-                    story of passion and innovation. He leads with a belief in
-                    empowering young creators and building a team that thrives
-                    on creativity and collaboration.
-                  </p>
-
-                  <ul className="text-start text-light" 
-                    style={{ maxWidth: "90%" }}>
+                  </p>                  <p className="text-start">
+                    His journey from working at Shaurya Digital Arts to becoming
+                    the Founder & CEO of Visiomatix Media is a true story of
+                    passion and innovation. He leads with a belief in empowering
+                    young creators and building a team that thrives on
+                    creativity and collaboration.
+                  </p>                  <ul
+                    className="text-start text-light ps-3 ms-0"
+                    style={{ maxWidth: "100%" }}
+                  >
                     <li>Encourages innovation through creative freedom.</li>
                     <li>Empowers young designers and creators.</li>
                     <li>Leads with vision, teamwork, and integrity.</li>
-                    <li>Turns bold ideas into impactful digital experiences.</li>
+                    <li>
+                      Turns bold ideas into impactful digital experiences.
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -199,7 +194,7 @@ const handleCaptchaChange = (value: any) => {
           
           {/*-----------Global map-------*/}
 
-              <GlobalSection />
+             {/*<GlobalSection />*/}
 
       {/* ----------- TESTIMONIALS SECTION (Home Page only) ----------- */}
        {/* <TestimonialsSection />*/}
