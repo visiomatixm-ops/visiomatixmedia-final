@@ -151,7 +151,7 @@ const Services: React.FC = () => {
         >
 
         {/* Background motion layer */} <motion.div style={{
-          backgroundImage: "url('/about/our services.png')",
+          backgroundImage: "url('/about/Blur images/our services.png')",
            backgroundSize: "cover",
            backgroundPosition: "center", y: yParallax, }}
            className="position-absolute w-100 h-100" />
@@ -173,7 +173,8 @@ const Services: React.FC = () => {
           wordWrap: "break-word",
            overflowWrap: "break-word" }} >
             <motion.h1 className="display-6 display-sm-5 display-md-4 display-lg-3 fw-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl" variants={textVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} >
-              Our Services </motion.h1>
+              Our Services 
+              </motion.h1>
             <motion.hr className="border-primary opacity-75 w-25 mx-auto"
             variants={textVariants} initial="hidden"
             whileInView="visible" viewport={{ once: true }}
@@ -236,7 +237,8 @@ const Services: React.FC = () => {
               {/*b text on left CONTENT */}
              <div className="col-md-6 order-md- text-start">
                 {/* Title centered */}
-              <h2 className="fw-bold text-dark mb-3 h3 d-flex align-items-center">                  <motion.img
+              <h2 className="fw-bold text-dark mb-3 h3 d-flex align-items-center">
+                <motion.img
                     src={cat.icon}
                     alt={`${cat.title} icon`}
                     className="img-fluid p-2 bg-white shadow-sm me-2"

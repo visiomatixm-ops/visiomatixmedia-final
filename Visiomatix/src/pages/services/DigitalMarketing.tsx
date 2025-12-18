@@ -215,13 +215,63 @@ const DigitalMarketing: React.FC = () => {
         </section>
 
         {/* ================= CTA ================= */}
-        <section className="bg-dark text-light text-center py-5">
-          <div className="container">
-            <h3 className="fw-bold">Ready to Elevate Your Digital Presence?</h3>
-            <p className="lead">Let’s create a strategy that drives measurable success.</p>
-            <a href="/contact" className="btn btn-primary btn-lg">Get in Touch</a>
-          </div>
-        </section>
+        <section
+            className="d-flex align-items-center text-center"
+            style={{
+               backgroundColor: "#ffffff",
+             // backgroundImage:
+                //"url('/about/Blur images/web & app dev.png')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              minHeight: "320px",
+              position: "relative",
+            }}
+          >
+            {/* Overlay */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                backgroundColor: "#1D3458",
+                opacity: 0.85,
+                zIndex: 1,
+              }}
+            ></div>
+
+            {/* Content */}
+            <div
+              className="container position-relative text-white"
+              style={{ zIndex: 2 }}
+            >
+             <h3
+                className="fw-bold mb-3"
+                style={{ color: "#000000" }}
+              >
+                Ready to Elevate Your Digital Presence?
+              </h3>
+
+              <p
+                className="lead mb-4"
+                style={{ color: "#000000" }}
+              >
+                Let’s create a strategy that drives measurable success.
+              </p>
+
+              <a
+                  href="/contact"
+                  className="btn btn-lg px-4"
+                  style={{
+                    backgroundColor: "#1D3458",
+                    color: "#ffffff",
+                    border: "1px solid #1D3458",
+                  }}
+                >
+                  Get in Touch
+                </a>
+
+            </div>
+          </section>
+
       </motion.div>
     </>
   );

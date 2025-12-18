@@ -238,16 +238,21 @@ const Webapp: React.FC = () => {
               viewport={{ once: true }}
             >
               <div className="container">
-                <p
-                  className="lead text-dark text-center mx-auto"
-                  style={{ maxWidth: "850px" }}
+                <p className="lead text-dark mx-auto visiomatix-text"
+                  style={{ 
+                    
+                    maxWidth: "850px",
+                    textAlign:"justify",
+                    lineHeight:"1.8",
+                  }}
+                
                 >
                   At Visiomatix, we craft high-performance digital products that scale seamlessly
                   across devices and platforms. Our expertise covers full-stack Web App Development,
                   responsive Website Design, and Mobile App Development built with
                   modern frameworks for optimal performance.  
                   We create Landing Pages that convert and integrate custom backend systems for
-                   E-commerce and enterprise solutions.  
+                  E-commerce and enterprise solutions.  
                   Each project combines intuitive UI/UX design, secure architecture, and data-driven insights to ensure
                   your digital presence delivers measurable business impact.
                 </p>
@@ -339,7 +344,7 @@ const Webapp: React.FC = () => {
               </div>
 
               <h5 className="card-title" style={{ fontSize: '1.1rem' }}>{card.title}</h5>
-              <p className="card-text text-muted" style={{ fontSize: '0.9rem' }}>{card.text}</p>
+              <p className="card-text" style={{ fontSize: '0.9rem' }}>{card.text}</p>     {/* text-muted */}
 
               {/* <motion.a
                 href="#"
@@ -421,7 +426,7 @@ const Webapp: React.FC = () => {
               </div>
 
               <h5 className="card-title" style={{ fontSize: '1.1rem' }}>{card.title}</h5>
-              <p className="card-text text-muted" style={{ fontSize: '0.9rem' }}>{card.text}</p>
+              <p className="card-text" style={{ fontSize: '0.9rem' }}>{card.text}</p>      {/* text-muted */}
 
               {/* <motion.a
                 href="#"

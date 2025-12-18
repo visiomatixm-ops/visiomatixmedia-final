@@ -419,7 +419,7 @@ import React from "react";
                       <p className="mb-5 w-75 mx-auto text-dark" style={{ color: "#000" }}>
                           At Visiomatix Media, our team is our biggest strength.
                            We are a diverse group of designers, developers, marketers, and strategists
-                           united by one goal — to create meaningful, result-driven digital experiences
+                           united by one goal to create meaningful, result-driven digital experiences
                              that help brands grow and connect.
                             </p>
                          <div className="row justify-content-center">

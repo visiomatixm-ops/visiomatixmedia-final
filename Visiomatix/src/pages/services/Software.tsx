@@ -19,23 +19,24 @@ import { motion } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Diagram3, People, PersonWorkspace, Robot, LightningCharge } from "react-bootstrap-icons";
 
-//import BusinessAutomation from "/services/icons/4-5 Business Automation Tools.svg";
-import AIVoiceAssistant from "/services/icons/AI Voice Sales Assistant Integration.svg";
-import CRMDevelopment from "/services/icons/CRM Development.svg";
-import ERPDevelopment from "/services/icons/ERP Development.svg";
-import HRMSDevelopment from "/services/icons/HRMS Development.svg";
-import Banner from "/services/Banner/Business Software Expertise-2.jpg";
+import BusinessAutomation from "/services/icons/4-LIST/4-5 Business Automation Tools.svg";
+import AIVoiceAssistant from "/services/icons/4-LIST/AI Voice Sales Assistant Integration.svg";
+import CRMDevelopment from "/services/icons/4-LIST/CRM Development.svg";
+import ERPDevelopment from "/services/icons/4-LIST/ERP Development.svg";
+import HRMSDevelopment from "/services/icons/4-LIST/HRMS Development.svg";
+import Banner from "/services/Banner/Business-Software-Expertise-2.jpg";
+
 
 
 // ----------------------------------------------------
-// Motion Variants
+// Motion Variants-----animation part
 // ----------------------------------------------------
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0 },
 };
 
-const staggerContainer = {
+{/*const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -46,7 +47,7 @@ const staggerContainer = {
 const cardVariant = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0 },
-};
+};*/}
 
 // ----------------------------------------------------
 // Component: Software
@@ -56,288 +57,181 @@ const Software: React.FC = () => {
   // ----------------------------------------------------
   // JSON-LD Structured Data (LocalBusiness + Service)
   // ----------------------------------------------------
-  const businessSchema = {
+ const businessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Visiomatix Business Software Solutions",
-    image: "https://www.yourdomain.com/images/brand-logo.png",
-    url: "https://www.yourdomain.com/software-development",
-    telephone: "+1-800-555-0199",
-    email: "info@yourdomain.com",
-    priceRange: "$$$",
+    description:
+      "Custom ERP, CRM, HRMS, AI automation and enterprise software solutions.",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Office No. 03, Om Sai Apartment, Near Petrol Pump, Ganur Road",
-      addressLocality: "Davkhar Nagar, Chandwad, Nashik",
       addressRegion: "Maharashtra",
-      postalCode: "423101",
       addressCountry: "India",
     },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-        ],
-        opens: "09:00",
-        closes: "18:00",
-      },
-    ],
-    sameAs: [
-      "https://www.facebook.com/yourbrand",
-      "https://www.linkedin.com/company/yourbrand",
-      "https://www.instagram.com/yourbrand",
-      "https://www.youtube.com/@yourbrand",
-    ],
-    description:
-      "Visiomatix delivers custom Business Software Solutions — including ERP, CRM, HRMS, and AI automation tools — to streamline operations and scale enterprise productivity.",
   };
 
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: "Business Software Solutions",
-    serviceType: "Software Development, Business Automation, ERP, CRM",
-    provider: {
-      "@type": "Organization",
-      name: "Visiomatix Business Software Solutions",
-      url: "https://www.yourdomain.com",
+  const services = [
+    {
+      title: "ERP Development",
+      text:
+        "Enterprise-grade ERP solutions integrating finance, inventory, HR, and operations into one scalable platform.",
+      icon: Diagram3,
+      img: ERPDevelopment,
+      reverse: false,
     },
-    areaServed: {
-      "@type": "Country",
-      name: "United States",
+    {
+      title: "CRM Development",
+      text:
+        "Powerful CRM platforms to manage customers, automate sales, and improve engagement with actionable insights.",
+      icon: People,
+      img: CRMDevelopment,
+      reverse: true,
     },
-    description:
-      "We specialize in enterprise-grade software solutions — from ERP, CRM, and HRMS platforms to AI-powered automation tools and intelligent sales assistants.",
-    offers: {
-      "@type": "Offer",
-      url: "https://www.yourdomain.com/contact",
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      validFrom: "2025-01-01",
-      price: "1499",
+    {
+      title: "HRMS Development",
+      text:
+        "Cloud-based HRMS solutions for recruitment, payroll, attendance, and workforce analytics.",
+      icon: PersonWorkspace,
+      img: HRMSDevelopment,
+      reverse: false,
     },
-  };
+    {
+      title: "AI Voice Sales Assistant",
+      text:
+        "AI-powered voice assistants to automate calls, qualify leads, and boost sales productivity.",
+      icon: Robot,
+      img: AIVoiceAssistant,
+      reverse: true,
+    },
+    {
+      title: "Business Automation Tools",
+      text:
+        "Custom automation tools that reduce manual work, eliminate errors, and optimize workflows.",
+      icon: LightningCharge,
+      img: BusinessAutomation,
+      reverse: false,
+    },
+  ];
 
-  // ----------------------------------------------------
-  // JSX Layout
-  // ----------------------------------------------------
   return (
     <>
-      {/* SEO Configuration */}
+      {/* ---------------- SEO ---------------- */}
       <Helmet>
-        <title>Business Software Solutions | ERP, CRM, HRMS & AI Automation</title>
+        <title>Business Software Solutions | ERP, CRM, HRMS & AI</title>
         <meta
           name="description"
-          content="Custom Business Software Solutions — ERP, CRM, HRMS, AI Voice Sales Assistants, and automation tools designed to streamline workflows and accelerate business growth."
+          content="Enterprise software solutions including ERP, CRM, HRMS, AI automation and business process optimization."
         />
-        <meta
-          name="keywords"
-          content="ERP Development, CRM Development, HRMS Software, Business Automation, AI Voice Assistant, Custom Software, Enterprise Software Development, Process Automation, Digital Transformation"
-        />
-        <link
-          rel="canonical"
-          href="https://www.yourdomain.com/software-development"
-        />
-
-        {/* Structured JSON-LD Schema */}
         <script type="application/ld+json">
           {JSON.stringify(businessSchema)}
         </script>
-        <script type="application/ld+json">
-          {JSON.stringify(serviceSchema)}
-        </script>
       </Helmet>
 
-          <motion.div
-            key="content"
-            id="content"
-            className="fade-in"
+      {/* ---------------- Hero Section ---------------- */}
+      <section
+        className="text-light d-flex align-items-center"
+        style={{
+         // backgroundImage: `url(${Banner})`,
+          backgroundSize: "cover",
+          minHeight: "70vh",
+          position: "relative",
+        }}
+      >
+        <div
+          className="position-absolute w-100 h-100"
+          style={{ background: "rgba(9,23,38,0.7)" }}
+        />
+        <div className="container position-relative text-center">
+          <motion.h1
+            className="fw-bold"
             initial="hidden"
             animate="visible"
-            exit="hidden"
             variants={fadeInUp}
           >
-            {/* Split Hero Section */}
-            <section
-              className="text-light py-5 position-relative"
-              style={{
-                backgroundImage: `url(${Banner})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundBlendMode: 'overlay',
-                minHeight: '70vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent:"center",
-              }}
-            >
-              {/* Grey transparent overlay for better text visibility */}
-              <div
-                className="position-absolute top-0 start-0 w-100 h-100"
-                style={{
-                  backgroundColor: 'rgba(9, 23, 38, 0.71)',
-                  zIndex: 1
-                }}
-              />
-              {/* centered content*/}
-              <div 
-                className="container text-center d-flex flex-column justify-content-center align-items-center" 
-                style={{
-                zIndex: 2,
-                backgroundColor: "rgba(0, 40, 80, 0.45)",
-                borderRadius: "12px",
-                width:"90%",
-                padding:"2em",
-                backdropFilter: "blur(5px)",
-                minHeight:"60vh",
-              }}
-              >
-
-                     <motion.h1
-                       className="display-5 fw-bold text-white"
-                       initial={{ opacity: 0, y: 30 }}
-                       animate={{ opacity: 1, y: 0 }}
-                       transition={{ duration: 0.8 }}
-                     >
-                       Business Software Solutions
-                     </motion.h1>
-
-                     <motion.p
-                       className="lead mt-3 text-white"
-                       initial={{ opacity: 0, y: 30 }}
-                       animate={{ opacity: 1, y: 0 }}
-                       transition={{ duration: 0.8, delay: 0.2 }}
-                       style={{maxWidth:"750px"}}
-                     >
-                       Empower your enterprise with intelligent, automated, and data-driven software systems that redefine efficiency.
-                     </motion.p>
-
-                     <motion.a
-                       href="#solutions"
-                       className="btn btn-light btn-lg mt-3"
-                       whileHover={{ scale: 1.05 }}
-                       whileTap={{ scale: 0.95 }}
-                       initial={{ opacity: 0, y: 30 }}
-                       animate={{ opacity: 1, y: 0 }}
-                       transition={{ duration: 0.8, delay: 0.4 }}
-                     >
-                       Explore Solutions
-                     </motion.a>
-                   </div>
-                   </section>
-                  
-                   {/* Content Section */}
-            <section className="py-5 bg-light">
-              <div className="container">
-                <p className="lead text-dark text-center mx-auto" style={{ maxWidth: "850px" }}>
-                  At Visiomatix, we design and develop intelligent business software that integrates data, workflows, and decision-making into one seamless platform.
-                  From ERP systems that unify operations to CRM platforms that enhance customer relationships,
-                  we create technology that transforms productivity.
-                  Our HRMS tools streamline workforce management, while our AI Voice Sales Assistants and Automation Tools empower teams with real-time insights and task automation.
-                  Every solution we build is custom-engineered to improve performance, security, and scalability across industries.
-                </p>
-              </div>
-            </section>
-
-            {/* Alternating Service Section */}
-            <section id="solutions" className="py-5 bg-light">
-  <div className="container">
-    <h2 className="text-center fw-semibold mb-5">
-      Our Business Software Expertise
-    </h2>
-
-    <div className="row justify-content-center">
-      {[
-        {
-          title: "ERP Development",
-          text:
-            "We build robust Enterprise Resource Planning (ERP) systems that centralize inventory, finance, HR, and supply chain operations into one unified platform. Our ERP solutions are scalable, customizable, and seamlessly integrate with your existing systems.",
-          icon: Diagram3,
-        },
-        {
-          title: "CRM Development",
-          text:
-            "Our CRM solutions help manage customer data, automate sales processes, and optimize marketing funnels. We deliver intelligent systems that provide actionable insights, improve engagement, and drive long-term growth.",
-          icon: People,
-        },
-        {
-          title: "HRMS Development",
-          text:
-            "Simplify recruitment, payroll, attendance, and performance management with our secure cloud-based HRMS solutions designed to enhance workforce productivity and engagement.",
-          icon: PersonWorkspace,
-        },
-        {
-          title: "AI Voice Sales Assistant Integration",
-          text:
-            "Integrate AI-powered voice assistants to automate sales calls, qualify leads, and gain real-time conversation insights using NLP and machine learning.",
-          icon: Robot,
-        },
-        {
-          title: "Business Automation Tools",
-          text:
-            "Automate repetitive workflows with intelligent tools that connect departments, reduce errors, and boost operational efficiency across your organization.",
-          icon: LightningCharge,
-        },
-      ].map((service, idx) => (
-        <div key={idx} className="col-lg-4 col-md-6 mb-4">
-          <motion.div
-            className="card h-100 border-0 shadow-sm"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            style={{
-              borderRadius: "14px",
-              padding: "28px",
-            }}
-          >
-            <h5 className="fw-bold mb-3 d-flex align-items-center">
-              <service.icon className="me-2 text-primary" size={22} />
-              {service.title}
-            </h5>
-
-                  <p className="text-dark mb-0" style={{ lineHeight: "1.7" }}>
-                    {service.text}
-                  </p>
-                </motion.div>
-              </div>
-            ))}
-          </div>
+            Business Software Solutions
+          </motion.h1>
+          <p className="lead mt-3">
+            Intelligent software systems that automate, scale, and empower your
+            enterprise.
+          </p>
+          <a href="#solutions" className="btn btn-light btn-lg mt-3">
+            Explore Solutions
+          </a>
         </div>
       </section>
 
+      {/* ---------------- Intro ---------------- */}
+      <section className="py-5 bg-light text-center">
+        <div className="container">
+          <p className="lead text-dark mx-auto visiomatix-text" 
+          style={{ maxWidth: "850px", 
+          textAlign:"justify",
+          lineHeight:"1.8"
 
-            {/* CTA Section */}
-            <motion.section
-              className="bg-dark text-light text-center py-5"
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <div className="container">
-                <h3 className="fw-bold mb-3">
-                  Transform Your Business with Smart Software
-                </h3>
-                <p className="lead">
-                  Let’s build enterprise-grade solutions that automate, scale, and empower your operations.
-                </p>
-                <motion.a
-                  href="/contact"
-                  className="btn btn-primary btn-lg mt-3"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Get in Touch
-                </motion.a>
-              </div>
-            </motion.section>
-          </motion.div>
+          }}>
+            Visiomatix delivers custom-built ERP, CRM, HRMS, AI automation, and
+            enterprise software solutions designed to streamline operations,
+            enhance productivity, and enable digital transformation.
+          </p>
+        </div>
+      </section>
+
+      {/* ---------------- Services ---------------- */}
+      {/* ---------------- Services ---------------- */}
+<section id="solutions" className="py-5 bg-light">
+  <div className="container">
+    <h2 className="text-center fw-bold mb-5">
+      Our Business Software Expertise
+    </h2>
+
+    <div className="row g-4 justify-content-center">
+      {services.map((service, index) => (
+        <motion.div
+          key={index}
+          className="col-lg-4 col-md-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+        >
+          <div className="card h-100 border-0 shadow-sm text-center p-4 service-card">
+            
+            <div className="mb-3">
+              <img
+                src={service.img}
+                alt={service.title}
+                style={{ width: "70px", height: "70px" }}
+              />
+            </div>
+
+            <h5 className="fw-bold mb-2">
+              {/*<service.icon className="me-2 text-primary" />-----this is for the icon of beofe the title */}
+              {service.title}
+            </h5>
+
+            <p className="text-muted">
+              {service.text}
+            </p>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+      {/* ---------------- CTA ---------------- */}
+      <section className="bg-dark text-light text-center py-5">
+        <div className="container">
+          <h3 className="fw-bold">Transform Your Business with Smart Software</h3>
+          <p className="lead mt-2">
+            Let’s build scalable, secure, and intelligent solutions together.
+          </p>
+          <a href="/contact" className="btn btn-primary btn-lg mt-3">
+            Get in Touch
+          </a>
+        </div>
+      </section>
     </>
   );
 };

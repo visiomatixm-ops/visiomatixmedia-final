@@ -141,7 +141,7 @@ const Contact: React.FC = () => {
       <section
         className="jumbotron text-center text-light d-flex align-items-center justify-content-center position-relative"
         style={{
-          backgroundImage: "url('/about/contact-us-V1.png')",
+          backgroundImage: "url('/about/Blur images/contact us.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           height: "80vh",
@@ -167,7 +167,7 @@ const Contact: React.FC = () => {
         >
           <h1 className="display-5 fw-bold text-uppercase">Contact Us</h1>
           <p className="lead mb-0">
-            We'd love to hear from you! Start a new project or ask anything — our team is ready.
+            We'd love to hear from you! Start a new project or ask anything our team is ready.
           </p>
         </div>
       </section>
@@ -439,11 +439,6 @@ const Contact: React.FC = () => {
               </div>
           </section>
         </Container>
-        
-
-
-
-
         <FAQ />
       </Container>
 

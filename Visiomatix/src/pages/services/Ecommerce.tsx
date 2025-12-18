@@ -14,7 +14,7 @@ import EcomWebApp from "/services/icons/5-LIST/5-1 E-commerce Website Developmen
 import MarketplaceAdvertising from "/services/icons/5-LIST/5-2 Marketplace Advertising.svg";
 import ProductListingOptimization from "/services/icons/5-LIST/5-3 PRODUCT LISTING ICON.svg";
 import PaymentGatewayIntegration from "/services/icons/5-LIST/5-4 Payment Gateway Integration.svg";
-import Banner from "/services/Banner/E-commerce Services with minimal illustration not more and not low-4.jpg";
+
 
 // ---------------- Framer Motion Variants ----------------
 const fadeInUp = {
@@ -72,7 +72,7 @@ const Ecommerce: React.FC = () => {
         <section
           className="text-light py-5 position-relative"
           style={{
-            backgroundImage: `url(${Banner})`,
+           // backgroundImage: `url(${Banner})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundBlendMode: "overlay",
@@ -122,7 +122,7 @@ const Ecommerce: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                Discover More
+               Explore Solutions
               </motion.a>
             </div>
           </div>
@@ -132,8 +132,11 @@ const Ecommerce: React.FC = () => {
         <section className="py-5 bg-light">
           <div className="container">
             <p
-              className="lead text-dark text-center mx-auto"
-              style={{ maxWidth: "850px" }}
+               className="lead text-dark mx-auto visiomatix-text"
+              style={{ maxWidth: "850px",
+                textAlign:"justify",
+                lineHeight:"1.8"
+               }}
             >
               With Visiomatix’s E-commerce Solutions, your online
               business gains modern design, smooth user experience, and deep
@@ -187,7 +190,7 @@ const Ecommerce: React.FC = () => {
                   className="col-md-6 col-lg-6"
                   variants={cardVariant}
                 >
-                  <div className="card border-0 shadow-sm h-100">
+                  <div className="card border-0 shadow-sm text-center h-100">
                     <div className="card-body text-center">
 
                       {/* ---------------- UPDATED ICON CODE ---------------- */}
@@ -223,7 +226,7 @@ const Ecommerce: React.FC = () => {
 
                       <h5 className="card-title fw-bold">{service.title}</h5>
 
-                      <p className="card-text text-muted mt-2">
+                      <p className="card-text mt-2">      {/* text-muted */}
                         {service.text}
                       </p>
                     </div>

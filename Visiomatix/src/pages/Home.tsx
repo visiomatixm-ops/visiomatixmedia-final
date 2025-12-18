@@ -153,7 +153,7 @@ const handleCaptchaChange = (value: any) => {
                     className="mb-4"
                     style={{ color: "#fff", fontSize: "1.25rem" }}
                   >
-                    FOUNDER & CEO DIGITIZE MATRIX
+                     FOUNDER & CEO VISIOMATIX MEDIA
                   </h3>                  <p className="text-start">
                     Visiomatix Media was founded by Rohit Shinde, a passionate
                     graphic designer and entrepreneur from Nashik. With years of

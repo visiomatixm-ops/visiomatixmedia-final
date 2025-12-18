@@ -137,41 +137,50 @@ const Careers: React.FC = () => {
       {/* Hero Banner */}
       {/* ============================================= */}
       <section
-        className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
-        style={{
-          backgroundImage: `url('/about/careers-V1.png')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "80vh",
-          position: "relative",
-          marginBottom: "3rem",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundColor: "rgba(2, 93, 145, 0.18)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-          }}
-        >
-          <h1 className="display-5 fw-bold">
-            Careers at Visiomatix
-          </h1>
-          <p className="lead">
-            Join our innovative engineering team and be part of a dynamic
-            environment where creativity meets cutting-edge technology.
-            We're looking for passionate individuals ready to tackle
-            challenging projects and grow their careers in a supportive,
-            collaborative atmosphere.
-          </p>
-        </div>
-      </section>
+              className="d-flex align-items-center justify-content-center text-center text-light"
+              style={{
+                backgroundImage: "url('/about/Blur images/careers.png')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                minHeight: "80vh",
+                position: "relative",
+                marginBottom: "3rem",
+              }}
+            >
+              {/* Overlay */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "rgba(2, 93, 145, 0.45)", // darker for readability
+                  zIndex: 1,
+                }}
+              />
+
+              {/* Content */}
+              <div
+                className="container position-relative"
+                style={{ zIndex: 2, maxWidth: "900px" }}
+              >
+                <h1 className="display-5 fw-bold mb-3 text-white">
+                  Careers at Visiomatix
+                </h1>
+
+                <p
+                  className="lead text-white"
+                  style={{
+                    lineHeight: "1.7",
+                    textShadow: "0 2px 8px rgba(0,0,0,0.35)",
+                  }}
+                >
+                  Join our innovative engineering team and be part of a dynamic environment
+                  where creativity meets cutting-edge technology. We’re looking for
+                  passionate individuals ready to tackle challenging projects and grow
+                  their careers in a supportive, collaborative atmosphere.
+                </p>
+              </div>
+            </section>
+
 
       {/* ============================================= */}
       {/* Job Cards with Collapsible Sections */}
@@ -179,7 +188,7 @@ const Careers: React.FC = () => {
       
       {/*================== why join visiomatix*/}
         
-      <section style={{ backgroundColor: "#fff", color: "#195186 !important", padding: "5rem 0" }}>
+      <section style={{ backgroundColor: "#fff", color: "#101213ff !important", padding: "5rem 0" }}>
         <Container>
           <h2 className="text-center fw-bold mb-5" style={{ fontSize: "2.5rem", color: "#195186" }}>
             Why Join Visiomatix?

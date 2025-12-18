@@ -166,3 +166,7 @@
     height: 320px;
   }
 }
+
+.navbar-toggler-icon {
+  filter: invert(20%);
+}

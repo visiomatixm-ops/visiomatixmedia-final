@@ -225,9 +225,13 @@ const Design: React.FC = () => {
               viewport={{ once: true }}
             >
               <div className="container">
-                <p
-                  className="lead text-dark text-center mx-auto"
-                  style={{ maxWidth: "850px" }}
+                <p className="lead text-dark mx-auto visiomatix-text"
+                  style={{ maxWidth: "850px",
+                  textAlign:"justify",
+                  lineHeight:"1.8"
+
+
+                   }}
                 >
                   Our Web Design and Creative Services combine strategy, aesthetics, and technology
                   to craft visually striking experiences that engage users and enhance brand value.
@@ -336,7 +340,7 @@ const Design: React.FC = () => {
               </div>
 
               <h5 className="card-title">{card.title}</h5>
-              <p className="card-text text-muted">{card.text}</p>
+              <p className="card-text">{card.text}</p>      {/* text-muted */}
             </div>
           </motion.div>
         </motion.div>
@@ -412,7 +416,7 @@ const Design: React.FC = () => {
               </div>
 
               <h5 className="card-title">{card.title}</h5>
-              <p className="card-text text-muted">{card.text}</p>
+              <p className="card-text">{card.text}</p>      {/* text-muted */}
             </div>
           </motion.div>
         </motion.div>

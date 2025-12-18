@@ -93,8 +93,8 @@ const Blog: React.FC = () => {
       {/* ===== Hero Banner (Compact Spacing) ===== */}
       <section
         className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
-        style={{
-          backgroundImage: "url('/about/blog-image-V1.png')",
+        style={{ 
+          backgroundImage: "url('/about/Blur images/blogs.png')",
           backgroundSize: "cover",
          backgroundPosition: "center",
           height: "45vh",
