@@ -280,7 +280,7 @@ const Blog: React.FC = () => {
 
 .blog-author {
   font-size: 0.78rem;
-  color: #1f2937;   
+  color: #000000;   
   margin-bottom: 0.6rem;
   text-align: center;   
 }
@@ -288,7 +288,7 @@ const Blog: React.FC = () => {
   .blog-excerpt {
   font-size: 0.88rem;
   line-height: 1.7;
-  color: #1f2937;   
+  color: #000000;   
 
   text-align: left;        
   padding-right: 0.25rem;   
