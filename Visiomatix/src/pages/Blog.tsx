@@ -282,7 +282,7 @@ const Blog: React.FC = () => {
   font-size: 0.78rem;
   color: #000000;   
   margin-bottom: 0.6rem;
-  text-align: center;   
+  text-align: left;   
 }
 
   .blog-excerpt {
