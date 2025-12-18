@@ -149,13 +149,13 @@ const cardThemeStyles = `
 const ServicesLayout: React.FC = () => {
   const services = [
     { image: DigitalMarketing, title: "Digital Marketing", description: "Digital marketing is the strategic use of online channels to promote brands, engage audiences, and drive measurable business growth." },
-    { image: AnimationImage, title: "2D/3D Animation", description: "Creative animation services for advertisements and films." },
-    { image: BrandingImage, title: "Brand Design", description: "Crafting unique brand identities for your business." },
-    { image: PhotographyImage, title: "Photography", description: "High-quality photoshoots for events, products, and portfolios." },
-    { image: VideographyImage, title: "Videography", description: "End-to-end video production for commercials and events." },
-    { image: MotionImage, title: "Motion Graphics", description: "Eye-catching motion designs for social media and ads." },
-    { image: WebDesignImage, title: "Web Design", description: "Modern and responsive websites for creative industries." },
-    { image: GraphicImage, title: "Graphic Design", description: "Logos, posters, and marketing materials that stand out." }
+    { image: AnimationImage, title: "2D/3D Animation", description: "2D/3D Animation transforms concepts into compelling visual experiences through animation services for advertisements and films." },
+    { image: BrandingImage, title: "Brand Design", description: "Brand Design combines strategy and creativity to develop cohesive brand identities that strengthen trust, consistency, and market presence." },
+    { image: PhotographyImage, title: "Photography", description: "Photography captures high-quality visuals through professional photoshoots designed for events, products, and creative portfolios." },
+    { image: VideographyImage, title: "Videography", description: "Videography delivers end-to-end video production services that create engaging visuals for commercials and events." },
+    { image: MotionImage, title: "Motion Graphics", description: "Motion Graphics bring static ideas to life with bold, engaging motion designs built for social media and advertising impact." },
+    { image: WebDesignImage, title: "Web Design", description: "Web Design focuses on creating modern, responsive websites tailored to meet the needs of creative industries." },
+    { image: GraphicImage, title: "Graphic Design", description: "Graphic Design combines creativity and strategy to design logos and marketing assets that strengthen brand presence." }
   ];
 
   const cardVariants = {
