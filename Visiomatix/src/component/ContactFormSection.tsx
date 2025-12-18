@@ -48,18 +48,14 @@ const countryCodes = [
 ];
 
 const faqs = [
-    { question: "What services does Visiomatix Media offer?", answer: "We provide branding, digital marketing, motion graphics, graphic design, 3D modeling, VFX, and advertising solutions tailored to business needs." },
+   { question: "What services does Visiomatix Media offer?", answer: "We provide branding, digital marketing, motion graphics, graphic design, 3D modeling, VFX, and advertising solutions tailored to business needs." },
     { question: "How can I contact Visiomatix Media?", answer: "You can reach us via email at visiomatixmedia@gmail.com or call/WhatsApp +91 89991 01916." },
-    { question: "What does Visiomatix Media specialize in?", answer: "Visiomatix Media is a full-service digital growth agency specializing in brand strategy, creative design, website development, digital marketing, SEO, performance marketing, and AI-powered visual solutions." },
-    { question: "How does Visiomatix Media approach client projects?", answer: "We follow a structured, strategy-first approach that begins with research and planning, followed by execution and continuous performance optimization." },
-    { question: "What makes Visiomatix Media different from other agencies?", answer: "Our strength lies in combining strategic thinking, creative excellence, data-driven execution, and AI-powered solutions to deliver consistent results." },
-    { question: "Do you offer customized solutions or fixed packages?", answer: "We primarily offer customized solutions aligned with business goals, industry requirements, and budgets to ensure maximum ROI" },
-    { question: "How do you ensure quality and consistency across deliverables?", answer: "All deliverables go through a defined quality-control process, including internal reviews and brand guideline checks" },
-    { question: "How is project progress communicated to clients?", answer: "Clients receive structured reports, milestone updates, and performance insights through regular communication" },
-    { question: "How is project progress communicated to clients?", answer: "Businesses can get started by submitting a service request through our website or scheduling aconsultation with our team." },
-
+    { question: "Does Visiomatix Media offer internships?", answer: "Yes, we offer internships in various domains including Full Stack Development, Graphic Design, Digital Marketing, and more." },
+    { question: "How long is the internship program?", answer: "The internship typically lasts 3 to 6 months, depending on the role and program selected." },
+    { question: "Is the internship paid?", answer: "Some internships offer a stipend based on performance. Details vary by role." },
+    { question: "Do interns receive a certificate?", answer: "Yes, all interns who successfully complete their program will receive a certificate." },
+    { question: "Who can apply for internships?", answer: "Students, fresh graduates, and early-career professionals with basic computer skills and a willingness to learn." },
 ];
-
 
 const ContactFormSection: React.FC<Props> = ({
   ourOfficeIcon,
@@ -84,61 +80,112 @@ const ContactFormSection: React.FC<Props> = ({
     <Container className="my-5">
       <Row className="g-4">
         {/* LEFT – FAQ SECTION */}
-        <Col md={6}>
-          <Card
-            className="shadow-lg border-0 rounded-4 p-4 h-100"
-            style={{ background: "rgb(14, 53, 92)", color: "white" }}
-          >
-            <div className="faq-container">
-              <div className="faq-left mb-4">
-                <p className="faq-subtitle">FAQS</p>
-                <h2 className="faq-heading">
-                  Frequently <br /> Asked Questions
-                </h2>
-              </div>
+        <Col md={5}>
+          <div
+    style={{
+      background: "#f5f7ff",
+      padding: "40px",
+      borderRadius: "20px",
+      boxShadow: "0 20px 50px rgba(29, 52, 88, 0.15)",
+    }}
+  >
+            <p
+              style={{
+                fontSize: "14px",
+                letterSpacing: "2px",
+                color: "#1D3458",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                marginBottom: "12px",
+              }}
+            >
+              FAQS
+            </p>
 
-              <div className="faq-right">
-                {faqs.map((item, index) => (
+            <h2
+              style={{
+                fontSize: "46px",
+                fontWeight: 700,
+                color: "#1D3458",
+                lineHeight: 1.2,
+                marginBottom: "40px",
+              }}
+            >
+              Frequently <br /> Asked Questions
+            </h2>
+
+            {faqs.map((item, index) => {
+              const isOpen = openIndex === index;
+
+              return (
+                <div
+                  key={index}
+                  onClick={() => toggleFAQ(index)}
+                  style={{
+                    background: "#ffffff",
+                    borderRadius: "14px",
+                    border: "1.5px solid #1D3458",
+                    cursor: "pointer",
+                    boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+                    overflow: "hidden",
+                    marginBottom: "18px",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  {/* QUESTION */}
                   <div
-                    key={index}
-                    className={`faq-card ${
-                      openIndex === index ? "active" : ""
-                    }`}
-                    onClick={() => toggleFAQ(index)}
                     style={{
-                      cursor: "pointer",
-                      background: "rgb(11, 31, 58)",
-                      color: "#ffffff",
-                      borderRadius: "12px",
-                      padding: "15px",
-                      marginBottom: "10px",
+                      padding: "22px 28px",
+                      fontSize: "19px",
+                      fontWeight: 600,
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      color: "#1D3458",
                     }}
                   >
-                    <div className="faq-question d-flex justify-content-between align-items-center">
-                      <span style={{ color: 'white',paddingLeft:'8px' }}>{item.question}</span>
-                      <span
-                        className={`icon ${openIndex === index ? "rotate" : ""}`}
-                        style={{ fontSize: "22px", color: 'white' }}
-                      >
-                        +
-                      </span>
-                    </div>
-
-                    {openIndex === index && (
-                      <div className="faq-answer mt-2" style={{ background: "rgb(20, 50, 80)", color: 'white', padding: '10px' }} onClick={(e) => e.stopPropagation()}>
-                        <p style={{ color: 'white', lineHeight: '1.5', textAlign: 'left' }}>
-                            {item.answer}</p>
-                      </div>
-                    )}
+                    <span>{item.question}</span>
+                    <span
+                      style={{
+                        fontSize: "26px",
+                        fontWeight: "bold",
+                        transform: isOpen ? "rotate(135deg)" : "rotate(0deg)",
+                        transition: "transform 0.3s ease",
+                      }}
+                    >
+                      +
+                    </span>
                   </div>
-                ))}
-              </div>
-            </div>
-          </Card>
-        </Col>
 
+                  {/* ANSWER */}
+                 <div
+  style={{
+    maxHeight: isOpen ? "160px" : "0px",
+    opacity: isOpen ? 1 : 0,
+    overflow: "hidden",
+    transition: "max-height 0.4s ease, opacity 0.3s ease",
+  }}
+>
+
+                    <p
+                      style={{
+                        padding: "0 28px 22px",
+                        fontSize: "16px",
+                        color: "#505d75",
+                        lineHeight: 1.6,
+                        margin: 0,
+                      }}
+                    >
+                      {item.answer}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </Col>
         {/* RIGHT – SEND A MESSAGE */}
-        <Col md={6}>
+        <Col md={7}>
           <Card className="shadow-lg border-0 rounded-4 p-4 h-100">
             <h2 className="text-center mb-4 fw-bold text-uppercase">
               Send a Message
@@ -254,68 +301,6 @@ const ContactFormSection: React.FC<Props> = ({
               </div>
             </Form>
           </Card>
-        </Col>
-      </Row>
-
-      {/* ---------- LEFT COLUMN ---------- */}
-      <Row className="g-4 mt-4">
-        <Col
-          md={12}
-          className="text-light rounded-4 p-4 d-flex flex-column justify-content-center shadow-lg"
-          style={{ backgroundColor: "#0B1F3A", width: '80%', margin: '0 auto' }}
-        >
-          <div className="mt-3">
-            <h3 className="fw-bold mb-4 text-center text-uppercase">Get in Touch</h3>
-
-            {/* Address */}
-            <div className="d-flex align-items-start mb-4 text-start">
-              <img src={ourOfficeIcon} width="36"
-              className="me-3 contact-icon"
-              alt="Our Office Icon" />
-
-              <div className="d-flex flex-column align-items-start justify-content-start">
-                <h6 className="fw-bold mb-1">Our Office</h6>
-                <p className="mb-0">
-                  Office No. 03, Om Sai Apartment, Near Petrol Pump, <br />
-                  Ganur Road, Chandwad, Nashik – 423101, Maharashtra – India.
-                </p>
-              </div>
-            </div>
-
-            {/* Phone */}
-            <div className="d-flex align-items-start mb-4 text-start">
-              <img src={phoneIcon} width="36" className="me-3 contact-icon" alt="Phone Icon" />
-
-              <div className="d-flex flex-column align-items-start justify-content-start">
-                <h6 className="fw-bold mb-1">Phone</h6>
-                <a href={`tel:${phoneNumber}`} className="text-light text-decoration-none">
-                  {phoneNumber}
-                </a>
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className="d-flex align-items-start mb-4 text-start">
-              <img src={emailIcon} width="36" className="me-3 contact-icon" alt="Email Icon" />
-
-              <div className="d-flex flex-column align-items-start justify-content-start">
-                <h6 className="fw-bold mb-1">Email</h6>
-                <a href={`mailto:${emailAddress}`} className="text-light text-decoration-none">
-                  {emailAddress}
-                </a>
-              </div>
-            </div>
-
-            {/* Working Hours */}
-            <div className="d-flex align-items-start mb-4 text-start">
-              <img src={clockIcon} width="36" className="me-3 contact-icon" alt="Clock Icon" />
-
-              <div className="d-flex flex-column align-items-start justify-content-start">
-                <h6 className="fw-bold mb-1">Working Hours</h6>
-                <p className="mb-0">Mon - Sat: 10:00 AM – 7:00 PM</p>
-              </div>
-            </div>
-          </div>
         </Col>
       </Row>
     </Container>
