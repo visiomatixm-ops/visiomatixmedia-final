@@ -2,7 +2,7 @@
  * @file Ecommerce.tsx
  * @description E-commerce Solutions Page — React + TypeScript + Bootstrap 5 + Framer Motion + Helmet + SEO JSON-LD Schema
  * @framework Vite + SWC
- * @version 2.1.0
+ * @version 2.3.1
  */
 
 import React from "react";
@@ -40,6 +40,29 @@ const Ecommerce: React.FC = () => {
   const businessSchema = { /* unchanged JSON-LD */ };
   const serviceSchema = { /* unchanged JSON-LD */ };
 
+  const services = [
+    {
+      icon: EcomWebApp,
+      title: "E-commerce Website Development",
+      text: "Fast, secure, and scalable online stores with modern UI, optimized checkout flows, and conversion-focused architecture.",
+    },
+    {
+      icon: MarketplaceAdvertising,
+      title: "Marketplace Advertising (Amazon, Flipkart, etc.)",
+      text: "Data-driven PPC campaigns with keyword targeting, bid optimization, and performance tracking to increase sales.",
+    },
+    {
+      icon: ProductListingOptimization,
+      title: "Product Listing Optimization",
+      text: "SEO-optimized titles, bullet points, descriptions, and backend keywords to improve rankings and click-through rates.",
+    },
+    {
+      icon: PaymentGatewayIntegration,
+      title: "Payment Gateway Integration",
+      text: "Secure payment integration with Razorpay, Stripe, and PayPal for faster checkout and better customer trust.",
+    },
+  ];
+
   return (
     <>
       {/* SEO */}
@@ -54,7 +77,6 @@ const Ecommerce: React.FC = () => {
           content="E-commerce Development, Marketplace Advertising, Amazon Ads, Flipkart Ads, Product Listing Optimization, Payment Gateway Integration, Shopify Development, WooCommerce, Magento"
         />
         <link rel="canonical" href="https://www.yourdomain.com/ecommerce-solutions" />
-
         <script type="application/ld+json">{JSON.stringify(businessSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
       </Helmet>
@@ -68,7 +90,7 @@ const Ecommerce: React.FC = () => {
         exit="hidden"
         variants={fadeInUp}
       >
-        {/* ---------------- Hero Section ---------------- */}
+        {/* Hero Section */}
         <section
           className="text-light py-5 position-relative"
           style={{
@@ -93,7 +115,7 @@ const Ecommerce: React.FC = () => {
               marginTop: "7rem",
             }}
           >
-            <div className="col-md-8">
+            <div className="col-md-8 text-center">
               <motion.h1
                 className="display-5 fw-bold"
                 initial={{ opacity: 0, y: 30 }}
@@ -128,113 +150,89 @@ const Ecommerce: React.FC = () => {
           </div>
         </section>
 
-        {/* ---------------- Description ---------------- */}
-        <section className="py-5 bg-light">
+        {/* Description Section */}
+        <section className="pt-3 pb-1 bg-light">
           <div className="container">
             <p
-              className="lead text-dark text-center mx-auto"
-              style={{ maxWidth: "850px" }}
+              className="lead text-dark text-center mx-auto mb-0"
+              style={{ maxWidth: "850px", fontSize: "1rem", lineHeight: "1.55" }}
             >
-              With Visiomatix’s E-commerce Solutions, your online
-              business gains modern design, smooth user experience, and deep
-              marketplace integration. Whether it’s a Shopify,
-               WooCommerce, or custom-built store, we
-              deliver performance-driven results. Boost visibility with
-              Amazon & Flipkart ads, optimized listings, and secure
+              With Visiomatix’s E-commerce Solutions, your online business gains
+              modern design, smooth user experience, and deep marketplace
+              integration. Whether it’s a Shopify, WooCommerce, or custom-built
+              store, we deliver performance-driven results. Boost visibility
+              with Amazon & Flipkart ads, optimized listings, and secure
               payment gateways.
             </p>
           </div>
         </section>
 
-        {/* ---------------- Services ---------------- */}
-        <section id="services" className="py-5">
+        {/* Services Section */}
+        <section id="services" className="pt-1 pb-5">
           <motion.div
-            className="container"
+            className="container-lg"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <h2 className="text-center fw-semibold mb-5">
+            <h2 className="text-center fw-semibold mt-4 mb-4">
               Our E-commerce Services
             </h2>
 
             <div className="row g-4">
-              {[
-                {
-                  title: "E-commerce Website Development",
-                  text: "Custom-built online stores with smooth UI and scalable backend for high conversions.",
-                  icon: EcomWebApp,
-                },
-                {
-                  title: "Marketplace Advertising (Amazon, Flipkart, etc.)",
-                  text: "Boost marketplace visibility with optimized PPC campaigns.",
-                  icon: MarketplaceAdvertising,
-                },
-                {
-                  title: "Product Listing Optimization",
-                  text: "SEO-rich titles, descriptions, and backend keywords for higher ranking.",
-                  icon: ProductListingOptimization,
-                },
-                {
-                  title: "Payment Gateway Integration",
-                  text: "Secure checkout using Razorpay, Stripe, PayPal, and more.",
-                  icon: PaymentGatewayIntegration,
-                },
-              ].map((service, idx) => (
+              {services.map((service, idx) => (
                 <motion.div
                   key={idx}
-                  className="col-md-6 col-lg-6"
+                  className="col-12 col-sm-6 col-md-6 col-lg-3 d-flex justify-content-center"
                   variants={cardVariant}
+                  initial="hidden"
+                  animate="visible"
                 >
-                  <div className="card border-0 shadow-sm text-center h-100">
-                    <div className="card-body text-center">
+                  <motion.div
+                    className="card h-100 border-0"
+                    style={{
+                      boxShadow: "0 4px 15px rgba(0, 25, 51, 0.3)",
+                      background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
+                      width: "100%",
+                      maxWidth: "350px",
+                      minHeight: "300px",
+                      borderRadius: "12px",
+                    }}
+                    whileHover={{
+                      y: -5,
+                      boxShadow: "0 8px 25px rgba(0, 25, 51, 0.4)",
+                      transition: { duration: 0.3 },
+                    }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  >
+                    <div
+                      className="card-body d-flex flex-column align-items-start"
+                      style={{ height: "100%", padding: "2rem 1rem" }}
+                    >
+                      {/* Icon centered */}
+                      <div className="d-flex justify-content-center w-100 mb-3">
+                        <motion.img
+                          src={service.icon}
+                          alt={service.title}
+                          style={{ width: "50px", height: "50px", objectFit: "contain" }}
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      </div>
 
-                      {/* ---------------- UPDATED ICON CODE ---------------- */}
-                      <motion.img
-                        src={service.icon}
-                        alt={service.title}
-                        style={{
-                          width: "65px",
-                          height: "65px",
-                          objectFit: "contain",
-                        }}
-                        className="mb-3"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 260,
-                          damping: 20,
-                          delay: idx * 0.1,
-                        }}
-                        whileHover={{
-                          scale: 1.1,
-                          rotate: [0, -10, 10, -10, 0],
-                          transition: {
-                            rotate: {
-                              duration: 0.6,
-                              ease: "easeInOut",
-                            },
-                          },
-                        }}
-                      />
-                      {/* ---------------------------------------------------- */}
-
-                      <h5 className="card-title fw-bold">{service.title}</h5>
-
-                      <p className="card-text mt-2">      {/* text-muted */}
-                        {service.text}
-                      </p>
+                      {/* Left-aligned black text */}
+                      <h5 className="fw-bold text-dark mt-2">{service.title}</h5>
+                      <p className="text-dark text-start">{service.text}</p>
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
         </section>
 
-        {/* ---------------- CTA ---------------- */}
+        {/* CTA Section */}
         <motion.section
           className="bg-dark text-light text-center py-5"
           variants={fadeInUp}
