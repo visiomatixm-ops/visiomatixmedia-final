@@ -1,62 +1,6 @@
-/* ---------- MAIN LAYOUT ---------- */
-.faq-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 90px 80px;
-  background: #f5f7ff;
-  color: #1a1a1a;
-  gap: 60px;
-}
-
-/* ---------- LEFT SECTION ---------- */
-.faq-left {
-  width: 35%;
-}
-
-.faq-subtitle {
-  font-size: 14px;
-  letter-spacing: 2px;
-  color: #3f7cf8;
-  font-weight: 600;
-  margin-bottom: 18px;
-  text-transform: uppercase;
-}
-
-.faq-heading {
-  font-size: 46px;
-  font-weight: 700;
-  color: #122046;
-  line-height: 1.2;
-}
-
-/* ---------- RIGHT SECTION ---------- */
-.faq-right {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-/* ---------- FAQ CARD ---------- */
-.faq-card {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-  border-radius: 14px;
-  border: 1.5px solid rgba(63, 124, 248, 0.35);
-  padding: 22px 28px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
-}
-
-/* Hover effect */
-.faq-card:hover {
-  background: rgba(255, 255, 255, 0.85);
-  transform: translateY(-3px);
-  border-color: #3f7cf8;
-}
-/* ---------- MAIN LAYOUT ---------- */
+/* ================================
+   MAIN LAYOUT
+================================ */
 .faq-container {
   width: 100%;
   display: flex;
@@ -67,7 +11,9 @@
   gap: 40px;
 }
 
-/* ---------- LEFT SECTION (Heading TOP) ---------- */
+/* ================================
+   HEADING SECTION
+================================ */
 .faq-left {
   width: 100%;
 }
@@ -75,7 +21,7 @@
 .faq-subtitle {
   font-size: 14px;
   letter-spacing: 2px;
-  color: #3f7cf8;
+  color: #1D3458;
   font-weight: 600;
   margin-bottom: 12px;
   text-transform: uppercase;
@@ -84,11 +30,13 @@
 .faq-heading {
   font-size: 46px;
   font-weight: 700;
-  color: #122046;
+  color: #1D3458;
   line-height: 1.2;
 }
 
-/* ---------- RIGHT SECTION (FAQ List BELOW) ---------- */
+/* ================================
+   FAQ LIST
+================================ */
 .faq-right {
   width: 100%;
   display: flex;
@@ -96,70 +44,86 @@
   gap: 18px;
 }
 
-/* FAQ card styling remains same... */
-
-/* Active card */
-.faq-card.active {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: #3f7cf8;
+/* ================================
+   FAQ CARD
+================================ */
+.faq-card {
+  background: #ffffff;              /* white background */
+  border-radius: 14px;
+  border: 1.5px solid #1D3458;       /* REQUIRED BORDER COLOR */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
-/* ---------- QUESTION ---------- */
+.faq-card:hover {
+  transform: translateY(-2px);
+}
+
+/* ================================
+   QUESTION ROW
+================================ */
 .faq-question {
+  padding: 22px 28px;
   font-size: 19px;
   font-weight: 600;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #122046;
+  color: #1D3458;
 }
 
-/* + Icon */
+/* ================================
+   PLUS ICON
+================================ */
 .icon {
   font-size: 26px;
   font-weight: bold;
-  transition: transform 0.3s ease, color 0.3s ease;
+  color: #1D3458;
+  transition: transform 0.3s ease;
 }
 
 .icon.rotate {
   transform: rotate(135deg);
-  color: #3f7cf8;
 }
 
-/* ---------- ANSWER ---------- */
+/* ================================
+   ANSWER
+================================ */
 .faq-answer {
   max-height: 0;
-  overflow: hidden;
   opacity: 0;
-  transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.3s ease;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
 }
 
-.answer-open {
-  max-height: 300px;
+.faq-answer.answer-open {
+  max-height: 250px;
   opacity: 1;
-  padding-top: 14px;
 }
 
 .faq-answer p {
+  padding: 0 28px 22px;
   font-size: 16px;
   color: #505d75;
   line-height: 1.6;
   margin: 0;
 }
 
-/* ---------- RESPONSIVE ---------- */
+/* ================================
+   RESPONSIVE
+================================ */
 @media (max-width: 900px) {
   .faq-container {
-    flex-direction: column;
     padding: 60px 30px;
-  }
-
-  .faq-left,
-  .faq-right {
-    width: 100%;
   }
 
   .faq-heading {
     font-size: 36px;
+  }
+
+  .faq-question {
+    font-size: 17px;
   }
 }

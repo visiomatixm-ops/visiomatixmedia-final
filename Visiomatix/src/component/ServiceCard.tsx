@@ -66,8 +66,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       {/* ====================== Card Body Section ====================== */}
       <div className="card-body p-3 p-sm-4">
         <h5 className="card-title fw-semibold text-dark mb-3 h6 h-sm-5">{title}</h5>
-        <p className="card-text text-dark text-secondary mb-0 small fs-7 fs-sm-6">{description}</p>
-      </div>
+        <p
+  className="card-text text-start mb-0 small fs-7 fs-sm-6"
+  style={{ color: "#000" }}
+>
+  {description}
+</p>
+</div>
 
       {/* ====================== Inline Light Theme CSS ====================== */}
       <style>

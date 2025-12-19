@@ -160,7 +160,7 @@ const Contact: React.FC = () => {
               <div key={i} className="d-flex mb-4">
                 <img src={item.icon} width="34" className="me-3" />
                 <div>
-                  <h6 className="fw-bold">{item.title}</h6>
+                  <h6 className="fw-bold text-start">{item.title}</h6>
                   {item.link ? (
                     <a href={item.link} className="text-light text-decoration-none">
                       {item.text}
@@ -215,7 +215,7 @@ const Contact: React.FC = () => {
                   <ReCAPTCHA sitekey="6LcJUwwsAAAAAM_k2WUuXkIpG1wZfG4bIpDLIcRP" onChange={handleCaptchaChange} />
 
                   <div className="text-center mt-3">
-                    <Button type="submit" className="px-5 fw-bold">
+                    <Button type="submit" className="px-5 fw-bold" style={{backgroundColor:"#1D3458",color:"#fff",border:"none"}}>
                       Send Message
                     </Button>
                   </div>

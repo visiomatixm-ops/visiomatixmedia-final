@@ -202,13 +202,13 @@ const DigitalMarketing: React.FC = () => {
                 <motion.div key={idx} className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center" variants={cardVariant}>
                   <motion.div className="card h-100 border-0" style={{ boxShadow: "0 4px 15px rgba(0,25,51,0.3)", maxWidth: 350 }} whileHover={{ y: -5 }}>
                     <div className="card-body text-center d-flex flex-column p-4">
-  <img src={card.icon} alt={card.title} style={{ width: 60 }} className="mx-auto mb-3" />
-  <h5>{card.title}</h5>
-  {/* Left-aligned description */}
-  <p className="text-start text-dark" style={{ fontSize: "0.9rem" }}>
-    {card.description}
-  </p>
-</div>
+                      <img src={card.icon} alt={card.title} style={{ width: 60 }} className="mx-auto mb-3" />
+                      <h5>{card.title}</h5>
+                      {/* Left-aligned description */}
+                      <p className="text-start text-dark" style={{ fontSize: "0.9rem" }}>
+                        {card.description}
+                      </p>
+                    </div>
 
                   </motion.div>
                 </motion.div>
