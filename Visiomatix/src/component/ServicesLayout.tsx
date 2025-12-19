@@ -58,7 +58,7 @@ const ServiceCardWrapper: React.FC<ServiceCardWrapperProps> = ({ service, cardVa
 };
 
 // Example service images
-import DigitalMarketing from "/public/services/1_DIGITAL MARKETING SERVICES.png";
+import DigitalMarketing from "/public/services/01-digital-marketing.png";
 import AnimationImage from "/public/services/2d_3d animation-1.png";
 import BrandingImage from "/public/services/6_BRAND&STRATEGY.png";
 import PhotographyImage from "/public/services/photography-1.png";
@@ -149,13 +149,13 @@ const cardThemeStyles = `
 const ServicesLayout: React.FC = () => {
   const services = [
     { image: DigitalMarketing, title: "Digital Marketing", description: "Digital marketing is the strategic use of online channels to promote brands, engage audiences, and drive measurable business growth." },
-    { image: AnimationImage, title: "2D/3D Animation", description: "Creative animation services for advertisements and films." },
-    { image: BrandingImage, title: "Brand Design", description: "Crafting unique brand identities for your business." },
-    { image: PhotographyImage, title: "Photography", description: "High-quality photoshoots for events, products, and portfolios." },
-    { image: VideographyImage, title: "Videography", description: "End-to-end video production for commercials and events." },
-    { image: MotionImage, title: "Motion Graphics", description: "Eye-catching motion designs for social media and ads." },
-    { image: WebDesignImage, title: "Web Design", description: "Modern and responsive websites for creative industries." },
-    { image: GraphicImage, title: "Graphic Design", description: "Logos, posters, and marketing materials that stand out." }
+    { image: AnimationImage, title: "2D/3D Animation", description: "Creative animation services for advertisements and films Engaging 2D and 3D animations designed for advertisements, explainer videos, films." },
+    { image: BrandingImage, title: "Brand Design", description: "Crafting unique brand identities for your businessWe create strong and memorable brand identities that reflect your business values." },
+    { image: PhotographyImage, title: "Photography", description: "High-quality photoshoots for events, products, and portfolios Professional photography services for events, products, corporate profiles,." },
+    { image: VideographyImage, title: "Videography", description: "End-to-end video production for commercials and events Complete video production services including concept planning, shooting, editing,." },
+    { image: MotionImage, title: "Motion Graphics", description: "Eye-catching motion designs for social media and ads Dynamic and eye-catching motion graphics designed for social media, ads, presentations,." },
+    { image: WebDesignImage, title: "Web Design", description: "Modern and responsive websites for creative industries Modern, responsive, and user-friendly website designs tailored for creative industries." },
+    { image: GraphicImage, title: "Graphic Design", description: "Logos, posters, and marketing materials that stand out Creative graphic design solutions including logos, brochures, posters, banners,." }
   ];
 
   const cardVariants = {
@@ -166,7 +166,7 @@ const ServicesLayout: React.FC = () => {
   };
 
   return (
-    <div className="container my-5">
+    <div className="container my-5 text-start">
       {/* Inject local light theme styles */}
       <style>{cardThemeStyles}</style>
 

@@ -17,6 +17,7 @@ import ServicesLayout from "../component/ServicesLayout";
 import CarouselComponent from "../component/CarouselComponent";
 import FeaturedServices from "../component/FeaturedServices";
 import ContactFormSection from "../component/ContactFormSection"; // <-- CORRECTED PATH
+//import GlobalSection from "../component/GlobalSection";
 import "../styles/ContactForm.css";
 import PartnersandCertifications from "../component/PartnersandCertifications";
 //import TestimonialsSection from "../pages/Testimonials";
@@ -29,6 +30,11 @@ import clockIcon from "../assets/icons/clock.svg";
 import phoneIcon from "../assets/icons/phone.svg";
 import ourOfficeIcon from "../assets/icons/map.svg";
 
+import { useState } from "react";
+//FAQ
+
+// Banner Images
+//import Banner2 from "/about/Digital-Marketing-Services-banner.jpg";
 const Home: React.FC = () => {
   const structuredData = {
     "@context": "https://schema.org",
@@ -44,6 +50,31 @@ const Home: React.FC = () => {
     description:
       "Visiomatix is a technology-driven digital marketing and web development company.",
   };
+  const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  countryCode: "+91",
+  contactNumber: "",
+  service: "",
+  subject: "",
+  message: "",
+});
+
+const phoneNumber = "+91 70206 70894";
+const emailAddress = "visiomatixmedia@gmail.com";
+
+const handleChange = (e: any) => {
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+};
+
+const handleSubmit = (e: any) => {
+  e.preventDefault();
+  console.log("Form Submitted", formData);
+};
+
+const handleCaptchaChange = (value: any) => {
+  console.log("Captcha:", value);
+};
 
   return (
     <>
@@ -95,10 +126,9 @@ const Home: React.FC = () => {
           {/* ----------------------------------------------------
                NEW SECTION: FOUNDER STORY
           ---------------------------------------------------- */}
-          <section className="py-5" style={{ backgroundColor: "#08172b" }}>
+           <section className="py-5" style={{ backgroundColor: "#08172B" }}>
             <div className="container">
               <div className="row align-items-center">
-
                 {/* Founder Image */}
                 <div className="col-md-5 mb-4 mb-md-0">
                   <img
@@ -111,15 +141,13 @@ const Home: React.FC = () => {
                       objectFit: "cover",
                     }}
                   />
-                </div>
-
-                {/* Founder Content */}
+                </div>                {/* Founder Content */}
                 <div className="col-md-7 text-light">
                   <h2 className="fw-bold mb-1" style={{ color: "#fff" }}>
                     Rohit Shinde
                   </h2>
                   <h3 className="mb-4" style={{ color: "#fff", fontSize: "1.25rem" }}>
-                    FOUNDER & CEO DIGITIZE MATIX
+                    FOUNDER & CEO VISIOMATIX MEDIA
                   </h3>
 
 
@@ -141,13 +169,14 @@ const Home: React.FC = () => {
                     empowering young creators and building a team that thrives
                     on creativity and collaboration.
                   </p>
+                  <ul className="text-start text-light ps-3 ms-0" style={{ maxWidth: "100%" }}>
 
-                  <ul className="text-start text-light"
-                    style={{ maxWidth: "90%" }}>
                     <li>Encourages innovation through creative freedom.</li>
                     <li>Empowers young designers and creators.</li>
                     <li>Leads with vision, teamwork, and integrity.</li>
-                    <li>Turns bold ideas into impactful digital experiences.</li>
+                    <li>
+                      Turns bold ideas into impactful digital experiences.
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -165,7 +194,7 @@ const Home: React.FC = () => {
 
           {/*-----------Global map-------*/}
 
-              {/*<img src="/map/wolrdmap.jpeg" alt="World Map" />*/}
+             {/*<GlobalSection />*/}
 
       {/* ----------- TESTIMONIALS SECTION (Home Page only) ----------- */}
        {/* <TestimonialsSection />*/}

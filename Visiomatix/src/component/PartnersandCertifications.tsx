@@ -23,20 +23,19 @@ const PartnersandCertifications: React.FC = () => {
       className="container-fluid"
       style={{
         background: '#F7F7F7',
-        padding: '50px 20px',
+        padding: '50px 20px 25px', // reduced bottom space only
         textAlign: 'center',
       }}
     >
       <div className="row justify-content-center">
-        <div className="col-12 text-center mb-4">
+        <div className="col-12 text-center">
           <h2
             style={{
               fontSize: '3rem',
-              paddingBottom: '1em',
-              paddingTop: '1em',
+              paddingBottom: '0.3em',
               fontWeight: 600,
               color: '#003866',
-              marginBottom: '30px',
+              marginBottom: '10px',
             }}
           >
             Partners and Certifications

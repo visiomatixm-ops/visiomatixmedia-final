@@ -1,7 +1,7 @@
 // src/components/ApplyModal/ApplyModal.tsx
 import React, { useState } from "react";
 import { Modal, Button, Form, Row, Col, Alert, Spinner } from "react-bootstrap";
-import api from "../../services/api";
+import api from "../services/api";
 import "./ApplyModal.css";
 
 type School = { name: string; year: string; percentage: string };
@@ -76,7 +76,7 @@ export const ApplyModal: React.FC<ApplyModalProps> = ({ show, onClose, jobId }) 
         form.append("experiences", JSON.stringify(experiences));
         form.append("profile", profileFile as Blob);
 
-        await api.post("/api/apply/formdata", form, {
+        await api.post("/apply/formdata", form, {
           headers: { "Content-Type": "multipart/form-data" },
         });
       } else {
@@ -93,7 +93,7 @@ export const ApplyModal: React.FC<ApplyModalProps> = ({ show, onClose, jobId }) 
           colleges,
           experiences,
         };
-        await api.post("/api/apply", payload);
+        await api.post("/apply", payload);
       }
 
       setStatusMsg({ type: "success", text: "Application submitted successfully. We will contact you soon." });

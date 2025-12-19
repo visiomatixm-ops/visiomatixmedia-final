@@ -46,27 +46,23 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       }}
     >
       {/* ====================== Image Section ====================== */}
-      <motion.img
-        src={image || fallbackImage}
-        alt={title}
-        className="card-img-top img-fluid"
-        onError={(e) => ((e.currentTarget.src = fallbackImage))}
-        style={{
-          width: "clamp(180px, 25vw, 250px)",
-          height: "clamp(180px, 25vw, 250px)",
-          objectFit: "cover",
-          borderRadius: 8,
-          margin: "1rem auto 0",
+      <motion.img src={image || fallbackImage} 
+      alt={title}
+       className="card-img-top img-fluid" 
+       onError={(e) => ((e.currentTarget.src = fallbackImage))} 
+       style={{ width: "clamp(180px, 25vw, 250px)",
+         height: "clamp(180px, 25vw, 250px)", 
+         objectFit: "cover", 
+         borderRadius: 8, margin: "1rem auto 0",
           background: "white",
-          transition: "border-radius 0.5s ease",
-        }}
-        whileHover={imageHover}
-      />
+           transition: "border-radius 0.5s ease", }} 
+          whileHover={imageHover} />
+
 
       {/* ====================== Card Body Section ====================== */}
       <div className="card-body p-3 p-sm-4">
         <h5 className="card-title fw-semibold text-dark mb-3 h6 h-sm-5">{title}</h5>
-        <p className="card-text text-dark text-secondary mb-0 small fs-7 fs-sm-6">{description}</p>
+        <p className="card-text text-dark text-secondary mb-0 small fs-7 fs-sm-6 text-start">{description}</p>
       </div>
 
       {/* ====================== Inline Light Theme CSS ====================== */}
@@ -117,6 +113,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           }
         `}
       </style>
+      
     </motion.div>
   );
 };

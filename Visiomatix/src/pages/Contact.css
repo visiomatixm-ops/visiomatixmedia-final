@@ -57,28 +57,14 @@
 .contact-card .g-recaptcha {
   display: inline-block;
 }
-
-/* Scrollbar styling ONLY for the country code dropdown */
-.country-code-dropdown::-webkit-scrollbar {
-  width: 8px;
-}
-
-.country-code-dropdown::-webkit-scrollbar-track {
-  background: #ffffff; /* Track background */
-  border-radius: 10px;
-}
-
-.country-code-dropdown::-webkit-scrollbar-thumb {
-  background: #1D3558; /* Your color */
-  border-radius: 10px;
-}
-
-.country-code-dropdown::-webkit-scrollbar-thumb:hover {
-  background: #162946; /* Slightly darker on hover */
-}
 .country-code-dropdown {
-  max-height: 180px;
-  overflow-y: auto;
+  background-color: #1D3458;
+  color: #ffffff;
+  border: 1px solid #1D3458;
+}
+
+.country-code-dropdown option {
+  color: #1D3458;
 }
 
 
@@ -96,3 +82,11 @@
   /* Remove any potential box-shadow that might be creating a "glow" effect */
   box-shadow: none !important;
 }
+.custom-send-btn {
+  background-color: #1D3458;
+  border-color: #1D3458;
+  color: #ffffff;
+}
+
+
+

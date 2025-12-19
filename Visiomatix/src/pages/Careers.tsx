@@ -27,45 +27,6 @@ const Careers: React.FC = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [selectedJob, setSelectedJob] = useState<JobOpening | null>(null);
 
-const [firstName, setFirstName] = useState("");
-const [lastName, setLastName] = useState("");
-const [email, setEmail] = useState("");
-const [contact, setContact] = useState("");
-const [dob, setDob] = useState("");
-const [role, setRole] = useState("");
-const [qualification, setQualification] = useState<any>({});
-const [experience, setExperience] = useState<any>({});
-const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-const handleSubmit = async () => {
-  if (!selectedFile) {
-    alert("Please upload your resume.");
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("firstName", firstName);
-  formData.append("lastName", lastName);
-  formData.append("email", email);
-  formData.append("contact", contact);
-  formData.append("dob", dob);
-  formData.append("role", role);
-  formData.append("qualificationJson", JSON.stringify(qualification));
-  formData.append("experienceJson", JSON.stringify(experience));
-  formData.append("resume", selectedFile);
-
-  const res = await fetch("http://localhost:8080/api/careers", {
-    method: "POST",
-    body: formData,
-  });
-
-  if (res.ok) {
-    alert("Application submitted successfully!");
-  } else {
-    alert("Error submitting application.");
-  }
-};
-
   // --------------------------------------
   // Job listing data
   // --------------------------------------
@@ -176,41 +137,50 @@ const handleSubmit = async () => {
       {/* Hero Banner */}
       {/* ============================================= */}
       <section
-        className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
-        style={{
-          backgroundImage: `url('/about/careers-V1.png')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "80vh",
-          position: "relative",
-          marginBottom: "3rem",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundColor: "rgba(2, 93, 145, 0.18)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-          }}
-        >
-          <h1 className="display-5 fw-bold">
-            Careers at Visiomatix
-          </h1>
-          <p className="lead">
-            Join our innovative engineering team and be part of a dynamic
-            environment where creativity meets cutting-edge technology.
-            We're looking for passionate individuals ready to tackle
-            challenging projects and grow their careers in a supportive,
-            collaborative atmosphere.
-          </p>
-        </div>
-      </section>
+              className="d-flex align-items-center justify-content-center text-center text-light"
+              style={{
+                backgroundImage: "url('/about/Blur images/careers.png')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                minHeight: "80vh",
+                position: "relative",
+                marginBottom: "3rem",
+              }}
+            >
+              {/* Overlay */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "rgba(2, 93, 145, 0.45)", // darker for readability
+                  zIndex: 1,
+                }}
+              />
+
+              {/* Content */}
+              <div
+                className="container position-relative"
+                style={{ zIndex: 2, maxWidth: "900px" }}
+              >
+                <h1 className="display-5 fw-bold mb-3 text-white">
+                  Careers at Visiomatix
+                </h1>
+
+                <p
+                  className="lead text-white"
+                  style={{
+                    lineHeight: "1.7",
+                    textShadow: "0 2px 8px rgba(0,0,0,0.35)",
+                  }}
+                >
+                  Join our innovative engineering team and be part of a dynamic environment
+                  where creativity meets cutting-edge technology. We’re looking for
+                  passionate individuals ready to tackle challenging projects and grow
+                  their careers in a supportive, collaborative atmosphere.
+                </p>
+              </div>
+            </section>
+
 
       {/* ============================================= */}
       {/* Job Cards with Collapsible Sections */}
@@ -218,13 +188,13 @@ const handleSubmit = async () => {
       
       {/*================== why join visiomatix*/}
         
-      <section style={{ backgroundColor: "#fff", color: "#195186 !important", padding: "5rem 0" }}>
+      <section style={{ backgroundColor: "#fff", color: "#101213ff !important", padding: "5rem 0" }}>
         <Container>
-          <h2 className="text-center fw-bold mb-5" style={{ fontSize: "2.5rem", color: "#195186" }}>
+          <h2 className="text-center fw-bold mb-5 text-start" style={{ fontSize: "2.5rem", color: "#195186" }}>
             Why Join Visiomatix?
           </h2>
 
-          <Row className="g-4" style={{color: "#195186" }}>
+          <Row className="g-4 text-start" style={{color: "#195186" }}>
             {[
               {
                 num: "1.",
@@ -351,44 +321,55 @@ const handleSubmit = async () => {
                       className="border-0 rounded-3 h-100 d-flex flex-column shadow-sm"
                       style={{ boxShadow: "0 6px 15px rgba(0,0,0,0.08)" }}
                     >
-                      <Card.Body className="d-flex flex-column flex-grow-1 align-items-start text-start p-2">
-                        <div className="flex-grow-1 w-100">
-                          <h6 className="fw-bold mb-1">{job.title}</h6>
+                      <Card.Body className="career-card-body">
+  <h6 className="fw-bold mb-2">{job.title}</h6>
 
-                          <p className="mb-1">
-                            <strong>Experience:</strong> {job.experience}
-                          </p>
-                          <p className="mb-1">
-                            <strong>Employment:</strong> {job.employment}
-                          </p>
-                          <p className="mb-1">
-                            <strong>Salary:</strong> {job.salary}
-                          </p>
+  <div className="job-info">
+    <div className="job-row">
+      <span className="job-label">Experience</span>
+      <span className="job-value">{job.experience}</span>
+    </div>
 
-                          <p className="mb-1">
-                            <strong>Preferred Skills: </strong>
-                            {job.skills.join(", ")}
-                          </p>
+    <div className="job-row">
+      <span className="job-label">Employment</span>
+      <span className="job-value">{job.employment}</span>
+    </div>
 
-                          <p className="mb-1">
-                            <strong>Responsibilities: </strong>
-                            {job.responsibilities.join(", ")}
-                          </p>
-                        </div>
+    <div className="job-row">
+      <span className="job-label">Salary</span>
+      <span className="job-value">{job.salary}</span>
+    </div>
 
-                        <hr className="w-100 my-1" />
-                        <Button
-                          variant="primary"
-                          className="fw-semibold px-3 py-1 mt-1"
-                          onClick={() => {
-                            setSelectedJob(job);
-                            setShowDetails(true);
-                          }}
-                          style={{ backgroundColor: "#1D3458", borderColor: "#1e3a5f" }}
-                        >
-                          View Details
-                        </Button>
-                      </Card.Body>
+    <div className="job-row">
+      <span className="job-label">Preferred Skills</span>
+      <span className="job-value">
+        {job.skills.join(", ")}
+      </span>
+    </div>
+
+    <div className="job-row">
+      <span className="job-label">Responsibilities</span>
+      <span className="job-value">
+        {job.responsibilities.join(",")}
+      </span>
+    </div>
+  </div>
+
+  <hr className="my-2" />
+
+  <Button
+    variant="primary"
+    className="fw-semibold px-3 py-1 mt-auto"
+    style={{ backgroundColor: "#1D3458", borderColor: "#1e3a5f" }}
+    onClick={() => {
+      setSelectedJob(job);
+      setShowDetails(true);
+    }}
+  >
+    View Details
+  </Button>
+</Card.Body>
+
                     </Card>
                   </Col>
                 ))}

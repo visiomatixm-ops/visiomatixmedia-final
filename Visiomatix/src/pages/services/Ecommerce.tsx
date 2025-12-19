@@ -14,7 +14,7 @@ import EcomWebApp from "/services/icons/5-LIST/5-1 E-commerce Website Developmen
 import MarketplaceAdvertising from "/services/icons/5-LIST/5-2 Marketplace Advertising.svg";
 import ProductListingOptimization from "/services/icons/5-LIST/5-3 PRODUCT LISTING ICON.svg";
 import PaymentGatewayIntegration from "/services/icons/5-LIST/5-4 Payment Gateway Integration.svg";
-import Banner from "/services/Banner/E-commerce Services with minimal illustration not more and not low-4.jpg";
+
 
 // ---------------- Framer Motion Variants ----------------
 const fadeInUp = {
@@ -37,11 +37,36 @@ const cardVariant = {
 
 // ---------------- Component ----------------
 const Ecommerce: React.FC = () => {
-  const businessSchema = { /* unchanged JSON-LD */ };
-  const serviceSchema = { /* unchanged JSON-LD */ };
+  const businessSchema = {};
+  const serviceSchema = {};
 
   return (
     <>
+    {/* ADD THIS INTERNAL STYLE BLOCK OR MOVE TO YOUR CSS FILE 
+        to match the "Web App Development" card style 
+      */}
+      <style>{`
+        .visiomatix-service-card {
+          background: #fff;
+          border-radius: 12px;
+          padding: 40px 30px; /* Increased padding like Image 2 */
+          text-align: center; /* Center everything */
+          box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+          transition: transform 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .service-description {
+          color: #555;
+          line-height: 1.6;
+          font-size: 0.95rem;
+          margin-top: 10px;
+        }
+      `}</style>
+
+
       {/* SEO */}
       <Helmet>
         <title>E-commerce Solutions | Online Store Development & Marketplace Advertising</title>
@@ -72,7 +97,7 @@ const Ecommerce: React.FC = () => {
         <section
           className="text-light py-5 position-relative"
           style={{
-            backgroundImage: `url(${Banner})`,
+           // backgroundImage: `url(${Banner})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundBlendMode: "overlay",
@@ -122,7 +147,7 @@ const Ecommerce: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                Discover More
+               Explore Solutions
               </motion.a>
             </div>
           </div>
@@ -132,8 +157,11 @@ const Ecommerce: React.FC = () => {
         <section className="py-5 bg-light">
           <div className="container">
             <p
-              className="lead text-dark text-center mx-auto"
-              style={{ maxWidth: "850px" }}
+                className="lead text-dark mx-auto visiomatix-text"
+                style={{ maxWidth: "850px",
+                textAlign:"justify",
+                lineHeight:"1.8"
+               }}
             >
               With Visiomatix’s E-commerce Solutions, your online
               business gains modern design, smooth user experience, and deep
@@ -148,91 +176,98 @@ const Ecommerce: React.FC = () => {
 
         {/* ---------------- Services ---------------- */}
         <section id="services" className="py-5">
-          <motion.div
-            className="container"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <h2 className="text-center fw-semibold mb-5">
-              Our E-commerce Services
-            </h2>
+  <motion.div
+    className="container"
+    variants={staggerContainer}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true }}
+  >
+    <h2 className="text-center fw-semibold mb-5">
+      Our E-commerce Services
+    </h2>
 
-            <div className="row g-4">
-              {[
-                {
-                  title: "E-commerce Website Development",
-                  text: "Custom-built online stores with smooth UI and scalable backend for high conversions.",
-                  icon: EcomWebApp,
-                },
-                {
-                  title: "Marketplace Advertising (Amazon, Flipkart, etc.)",
-                  text: "Boost marketplace visibility with optimized PPC campaigns.",
-                  icon: MarketplaceAdvertising,
-                },
-                {
-                  title: "Product Listing Optimization",
-                  text: "SEO-rich titles, descriptions, and backend keywords for higher ranking.",
-                  icon: ProductListingOptimization,
-                },
-                {
-                  title: "Payment Gateway Integration",
-                  text: "Secure checkout using Razorpay, Stripe, PayPal, and more.",
-                  icon: PaymentGatewayIntegration,
-                },
-              ].map((service, idx) => (
-                <motion.div
-                  key={idx}
-                  className="col-md-6 col-lg-6"
-                  variants={cardVariant}
-                >
-                  <div className="card border-0 shadow-sm h-100">
-                    <div className="card-body text-center">
+    <div className="row g-4 justify-content-center">
 
-                      {/* ---------------- UPDATED ICON CODE ---------------- */}
-                      <motion.img
-                        src={service.icon}
-                        alt={service.title}
-                        style={{
-                          width: "48px",
-                          height: "48px",
-                          objectFit: "contain",
-                        }}
-                        className="mb-3"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 260,
-                          damping: 20,
-                          delay: idx * 0.1,
-                        }}
-                        whileHover={{
-                          scale: 1.1,
-                          rotate: [0, -10, 10, -10, 0],
-                          transition: {
-                            rotate: {
-                              duration: 0.6,
-                              ease: "easeInOut",
-                            },
-                          },
-                        }}
-                      />
-                      {/* ---------------------------------------------------- */}
+      {[
+        {
+          title: "E-commerce Website Development",
+          points: [
+            "Custom Shopify & WooCommerce Stores",
+            "Fast, Responsive UI",
+            "Scalable Backend Architecture",
+          ],
+          icon: EcomWebApp,
+        },
+        {
+          title: "Marketplace Advertising",
+          points: [
+            "Amazon Ads Management",
+            "Flipkart Sponsored Campaigns",
+            "ROI-focused PPC Strategy",
+          ],
+          icon: MarketplaceAdvertising,
+        },
+        {
+          title: "Product Listing Optimization",
+          points: [
+            "SEO-rich Titles & Descriptions",
+            "Keyword Optimization",
+            "High Conversion Content",
+          ],
+          icon: ProductListingOptimization,
+        },
+        {
+          title: "Payment Gateway Integration",
+          points: [
+            "Razorpay, Stripe & PayPal",
+            "Secure Checkout Flow",
+            "Multi-currency Support",
+          ],
+          icon: PaymentGatewayIntegration,
+        },
+      ].map((service, idx) => (
+        <motion.div
+          key={idx}
+          className="col-12 col-md-6 col-lg-6"
+          variants={cardVariant}
+        >
+          <div className="visiomatix-service-card h-100">
 
-                      <h5 className="card-title fw-bold">{service.title}</h5>
+            {/* ICON */}
+            <motion.img
+                src={service.icon}
+                alt={service.title}
+                className="mb-4"
+                style={{ width: "56px", height: "56px" }}
+                whileHover={{ scale: 1.08 }}
+              />
 
-                      <p className="card-text text-muted mt-2">
-                        {service.text}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </section>
+              <h5 className="fw-bold mb-3" 
+              style={{ fontSize: "1.25rem" }}>
+                {service.title}
+              </h5>
+
+              <ul className="list-unstyled text-start mx-auto mb-0">
+                {service.points.map((point, i) => (
+                  <li key={i} 
+                  className="mb-1" 
+                  style={{ fontSize: "0.92rem" }}>
+                  
+                     {point}
+                  </li>
+                ))}
+              </ul>
+
+
+          </div>
+        </motion.div>
+      ))}
+
+    </div>
+  </motion.div>
+</section>
+
 
         {/* ---------------- CTA ---------------- */}
         <motion.section

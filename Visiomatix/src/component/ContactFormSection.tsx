@@ -48,14 +48,18 @@ const countryCodes = [
 ];
 
 const faqs = [
-   { question: "What services does Visiomatix Media offer?", answer: "We provide branding, digital marketing, motion graphics, graphic design, 3D modeling, VFX, and advertising solutions tailored to business needs." },
+    { question: "What services does Visiomatix Media offer?", answer: "We provide branding, digital marketing, motion graphics, graphic design, 3D modeling, VFX, and advertising solutions tailored to business needs." },
     { question: "How can I contact Visiomatix Media?", answer: "You can reach us via email at visiomatixmedia@gmail.com or call/WhatsApp +91 89991 01916." },
-    { question: "Does Visiomatix Media offer internships?", answer: "Yes, we offer internships in various domains including Full Stack Development, Graphic Design, Digital Marketing, and more." },
-    { question: "How long is the internship program?", answer: "The internship typically lasts 3 to 6 months, depending on the role and program selected." },
-    { question: "Is the internship paid?", answer: "Some internships offer a stipend based on performance. Details vary by role." },
-    { question: "Do interns receive a certificate?", answer: "Yes, all interns who successfully complete their program will receive a certificate." },
-    { question: "Who can apply for internships?", answer: "Students, fresh graduates, and early-career professionals with basic computer skills and a willingness to learn." },
+    { question: "What does Visiomatix Media specialize in?", answer: "Visiomatix Media is a full-service digital growth agency specializing in brand strategy, creative design, website development, digital marketing, SEO, performance marketing, and AI-powered visual solutions." },
+   { question: "How does Visiomatix Media approach client projects?", answer: "We follow a structured, strategy-first approach that begins with research and planning, followed by execution and continuous performance optimization." },
+    //{ question: "What makes Visiomatix Media different from other agencies?", answer: "Our strength lies in combining strategic thinking, creative excellence, data-driven execution, and AI-powered solutions to deliver consistent results." },
+    //{ question: "Do you offer customized solutions or fixed packages?", answer: "We primarily offer customized solutions aligned with business goals, industry requirements, and budgets to ensure maximum ROI" },
+  // { question: "How do you ensure quality and consistency across deliverables?", answer: "All deliverables go through a defined quality-control process, including internal reviews and brand guideline checks" },
+   // { question: "How is project progress communicated to clients?", answer: "Clients receive structured reports, milestone updates, and performance insights through regular communication" },
+   // { question: "How is project progress communicated to clients?", answer: "Businesses can get started by submitting a service request through our website or scheduling aconsultation with our team." },
+
 ];
+
 
 const ContactFormSection: React.FC<Props> = ({
   ourOfficeIcon,
@@ -80,10 +84,10 @@ const ContactFormSection: React.FC<Props> = ({
     <Container className="my-5">
       <Row className="g-4">
         {/* LEFT – FAQ SECTION */}
-        <Col md={5}>
+        <Col md={6}>
           <Card
             className="shadow-lg border-0 rounded-4 p-4 h-100"
-            style={{ background: "#e7edf3ff", color: "#060606ff" }}
+            style={{ background: "rgb(14, 53, 92)", color: "white" }}
           >
             <div className="faq-container">
               <div className="faq-left mb-4">
@@ -103,25 +107,32 @@ const ContactFormSection: React.FC<Props> = ({
                     onClick={() => toggleFAQ(index)}
                     style={{
                       cursor: "pointer",
-                      background: "#dfe1e3ff",
+                      background: "rgb(11, 31, 58)",
+                      color: "#ffffff",
                       borderRadius: "12px",
                       padding: "15px",
                       marginBottom: "10px",
                     }}
                   >
                     <div className="faq-question d-flex justify-content-between align-items-center">
-                      <span>{item.question}</span>
+                      <span style={{ color: 'white',paddingLeft:'8px' }}>{item.question}</span>
                       <span
                         className={`icon ${openIndex === index ? "rotate" : ""}`}
-                        style={{ fontSize: "22px" }}
+                        style={{ fontSize: "22px", color: 'white' }}
                       >
                         +
                       </span>
                     </div>
 
                     {openIndex === index && (
-                      <div className="faq-answer mt-2">
-                        <p>{item.answer}</p>
+                      <div className="faq-answer mt-2" 
+                      style={{ background: "rgb(20, 50, 80)", 
+                      color: 'white', 
+                      padding: '10px'
+                       }} 
+                       onClick={(e) => e.stopPropagation()}>
+                        <p style={{ color: 'white', lineHeight: '1.5', textAlign: 'left' }}>
+                            {item.answer}</p>
                       </div>
                     )}
                   </div>
@@ -132,7 +143,7 @@ const ContactFormSection: React.FC<Props> = ({
         </Col>
 
         {/* RIGHT – SEND A MESSAGE */}
-        <Col md={7}>
+        <Col md={6}>
           <Card className="shadow-lg border-0 rounded-4 p-4 h-100">
             <h2 className="text-center mb-4 fw-bold text-uppercase">
               Send a Message
@@ -149,6 +160,7 @@ const ContactFormSection: React.FC<Props> = ({
                       value={formData.name}
                       onChange={handleChange}
                       required
+                      placeholder="Enter your name"
                     />
                   </Form.Group>
                 </Col>
@@ -162,45 +174,49 @@ const ContactFormSection: React.FC<Props> = ({
                       value={formData.email}
                       onChange={handleChange}
                       required
+                      placeholder="Enter your email"
                     />
                   </Form.Group>
                 </Col>
               </Row>
 
               {/* COUNTRY + NUMBER */}
-              <Row className="mb-3 text-start">
-                <Col md={4}>
-                  <Form.Group>
-                    <Form.Label>Country Code</Form.Label>
-                    <Form.Select
-                      name="countryCode"
-                      value={formData.countryCode}
-                      onChange={handleChange}
-                      required
-                    >
-                      <option value="">Select</option>
-                      {countryCodes.map((c, i) => (
-                        <option key={i} value={c.code}>
-                          {c.country} ({c.code})
-                        </option>
-                      ))}
-                    </Form.Select>
-                  </Form.Group>
-                </Col>
+              {/* Main Label like "Full Name" */}
+              {/* COUNTRY CODE + PHONE */}
+<Form.Group className="mb-3 text-start" controlId="contactNumberGroup">
+  <Form.Label>Contact Number</Form.Label>
 
-                <Col md={8}>
-                  <Form.Group>
-                    <Form.Label>Contact Number</Form.Label>
-                    <Form.Control
-                      type="tel"
-                      name="contactNumber"
-                      value={formData.contactNumber}
-                      onChange={handleChange}
-                      required
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
+  <Row className="g-2 align-items-center">
+    {/* Country Code – fixed small width */}
+    <Col md="auto">
+      <Form.Select
+        name="countryCode"
+        value={formData.countryCode}
+        onChange={handleChange}
+        className="country-code-select"
+        required
+      >
+        {countryCodes.map((item, index) => (
+          <option key={index} value={item.code}>
+            {item.code} {/* Only show code */}
+          </option>
+        ))}
+      </Form.Select>
+    </Col>
+
+    {/* Contact Number – remaining space */}
+    <Col>
+      <Form.Control
+        type="tel"
+        name="contactNumber"
+        value={formData.contactNumber}
+        onChange={handleChange}
+        placeholder="e.g., 98765 43210"
+        required
+      />
+    </Col>
+  </Row>
+</Form.Group>
 
               {/* SERVICE */}
               <Form.Group className="mb-3 text-start">
@@ -240,7 +256,7 @@ const ContactFormSection: React.FC<Props> = ({
               <div className="text-center mt-3">
                 <Button
                   type="submit"
-                  variant="primary"
+                 // variant="primary"
                   className="px-5 py-2 fw-bold"
                 >
                   Send Message
@@ -250,6 +266,68 @@ const ContactFormSection: React.FC<Props> = ({
           </Card>
         </Col>
       </Row>
+
+      {/* ---------- LEFT COLUMN ---------- */}
+      {/*<Row className="g-4 mt-4">
+        <Col
+          md={12}
+          className="text-light rounded-4 p-4 d-flex flex-column justify-content-center shadow-lg"
+          style={{ backgroundColor: "#0B1F3A", width: '80%', margin: '0 auto' }}
+        >
+          <div className="mt-3">
+            <h3 className="fw-bold mb-4 text-center text-uppercase">Get in Touch</h3>
+
+            {/* Address */}
+           {/* <div className="d-flex align-items-start mb-4 text-start">
+              <img src={ourOfficeIcon} width="36"
+              className="me-3 contact-icon"
+              alt="Our Office Icon" />
+
+              <div className="d-flex flex-column align-items-start justify-content-start">
+                <h6 className="fw-bold mb-1">Our Office</h6>
+                <p className="mb-0">
+                  Office No. 03, Om Sai Apartment, Near Petrol Pump, <br />
+                  Ganur Road, Chandwad, Nashik – 423101, Maharashtra – India.
+                </p>
+              </div>
+            </div>
+
+            {/* Phone */}
+          {/*  <div className="d-flex align-items-start mb-4 text-start">
+              <img src={phoneIcon} width="36" className="me-3 contact-icon" alt="Phone Icon" />
+
+              <div className="d-flex flex-column align-items-start justify-content-start">
+                <h6 className="fw-bold mb-1">Phone</h6>
+                <a href={`tel:${phoneNumber}`} className="text-light text-decoration-none">
+                  {phoneNumber}
+                </a>
+              </div>
+            </div>
+
+            {/* Email */}
+           {/* <div className="d-flex align-items-start mb-4 text-start">
+              <img src={emailIcon} width="36" className="me-3 contact-icon" alt="Email Icon" />
+
+              <div className="d-flex flex-column align-items-start justify-content-start">
+                <h6 className="fw-bold mb-1">Email</h6>
+                <a href={`mailto:${emailAddress}`} className="text-light text-decoration-none">
+                  {emailAddress}
+                </a>
+              </div>
+            </div>
+
+            {/* Working Hours */}
+           {/* <div className="d-flex align-items-start mb-4 text-start">
+              <img src={clockIcon} width="36" className="me-3 contact-icon" alt="Clock Icon" />
+
+              <div className="d-flex flex-column align-items-start justify-content-start">
+                <h6 className="fw-bold mb-1">Working Hours</h6>
+                <p className="mb-0">Mon - Sat: 10:00 AM – 7:00 PM</p>
+              </div>
+            </div>
+          </div>
+        </Col>
+      </Row>*/}
     </Container>
   );
 };

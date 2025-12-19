@@ -93,8 +93,8 @@ const Blog: React.FC = () => {
       {/* ===== Hero Banner (Compact Spacing) ===== */}
       <section
         className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
-        style={{
-          backgroundImage: "url('/about/blog-image-V1.png')",
+        style={{ 
+          backgroundImage: "url('/about/Blur images/blogs.png')",
           backgroundSize: "cover",
          backgroundPosition: "center",
           height: "45vh",
@@ -122,7 +122,8 @@ const Blog: React.FC = () => {
             backdropFilter: "blur(3px)",
           }}
         >
-          <h1 className="fw-bold text-white mb-2" style={{ fontSize: "1.8rem" }}>
+          <h1 className="fw-bold text-white mb-2"
+          style={{ fontSize: "1.8rem" }}>
             Visiomatix Media Blog
           </h1>
           <p
@@ -137,7 +138,7 @@ const Blog: React.FC = () => {
       </section>
       {/* ===== Blog Cards ===== */}
       <div className="blog">
-        <Container className="mb-5">
+        <Container className="mb-5 text-start">
           <Row className="g-4 card-row">
             {blogPosts.map((post, index) => (
               <Col md={6} lg={3} key={index}>
@@ -148,13 +149,14 @@ const Blog: React.FC = () => {
                     alt={post.title}
                     className="blog-card-img"
                   />
-                  <Card.Body className="d-flex flex-column">
-                    <h6 className="fw-bold text-navy mb-2">{post.title}</h6>
-                    <p className="text-dark small mb-2">
-                      By {post.author}
-                    </p>
-                    <p className="flex-grow-1 text-dark">{post.excerpt}</p>
-                    <div className="text-center mt-2">
+                  <Card.Body className="d-flex flex-column blog-card-body">
+                    <h6 className="blog-title">{post.title}</h6>
+
+                    <p className="blog-author">By {post.author}</p>
+
+                    <p className="blog-excerpt">{post.excerpt}</p>
+
+                    <div className="mt-auto text-center">
                       <button
                         className="main-btn"
                         onClick={() => handleReadMore(post)}

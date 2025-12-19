@@ -170,11 +170,11 @@ const FeaturedServices: React.FC = () => {
                     }}
                   />
 
-                  <h5 className="fw-bold text-dark">{category.title}</h5>
+                  <h5 className="fw-bold text-start text-dark">{category.title}</h5>
 
                   <ul className="list-unstyled mt-3">
                     {category.services.map((service, idx) => (
-                      <li key={idx} className="text-dark mb-2 small">
+                      <li key={idx} className="text-dark text-start mb-2 small">
                         • {service}
                       </li>
                     ))}

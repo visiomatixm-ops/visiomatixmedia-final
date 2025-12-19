@@ -151,3 +151,25 @@ Menu Section
 ============================
 Menu Section Ends
 ============================*/
+.visiomatix-service-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 26px 22px;          /* 🔽 reduced */
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); /* 🔽 softer shadow */
+  transition: all 0.3s ease;
+  max-width: 520px;            /* 🔽 prevents over-stretching */
+  margin: 0 auto;
+}
+
+.visiomatix-service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.visiomatix-service-card ul {
+  max-width: 280px;            /* 🔽 smaller list width */
+  margin: 0 auto;
+  color: #333;
+  font-size: 14px;             /* 🔽 smaller text */
+}

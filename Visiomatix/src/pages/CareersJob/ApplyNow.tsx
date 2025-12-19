@@ -14,12 +14,19 @@ const ApplyNow: React.FC = () => {
         Apply Now
       </Button>
 
-      <Modal show={show} onHide={handleClose} size="lg" centered>
+      {/* Modal Popup */}
+      <Modal
+        show={show}
+        onHide={handleClose}
+        size="lg"
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title>Apply Now</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ApplyForm />
+          {/* <JobOpeningForm/> */}
         </Modal.Body>
       </Modal>
     </div>

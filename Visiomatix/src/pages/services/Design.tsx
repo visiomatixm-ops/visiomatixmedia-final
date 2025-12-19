@@ -225,9 +225,13 @@ const Design: React.FC = () => {
               viewport={{ once: true }}
             >
               <div className="container">
-                <p
-                  className="lead text-dark text-center mx-auto"
-                  style={{ maxWidth: "850px" }}
+                <p className="lead text-dark mx-auto visiomatix-text"
+                  style={{ maxWidth: "850px",
+                  textAlign:"justify",
+                  lineHeight:"1.8"
+
+
+                   }}
                 >
                   Our Web Design and Creative Services combine strategy, aesthetics, and technology
                   to craft visually striking experiences that engage users and enhance brand value.
@@ -266,22 +270,22 @@ const Design: React.FC = () => {
         {
           icon: UIUX,
           title: "UI/UX Design",
-          text: "Craft intuitive, user-centered digital interfaces that blend aesthetic design with seamless functionality.",
+          text: "Craft intuitive, user-centered digital interfaces that blend aesthetic design with seamless functionality Our UI/UX design approach focuses on user research, wireframing prototyping,.",
         },
         {
           icon: GraphicDesign,
           title: "Graphic Design & Branding",
-          text: "Create striking brand visuals including logos, brochures, and identity materials that leave a lasting impression.",
+          text: "Create striking brand visuals including logos, brochures, and identity materials that leave a lasting impression we ensure consistency across all platforms..",
         },
         {
           icon: MotionGraphics,
           title: "Motion Graphics & Animation",
-          text: "Engage audiences through dynamic animations, video intros, and storytelling motion assets.",
+          text: "Engage audiences through dynamic animations, video intros, and storytelling motion assets Our animations enhance brand recall and boost.",
         },
         {
           icon: YouTubeThumbnails,
           title: "YouTube Thumbnails & Video Assets",
-          text: "Design eye-catching video thumbnails, banners, and overlays that maximize viewer retention.",
+          text: "Design eye-catching video thumbnails, banners, and overlays that maximize viewer retention Our designs focus on strong visuals, readable typography.",
         },
       ].map((card, idx) => (
         <motion.div
@@ -336,7 +340,7 @@ const Design: React.FC = () => {
               </div>
 
               <h5 className="card-title">{card.title}</h5>
-              <p className="card-text text-muted">{card.text}</p>
+              <p className="card-text text-start">{card.text}</p>      {/* text-muted */}
             </div>
           </motion.div>
         </motion.div>
@@ -347,17 +351,17 @@ const Design: React.FC = () => {
         {
           icon: ThreeDVisualization,
           title: "3D Product Visualization",
-          text: "Showcase your products with photorealistic 3D renders and interactive visual mockups.",
+          text: "Showcase your products with photorealistic 3D renders and interactive visual mockups From e-commerce mockups to interactive renders and promotional visuals.",
         },
         {
           icon: VFXPostProduction,
           title: "VFX, Post-Production & Photography",
-          text: "Add cinematic flair with VFX, editing, photography, and advanced post-production.",
+          text: "Add cinematic flair with VFX, editing, photography, and advanced post-production Our team ensures every frame looks polished, impactful.",
         },
         {
           icon: ProductPhotography,
           title: "Product Photography & Videography",
-          text: "Capture stunning product images and videos that highlight features and drive conversions.",
+          text: "Capture stunning product images and videos that highlight features and drive conversions Our visuals are optimized for e-commerce platforms.",
         },
       ].map((card, idx) => (
         <motion.div
@@ -412,7 +416,7 @@ const Design: React.FC = () => {
               </div>
 
               <h5 className="card-title">{card.title}</h5>
-              <p className="card-text text-muted">{card.text}</p>
+              <p className="card-text text-start">{card.text}</p>      {/* text-muted */}
             </div>
           </motion.div>
         </motion.div>

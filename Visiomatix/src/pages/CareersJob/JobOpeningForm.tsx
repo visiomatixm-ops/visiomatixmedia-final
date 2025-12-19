@@ -40,7 +40,7 @@ const JobOpeningForm = () => {
                 setSkills("");
                 setResume(null);
 
-                (e.target as HTMLFormElement).reset();
+                e.currentTarget.reset();
         } catch (error) {
             console.error('Error:', error);
             alert('Failed to submit job application.');
@@ -140,7 +140,7 @@ const JobOpeningForm = () => {
                             id="resume"
                             name="resume"
                             className="form-control"
-                            onChange={(e) => setResume(e.target.files ? e.target.files[0] : null)}
+                            onChange={(e) => setResume(e.target.files?.[0] || null)}
                         />
                     </div>
 
@@ -165,4 +165,5 @@ const JobOpeningForm = () => {
         </div>
     );
 };
+
 export default JobOpeningForm;

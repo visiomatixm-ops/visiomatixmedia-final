@@ -25,6 +25,7 @@ const CarouselComponent: React.FC = () => {
     setCurrentSlide((prev) => (prev - 1 + pages.length) % pages.length)
   }
 
+
   return (
     <div className="carousel-container">
       <Helmet>

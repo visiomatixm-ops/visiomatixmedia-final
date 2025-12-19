@@ -123,73 +123,79 @@ const FeaturedServices: React.FC = () => {
 
   return (
     <section className="py-5 bg-light">
-      <div className="container">
+  <div className="container">
+    {/* Header */}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="text-center mb-5"
+    >
+      <h3 className="fw-bold display-4 text-dark">
+        Visiomatix Media – Complete Digital, Design & Development Solutions
+      </h3>
+      <h3 className="h4">Our Core Services</h3>
+    </motion.div>
 
-        {/* Header */}
+    {/* Grid */}
+    <div className="row gy-4 justify-content-center">
+      {serviceCategories.map((category, index) => (
         <motion.div
+          key={category.id}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, delay: index * 0.1 }}
           viewport={{ once: true }}
-          className="text-center mb-5"
+          className="col-12 col-md-6 col-lg-4"
         >
-          <h3 className="fw-bold display-4 text-dark">
-            Visiomatix Media – Complete Digital, Design & Development Solutions
-          </h3>
-          <h3 className="h4">Our Core Services</h3>
-        </motion.div>
+          <div className="card h-100 shadow-sm border-0 rounded-4 p-4 py-5"> {/* Added extra vertical padding */}
+            <div className="card-body text-center d-flex flex-column align-items-center">
 
-        {/* Grid */}
-        <div className="row gy-4">
-          {serviceCategories.map((category, index) => (
-            <motion.div
-              key={category.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="col-12 col-md-6 col-lg-4"
-            >
-              <div className="card h-100 shadow-sm border-0 rounded-4 p-4">
-                <div className="card-body text-center">
+              {/* ICON */}
+              <img
+                src={category.icon}
+                alt={category.title}
+                style={{
+                  width: '180px', // Slightly larger to match image proportion
+                  height: 'auto',
+                  objectFit: 'contain',
+                  marginBottom: '25px',
+                }}
+              />
 
-                  {/* ICON */}
-                  <img
-                    src={category.icon}
-                    alt={category.title}
-                    style={{
-                      width: '80px',
-                      height: '80px',
-                      objectFit: 'contain',
-                      marginBottom: '15px',
-                    }}
-                  />
+              {/* Title */}
+              <h4 className="fw-bold text-dark mb-3">{category.title}</h4>
 
-                  {/* Title - center */}
-                  <h5 className="fw-bold text-dark text-center">{category.title}</h5>
+              {/* Description - Now Center Aligned */}
+              <div className="text-center">
+                <p 
+                  className="mb-0" 
+                  style={{ 
+                    color: '#495057', 
+                    fontSize: '1.05rem', 
+                    lineHeight: '1.6' 
+                  }}
+                >
+                  {category.description}
+                </p>
 
-                  {/* Description + List - left aligned */}
-                  <div className="text-start mt-3">
-                    <p className="small mb-2" style={{ color: '#495057' }}>
-                      {category.description}
-                    </p>
-
-                    <ul className="list-unstyled mt-2">
-                      {category.services.map((service, idx) => (
-                        <li key={idx} className="small mb-2" style={{ color: '#495057' }}>
-                          • {service}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                </div>
+                {/* Optional: If you still want to show services, 
+                    they are now comma-separated for better flow */}
+                {category.services && (
+                  <p className="small mt-2 text-muted">
+                    {category.services.join(' • ')}
+                  </p>
+                )}
               </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
+
+            </div>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
   );
 };
 

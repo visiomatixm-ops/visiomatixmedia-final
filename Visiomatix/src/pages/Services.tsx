@@ -27,7 +27,7 @@ const DevIcon = "/services/icons/dev.svg";
 const SoftwareIcon = "/services/icons/software.svg";
 const EcommerceIcon = "/services/icons/ecommerce.svg";
 const BrandingIcon = "/services/icons/branding.svg";
-const BulletIcon = "/services/icons/bullet.svg"; // small SVG circle/checkmark
+//const BulletIcon = "/services/icons/bullet.svg"; // small SVG circle/checkmark
 
 // -----------------------------
 // Component: Services
@@ -151,7 +151,7 @@ const Services: React.FC = () => {
         >
 
         {/* Background motion layer */} <motion.div style={{
-          backgroundImage: "url('/about/our services.png')",
+          backgroundImage: "url('/about/Blur images/our services.png')",
            backgroundSize: "cover",
            backgroundPosition: "center", y: yParallax, }}
            className="position-absolute w-100 h-100" />
@@ -173,7 +173,8 @@ const Services: React.FC = () => {
           wordWrap: "break-word",
            overflowWrap: "break-word" }} >
             <motion.h1 className="display-6 display-sm-5 display-md-4 display-lg-3 fw-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl" variants={textVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} >
-              Our Services </motion.h1>
+              Our Services 
+              </motion.h1>
             <motion.hr className="border-primary opacity-75 w-25 mx-auto"
             variants={textVariants} initial="hidden"
             whileInView="visible" viewport={{ once: true }}
@@ -201,6 +202,7 @@ const Services: React.FC = () => {
       {/* =========================
           HERO SECTION
        ========================= */}
+       
 
       {/* =========================
           SERVICE CATEGORIES
@@ -235,7 +237,8 @@ const Services: React.FC = () => {
               {/*b text on left CONTENT */}
              <div className="col-md-6 order-md- text-start">
                 {/* Title centered */}
-              <h2 className="fw-bold text-dark mb-3 h3 d-flex align-items-center">                  <motion.img
+              <h2 className="fw-bold text-dark mb-3 h3 d-flex align-items-center">
+                <motion.img
                     src={cat.icon}
                     alt={`${cat.title} icon`}
                     className="img-fluid p-2 bg-white shadow-sm me-2"
@@ -246,20 +249,50 @@ const Services: React.FC = () => {
                 />
                 {cat.title}
                 </h2>
-                <p className="text-dark mb-3 fs-6">{cat.description}</p>
-                <ul className="list-unstyled text-dark mt-3">
+                <p className="text-dark mb-3 fs-6 text-start">
+                  {cat.description}
+                  </p>
+                <ul className="list-unstyled mt-3 ps-0 text-start">
                   {cat.bullets.map((point, i) => (
                     <li
                       key={i}
-                      className="d-flex align-items-start mb-2 text-dark"
+                      //className="d-flex align-items-start mb-2 "
+                      style={{
+                            display:"flex",
+                            alignItems:"baseline",
+                            gap:"10px",
+                            marginBottom:"10px",
+
+                      }}  
                     >
-                      <img
-                        src={BulletIcon}
-                        alt="bullet"
-                        className="me-2 mt-1"
-                        style={{ width: "16px", height: "16px" }}
-                      />
-                      <span className="fs-6 text-dark">{point}</span>
+                       <span
+                          //className="me-2"
+                          style={{
+                            fontSize: "22px",
+                            lineHeight: "24px",
+                            color: "#102a4a",
+                           // display: "inline-flex",
+                           // alignItems: "center",
+                            //justifyContent: "center",
+                            marginTop: "14px",
+                            textAlign:"center",
+                            //flexShrink: 0,
+                          }}
+                        >
+                          •
+                        </span>
+                      
+                        {/*Bullet text */}
+                        <span
+                            style={{
+                              fontSize: "16px",
+                              lineHeight: "24px",
+                              color: "#212529",
+                            }}
+                          >
+                            {point}
+                          </span>
+                                        
                     </li>
                   ))}
                 </ul>

@@ -103,7 +103,7 @@ const Branding: React.FC = () => {
       name: "United States",
     },
     description:
-      "We provide end-to-end Branding and Strategy services — including Brand Identity, Positioning, Market Research, Campaign Planning, and Funnel Optimization.",
+      "We provide end-to-end Branding and Strategy services including Brand Identity, Positioning, Market Research, Campaign Planning, and Funnel Optimization.",
     offers: {
       "@type": "Offer",
       url: "https://www.yourdomain.com/contact",
@@ -114,6 +114,29 @@ const Branding: React.FC = () => {
     },
   };
 
+  const services = [
+    {
+      icon: BrandingIdentity,
+      title: "Brand Identity & Positioning",
+      text: "Define how your audience perceives you with visual identity, tone, and positioning that reflect your business values and vision.",
+    },
+    {
+      icon: MarketingStrategy,
+      title: "Marketing Strategy & Funnel Planning",
+      text: "Develop data-backed strategies that optimize every stage of your customer journey from awareness to conversion.",
+    },
+    {
+      icon: CampaignIdeation,
+      title: "Campaign Ideation & Execution",
+      text: "Plan, create, and launch creative campaigns that boost brand visibility, engagement, and long-term customer loyalty.",
+    },
+    {
+      icon: CompetitorResearch,
+      title: "Competitor & Market Research",
+      text: "Analyze market trends, study competitors, and identify opportunities to ensure your brand stays ahead of the curve.",
+    },
+  ];
+
   // ----------------------------------------------------
   // JSX
   // ----------------------------------------------------
@@ -123,7 +146,7 @@ const Branding: React.FC = () => {
         <title>Branding & Strategy | Brand Identity, Marketing & Campaign Planning</title>
         <meta
           name="description"
-          content="Shape your brand identity and marketing direction with Visiomatix’s Branding & Strategy services — covering brand positioning, market research, and campaign execution."
+          content="Shape your brand identity and marketing direction with Visiomatix’s Branding & Strategy services covering brand positioning, market research, and campaign execution."
         />
         <meta
           name="keywords"
@@ -188,7 +211,7 @@ const Branding: React.FC = () => {
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
                   Build a brand that connects, communicates, and converts.
-                  From identity to execution — we transform your business vision into a strong, market-ready brand presence.
+                  From identity to execution we transform your business vision into a strong, market-ready brand presence.
                 </motion.p>
                 <motion.a
                   href="#services"
@@ -207,20 +230,26 @@ const Branding: React.FC = () => {
             {/* Content Section */}
             <section className="py-5 bg-light">
               <div className="container">
-                <p className="lead text-dark text-center mx-auto text-sm sm:text-base md:text-lg" style={{ maxWidth: "850px" }}>
+                <p className="lead text-dark mx-auto visiomatix-text"
+                style={{ maxWidth: "850px",
+                textAlign:"justify",
+                lineHeight:"1.8"
+               }}
+                 
+                 >
                   At Visiomatix, we craft powerful brand strategies that align creativity with data-driven insights.
                   Our experts analyze audience psychology, market behavior, and competitor dynamics to position your brand effectively.
                   We help define your Brand Identity & Positioning with clear differentiation, develop holistic
                    Marketing Strategies and conversion-driven Funnel Planning, and execute high-impact
                    Campaigns that deliver measurable growth.
-                  Our in-depth Competitor & Market Research provides clarity and direction — enabling your brand to lead with confidence and creativity.
+                  Our in-depth Competitor & Market Research provides clarity and direction enabling your brand to lead with confidence and creativity.
                 </p>
               </div>
             </section>
 
             {/* Services Section */}
     {/* Services Section */}
-<section id="services" className="py-5">
+    <section id="services" className="py-5">
   <motion.div
     className="container"
     variants={staggerContainer}
@@ -233,34 +262,14 @@ const Branding: React.FC = () => {
     </h2>
 
     <div className="row g-4">
-      {[
-        {
-          icon: BrandingIdentity,
-          title: "Brand Identity & Positioning",
-          text: "Define how your audience perceives you — with visual identity, tone, and positioning that reflect your business values and vision.",
-        },
-        {
-          icon: MarketingStrategy,
-          title: "Marketing Strategy & Funnel Planning",
-          text: "Develop data-backed strategies that optimize every stage of your customer journey — from awareness to conversion.",
-        },
-        {
-          icon: CampaignIdeation,
-          title: "Campaign Ideation & Execution",
-          text: "Plan, create, and launch creative campaigns that boost brand visibility, engagement, and long-term customer loyalty.",
-        },
-        {
-          icon: CompetitorResearch,
-          title: "Competitor & Market Research",
-          text: "Analyze market trends, study competitors, and identify opportunities to ensure your brand stays ahead of the curve.",
-        },
-      ].map((item, idx) => (
+      {services.map((item, idx) => (
         <motion.div
           key={idx}
           className="col-md-6 col-lg-6"
           variants={cardVariant}
         >
-          <div className="card h-100 border-0 shadow-sm p-4 text-center">
+          <div className="visiomatix-service-card shadow-sm">
+
 
             {/* ✅ ICON CENTER FIX ADDED HERE */}
             <div className="d-flex justify-content-center mb-3">
@@ -297,15 +306,15 @@ const Branding: React.FC = () => {
             <h5 className="fw-bold text-sm sm:text-base md:text-lg">
               {item.title}
             </h5>
-            <p className="text-muted text-sm sm:text-base">
+            <p className="text-sm sm:text-base text-start">    {/* text-muted */}
               {item.text}
-            </p>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  </motion.div>
-</section>
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+              </div>
+            </motion.div>
+          </section>
 
 
 
