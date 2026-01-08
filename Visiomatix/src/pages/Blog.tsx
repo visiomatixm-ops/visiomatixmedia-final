@@ -23,13 +23,15 @@ const blogPosts = [
   {
     image: "/about/blog/2-Building a Powerful.png",
     title: "Building a Powerful Brand Identity That Stands Out",
-    excerpt:"Consistency, storytelling, and purpose drive brand identity. Learn how our creative team crafts visual experiences that connect emotionally with audiences.",
+    excerpt:
+      "Consistency, storytelling, and purpose drive brand identity. Learn how our creative team crafts visual experiences that connect emotionally with audiences.",
     author: "Creative Division",
   },
   {
     image: "/about/blog/3-Why Responsive Web Design.png",
     title: "Why Responsive Web Design Is Crucial for Modern Businesses",
-    excerpt:"A seamless user experience across all devices boosts engagement and conversions. Discover our design philosophy behind intuitive, mobile-first websites.",
+    excerpt:
+      "A seamless user experience across all devices boosts engagement and conversions. Discover our design philosophy behind intuitive, mobile-first websites.",
     author: "Web Development Team",
   },
   {
@@ -83,20 +85,27 @@ const Blog: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Visiomatix Media Blog | Digital Insights & Marketing Trends</title>
+        <title>
+          Visiomatix Media Blog | Digital Insights & Marketing Trends
+        </title>
         <meta
           name="description"
           content="Stay updated with the latest trends in digital marketing, web design, and technology innovation from the experts at Visiomatix Media."
         />
       </Helmet>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }} />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.6 }}
+      />
       {/* ===== Hero Banner (Compact Spacing) ===== */}
       <section
         className="jumbotron text-center text-light d-flex align-items-center justify-content-center"
         style={{
           backgroundImage: "url('/about/blog-image-V1.png')",
           backgroundSize: "cover",
-         backgroundPosition: "center",
+          backgroundPosition: "center",
           height: "45vh",
           position: "relative",
           marginTop: "2rem",
@@ -107,14 +116,14 @@ const Blog: React.FC = () => {
           style={{
             position: "absolute",
             inset: 0,
-           // backgroundColor: "rgba(18, 34, 51, 0.45)",
+            // backgroundColor: "rgba(18, 34, 51, 0.45)",
           }}
         />
         <div
           style={{
             position: "relative",
             zIndex: 2,
-           // backgroundColor: "rgba(0, 40, 80, 0.35)",
+            // backgroundColor: "rgba(0, 40, 80, 0.35)",
             borderRadius: "8px",
             width: "85%",
             maxWidth: "850px",
@@ -122,7 +131,10 @@ const Blog: React.FC = () => {
             backdropFilter: "blur(3px)",
           }}
         >
-          <h1 className="fw-bold text-white mb-2" style={{ fontSize: "1.8rem" }}>
+          <h1
+            className="fw-bold text-white mb-2"
+            style={{ fontSize: "1.8rem" }}
+          >
             Visiomatix Media Blog
           </h1>
           <p
@@ -148,13 +160,14 @@ const Blog: React.FC = () => {
                     alt={post.title}
                     className="blog-card-img"
                   />
-                  <Card.Body className="d-flex flex-column">
-                    <h6 className="fw-bold text-navy mb-2">{post.title}</h6>
-                    <p className="text-dark small mb-2">
-                      By {post.author}
-                    </p>
-                    <p className="flex-grow-1 text-dark">{post.excerpt}</p>
-                    <div className="text-center mt-2">
+                  <Card.Body className="d-flex flex-column blog-card-body">
+                    <h6 className="blog-title">{post.title}</h6>
+
+                    <p className="blog-author">By {post.author}</p>
+
+                    <p className="blog-excerpt">{post.excerpt}</p>
+
+                    <div className="mt-auto text-center">
                       <button
                         className="main-btn"
                         onClick={() => handleReadMore(post)}
@@ -249,8 +262,47 @@ const Blog: React.FC = () => {
     font-size: 0.95rem;
   }
 }
+  /* Title – fixed height */
+.blog-title {
+  font-weight: 700;
+  color: #0B1E34;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-bottom: 0.35rem;
+  text-align: left;  
 
-        `}</style>
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
+}
+
+.blog-author {
+  font-size: 0.78rem;
+  color: #000000;   
+  margin-bottom: 0.6rem;
+  text-align: left;   
+}
+
+  .blog-excerpt {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: #000000;   
+
+  text-align: left;        
+  padding-right: 0.25rem;   
+  padding-left: 0;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  margin-bottom: 1rem;
+}
+
+    `}</style>
       </div>
     </>
   );
